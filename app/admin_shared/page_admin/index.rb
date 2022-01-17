@@ -6,9 +6,9 @@ module PageAdmin
 				index :as => :sortable do
 					label :title # item content
 					actions defaults: false do |page|
-						(link_to "Add Children", root_path(page)) + " | " +
-						(link_to "Edit", root_path(page)) + " - " +
-						(link_to "Delete", root_path(page))
+						(link_to "Add Children", add_children_admin_page_path(page)) + " | " +
+						(link_to "Edit", edit_admin_page_path(page)) + " - " +
+						(link_to "Delete", admin_page_path(page), :method => :delete, :data => {:confirm => "Are you sure?"})
 					end
 				end
 			end

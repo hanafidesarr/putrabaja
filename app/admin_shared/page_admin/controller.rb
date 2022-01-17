@@ -2,25 +2,25 @@ module PageAdmin
 	module Controller
 		def self.included(base)
 			base.instance_eval do
-				controller do
-					def index
-					  @pages = collection.page(params[:page]).per(10)
+
+				member_action :add_children do
+					@page = Page.find(params[:id])
+					@page.children.create(title: "Children from #{@page.title}")
+					# render  "pages/add_children"
+					respond_to do | format |
+						format.html  { redirect_to admin_pages_path, notice: "Success created" }
 					end
 					
-					def new
-					  @page = Page.new
-					end
-				
-					def create
-					  @user = Page.new(page_params) ## Invoke user_params method
-					  if @user.save
-						redirect_to @user, notice: 'User was successfully created.' 
-					  else
-						render action: 'new'
-					  end       
-					end
+				end
+
+				controller do
+					# def index
+					#   @pages = collection.page(params[:page]).per(1)
+					# end
+					
+
 					## ... 
-				  
+
 					private
 					## Strong Parameters 
 					def page_params
