@@ -8,14 +8,19 @@ gem 'devise'
 
 # FOR ADMIN
 gem 'activeadmin'
+gem "active_admin-sortable_tree", "~> 2.0.0"
 
 # MARKUP HTML
 gem 'haml'
 
+gem 'ancestry'
+
+# debugging
+gem 'pry'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# Use mysql2 as the database for Active Record
+gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
