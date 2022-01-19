@@ -6,7 +6,10 @@ ActiveAdmin.register Page do
 
   before_filter :skip_sidebar!, :only => :index
   
-  permit_params :title, attachments_attributes: [:asset]
+  permit_params :title,
+  attachments_attributes: [:id, :asset], # *note add id for disable duplicate when attribute updated 
+  components_attributes: [:id, :name] # *note add id for disable duplicate when attribute updated
+  
   sortable tree: true,
             max_levels: 0,               # infinite indent levels
             protect_root: false,         # allow root items to be dragged

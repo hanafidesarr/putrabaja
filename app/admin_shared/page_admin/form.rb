@@ -21,6 +21,11 @@ module PageAdmin
 									attach.input :asset
 								end
 							end
+							div class: "col-4" do
+								f.has_many :components, allow_destroy: true do |x|
+									x.input :name
+								end
+							end
 						end
 					end
 					f.actions

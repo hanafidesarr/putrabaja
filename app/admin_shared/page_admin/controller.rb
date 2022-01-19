@@ -20,7 +20,11 @@ module PageAdmin
 					
 
 					## ... 
-
+					def update
+						update! do |format|
+							format.html { redirect_to edit_admin_page_path }
+						end
+					end
 					private
 					## Strong Parameters 
 					def page_params

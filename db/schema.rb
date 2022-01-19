@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_18_020157) do
+ActiveRecord::Schema.define(version: 2022_01_19_142108) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -48,6 +48,21 @@ ActiveRecord::Schema.define(version: 2022_01_18_020157) do
     t.string "parent_type"
     t.boolean "active"
     t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "components", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.string "layout"
+    t.string "url"
+    t.boolean "active"
+    t.string "status"
+    t.text "note"
+    t.text "description"
+    t.integer "position"
+    t.integer "page_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
