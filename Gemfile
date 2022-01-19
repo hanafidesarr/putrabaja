@@ -13,7 +13,11 @@ gem "active_admin-sortable_tree", "~> 2.0.0"
 # MARKUP HTML
 gem 'haml'
 
+# nested pages of admin
 gem 'ancestry'
+
+# image management
+gem 'carrierwave'
 
 # debugging
 gem 'pry'

@@ -1,7 +1,12 @@
 ActiveAdmin.register Page do
-  include PageAdmin::Controller
-	include PageAdmin::Index
 
+  include PageAdmin::Form
+	include PageAdmin::Index
+  include PageAdmin::Controller
+
+  before_filter :skip_sidebar!, :only => :index
+  
+  permit_params :title, attachments_attributes: [:asset]
   sortable tree: true,
             max_levels: 0,               # infinite indent levels
             protect_root: false,         # allow root items to be dragged
@@ -13,15 +18,5 @@ ActiveAdmin.register Page do
             sortable: true,              # Disable sorting (use only 'tree' functionality)
             collapsible: false,          # show +/- buttons to collapse children
             start_collapsed: false      # when collapsible, start with all roots collapsed
-  # index :as => :sortable do
-  #   label :title # item content
-  #   actions
-  # end
-
-  # index do
-  #   id_column
-  #   column :image_title
-  #   actions
-  # end
 
 end
