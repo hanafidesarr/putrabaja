@@ -19,6 +19,9 @@ gem 'ancestry'
 # image management
 gem 'carrierwave'
 
+# style
+gem 'font-awesome-sass'
+
 # debugging
 gem 'pry'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

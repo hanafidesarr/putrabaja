@@ -5,7 +5,7 @@ module PageAdmin
 
 				member_action :add_children do
 					@page = Page.find(params[:id])
-					@page.children.create(title: "Children from #{@page.title}")
+					@page.children.create(title: "Page")
 					# render  "pages/add_children"
 					respond_to do | format |
 						format.html  { redirect_to admin_pages_path, notice: "Success created" }
