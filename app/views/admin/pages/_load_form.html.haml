@@ -1,0 +1,6 @@
+- @page = params[:page_id].present? ? Page.find(params[:page_id]) : Page.first
+
+:javascript
+    $(document).ready(function(){
+        $(".main-page-view").html("#{ j render 'edit', page: @page }")
+    })

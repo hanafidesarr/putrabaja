@@ -21,8 +21,8 @@ module ActiveAdmin
                   column do
                     insert_tag(renderer_class, config, collection)
                   end
-                  column span: 3 do
-                    span "sasas"
+                  column span: 2 do
+                    div class: "main-page-view"
                   end
                 end
               else 

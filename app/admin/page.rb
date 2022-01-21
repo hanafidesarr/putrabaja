@@ -1,5 +1,6 @@
 ActiveAdmin.register Page do
 
+  config.batch_actions = false
   include PageAdmin::Form
 	include PageAdmin::Index
   include PageAdmin::Controller
