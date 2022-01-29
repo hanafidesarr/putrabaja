@@ -13,6 +13,12 @@
 @import "active_admin/sortable";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+
+@import "custom/form"
+
 // Overriding any non-variable Sass must be done after the fact.
 // For example, to change the default status-tag color:
 //
