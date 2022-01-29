@@ -10,6 +10,13 @@ gem 'devise'
 gem 'activeadmin'
 gem "active_admin-sortable_tree", "~> 2.0.0"
 
+gem 'pg'
+
+# style
+gem 'bootstrap'
+
+gem 'jquery-rails'
+
 # MARKUP HTML
 gem 'haml'
 

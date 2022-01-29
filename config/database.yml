@@ -31,11 +31,16 @@ test:
   socket: /tmp/mysql.sock
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: sample_sqlite3_production
+  # adapter: mysql2
+  # encoding: utf8
+  # reconnect: false
+  # database: sample_sqlite3_production
+  # pool: 5
+  # username: root
+  # password:
+  # socket: /tmp/mysql.sock
+  adapter: postgresql
+  database: danb020ovdgoi1
   pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: jdjsoajgatdpro
+  password: 147c723c007d691b6e828c66834316998309b12f5c32bc46ef6ead0d0b666beb
