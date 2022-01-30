@@ -3,11 +3,15 @@
 	= f.inputs :name => "Page" do
 		= f.input :title
 
-	- f.has_many :components, allow_destory: true , new_record: true do | comp |
-		= comp.inputs :name => "Component" do
-			- comp.input :name
-			-# - f.has_many :attachments, allow_destory: true , new_record: true do |attach|
-			-# 	- if attach.object.asset.url.present?
-			-# 		= image_tag(attach.object.asset.url, width: "200px")
-			-# 	- attach.input :asset
+	- f.has_many :components, new_record: true do | comp |
+		- comp.input :name
+		- f.has_many :attachments, heading: false, new_record: true do |attach|
+			.card 
+				.card-body
+					.row
+						.col-3
+							- if attach.object.asset.url.present?
+								= image_tag(attach.object.asset.url, width: "200px")
+						.col-9
+							- attach.input :asset
 	= f.actions
