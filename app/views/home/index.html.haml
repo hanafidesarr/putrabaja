@@ -1,5 +1,54 @@
-.card
-    .card-header
-        FEATURE
-    .card-body
-        HAHAHAHA
+.container
+  #clothe-tshirt-maker
+  %hr
+  .row
+    - @products.each do |product|
+      .col-md-3
+        .card
+          .single-item
+            - product.attachments.each do |attachment|
+              =image_tag(attachment.asset.url, width: "100%")
+          .card-body.text-center
+            %h5= product.name
+            = product.short_description
+            %hr
+            %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
+
+:javascript
+
+  var template_t_shirt = JSON.parse('#{raw @product_template.to_json}')
+
+  $('#clothe-tshirt-maker').imageMaker({
+    merge_images:[
+      {url: './assets/design/gundam-head-skate.png', title:'Gundam head skate'},
+      {url: './assets/design/starbucks.png', title:'Starbucks'},
+      {url: './assets/design/kiss.png', title:'Kiss'},
+      {url: './assets/design/donkey.png', title:'Donkey 1'},
+      {url: './assets/design/donkey2.png', title:'Donkey 2'},
+    ],
+    templates: template_t_shirt,
+    text_boxes_count:0,
+    preRender:function(html){ html+="<div>this is my alter</div>"; return html;},
+    merge_image_thumbnail_width:'auto',
+    template_thumbnail_width: 150,
+    template_thumbnail_height: 150,
+    merge_image_thumbnail_width: 'auto',
+    merge_image_thumbnail_height: 70,
+    downloadGeneratedImage: false,
+    onGenerate: function(data, formData){          
+      $.ajax({
+      type: "POST",
+      processData: false,
+      contentType: false,
+      url: "#{home_custom_design_path}",
+      data: formData,
+      success: function (data) {},
+      complete: function() {}})
+    },
+  });
+
+  $('.single-item').slick({
+    autoplay:true,
+    dots: true,
+    infinite: true
+  });

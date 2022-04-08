@@ -1,5 +1,10 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+@import "frontend/custom/image_maker/imageMaker.min.css";
+
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import "frontend/lib/slick.scss";
+@import "frontend/lib/slick-theme.scss";
+@import "frontend/lib/sweetalert2.min.scss";
