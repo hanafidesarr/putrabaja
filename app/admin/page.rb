@@ -7,8 +7,8 @@ ActiveAdmin.register Page do
 
   before_filter :skip_sidebar!, :only => :index
   
-  permit_params :title,
-  components_attributes: [:id, :name, :_destroy], # *note add id for disable duplicate when attribute updated
+  permit_params :title, :_destroy,
+  components_attributes: [:id, :name, :_destroy, attachments_attributes: [:id, :asset, :_destroy]], # *note add id for disable duplicate when attribute updated
   attachments_attributes: [:id, :asset, :_destroy] # *note add id for disable duplicate when attribute updated 
   
   sortable tree: true,

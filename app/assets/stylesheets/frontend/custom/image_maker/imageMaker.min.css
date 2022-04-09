@@ -1,6 +1,5 @@
 .wrapper_canvas {
-	position: relative;
-	display: inline-block;
+	width: 100%;
 	margin: 0 auto
 }
 

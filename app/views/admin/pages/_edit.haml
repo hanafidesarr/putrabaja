@@ -1,17 +1,39 @@
 
-= semantic_form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
+-# %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", :rel => "stylesheet"}/
+-# %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"}
+%script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"}
+
+= form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
 	= f.inputs :name => "Page" do
 		= f.input :title
+		= f.input :description, as: :string
 
 	- f.has_many :components, new_record: true do | comp |
-		- comp.input :name
-		- f.has_many :attachments, heading: false, new_record: true do |attach|
-			.card 
-				.card-body
+			
+		%nav
+			#nav-tab.nav.nav-tabs{:role => "tablist"}
+				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#nav-home-#{comp.object.id}", :role => "tab"} GENERAL
+				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-profile-#{comp.object.id}", :role => "tab"} Profile
+				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-contact-#{comp.object.id}", :role => "tab"} Contact
+
+			#nav-tabContent.tab-content
+				.tab-pane.fade.show.active{"aria-labelledby" => "nav-home-tab", :role => "tabpanel", id: "nav-home-#{comp.object.id}"}
+					- comp.input :name
+					- comp.input :layout
+				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}"}
+					- amount_attachments = f.object.attachments.size
+
 					.row
-						.col-3
-							- if attach.object.asset.url.present?
-								= image_tag(attach.object.asset.url, width: "200px")
-						.col-9
-							- attach.input :asset
+						- comp.has_many :attachments do |attach|
+							.col-md-4
+								- if attach.object.asset.url.present?
+									= image_tag(attach.object.asset.url, width: "200x200")
+								- attach.input :asset
+				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
+
+			%hr
+			- if comp.object.id.present?
+				=link_to admin_component_path(id: comp.object.id), method: :delete, style: "position: absolute; right: 0; top:0;" do
+					%i.fa.fa-trash.text-danger
+		= comp.actions
 	= f.actions

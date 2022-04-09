@@ -37,7 +37,7 @@ module PageAdmin
 					def page_params
 					  params.require(:page).permit(:title, :description, :position)
 					end
-				  end
+        end
 			end
 		end
 	end
