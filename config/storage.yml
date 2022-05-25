@@ -32,3 +32,10 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+
+amazon:
+  service: S3
+  access_key_id: 'AKIAT4ECGFWJBHNODQVV'
+  secret_access_key: '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'
+  region: 'ap-southeast-1'
+  bucket: 'sewa-gadget'
