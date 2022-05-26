@@ -1,10 +1,10 @@
-test:
-  service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+# test:
+#   service: Disk
+#   root: <%= Rails.root.join("tmp/storage") %>
 
-local:
-  service: Disk
-  root: <%= Rails.root.join("storage") %>
+# local:
+#   service: Disk
+#   root: <%= Rails.root.join("storage") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
@@ -35,7 +35,7 @@ local:
 
 amazon:
   service: S3
-  access_key_id: 'AKIAT4ECGFWJBHNODQVV'
-  secret_access_key: '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'
+  access_key_id: 'AKIAT4ECGFWJK5CH5OGJ'
+  secret_access_key: '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'
   region: 'ap-southeast-1'
   bucket: 'sewa-gadget'
