@@ -8,12 +8,13 @@ module ProductAdmin
 							div class: "col-4" do
 								f.input :name
 								f.input :category
+								f.input :image_type
 							end
 							div class: "col-4" do
 								f.has_many :attachments, allow_destroy: true do |attach|
-									if attach.object.asset.url.present?
+									if (url = attach.object.asset.url rescue nil).present?
 										li do 
-											image_tag(attach.object.asset.url, width: "200px")
+											image_tag(url, width: "200px")
 										end
 									end
 									attach.input :asset

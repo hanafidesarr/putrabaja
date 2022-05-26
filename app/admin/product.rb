@@ -1,5 +1,5 @@
 ActiveAdmin.register Product do
-  permit_params :id, :name, :short_description, :short_description, :description, :price, :category_id,
+  permit_params :id, :name, :short_description, :short_description, :description, :price, :category_id, :image_type,
   attachments_attributes: [:id, :asset, :_destroy] 
 
   include ProductAdmin::Form

@@ -1,0 +1,75 @@
+
+.container-fluid
+  #clothe-tshirt-maker
+  %hr
+  .row
+    - @products.each do |product|
+      .col-md-3
+        .card
+          .single-item
+            - product.attachments.each do |attachment|
+              =image_tag(attachment.asset.url, width: "100%")
+          .card-body.text-center
+            %h5= product.name
+            = product.short_description
+            %hr
+            %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
+
+:javascript
+
+  var template_t_shirt = JSON.parse('#{raw @product_template.to_json}')
+  if (template_t_shirt[0].url == null) {
+    template_t_shirt = [{url: 'https://e7.pngegg.com/pngimages/801/603/png-clipart-t-shirt-graphy-clothing-sizes-shirt-tshirt-white.png', title:'Gundam Head Skate'}]
+  }
+  $('#clothe-tshirt-maker').imageMaker({
+    merge_images:[
+      {url: './assets/design/gundam-head-skate.png', title:'Gundam Head Skate'},
+      {url: './assets/design/wolf-head-skate.png', title:'Wolf Head Skate'},
+      {url: './assets/design/gorilla-head-skate.png', title:'Gorilla Head Skate'},
+      {url: './assets/design/sasuke-chibi.png', title:'Sasuke Chibi'},
+      {url: './assets/design/gundam-head-skate.png', title:'Gundam Head Skate'},
+      {url: './assets/design/pain-head.png', title:'Pain Head'},
+      {url: './assets/design/wolf-head-skate.png', title:'Wolf Head Skate'}
+    ],
+    templates: template_t_shirt,
+    text_boxes_count:0,
+    preRender:function(html){ html+="<div>this is my alter</div>"; return html;},
+    merge_image_thumbnail_width:15,
+    template_thumbnail_width: '100%',
+    template_thumbnail_height: 'auto',
+    merge_image_thumbnail_width: '100%',
+    merge_image_thumbnail_height: 'auto',
+    downloadGeneratedImage: false,
+    onGenerate: function(data, formData){          
+      $.ajax({
+      type: "POST",
+      processData: false,
+      contentType: false,
+      url: "#{home_custom_design_path}",
+      data: formData,
+      success: function (data) {},
+      complete: function() {}})
+    },
+  });
+
+  $('.single-item').slick({
+    autoplay:true,
+    dots: true,
+    infinite: true
+  });
+
+  $('.image-maker-template-image').slick({
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay:true,
+    dots: true,
+    infinite: true
+  });
+
+  $('.image-maker-thumbnail-image').slick({
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay:false,
+    dots: true,
+    infinite: true
+  });

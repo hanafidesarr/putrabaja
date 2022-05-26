@@ -26,8 +26,8 @@
 					.row
 						- comp.has_many :attachments do |attach|
 							.col-md-4
-								- if attach.object.asset.url.present?
-									= image_tag(attach.object.asset.url, width: "200x200")
+								- if (url = attach.object.asset.url rescue nil).present?
+									= image_tag(url, width: "200x200")
 								- attach.input :asset
 				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
 

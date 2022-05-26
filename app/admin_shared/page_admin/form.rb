@@ -10,13 +10,14 @@ module PageAdmin
 							end
 							div class: "col-4" do
 								f.has_many :attachments do |attach|
-									if attach.object.asset.url.present?
+									
+									if (url = attach.object.asset.url rescue nil).present?
 										li do 
-											image_tag(attach.object.asset.url, width: "200px")
+											image_tag(url, width: "200px")
 										end
 									end
 									div class: "x" do
-										attach.object.asset.url
+										attach.object.asset.url rescue nil
 									end
 									attach.input :asset
 								end
@@ -27,13 +28,13 @@ module PageAdmin
 									div class: "row" do
 										div class: "col-4" do
 											x.has_many :attachments do |attach|
-												if attach.object.asset.url.present?
+												if (url = attach.object.asset.url rescue nil).present?
 													li do 
-														image_tag(attach.object.asset.url, width: "200px")
+														image_tag(url, width: "200px")
 													end
 												end
 												div class: "x" do
-													attach.object.asset.url
+													attach.object.asset.url rescue nil
 												end
 												attach.input :asset
 											end
