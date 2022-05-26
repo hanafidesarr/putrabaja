@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @products = Product.design
+    @products = Product.normal
     @product_template = [ ]
     @products.each do |product|
       @product_template << {'title': product.name, 'url': product.attachments.first.asset.url}

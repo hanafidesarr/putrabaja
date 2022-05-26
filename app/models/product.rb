@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   scope :design, -> { where("image_type = ?", 1) }
+  scope :normal, -> { where("image_type = ?", 0) }
 
   # Enum 0..5          0,       1,
   enum image_type: [:normal, :design]
