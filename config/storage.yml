@@ -35,7 +35,7 @@
 
 amazon:
   service: S3
-  access_key_id: 'AKIAT4ECGFWJK5CH5OGJ'
-  secret_access_key: '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'
+  access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   region: 'ap-southeast-1'
   bucket: 'sewa-gadget'
