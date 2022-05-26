@@ -17,10 +17,8 @@
 
 :javascript
 
-  var template_t_shirt = JSON.parse('#{raw @product_template.to_json}')
-  if (template_t_shirt[0].url == null) {
-    template_t_shirt = [{url: 'https://e7.pngegg.com/pngimages/801/603/png-clipart-t-shirt-graphy-clothing-sizes-shirt-tshirt-white.png', title:'Gundam Head Skate'}]
-  }
+  var template_t_shirt = [{url: './assets/design/t-shirt-white.png', title:'Gundam Head Skate'}]
+  
   $('#clothe-tshirt-maker').imageMaker({
     merge_images:[
       {url: './assets/design/gundam-head-skate.png', title:'Gundam Head Skate'},
