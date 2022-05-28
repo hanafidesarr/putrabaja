@@ -21,9 +21,9 @@ module PageAdmin
 				end
 
 				controller do
-					# def index
-					#   @pages = collection.page(params[:page]).per(1)
-					# end
+					def index
+					  @pages = collection.page(params[:page]).per(1)
+					end
 					
 
 					## ... 

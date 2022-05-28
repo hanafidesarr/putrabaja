@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
   require 'base64'
-
   skip_before_action :verify_authenticity_token
 
   def index
-    @products = Product.normal
+    @products = Product.design
     @product_template = [ ]
+    @components = Page.find_by(title: "Home").components
     @products.each do |product|
       @product_template << {'title': product.name, 'url': product.attachments.first.asset.url}
     end

@@ -29,6 +29,10 @@
 								- if (url = attach.object.asset.url rescue nil).present?
 									= image_tag(url, width: "200x200")
 								- attach.input :asset
+
+								- attach.input :note, as: :string
+								- attach.input :content_type
+								- attach.input :title
 				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
 
 			%hr

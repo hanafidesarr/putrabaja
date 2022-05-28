@@ -1,42 +1,77 @@
-=link_to "DESIGN", custom_design_page_path
+%link{href: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css", rel: "stylesheet"}/
+%link{href: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css", rel: "stylesheet"}/
 
+%script{src: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"}
 
-.container-fluid
+.container
+  %i.fa.fa-chevron-left.fa-2xl.customPrevBtn
+  %i.fa.fa-chevron-right.fa-2xl.customNextBtn
+  - @components.each do |component|
+    .owl-carousel
+      - component.attachments.each do |attachment|
+        %div
+          .textoverlay
+            .row.align-items-center
+              .col-6
+                .ml-3{style: "margin-left: 8rem"}
+                  %h1
+                    =attachment.title
+                    %br
+                    =link_to root_path, class: "btn btn-dark" do
+                      GET MORE
+              .col-6
+                .limit
+                  =image_tag(attachment.asset.url )
   %hr
   .row
     - @products.each do |product|
       .col-md-3
         .card
-          .single-item
+          .product-slick
             - product.attachments.each do |attachment|
-              =image_tag(attachment.asset.url, width: "10x500")
+              =image_tag(attachment.asset.url, width: "10x500" )
           .card-body.text-center
             %h5= product.name
             = product.short_description
             %hr
             %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
 
-
 :javascript
+  var owl = $('.owl-carousel');
+  owl.owlCarousel({
+    items: 1,
+    loop: true,
+    nav: false,
+    autoplay:true,
+    autoplayTimeout: 3000,
+    smartSpeed: 1000,
+    freeDrag: true,
+    navText: [
+      "<i class='fa fa-chevron-left'></i>",
+      "<i class='fa fa-chevron-right'></i>"
+    ],
+  });
 
-  $('.single-item').slick({
+  $('.customNextBtn').click(function() {
+      owl.trigger('next.owl.carousel');
+  })
+
+  $('.customPrevBtn').click(function() {
+      owl.trigger('prev.owl.carousel');
+  })
+
+
+
+
+
+  $('.single-item-home').slick({
     autoplay:true,
     dots: true,
     infinite: true
   });
 
-  $('.image-maker-template-image').slick({
-    slidesToShow: 4,
-    slidesToScroll: 4,
+  $('.product-slick').slick({
     autoplay:true,
-    dots: true,
-    infinite: true
-  });
-
-  $('.image-maker-thumbnail-image').slick({
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay:false,
     dots: true,
     infinite: true
   });
