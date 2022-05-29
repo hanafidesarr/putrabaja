@@ -4,7 +4,7 @@
 %script{src: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"}
 
 .container
-  - @components.each do |component|
+  - @components.order(:position).each do |component|
 
     - if component.layout == "banner"
       =render partial: "components/banner", locals: { component:component }
