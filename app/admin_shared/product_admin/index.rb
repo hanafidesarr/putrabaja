@@ -6,11 +6,12 @@ module ProductAdmin
         index do
           selectable_column
           id_column
+          column :attachments do |obj|
+            image_tag(obj.attachments.first.asset.url, width: "100", height: "100")
+          end
           column :name
-          column :short_description
-          column :description
-          column :price
           column :image_type
+          column :price
           column :created_at
           actions
         end
