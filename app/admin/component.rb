@@ -8,13 +8,11 @@ ActiveAdmin.register Component do
 			# end
 
       def create
-        binding.pry
         @component = Component.new(permitted_params[:component])
         super
       end
       
       def build_new_resource
-        binding.pry
         r = super
         r.assign_attributes(name: "new name")
         r

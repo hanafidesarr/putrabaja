@@ -13,3 +13,4 @@
 							%hr
 							%b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
 	.col-6
+		= component.description.html_safe

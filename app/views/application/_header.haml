@@ -7,11 +7,15 @@
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
 
-        - @pages.each do |component|
+        - @pages.each do |page|
 
           %li.nav-item
-            %a.nav-link.active{"aria-current" => "page", :href => "/"}
-              = component.title
+            - if page.title == "Home"
+              = link_to root_path, class: "nav-link" do
+                = page.title
+            - else
+              = link_to page_path(page), class: "nav-link" do
+                = page.title
 
         -# %li.nav-item
         -#   %a.nav-link{:href => "#"} Link
