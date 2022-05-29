@@ -8,6 +8,6 @@ module Frontendable
 	private
 
 		def set_common_variables
-			@pages = Page.all
+			@pages = Page.active.root_page
 		end
 end

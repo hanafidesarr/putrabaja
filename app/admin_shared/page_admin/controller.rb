@@ -22,7 +22,7 @@ module PageAdmin
 
 				controller do
 					def index
-					  @pages = collection.page(params[:page]).per(1)
+					  @pages = Page.page(params[:page]).per(1)
 					end
 					
 

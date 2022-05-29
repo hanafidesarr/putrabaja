@@ -1,5 +1,6 @@
 ActiveAdmin.register Component do
-    permit_params :email, :password, :password_confirmation
+    permit_params :email, :password, :password_confirmation,
+    attachments_attributes: [:id, :asset, :content_type, :note, :title, :layout, :description, :_destroy]
   
     controller do
 			# def new

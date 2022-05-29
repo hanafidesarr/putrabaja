@@ -5,6 +5,8 @@
 
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
 	= f.inputs :name => "Page" do
+		= f.input :active
+		%br
 		= f.input :title
 		= f.input :description, as: :string
 
@@ -13,7 +15,7 @@
 		%nav
 			#nav-tab.nav.nav-tabs{:role => "tablist"}
 				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#nav-home-#{comp.object.id}", :role => "tab"} GENERAL
-				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-profile-#{comp.object.id}", :role => "tab"} Profile
+				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-profile-#{comp.object.id}", :role => "tab"} ATTACHMENTS
 				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-contact-#{comp.object.id}", :role => "tab"} Contact
 
 			#nav-tabContent.tab-content
@@ -24,20 +26,27 @@
 					- amount_attachments = f.object.attachments.size
 
 					.row
-						- comp.has_many :attachments do |attach|
-							.col-md-4
-								- if (url = attach.object.asset.url rescue nil).present?
-									= image_tag(url, width: "200x200")
-								- attach.input :asset
+						- comp.has_many :attachments, allow_destroy: true do |attach|
 
-								- attach.input :note, as: :string
-								- attach.input :content_type
-								- attach.input :title
+							- attach.template.concat(Arbre::Context.new do
+								.lala
+									.row 
+										.col-2
+											- if (url = attach.object.asset.url rescue nil).present?
+												%img.wsas{"src": url, "style": "width:100px; height:100px"}
+										.col-10
+											= f.inputs do
+												- attach.input :title
+												- attach.input :note, as: :string
+												- attach.input :asset
+								
+							- end.to_s)
+
 				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
 
 			%hr
 			- if comp.object.id.present?
 				=link_to admin_component_path(id: comp.object.id), method: :delete, style: "position: absolute; right: 0; top:0;" do
 					%i.fa.fa-trash.text-danger
-		= comp.actions
+
 	= f.actions
