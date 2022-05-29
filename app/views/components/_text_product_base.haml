@@ -1,0 +1,15 @@
+.row.my-4.py-4
+	.col-6
+		.row
+			- @products.each do |product|
+				.col-md-4
+					.card
+						.product-slick
+							- product.attachments.each do |attachment|
+								=image_tag(attachment.asset.url, width: "10x500" )
+						.card-body.text-center
+							%h5= product.name
+							= product.short_description
+							%hr
+							%b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
+	.col-6

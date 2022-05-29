@@ -1,0 +1,15 @@
+.owl-carousel
+	- component.attachments.each do |attachment|
+		%div
+			.textoverlay
+				.row.align-items-center
+					.col-6
+						.ml-3{style: "margin-left: 8rem"}
+							%h1
+								=attachment.title
+								%br
+								=link_to root_path, class: "btn btn-dark" do
+									GET MORE
+					.col-6
+						.limit
+							=image_tag(attachment.asset.url )

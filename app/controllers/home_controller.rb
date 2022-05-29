@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @products = Product.design
+    @products = Product.normal
     @product_template = [ ]
     @components = Page.find_by(title: "Home").components
     @products.each do |product|

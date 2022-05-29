@@ -7,35 +7,17 @@
   %i.fa.fa-chevron-left.fa-2xl.customPrevBtn
   %i.fa.fa-chevron-right.fa-2xl.customNextBtn
   - @components.each do |component|
-    .owl-carousel
-      - component.attachments.each do |attachment|
-        %div
-          .textoverlay
-            .row.align-items-center
-              .col-6
-                .ml-3{style: "margin-left: 8rem"}
-                  %h1
-                    =attachment.title
-                    %br
-                    =link_to root_path, class: "btn btn-dark" do
-                      GET MORE
-              .col-6
-                .limit
-                  =image_tag(attachment.asset.url )
-  %hr
-  .row
-    - @products.each do |product|
-      .col-md-3
-        .card
-          .product-slick
-            - product.attachments.each do |attachment|
-              =image_tag(attachment.asset.url, width: "10x500" )
-          .card-body.text-center
-            %h5= product.name
-            = product.short_description
-            %hr
-            %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
 
+    - if component.layout == "banner"
+      =render partial: "components/banner", locals: { component:component }
+    - if component.layout == "text_base"
+      =render partial: "components/text_base", locals: { component:component }
+    - if component.layout == "text_maqruee_base"
+      =render partial: "components/text_maqruee_base", locals: { component:component }
+    - if component.layout == "text_product_base"
+      =render partial: "components/text_product_base", locals: { component:component }
+
+  %hr
 :javascript
   var owl = $('.owl-carousel');
   owl.owlCarousel({

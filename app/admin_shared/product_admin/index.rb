@@ -10,6 +10,7 @@ module ProductAdmin
           column :short_description
           column :description
           column :price
+          column :image_type
           column :created_at
           actions
         end

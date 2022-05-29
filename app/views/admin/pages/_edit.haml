@@ -22,6 +22,7 @@
 				.tab-pane.fade.show.active{"aria-labelledby" => "nav-home-tab", :role => "tabpanel", id: "nav-home-#{comp.object.id}"}
 					- comp.input :name
 					- comp.input :layout
+					- comp.input :description, as: :string
 				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}"}
 					- amount_attachments = f.object.attachments.size
 
