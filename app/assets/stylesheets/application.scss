@@ -7,7 +7,14 @@
 @import "frontend/lib/slick.scss";
 @import "frontend/lib/slick-theme.scss";
 @import "frontend/lib/sweetalert2.min.scss";
-@import "bootstrap";
+
+// Graphical variables
+@import "config/fonts";
+@import "config/colors";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "bootstrap-custom";
 
 // .slider {
 //     margin: 0 auto;
@@ -33,7 +40,6 @@
 //   padding: 30px;
 // }
 
-
 .limit{
     overflow: hidden;
 }
@@ -58,22 +64,22 @@
 		position: absolute !important;
 		left: 5rem;
 		@include media-breakpoint-only(xs) { 
-			top: 50%;
+			margin-top: 20%;
 		}
 				// Extra small devices (portrait phones, less than 576px)
 		@media (max-width: 575.98px) { top: 10%; }
 
 		// Small devices (landscape phones, 576px and up)
-		@media (min-width: 576px) and (max-width: 767.98px) { top: 10%; }
+		@media (min-width: 576px) and (max-width: 767.98px) { margin-top: 10%; }
 
 		// Medium devices (tablets, 768px and up)
-		@media (min-width: 768px) and (max-width: 991.98px) { top: 10%; }
+		@media (min-width: 768px) and (max-width: 991.98px) { margin-top: 10%; }
 
 		// Large devices (desktops, 992px and up)
-		@media (min-width: 992px) and (max-width: 1199.98px) { top: 50%; }
+		@media (min-width: 992px) and (max-width: 1199.98px) { margin-top: 20%; }
 
 		// Extra large devices (large desktops, 1200px and up)
-		@media (min-width: 1200px) { top: 50%; }
+		@media (min-width: 1200px) { margin-top: 20%; }
 
 		z-index:100;
 	}
@@ -83,19 +89,19 @@
 		z-index:100;
 
 				// Extra small devices (portrait phones, less than 576px)
-		@media (max-width: 575.98px) { top: 10%; }
+		@media (max-width: 575.98px) { margin-top: 10%; }
 
 		// Small devices (landscape phones, 576px and up)
-		@media (min-width: 576px) and (max-width: 767.98px) { top: 10%; }
+		@media (min-width: 576px) and (max-width: 767.98px) { margin-top: 10%; }
 
 		// Medium devices (tablets, 768px and up)
-		@media (min-width: 768px) and (max-width: 991.98px) { top: 10%; }
+		@media (min-width: 768px) and (max-width: 991.98px) { margin-top: 10%; }
 
 		// Large devices (desktops, 992px and up)
-		@media (min-width: 992px) and (max-width: 1199.98px) { top: 50%; }
+		@media (min-width: 992px) and (max-width: 1199.98px) { margin-top: 20%; }
 
 		// Extra large devices (large desktops, 1200px and up)
-		@media (min-width: 1200px) { top: 50%; }
+		@media (min-width: 1200px) { margin-top: 20%; }
 
 	}
 }
