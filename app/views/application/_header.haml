@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark
+%nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark.text-decoration-none
   .container-fluid
     %a.navbar-brand{:href => "#"} Navbar
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
@@ -8,13 +8,12 @@
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
 
         - @pages.each do |page|
-
           %li.nav-item
             - if page.title == "Home"
-              = link_to root_path, class: "nav-link" do
+              = link_to root_path, class: "nav-link text-uppercase text-white" do
                 = page.title
             - else
-              = link_to page_path(page), class: "nav-link" do
+              = link_to page_path(page), class: "nav-link text-uppercase text-white" do
                 = page.title
 
         -# %li.nav-item
@@ -32,9 +31,15 @@
         -#     %li
         -#       %a.dropdown-item{:href => "#"} Something else here
         %li.nav-item
-          =link_to "Design", custom_design_page_path, class: "nav-link"
-        %li.nav-item
-          %a.nav-link.disabled Disabled
+          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
       %form.d-flex{:role => "search"}
-        %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
-        %button.btn.btn-outline-success{:type => "submit"} Search
+        %li.nav-item
+          - if user_signed_in?
+            %a.text-white.nav-link="Hallo, #{current_user.email}"
+            =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
+              %i.fa.fa-exit
+              ="KELUAR"
+          - else
+            =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
+              %i.fa.fa-user
+              ="DAFTAR/MASUK"
