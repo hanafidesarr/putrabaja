@@ -20,29 +20,24 @@
 
 			#nav-tabContent.tab-content
 				.tab-pane.fade.show.active{"aria-labelledby" => "nav-home-tab", :role => "tabpanel", id: "nav-home-#{comp.object.id}"}
-					- comp.input :name
-					- comp.input :layout
-					- comp.input :description
-					- comp.input :position
-				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}"}
+					= f.inputs do
+						- comp.input :name
+						- comp.input :layout
+						- comp.input :description, as: :string 
+						- comp.input :position
+				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}", class: "testting"}
 					- amount_attachments = f.object.attachments.size
 
-					.row
-						- comp.has_many :attachments, allow_destroy: true do |attach|
+					.row 
+						- comp.has_many :attachments, allow_destroy: true, class:"custom-has-many-attachments col-4" do |attach|
 
-							- attach.template.concat(Arbre::Context.new do
-								.lala
-									.row 
-										.col-2
-											- if (url = attach.object.asset.url rescue nil).present?
-												%img.wsas{"src": url, "style": "width:100px; height:100px"}
-										.col-10
-											= f.inputs do
-												- attach.input :title
-												- attach.input :note, as: :string
-												- attach.input :asset
+							- if (url = attach.object.asset.url rescue nil).present?
+								%img.img-center{"src": url, "style": "width:100px; height:100px"}
+							- else
+								%img.img-center{"src": "https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png", "style": "width:100px; height:100px"}
 								
-							- end.to_s)
+							- attach.input :title
+							- attach.input :asset, label: false
 
 				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
 
@@ -50,5 +45,9 @@
 			- if comp.object.id.present?
 				=link_to admin_component_path(id: comp.object.id), method: :delete, style: "position: absolute; right: 0; top:0;" do
 					%i.fa.fa-trash.text-danger
-
+		.text-right
+			= comp.actions
 	= f.actions
+
+	:javascript
+		$(".has_many_container").addClass("row")
