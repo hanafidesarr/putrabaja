@@ -1,16 +1,26 @@
+
 .row.my-4.py-4
-	.col-6
+	.col-7
 		.row
 			- @products.each do |product|
-				.col-md-4
+				.col-md-4.mb-4
 					.card
 						.product-slick
 							- product.attachments.each do |attachment|
-								=image_tag(attachment.asset.url, width: "10x500" )
+								.m-3
+									=image_tag(attachment.asset.url, width: "200", height: "200", class: "img-center")
 						.card-body.text-center
-							%h5= product.name
-							= product.short_description
+							%h5= product.name.to_s.truncate(15)
 							%hr
-							%b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
-	.col-6
+							%p.text-center= product.short_description
+							-# %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
+	.col-5
 		= component.description.html_safe
+
+:javascript
+
+	$('.product-slick').slick({
+		autoplay:true,
+		dots: true,
+		infinite: true
+	});

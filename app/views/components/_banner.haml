@@ -18,3 +18,25 @@
 							.col-6
 								.limit
 									=image_tag(attachment.asset.url )
+
+:javascript
+
+	var owl = $('.owl-carousel');
+	owl.owlCarousel({
+		items: 1,
+		loop: true,
+		nav: false,
+		autoplay:true,
+		touchDrag: false,
+		autoplayHoverPause:true,
+		autoplayTimeout: 3000,
+		smartSpeed: 1000
+	});
+
+	$('.next-btn').click(function() {
+			owl.trigger('next.owl.carousel');
+	})
+
+	$('.prev-btn').click(function() {
+			owl.trigger('prev.owl.carousel');
+	})
