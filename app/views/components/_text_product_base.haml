@@ -7,8 +7,9 @@
 					.card
 						.product-slick
 							- product.attachments.each do |attachment|
-								.m-3
-									=image_tag(attachment.asset.url, width: "200", height: "200", class: "img-center")
+								.mx-3.my-4
+									- attachment.asset.recreate_versions!
+									=image_tag(attachment.asset.thumb.url, class: "img-center img-fluid")
 						.card-body.text-center
 							%h5= product.name.to_s.truncate(15)
 							%hr
