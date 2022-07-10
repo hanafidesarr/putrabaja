@@ -2,7 +2,7 @@ CarrierWave.configure do |config|
 	config.fog_credentials = {
 		provider:              'AWS',                            # required
 		aws_access_key_id:     'AKIAT4ECGFWJGZTWL7H2',            # required
-		aws_secret_access_key: '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',            # required
+		aws_secret_access_key: 'VFqsfpEESWrKzP1PDWpWAj3rfkXLwYPl05SGSyJ/',            # required
 		region:                'us-west-1'                       # to match the carrierwave and bucket region
 	}
 	config.fog_directory = 'ahaddin'                  # required
