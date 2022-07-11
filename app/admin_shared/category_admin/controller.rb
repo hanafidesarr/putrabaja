@@ -1,0 +1,20 @@
+
+module CategoryAdmin
+  module Controller
+    def self.included(base)
+      base.instance_eval do
+        controller do
+					def index
+					  @categories = Category.page(params[:page]).per(1)
+					end
+          def new
+            @category = Category.new
+          end
+					def show
+            @category = Category.find(params[:id])
+					end
+        end
+      end
+    end
+  end
+end
