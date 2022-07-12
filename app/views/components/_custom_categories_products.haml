@@ -9,9 +9,10 @@
               %h5.text-uppercase=category.name
               - if ( childrens = category.children ).present?
                 - childrens.each do | cat_child |
-                  .card 
-                    .card-body
-                      = cat_child.name  
-                      = link_to show_product_admin_category_path(cat_child), remote: :true, class: "mx-2 text-success" do icon('fas', 'edit') end
+
+                  = link_to categories_show_product_path(id: cat_child.id), remote: :true do
+                    .card 
+                      .card-body
+                        = cat_child.name  
       .col-8
         .products-show
