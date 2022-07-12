@@ -8,6 +8,7 @@
 		= f.input :active
 		%br
 		= f.input :title
+		= f.input :layout, as: :select, collection: Page::PAGE_LAYOUT
 		= f.input :description, as: :string
 
 	- f.has_many :components, new_record: true do | comp |
@@ -37,6 +38,7 @@
 								%img.img-center{"src": "https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png", "style": "width:100px; height:100px"}
 								
 							- attach.input :title
+							- attach.input :note
 							- attach.input :asset, label: false
 
 				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...

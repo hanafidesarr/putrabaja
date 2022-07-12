@@ -1,6 +1,7 @@
 ActiveAdmin.register Category do
 
-  permit_params :id, :name, :short_description, :description, :price
+  permit_params :id, :name, :short_description, :description, :price,
+  children_attributes: [:id, :name, :_destroy]
 
   config.batch_actions = false
   before_filter :skip_sidebar!, :only => :index

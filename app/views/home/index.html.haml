@@ -3,15 +3,7 @@
 
 %script{src: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"}
 
-.container
-  - @components.order(:position).each do |component|
 
-    - if component.layout == "banner"
-      =render partial: "components/banner", locals: { component:component }
-    - if component.layout == "text_base"
-      =render partial: "components/text_base", locals: { component:component }
-    - if component.layout == "text_maqruee_base"
-      =render partial: "components/text_maqruee_base", locals: { component:component }
-    - if component.layout == "text_product_base"
-      =render partial: "components/text_product_base", locals: { component:component }
-  %hr
+- @components.order(:position).each do |component|
+  =render partial: "components/#{component.layout.to_s}", locals: { component:component } if component.layout.present?
+%hr

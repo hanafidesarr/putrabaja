@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     @product_template = [ ]
     @components = Page.find_by(title: "Homepage").components
     @products.each do |product|
-      @product_template << {'title': product.name, 'url': product.attachments.first.asset.url}
+      @product_template << {'title': product.name, 'url': product.attachments.first&.asset&.url}
     end
 
   end

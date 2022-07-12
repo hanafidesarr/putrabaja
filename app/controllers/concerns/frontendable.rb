@@ -9,5 +9,6 @@ module Frontendable
 
 		def set_common_variables
 			@pages = Page.active.root_page
+			@categories = Category.all
 		end
 end

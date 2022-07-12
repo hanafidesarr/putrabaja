@@ -1,7 +1,7 @@
 
 %nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark.text-decoration-none
   .container-fluid
-    %a.navbar-brand.title-header{:href => "#"} SEWA GADGET
+    %a.navbar-brand.title-header{:href => "#"} AHADDIN
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
@@ -9,27 +9,22 @@
 
         - @pages.each do |page|
           %li.nav-item
-            - if page.title == "Home"
+            - case page.layout
+            - when "home"
               = link_to root_path, class: "nav-link text-uppercase text-white" do
                 = page.title
+
+            - when "categories"
+              .dropdown
+                %button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                  Dropdown button
+                .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+                  %a.dropdown-item{:href => "#"} Action
+                  %a.dropdown-item{:href => "#"} Another action
+                  %a.dropdown-item{:href => "#"} Something else here
             - else
               = link_to page_path(page), class: "nav-link text-uppercase text-white" do
                 = page.title
-
-        -# %li.nav-item
-        -#   %a.nav-link{:href => "#"} Link
-        -# %li.nav-item.dropdown
-        -#   %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
-        -#     Dropdown
-        -#   %ul.dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-        -#     %li
-        -#       %a.dropdown-item{:href => "#"} Action
-        -#     %li
-        -#       %a.dropdown-item{:href => "#"} Another action
-        -#     %li
-        -#       %hr.dropdown-divider/
-        -#     %li
-        -#       %a.dropdown-item{:href => "#"} Something else here
         %li.nav-item
           =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
       %form.d-flex{:role => "search"}

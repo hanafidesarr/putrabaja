@@ -16,6 +16,8 @@
 // External libraries
 @import "bootstrap-custom";
 
+// Internal
+@import "components";
 // .slider {
 //     margin: 0 auto;
 // }
@@ -42,9 +44,9 @@
 
 .title-header {
 	background-color: white;
-    color: black !important;
-    padding: 1px 6px;
-    font-weight: 800;
+	color: black !important;
+	padding: 1px 6px;
+	font-weight: 800;
 }
 
 .section-wrapper {

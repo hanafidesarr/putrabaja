@@ -12,4 +12,6 @@ class Page < ApplicationRecord
 
   scope :active, -> { where(active:true) }
   scope :root_page, -> { select{|page| page.is_root? } }
+
+  PAGE_LAYOUT=["home","categories"]
 end

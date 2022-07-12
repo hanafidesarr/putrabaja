@@ -7,6 +7,7 @@ module PageAdmin
 						div class: "row" do
 							div class: "col-4" do
 								f.input :title
+								f.input :layout
 							end
 							div class: "col-4" do
 								f.has_many :attachments do |attach|

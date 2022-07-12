@@ -1,0 +1,17 @@
+.container
+  .section-wrapper
+    .row 
+      .col-4
+        %h1="Kategori"
+        - @categories.root.each do |category|
+          .card 
+            .card-body
+              %h5.text-uppercase=category.name
+              - if ( childrens = category.children ).present?
+                - childrens.each do | cat_child |
+                  .card 
+                    .card-body
+                      = cat_child.name  
+                      = link_to show_product_admin_category_path(cat_child), remote: :true, class: "mx-2 text-success" do icon('fas', 'edit') end
+      .col-8
+        .products-show
