@@ -1,18 +1,24 @@
 .container
-  .section-wrapper
-    .row 
-      .col-4
-        %h1="Kategori"
-        - @categories.root.each do |category|
-          .card 
-            .card-body
-              %h5.text-uppercase=category.name
-              - if ( childrens = category.children ).present?
-                - childrens.each do | cat_child |
-
-                  = link_to categories_show_product_path(id: cat_child.id), remote: :true do
-                    .card 
-                      .card-body
-                        = cat_child.name  
-      .col-8
-        .products-show
+	%p
+		%a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample", :role => "button"}
+			Link with href
+		%button.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#collapseExample", "data-toggle" => "collapse", :type => "button"}
+			Button with data-target
+	#collapseExample.collapse
+		.card.card-body
+			Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+	.section-wrapper
+		.row 
+			.col-4
+				%h1="Kategori"
+				%hr
+				- @categories.root.each do |category|
+					%h5.text-uppercase=category.name
+					- if ( childrens = category.children ).present?
+						- childrens.each do | cat_child |
+							= link_to categories_show_product_path(id: cat_child.id), remote: :true do
+								= cat_child.name  
+			.col-8
+				.products-show
+					- if (products = @categories.child.first.products).present?
+						=render partial: "categories/products", locals: { products:products }

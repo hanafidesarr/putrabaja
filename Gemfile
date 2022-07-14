@@ -15,8 +15,6 @@ gem 'pg'
 # style
 gem 'bootstrap'
 
-gem 'jquery-rails'
-
 # MARKUP HTML
 gem 'haml'
 

@@ -1,7 +1,18 @@
 .row
-  - @products.each do |product|
-    .col-4
-      =image_tag(product.attachments.first.asset.url, width: "100%")
-      %h5.text-center= product.name
-      -# - product.attachments.each do |attachment|
-      -#   =image_tag(attachment.asset.url, width: "100%")
+	- @products.each do |product|
+		.col-4
+			.card
+				.card-body
+					.product-slick
+						- product.attachments.each do |attachment|
+							=image_tag(attachment.asset.url, width: "100%")
+			
+			%h5.mt-3.text-center=product.name
+			%hr
+
+:javascript
+	$('.product-slick').slick({
+		autoplay:true,
+		dots: true,
+		infinite: true
+	});
