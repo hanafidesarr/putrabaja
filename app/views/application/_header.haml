@@ -16,12 +16,12 @@
 
             - when "categories"
               .dropdown
-                %button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                  Dropdown button
+                #dropdownMenuButton.dropdown-toggle.nav-link.text-uppercase.text-white{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                  Kategori
                 .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-                  %a.dropdown-item{:href => "#"} Action
-                  %a.dropdown-item{:href => "#"} Another action
-                  %a.dropdown-item{:href => "#"} Something else here
+                  - @categories.root.each do |category|
+                    %a.dropdown-item{:href => "#"}
+                      =category.name
             - else
               = link_to page_path(page), class: "nav-link text-uppercase text-white" do
                 = page.title
