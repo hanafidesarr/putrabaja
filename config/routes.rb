@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   get 'custom_design_page', to: "custom_design_page#index"
 
+  resources :products
 
   resources :pages
 end

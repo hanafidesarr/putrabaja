@@ -6,9 +6,14 @@ module ProductAdmin
 					f.inputs 'PageADMIN' do
 						div class: "row" do
 							div class: "col-4" do
+								f.input :sku
 								f.input :name
 								f.input :category
 								f.input :image_type
+								f.input :price
+								f.input :discount
+								f.input :description
+								f.input :short_description
 							end
 							div class: "col-4" do
 								f.has_many :attachments, allow_destroy: true do |attach|

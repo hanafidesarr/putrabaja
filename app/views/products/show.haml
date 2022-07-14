@@ -1,0 +1,37 @@
+.container
+	.section-wrapper
+		.row 
+			.col-6
+				.product-slick
+					- @product.attachments.each do |attachment|
+						=image_tag(attachment.asset.url, width: "100%")
+			.col-6
+
+				%h1.font-weight.text-center.font-weight=@product.name
+				%hr
+				%p=@product.short_description
+				.card.card-body
+					%p= "SKU : #{@product.sku}"
+					%p= "Harga : #{@product.price}"
+					%p= "Diskon : #{@product.discount}"
+					%p= "Kategori : #{@product.category.name}"
+					%p= "Harga : #{@product.price}"
+				%hr
+					.row
+						.col-12.my-1
+							%a.btn.btn-shopee{"href": "https://shopee.co.id/VYATTA-AIRBOOM-PRO-TWS-BLUETOOTH-HEADSET-EARPHONE-ENC-32-Hours-Playing-Time-14-in-1-Touch-Sensor-i.109623996.7036471219"}="SHOPEE"
+						.col-12.my-1
+							%a.btn.btn-whatsapp{"href": "https://web.whatsapp.com/send?phone=+6281222194150&text=hai"}="CHAT KE WHATSAPP"
+		.row 
+			.col
+				%hr
+				%h3.text-center Deskripsi Product
+				%hr
+				%p= @product.description
+
+:javascript
+	$('.product-slick').slick({
+		autoplay:true,
+		dots: true,
+		infinite: true
+	});
