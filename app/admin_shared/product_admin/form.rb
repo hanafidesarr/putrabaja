@@ -26,6 +26,13 @@ module ProductAdmin
 								end
 							end
 						end
+						# div class: "row" do
+						# 	div class: "col-12" do
+						# 		f.has_many :media_socials, allow_destroy: true do |media_social|
+						# 			media_social.input :product_message
+						# 		end
+						# 	end
+						# end
 					end
 					f.actions
 				end

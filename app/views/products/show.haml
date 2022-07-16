@@ -19,9 +19,10 @@
 				%hr
 					.row
 						.col-12.my-1
-							%a.btn.btn-shopee{"href": "https://shopee.co.id/VYATTA-AIRBOOM-PRO-TWS-BLUETOOTH-HEADSET-EARPHONE-ENC-32-Hours-Playing-Time-14-in-1-Touch-Sensor-i.109623996.7036471219"}="SHOPEE"
-						.col-12.my-1
-							%a.btn.btn-whatsapp{"href": "https://web.whatsapp.com/send?phone=+6281222194150&text=hai"}="CHAT KE WHATSAPP"
+							- url = request.original_url 
+							=link_to "https://web.whatsapp.com/send?phone=#{Setting.first.phone}&text=ORDER ID-#{@product.id} #{@product.name} harga : #{@product.price} link : #{url}" , class: "btn w-100", style: "background-color: white;" do
+								=image_tag("frontend/whatsapp.png", width: "25")
+								="CHAT KE WHATSAPP"
 		.row 
 			.col
 				%hr

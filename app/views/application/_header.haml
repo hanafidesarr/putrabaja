@@ -1,7 +1,8 @@
 
 %nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark.text-decoration-none
   .container-fluid
-    %a.navbar-brand.title-header{:href => "#"} AHADDIN
+    -# %a.navbar-brand.title-header{:href => "/"} AHADDIN
+    = image_tag("frontend/ahaddin.jpeg", width: "50")
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
@@ -11,7 +12,7 @@
           %li.nav-item
             - case page.layout
             - when "home"
-              = link_to root_path, class: "nav-link text-uppercase text-white" do
+              = link_to "/", class: "nav-link text-uppercase text-white" do
                 = page.title
 
             - when "categories"
@@ -27,14 +28,21 @@
                 = page.title
         %li.nav-item
           =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
-      %form.d-flex{:role => "search"}
+        
+      %form.d-flex
         %li.nav-item
-          - if user_signed_in?
-            %a.text-white.nav-link="Hallo, #{current_user.email}"
-            =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
-              %i.fa.fa-exit
-              ="KELUAR"
-          - else
-            =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
-              %i.fa.fa-user
-              ="DAFTAR/MASUK"
+          =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
+            = image_tag("frontend/whatsapp.png", width: "25")
+          =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
+            = image_tag("frontend/instagram.png", width: "25")
+
+        -# %li.nav-item
+        -#   - if user_signed_in?
+        -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+        -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
+        -#       %i.fa.fa-exit
+        -#       ="KELUAR"
+        -#   - else
+        -#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
+        -#       %i.fa.fa-user
+        -#       ="DAFTAR/MASUK"

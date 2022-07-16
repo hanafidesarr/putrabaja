@@ -1,0 +1,2 @@
+class MediaSocial < ApplicationRecord
+end
