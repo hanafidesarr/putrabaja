@@ -3,8 +3,8 @@
 		.col-7
 			.row
 				- @products.each do |product|
-					=link_to product_path(product) do
-						.col-md-4.mb-4
+					.col-md-4.mb-4
+						=link_to product_path(product) do
 							.card
 								.product-slick
 									- product.attachments.each do |attachment|
@@ -16,7 +16,7 @@
 									%p.text-center= product.short_description
 									-# %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
 		.col-5
-			= component.description.html_safe
+			= component.description.to_s.html_safe
 
 :javascript
 

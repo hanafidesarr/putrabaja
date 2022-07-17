@@ -10,8 +10,8 @@
 						.row.align-items-center
 							.col-12
 								.text
-									%h2.d-block.title.text-center=attachment.title.html_safe
-									%p=attachment.note.html_safe
+									%h2.d-block.title.text-center=attachment.title.to_s.html_safe
+									%p=attachment.note.to_s.html_safe
 								.image
 									- if (url = attachment.asset&.url).present?
 										=image_tag(attachment.asset.url )

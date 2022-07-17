@@ -2,13 +2,13 @@
 	.section-wrapper
 		- if component.page.layout.eql?("products")
 			%p
-				=component.description.html_safe
+				=component.description.to_s.html_safe
 		- else
 			.row 
 				.col-6
 					%h1
 						=component.name
 					%p
-						=component.description.html_safe
+						=component.description.to_s.html_safe
 					=link_to component.url, class: "btn bg-yellow" do
 						READ MORE
