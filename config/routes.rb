@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get 'home/index'
   post 'home/custom_design'
-  get 'categories/show_product'
   root to: 'home#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -10,7 +9,17 @@ Rails.application.routes.draw do
   
   get 'custom_design_page', to: "custom_design_page#index"
 
-  resources :products
+  resources :categories do
+    collection do
+      get 'show_product/:id', to: "categories#show_product", as: "show_product"
+    end
+  end
 
+  resources :products
   resources :pages
+
+  # get "confirmation_order/:id", to: "pdf#confirmation_order"
+  get '*path', to: 'exceptions#not_found'
+  # Rails expects the error pages to be served from /<error code>.
+  match '400', to: 'exceptions#not_found', via: :all
 end

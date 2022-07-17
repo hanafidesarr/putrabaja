@@ -5,13 +5,14 @@
 				%h1="Kategori"
 				%hr
 				- @categories.root.each do |category|
-					%h5.text-uppercase{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample-#{category.id}", :role => "button"}=category.name
-					- if ( childrens = category.children ).present?
-						- childrens.each do | cat_child |
-							.collapse{id: "collapseExample-#{cat_child.parent_id}"}
-								.card.card-body
-									= link_to categories_show_product_path(id: cat_child.id), remote: :true do
-										= cat_child.name  
+					.my-3
+						%h5.text-uppercase{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample-#{category.id}", :role => "button"}=category.name
+						- if ( childrens = category.children ).present?
+							- childrens.each do | cat_child |
+								.collapse{id: "collapseExample-#{cat_child.parent_id}"}
+									.card.card-body
+										= link_to show_product_categories_path(id: cat_child.id), remote: :true do
+											= cat_child.name  
 			.col-8
 				.products-show
 					- if (products = @categories.child.first.products).present?

@@ -1,15 +1,18 @@
-.row
-	- @products.each do |product|
-		.col-4
-			=link_to product_path(product) do
-				.card
-					.card-body
-						.product-slick
-							- product.attachments.each do |attachment|
-								=image_tag(attachment.asset.url, width: "100%")
-				
-			%h5.mt-3.text-center=product.name
-			%hr
+%h1="Products #{products.first&.category&.name}" || "Products"
+%hr
+- if products.present?
+	.row
+		- products.each do |product|
+			.col-4
+				=link_to product_path(product) do
+					.card
+						.card-body
+							.product-slick
+								- product.attachments.each do |attachment|
+									=image_tag(attachment.asset.url, width: "100%")
+					
+				%h5.mt-3.text-center=product.name
+				%hr
 
 :javascript
 	$('.product-slick').slick({

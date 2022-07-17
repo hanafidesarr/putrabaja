@@ -10,4 +10,8 @@ class Category < ApplicationRecord
   scope :active, -> { where(active:true) }
   scope :root, -> { where("parent_id IS NULL") }
   scope :child, -> { where("parent_id IS NOT NULL") }
+
+  def is_root?
+    parent_id.nil?
+  end
 end

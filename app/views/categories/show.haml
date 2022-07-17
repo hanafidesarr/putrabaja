@@ -1,0 +1,20 @@
+.container
+  .section-wrapper
+    %h1=@category.name
+    %hr
+    .row 
+      .col-3
+        =render partial: "categories/sidebar_categories", locals: { category: @category }
+      .col-9
+        - if @category.is_root? && ( childrens = @category.children ).present?
+          .row
+            - childrens.each do | cat_child |
+              .col-4
+                .card.card-body
+                  = link_to category_path(cat_child) do
+                    = cat_child.name
+        - else
+          - if ( products = @category.products ).present?
+            =render partial: "categories/products", locals: { products: products }
+                
+        
