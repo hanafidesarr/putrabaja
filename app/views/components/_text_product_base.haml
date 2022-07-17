@@ -1,21 +1,22 @@
-
-.row.my-4.py-4
-	.col-7
-		.row
-			- @products.each do |product|
-				.col-md-4.mb-4
-					.card
-						.product-slick
-							- product.attachments.each do |attachment|
-								.mx-3.my-4
-									=image_tag(attachment.asset.thumb.url, class: "img-center img-fluid")
-						.card-body.text-center
-							%h5= product.name.to_s.truncate(15)
-							%hr
-							%p.text-center= product.short_description
-							-# %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
-	.col-5
-		= component.description.html_safe
+.container
+	.row.my-4.py-4
+		.col-7
+			.row
+				- @products.each do |product|
+					=link_to product_path(product) do
+						.col-md-4.mb-4
+							.card
+								.product-slick
+									- product.attachments.each do |attachment|
+										.mx-3.my-4
+											=image_tag(attachment.asset.thumb.url, class: "img-center img-fluid")
+								.card-body.text-center
+									%h5= product.name.to_s.truncate(15)
+									%hr
+									%p.text-center= product.short_description
+									-# %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
+		.col-5
+			= component.description.html_safe
 
 :javascript
 

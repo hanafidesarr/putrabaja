@@ -1,0 +1,20 @@
+.container
+  .section-wrapper
+    %h1.text-center="PRODUCT"
+    %hr
+    .row
+      .d-flex.justify-content-center
+        - @categories.each do |category|
+          = link_to show_product_categories_path(id: category.id), remote: :true do
+            .card.w-20
+              .card-body
+                =category.name
+    .row
+      .products-show
+        - if (products = @categories&.first&.products).present?
+          =render partial: "categories/products", locals: { products:products }
+    
+    -if ( products_page = Page.find_by(layout: "products") )
+      - products_page.components.order(:position).each do |component|
+        =render partial: "components/#{component.layout.to_s}", locals: { component:component } if component.layout.present?
+      %hr

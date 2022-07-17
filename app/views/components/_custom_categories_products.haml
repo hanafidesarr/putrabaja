@@ -15,5 +15,5 @@
 											= cat_child.name  
 			.col-8
 				.products-show
-					- if (products = @categories.child.first.products).present?
+					- if (products = @categories&.child&.first&.products).present?
 						=render partial: "categories/products", locals: { products:products }

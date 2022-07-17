@@ -1,9 +1,9 @@
-%h1="Products #{products.first&.category&.name}" || "Products"
+%h3="Products #{products.first&.category&.name}" || "Products"
 %hr
 - if products.present?
 	.row
 		- products.each do |product|
-			.col-4
+			.col-3
 				=link_to product_path(product) do
 					.card
 						.card-body
