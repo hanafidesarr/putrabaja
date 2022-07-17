@@ -6,6 +6,9 @@ module CategoryAdmin
           selectable_column
           id_column
           column :name
+          column do |category|
+            category.is_root?
+          end
           actions
         end
 			end

@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
   belongs_to :category
-  belongs_to :admin_user
   has_many :attachments,  class_name: "Attachment",  as: "parent", dependent: :destroy
   # has_many :media_socials
 

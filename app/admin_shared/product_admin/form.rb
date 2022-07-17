@@ -5,16 +5,50 @@ module ProductAdmin
 				form do |f|
 					f.inputs 'PageADMIN' do
 						div class: "row" do
+
 							div class: "col-4" do
-								f.input :sku
-								f.input :name
-								f.input :category
-								f.input :image_type
-								f.input :price
-								f.input :discount
-								f.input :description
-								f.input :short_description
+								f.inputs do
+									f.input :sku
+								end
 							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :name
+								end
+							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :category
+								end
+							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :image_type
+								end
+							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :price
+								end
+							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :discount
+								end
+							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :short_description
+								end
+							end
+							div class: "col-4" do
+								f.inputs do
+									f.input :description
+								end
+							end
+						end
+						div class: "row" do
+
 							div class: "col-4" do
 								f.has_many :attachments, allow_destroy: true do |attach|
 									if (url = attach.object.asset.url rescue nil).present?
