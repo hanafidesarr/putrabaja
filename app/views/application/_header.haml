@@ -33,11 +33,16 @@
         -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
         
       %form.d-flex
-        %li.nav-item
-          =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-            = image_tag("frontend/whatsapp.png", width: "25")
-          =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
-            = image_tag("frontend/instagram.png", width: "25")
+        -if @setting.url_media_socials[:instagram].present?
+          %li.nav-item.m-auto
+            =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
+              = image_tag("frontend/whatsapp.png", width: "30")
+              %span.text-white="Whatsapp"
+
+          %li.nav-item.m-auto
+            =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
+              = image_tag("frontend/instagram.png", width: "30")
+              %span.text-white="Instagram"
 
         %li.nav-item
           - if user_signed_in?

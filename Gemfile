@@ -17,7 +17,7 @@ gem 'bootstrap'
 
 # MARKUP HTML
 gem 'haml'
-
+gem "html2haml"
 # nested pages of admin
 gem 'ancestry'
 

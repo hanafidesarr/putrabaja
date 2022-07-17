@@ -6,4 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if AdminUser.find_by(email: "admin@example.com").nil?
-Page.create!(title: 'Homepage', description: 'Homepage description', position: '1') if Page.first.nil?
+Page.create!(title: 'Homepage', description: 'Homepage description', layout: 'home', position: '1') if Page.first.nil?
