@@ -2,13 +2,11 @@
 .container
   .section-wrapper
     .row
-      .col-4
+      .col-lg-4.col-12.mb-4
         %h2.fw-bold="Gadget"
-        %br
         =@setting.description.to_s.html_safe
-      .col-4
+      .col-lg-4.col-12.mb-4
         %h2.fw-bold="Kontak"
-        %br
         .col
           %i.fa.fa-envelope.fa-lg
           %span=@setting.email
@@ -18,6 +16,6 @@
         .col
           %i.fa.fa-phone.fa-lg
           %span=@setting.phone_2
-      .col-4
+      .col-lg-4.col-12.mb-4
         %h2.fw-bold="Lokasi"
-        %iframe{:height => "315", :src => "#{@setting.youtube_url}", :width => "420"}
+        %iframe{ :src => "#{@setting.youtube_url}", :class => "w-100"}

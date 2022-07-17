@@ -1,12 +1,12 @@
 .container
 	.section-wrapper
 		.row 
-			.col-6
+			.col-lg-6.col-12
 				.product-slick
 					- @product.attachments.each do |attachment|
 						=image_tag(attachment.asset.url, width: "100%")
-			.col-6
 
+			.col-lg-6.col-12
 				%h1.font-weight.text-center.font-weight=@product.name
 				%hr
 				%p=@product.short_description

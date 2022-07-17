@@ -3,9 +3,10 @@
     %h1=@category.name
     %hr
     .row 
-      .col-3
+      .col-lg-3.col-12
         =render partial: "categories/sidebar_categories", locals: { category: @category }
-      .col-9
+        %hr
+      .col-lg-9.col-12
         - if @category.is_root? && ( childrens = @category.children ).present?
           .row
             - childrens.each do | cat_child |

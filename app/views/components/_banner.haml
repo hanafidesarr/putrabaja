@@ -1,24 +1,32 @@
-.section-wrapper
-	.d-block
-		.nav-banner-cursor
-			%i.fa.fa-chevron-left.fa-2xl.prev-btn
-			%i.fa.fa-chevron-right.fa-2xl.next-btn
-		.owl-carousel
-			- component.attachments.each do |attachment|
-				%div
-					.textoverlay
-						.row.align-items-center
-							.col-6
-								.ml-3{style: "margin-left: 8rem"}
-									%h1
-										=attachment.title
-										%br
-										=link_to root_path, class: "btn btn-dark" do
-											GET MORE
-							.col-6
-								.limit
-									- if (url = attachment.asset&.url).present?
-										=image_tag(attachment.asset.url )
+.container
+	.section-wrapper
+		.d-block
+			.nav-banner-cursor.d-none.d-lg-block.d-xl-block
+				%i.fa.fa-chevron-left.fa-2xl.prev-btn
+				%i.fa.fa-chevron-right.fa-2xl.next-btn
+			.owl-carousel
+				- component.attachments.each do |attachment|
+					%div
+						.textoverlay
+							.row.align-items-center
+								.col-lg-6.col-12.d-none.d-lg-block.d-xl-block
+									.ml-3{style: "margin-left: 8rem"}
+										%h1
+											=attachment.title
+											%br
+											=link_to root_path, class: "btn btn-dark" do
+												GET MORE
+								.col-lg-6.col-12
+									.limit
+										- if (url = attachment.asset&.url).present?
+											=image_tag(attachment.asset.url )
+								.col-lg-6.col-12.d-xs-block.d-sm-block
+									.ml-3{style: "margin-left: 8rem"}
+										%h1
+											=attachment.title
+											%br
+											=link_to root_path, class: "btn btn-dark" do
+												GET MORE
 
 :javascript
 

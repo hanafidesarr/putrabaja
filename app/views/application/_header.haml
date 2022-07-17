@@ -1,10 +1,10 @@
 
 %nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark.text-decoration-none
-  .container-fluid
+  .container
     %a.navbar-brand.title-header{:href => "/"} SEWA GADGET
     -# = link_to "/" do
     -#   = image_tag("frontend/ahaddin.png", width: "50")
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
@@ -34,6 +34,7 @@
         
       %form.d-flex
         -if @setting.url_media_socials[:instagram].present?
+          
           %li.nav-item.m-auto
             =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
               = image_tag("frontend/whatsapp.png", width: "30")
