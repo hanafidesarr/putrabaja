@@ -159,3 +159,22 @@ a {
 		font-weight: bold;
 	}
 }
+
+
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+		li {
+			padding: 0;
+			list-style-type: none;
+		}
+  }
+}
+@media (min-width: 801px) {
+  .flex-container {
+    flex-direction: row;
+		display: flex;
+  }
+}

@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark.text-decoration-none
+%nav.navbar.navbar-expand-lg.bg-light.navbar-dark.bg-dark.text-decoration-none.fixed-top
   .container
     %a.navbar-brand.title-header{:href => "/"} SEWA GADGET
     -# = link_to "/" do
@@ -8,7 +8,7 @@
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-
+        %br.d-block.d-lg-none
         - @pages.each do |page|
           %li.nav-item
             - case page.layout
@@ -31,10 +31,10 @@
                 = page.title
         -# %li.nav-item
         -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
-        
-      %form.d-flex
+
+      %form.flex-container
+        %hr.text-white.d-block.d-lg-none
         -if @setting.url_media_socials[:instagram].present?
-          
           %li.nav-item.m-auto
             =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
               = image_tag("frontend/whatsapp.png", width: "30")
@@ -45,6 +45,7 @@
               = image_tag("frontend/instagram.png", width: "30")
               %span.text-white="Instagram"
 
+        %hr.text-white.d-block.d-lg-none
         %li.nav-item
           - if user_signed_in?
             %a.text-white.nav-link="Hallo, #{current_user.email}"

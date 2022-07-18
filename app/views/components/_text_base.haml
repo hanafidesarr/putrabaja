@@ -10,5 +10,5 @@
 						=component.name
 					%p
 						=component.description.to_s.html_safe
-					=link_to component.url, class: "btn bg-yellow" do
+					=link_to component&.url_text || "/", class: "btn bg-yellow" do
 						READ MORE

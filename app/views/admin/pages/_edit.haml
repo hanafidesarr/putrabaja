@@ -24,6 +24,8 @@
 					= f.inputs do
 						- comp.input :name
 						- comp.input :layout, collection: Component::COMPONENT_LAYOUT
+						- comp.input :url_product
+						- comp.input :url_text
 						- comp.input :description, as: :string 
 						- comp.input :position
 				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}", class: "testting"}

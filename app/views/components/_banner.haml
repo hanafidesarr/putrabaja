@@ -14,7 +14,7 @@
 										%h1
 											=attachment.title
 											%br
-											=link_to root_path, class: "btn btn-dark" do
+											=link_to component&.url_product || "/", class: "btn btn-dark" do
 												GET MORE
 								.col-lg-6.col-12
 									.limit
@@ -24,7 +24,7 @@
 									%h1.text-center
 										=attachment.title
 										%br
-										=link_to root_path, class: "btn btn-dark" do
+										=link_to component&.url_product || "/", class: "btn btn-dark" do
 											GET MORE
 
 :javascript
