@@ -7,7 +7,7 @@
 						- if (products = @categories&.child&.first&.products).present?
 							=render partial: "categories/products", locals: { products:products }
 			.col-lg-4.col-12
-				%h1="Kategori"
+				%h1.text-lg-left.text-center="Kategori"
 				%hr
 				- @categories.root.each do |category|
 					.my-3

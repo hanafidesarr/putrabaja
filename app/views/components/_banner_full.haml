@@ -1,8 +1,9 @@
 .banner_full.container-fluid.p-0
 	.d-block
-		.nav-banner-cursor
-			%i.fa.fa-chevron-left.fa-2xl.prev-btn
-			%i.fa.fa-chevron-right.fa-2xl.next-btn
+		- if device.eql?("desktop")
+			.nav-banner-cursor
+				%i.fa.fa-chevron-left.fa-2xl.prev-btn
+				%i.fa.fa-chevron-right.fa-2xl.next-btn
 		.owl-carousel
 			- component.attachments.each do |attachment|
 				%div
@@ -21,6 +22,7 @@
 	var owl = $('.owl-carousel');
 	owl.owlCarousel({
 		items: 1,
+		dots: true,
 		loop: true,
 		nav: false,
 		autoplay:true,

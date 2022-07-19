@@ -33,27 +33,28 @@
         -# %li.nav-item
         -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
 
-      %form.flex-container
+      %form.flex-container.navbar-right-custom
         %hr.text-white.d-block.d-lg-none
-        -if @setting.url_media_socials[:instagram].present?
-          %li.nav-item.m-auto
-            =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-              = image_tag("frontend/whatsapp.png", width: "25")
-              %span.text-white="Whatsapp"
+        %ul.navbar-nav
+          -if @setting.url_media_socials[:instagram].present?
+            %li.nav-item.m-auto
+              =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
+                = image_tag("frontend/whatsapp.png", width: "25")
+                %span.text-white="Whatsapp"
 
-          %li.nav-item.m-auto
-            =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
-              = image_tag("frontend/instagram.png", width: "25")
-              %span.text-white="Instagram"
+            %li.nav-item.m-auto
+              =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
+                = image_tag("frontend/instagram.png", width: "25")
+                %span.text-white="Instagram"
 
-        -# %hr.text-white.d-block.d-lg-none
-        -# %li.nav-item
-        -#   - if user_signed_in?
-        -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
-        -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
-        -#       %i.fa.fa-exit
-        -#       ="KELUAR"
-        -#   - else
-        -#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
-        -#       %i.fa.fa-user
-        -#       ="DAFTAR/MASUK"
+          -# %hr.text-white.d-block.d-lg-none
+          -# %li.nav-item
+          -#   - if user_signed_in?
+          -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+          -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
+          -#       %i.fa.fa-exit
+          -#       ="KELUAR"
+          -#   - else
+          -#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
+          -#       %i.fa.fa-user
+          -#       ="DAFTAR/MASUK"
