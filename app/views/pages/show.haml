@@ -37,13 +37,13 @@
 
 
 
-  $('.single-item-home').slick({
+  $('.single-item-home').not('.slick-initialized').slick({
     autoplay:true,
     dots: true,
     infinite: true
   });
 
-  $('.product-slick').slick({
+  $('.product-slick').not('.slick-initialized').slick({
     autoplay:true,
     dots: true,
     infinite: true

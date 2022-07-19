@@ -28,7 +28,9 @@ window.$ = $;
 window.Swal = Swal;
 
 Rails.start()
+
 Turbolinks.start()
 
-
 ActiveStorage.start()
+
+import './default.js'

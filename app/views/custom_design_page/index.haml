@@ -50,13 +50,13 @@
     },
   });
 
-  $('.single-item').slick({
+  $('.single-item').not('.slick-initialized').slick({
     autoplay:true,
     dots: true,
     infinite: true
   });
 
-  $('.image-maker-template-image').slick({
+  $('.image-maker-template-image').not('.slick-initialized').slick({
     slidesToShow: 4,
     slidesToScroll: 4,
     autoplay:true,
@@ -64,7 +64,7 @@
     infinite: true
   });
 
-  $('.image-maker-thumbnail-image').slick({
+  $('.image-maker-thumbnail-image').not('.slick-initialized').slick({
     slidesToShow: 5,
     slidesToScroll: 1,
     autoplay:false,

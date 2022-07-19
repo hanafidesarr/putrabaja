@@ -15,8 +15,11 @@
 				%hr
 
 :javascript
-	$('.product-slick').slick({
-		autoplay:true,
-		dots: true,
-		infinite: true
-	});
+
+	$(document).on('turbolinks:load', function() {
+		$('.product-slick').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: true,
+			infinite: true
+		});
+	})
