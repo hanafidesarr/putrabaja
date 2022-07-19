@@ -11,7 +11,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: base
+  database: ahaddin
   pool: 5
   username: root
   password:
@@ -40,7 +40,7 @@ production:
   # password:
   # socket: /tmp/mysql.sock
   adapter: postgresql
-  database: danb020ovdgoi1
+  database: dbufgj5ei3dr3c
   pool: 5
-  username: jdjsoajgatdpro
-  password: 147c723c007d691b6e828c66834316998309b12f5c32bc46ef6ead0d0b666beb
+  username: tvhguyvgbgthpy
+  password: 9357fdee9bdf2a833b4a84c7ebea01073f65fb22c5e1a18033b152f386ec2faa

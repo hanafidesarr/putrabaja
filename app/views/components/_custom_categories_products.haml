@@ -1,7 +1,12 @@
-.container.mx-5
+.container
 	.section-wrapper
-		.row 
-			.col-4
+		.row
+			- if ["mobile","tablet"].include?(device.to_s)
+				.col-lg-8.col-12
+					.products-show
+						- if (products = @categories&.child&.first&.products).present?
+							=render partial: "categories/products", locals: { products:products }
+			.col-lg-4.col-12
 				%h1="Kategori"
 				%hr
 				- @categories.root.each do |category|
@@ -12,8 +17,9 @@
 								.collapse{id: "collapseExample-#{cat_child.parent_id}"}
 									.card.card-body
 										= link_to show_product_categories_path(id: cat_child.id), remote: :true do
-											= cat_child.name  
-			.col-8
-				.products-show
-					- if (products = @categories&.child&.first&.products).present?
-						=render partial: "categories/products", locals: { products:products }
+											= cat_child.name
+			- if device.eql?("desktop")
+				.col-lg-8.col-12
+					.products-show
+						- if (products = @categories&.child&.first&.products).present?
+							=render partial: "categories/products", locals: { products:products }
