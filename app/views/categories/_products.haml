@@ -1,25 +1,21 @@
-%h3="Products #{products.first&.category&.name}" || "Products"
+%h3.text-center="Products #{products.first&.category&.name}" || "Products"
 %hr
 - if products.present?
 	.row
 		- products.each do |product|
 			.col-lg-3.col-6
-				=link_to product_path(product) do
-					.card
-						.card-body
-							.product-slick
-								- product.attachments.each do |attachment|
-									=image_tag(attachment.asset.url, width: "100%")
-					
-				%h5.mt-3.text-center=product.name
-				%hr
+				.card.card-body
+					=link_to product_path(product) do
+						.product-slick
+							- product.attachments.each do |attachment|
+								=image_tag(attachment.asset.url, width: "100%")
+					%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}"
+					%hr.m-0
+					.text-center=product.name
 
 :javascript
-
-	$(document).on('turbolinks:load', function() {
-		$('.product-slick').not('.slick-initialized').slick({
-			autoplay:true,
-			dots: true,
-			infinite: true
-		});
-	})
+	$('.product-slick').slick({
+		autoplay:true,
+		dots: true,
+		infinite: true
+	});
