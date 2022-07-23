@@ -1,4 +1,6 @@
 ActiveAdmin.register Setting do
+
+  menu priority: 5
   yaml_url_media_socials = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
   permit_params :name, :phone, :email, :phone_1, :phone_2, :address, :location, :youtube_url, :map_url, :short_description, :description, yaml_url_media_socials[:url_media_socials]
 

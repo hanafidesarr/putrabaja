@@ -26,7 +26,7 @@
 						- comp.input :layout, collection: Component::COMPONENT_LAYOUT
 						- comp.input :url_product
 						- comp.input :url_text
-						- comp.input :description, as: :string 
+						- comp.input :description, :input_html => { :rows => 5 }
 						- comp.input :position
 				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}", class: "testting"}
 					- amount_attachments = f.object.attachments.size
@@ -40,7 +40,7 @@
 								%img.img-center{"src": "https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png", "style": "width:100px; height:100px"}
 								
 							- attach.input :title
-							- attach.input :note
+							- attach.input :note, :input_html => { :rows => 5 }
 							- attach.input :asset, label: false
 
 				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...

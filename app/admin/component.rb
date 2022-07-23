@@ -1,4 +1,5 @@
 ActiveAdmin.register Component do
+    menu false
     permit_params :email, :password, :password_confirmation,
     attachments_attributes: [:id, :asset, :content_type, :note, :title, :layout, :description, :_destroy]
   

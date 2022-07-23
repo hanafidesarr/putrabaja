@@ -1,5 +1,6 @@
 ActiveAdmin.register Category do
 
+  menu priority: 2
   permit_params :id, :name, :short_description, :description, :price,
   children_attributes: [:id, :name, :_destroy]
 

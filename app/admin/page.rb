@@ -1,5 +1,5 @@
 ActiveAdmin.register Page do
-
+  menu priority: 1
   config.batch_actions = false
   include PageAdmin::Form
 	include PageAdmin::Index
