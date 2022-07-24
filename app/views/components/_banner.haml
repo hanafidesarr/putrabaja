@@ -20,6 +20,8 @@
 									.limit
 										- if (url = attachment.asset&.url).present?
 											=image_tag("", class: "owl-lazy", "data-src": attachment.asset.url )
+										- else
+											=image_tag("image_not_found.png", class: "owl-lazy", class: "w-100" )
 								.col-lg-6.col-12.d-block.d-sm-none
 									%h1.text-center
 										=attachment.title
