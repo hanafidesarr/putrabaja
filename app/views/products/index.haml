@@ -9,7 +9,7 @@
             .card.w-20
               .card-body
                 =category.name
-    .row
+    .row.my-5
       .products-show
         - if (products = @categories&.first&.products).present?
           =render partial: "categories/products", locals: { products:products }

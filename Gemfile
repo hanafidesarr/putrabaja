@@ -25,7 +25,7 @@ gem 'dotenv-rails'
 gem 'carrierwave'
 
 # style
-gem 'font-awesome-sass'
+gem "font-awesome-sass", "~> 6.1.1"
 
 # debugging
 gem 'pry'

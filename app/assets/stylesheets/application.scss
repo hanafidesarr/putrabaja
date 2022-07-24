@@ -2,7 +2,6 @@
 
 @import "frontend/custom/image_maker/imageMaker.min.scss";
 
-@import "font-awesome-sprockets";
 @import "font-awesome";
 @import "frontend/lib/slick.scss";
 @import "frontend/lib/slick-theme.scss";
@@ -223,6 +222,7 @@ a {
 
 #loading {  
 	position: fixed;  
+	opacity: 0.7;
 	left: 0px;  
 	top: 0px;  
 	width: 100%;  
