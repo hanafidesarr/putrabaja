@@ -19,7 +19,7 @@
 								.col-lg-6.col-12
 									.limit
 										- if (url = attachment.asset&.url).present?
-											=image_tag(attachment.asset.url )
+											=image_tag("", class: "owl-lazy", "data-src": attachment.asset.url )
 								.col-lg-6.col-12.d-block.d-sm-none
 									%h1.text-center
 										=attachment.title
@@ -35,6 +35,7 @@
 		loop: true,
 		nav: false,
 		autoplay:true,
+		lazyLoad:true,
 		touchDrag: false,
 		autoplayHoverPause:true,
 		autoplayTimeout: 3000,
