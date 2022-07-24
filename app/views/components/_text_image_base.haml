@@ -18,7 +18,7 @@
 							=image_tag(attachment.asset.url, width: "100%")
 
 					:javascript
-						$('.product-slick').slick({
+						$('.product-slick').not('.slick-initialized').slick({
 							autoplay:true,
 							dots: true,
 							infinite: true

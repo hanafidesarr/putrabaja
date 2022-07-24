@@ -1,20 +1,18 @@
 
 $(document).on('turbolinks:load', function() {
   console.log("turbolinks:load")
-  var elem = $("img");
+  $('#loading').hide();
+  // var elem = $("img");
 
-  if (!elem.prop('complete')) {
-    console.log("Waiting to be loaded!");
-
-    // elem.attr("src", "https://kecamatancaringin.id/public/img/no-image.png");
-    elem.on('load', function() {
-      console.log("Loaded!");
-      console.log(this.complete);
-    });
-  } else {
-    $('#loading').hide();
-    console.log("Already loaded!");
-  }
+  // if (!elem.prop('complete')) {
+  //   console.log("Waiting to be loaded!");
+  //   elem.on('load', function() {
+  //     console.log("Loaded!");
+  //     console.log(this.complete);
+  //   });
+  // } else {
+  //   console.log("Already loaded!");
+  // }
 });
 
 
