@@ -1,4 +1,7 @@
-.container
+%script{:src => "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"}
+/ or
+%script{:src => "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js"}
+#container.container
 	.section-wrapper
 		.d-block
 			.nav-banner-cursor.d-none.d-lg-block.d-xl-block
@@ -17,7 +20,7 @@
 											=link_to component&.url_product || "/", class: "btn btn-dark" do
 												GET MORE
 								.col-lg-6.col-12
-									.limit.responsive-container{style: "padding-bottom: calc((426/640)*100%);"}
+									.limit
 										- if (url = attachment.asset&.url).present?
 											=image_tag("", class: "owl-lazy", "data-src": attachment.asset.url )
 										- else
@@ -30,6 +33,21 @@
 											GET MORE
 
 :javascript
+
+	$('#container').imagesLoaded()
+		.always( function( instance ) {
+			console.log('all images loaded');
+		})
+		.done( function( instance ) {
+			console.log('all images successfully loaded');
+		})
+		.fail( function() {
+			console.log('all images loaded, at least one is broken');
+		})
+		.progress( function( instance, image ) {
+			var result = image.isLoaded ? 'loaded' : 'broken';
+			console.log( 'image is ' + result + ' for ' + image.img.src );
+		});
 
 	var owl = $('.owl-carousel');
 	owl.owlCarousel({
