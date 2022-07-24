@@ -20,7 +20,7 @@ gem 'haml'
 gem "html2haml"
 # nested pages of admin
 gem 'ancestry'
-
+gem 'dotenv-rails'
 # image management
 gem 'carrierwave'
 

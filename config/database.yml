@@ -7,40 +7,29 @@
 #
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+
+default: &default
+  adapter: <%= ENV['APP_DB'] %>
+  encoding: utf8
+  reconnect: false
+  database: <%= ENV['APP_DB_NAME'] %>
+  pool: <%= ENV['APP_DB_POOL'] %>
+  username: <%= ENV['APP_DB_USER'] %>
+  password: <%= ENV['APP_DB_PW'] %>
+  socket: /tmp/mysql.sock
+
 development:
-  adapter: mysql2
-  encoding: utf8
+  <<: *default
   reconnect: false
-  database: ahaddin
-  pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
-  adapter: mysql2
-  encoding: utf8
+  <<: *default
   reconnect: false
-  database: sample_sqlite3_test
-  pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
 
+staging: 
+  <<: *default
+  reconnect: true
+  
 production:
-  # adapter: mysql2
-  # encoding: utf8
-  # reconnect: false
-  # database: sample_sqlite3_production
-  # pool: 5
-  # username: root
-  # password:
-  # socket: /tmp/mysql.sock
-  adapter: postgresql
-  database: dbufgj5ei3dr3c
-  pool: 5
-  username: tvhguyvgbgthpy
-  password: 9357fdee9bdf2a833b4a84c7ebea01073f65fb22c5e1a18033b152f386ec2faa
+  <<: *default
+  reconnect: true
