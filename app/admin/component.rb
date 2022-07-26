@@ -12,7 +12,11 @@ ActiveAdmin.register Component do
         @component = Component.new(permitted_params[:component])
         super
       end
-      
+
+      def destroy
+        destroy! { admin_pages_url }
+      end 
+
       def build_new_resource
         r = super
         r.assign_attributes(name: "new name")

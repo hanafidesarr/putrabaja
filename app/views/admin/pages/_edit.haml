@@ -11,47 +11,76 @@
 		= f.input :layout, as: :select, collection: Page::PAGE_LAYOUT
 		= f.input :description, as: :string
 
-	- f.has_many :components, new_record: true do | comp |
-			
-		%nav
-			#nav-tab.nav.nav-tabs{:role => "tablist"}
-				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#nav-home-#{comp.object.id}", :role => "tab"} GENERAL
-				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-profile-#{comp.object.id}", :role => "tab"} ATTACHMENTS
-				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-contact-#{comp.object.id}", :role => "tab"} Contact
+	- f.has_many :components, new_record: true, heading: false do | comp |
+		- exist = comp.object.id.present?
+		.level-list-item
+			.card
+				#headingOne.card-header{ class: "#{exist ? 'bg-secondary' : ''}"}
+					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
+						.col-6
+							%h5{ class: "#{exist ? 'text-light' : ''}"}
+								="COMPONENT - #{comp.object.name}"
+						.col-6{style: "text-align: right;"}
+							- if comp.object.id.present?
+								=link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
+									%i.fa.fa-trash.text-danger
+				.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionExample", id: "collapse-#{comp.object.id}", class: "#{comp.object.id ? '' : 'show'}"}
+					.card-body
+						.row
+							.col-3
+								#v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
+									%a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} Home
+									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-attachment", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-attachment-#{comp.object.id}", :role => "tab"} Profile
+							.col-9
+								#v-pills-tabContent.tab-content.p-0
+									.tab-pane.fade.show.active{"aria-labelledby" => "v-pills-general-tab", :role => "tabpanel", id: "nav-general-#{comp.object.id}"}
+										= comp.inputs do
+											- comp.input :name, :input_html => { :class => "w-100" }
+											- comp.input :layout, collection: Component::COMPONENT_LAYOUT, :input_html => { :class => "w-100 form-control" }
+											- comp.input :url_product, :input_html => { :class => "w-100" }
+											- comp.input :url_text, :input_html => { :class => "w-100" }
+											- comp.input :description, :input_html => { :rows => 5, :class => "w-100" }
+											- comp.input :position, :input_html => { :class => "w-100" }
+									.tab-pane.fade{"aria-labelledby" => "v-pills-attachment-tab", :role => "tabpanel", id: "nav-attachment-#{comp.object.id}"}			
+										- amount_attachments = f.object.attachments.size
+										.row 
+											- comp.has_many :attachments, allow_destroy: true, heading: false, class:"custom-has-many-attachments col-12 border-0" do |attach|
+												.row.m-1
+													.col-5
+														- if (url = attach.object.asset.url rescue nil).present?
+															%img.img-center{"src": url, class: "w-100"}
+														- else
+															%img.img-center{"src": "https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png", class: "w-100"}
+														%br
+														- attach.input :asset, label: false
+													.col-7
+														= attach.inputs do
+															- attach.input :title, :input_html => { :class => "w-100" }
+															- attach.input :note, :input_html => { :rows => 5, :class => "w-100" }
 
-			#nav-tabContent.tab-content
-				.tab-pane.fade.show.active{"aria-labelledby" => "nav-home-tab", :role => "tabpanel", id: "nav-home-#{comp.object.id}"}
-					= f.inputs do
-						- comp.input :name
-						- comp.input :layout, collection: Component::COMPONENT_LAYOUT
-						- comp.input :url_product
-						- comp.input :url_text
-						- comp.input :description, :input_html => { :rows => 5 }
-						- comp.input :position
-				.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel", id: "nav-profile-#{comp.object.id}", class: "testting"}
-					- amount_attachments = f.object.attachments.size
-
-					.row 
-						- comp.has_many :attachments, allow_destroy: true, class:"custom-has-many-attachments col-4" do |attach|
-
-							- if (url = attach.object.asset.url rescue nil).present?
-								%img.img-center{"src": url, "style": "width:100px; height:100px"}
-							- else
-								%img.img-center{"src": "https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png", "style": "width:100px; height:100px"}
-								
-							- attach.input :title
-							- attach.input :note, :input_html => { :rows => 5 }
-							- attach.input :asset, label: false
-
-				.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
-
-			%hr
-			- if comp.object.id.present?
-				=link_to admin_component_path(id: comp.object.id), method: :delete, style: "position: absolute; right: 0; top:0;" do
-					%i.fa.fa-trash.text-danger
-		.text-right
-			= comp.actions
-	= f.actions
+	= f.actions do 
+		= f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }, class: "sasa"
 
 	:javascript
-		$(".has_many_container").addClass("row")
+		$(".has_many_container").addClass("level-list")
+		$(".has_many_container").attr('id', 'accordionExample');
+		
+		$(".has_many_add").click(function(){
+			if ($(".new_record")[0]){
+				// alert("anda sudah membuat new record baru")
+				$(".new_record").closest(".has_many_fields").remove()
+			} else {
+					// Do something if class does not exist
+			}
+		})
+
+		$(".level-list").sortable({
+			start: function(event, ui) {
+				console.log(ui.item.index())
+				ui.item.toggleClass("highlight");
+			},
+			stop: function(event, ui) {
+				console.log(ui.item.index())
+				ui.item.toggleClass("highlight");
+			}
+		});
