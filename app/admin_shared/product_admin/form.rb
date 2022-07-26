@@ -101,6 +101,23 @@ module ProductAdmin
 								# end
 							end
 						end
+
+						tab 'Tech Specification' do
+							f.inputs do
+								f.input :battery_life
+								f.input :model
+								f.input :processor
+								f.input :memory
+								f.input :hard_drive
+								f.input :vga
+								f.input :os
+								f.input :optical_drive
+								f.input :warranty
+								f.input :wireless
+								f.input :bluetooth
+								f.input :other
+							end
+						end
 					end
 
 					f.actions

@@ -16,9 +16,19 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
-@import "custom/form"
+@import "custom/form";
 
 // Overriding any non-variable Sass must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color:  #6a7176 !important;
+}
+a, a:link, a:visited {
+  color: #6a7176;
+  text-decoration: none;
+}

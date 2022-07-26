@@ -11,4 +11,8 @@ class Product < ApplicationRecord
 
   # Enum 0..5          0,       1,
   enum image_type: [:normal, :design]
+
+  store :tech_specification, accessors: [:battery_life, :model, :processor, :memory, :hard_drive, :vga, :display_type, :os, :optical_drive, :warranty, :wireless, :bluetooth, :other], coder: JSON
+
+
 end

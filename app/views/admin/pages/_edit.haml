@@ -19,7 +19,7 @@
 					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
 						.col-6
 							%h5{ class: "#{exist ? 'text-light' : ''}"}
-								="COMPONENT - #{comp.object.name}"
+								="#{comp.object.name} ( #{comp.object.layout.to_s.upcase} )"
 						.col-6{style: "text-align: right;"}
 							- if comp.object.id.present?
 								=link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
@@ -29,15 +29,14 @@
 						.row
 							.col-3
 								#v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
-									%a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} Home
-									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-attachment", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-attachment-#{comp.object.id}", :role => "tab"} Profile
+									%a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} General
+									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-attachment", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-attachment-#{comp.object.id}", :role => "tab"} Attachment
 							.col-9
 								#v-pills-tabContent.tab-content.p-0
 									.tab-pane.fade.show.active{"aria-labelledby" => "v-pills-general-tab", :role => "tabpanel", id: "nav-general-#{comp.object.id}"}
 										= comp.inputs do
 											- comp.input :name, :input_html => { :class => "w-100" }
 											- comp.input :layout, collection: Component::COMPONENT_LAYOUT, :input_html => { :class => "w-100 form-control" }
-											- comp.input :url_product, :input_html => { :class => "w-100" }
 											- comp.input :url_text, :input_html => { :class => "w-100" }
 											- comp.input :description, :input_html => { :rows => 5, :class => "w-100" }
 											- comp.input :position, :input_html => { :class => "w-100" }
@@ -56,6 +55,7 @@
 													.col-7
 														= attach.inputs do
 															- attach.input :title, :input_html => { :class => "w-100" }
+															- attach.input :url_product, label: "Url", :input_html => { :class => "w-100" }
 															- attach.input :note, :input_html => { :rows => 5, :class => "w-100" }
 
 	= f.actions do 
