@@ -9,28 +9,29 @@
 				%i.fa.fa-chevron-right.next-btn
 			.owl-carousel
 				- component.attachments.each do |attachment|
-					%div
-						.textoverlay
-							.row.align-items-center
-								.col-lg-6.col-12.d-none.d-lg-block.d-xl-block
-									.ml-3{style: "margin-left: 8rem"}
-										%h1
+					- if attachment.present?
+						%div
+							.textoverlay
+								.row.align-items-center
+									.col-lg-6.col-12.d-none.d-lg-block.d-xl-block
+										.ml-3{style: "margin-left: 8rem"}
+											%h1
+												=attachment.title
+												%br
+												=link_to attachment&.url_product || "/", class: "btn btn-dark" do
+													GET MORE
+									.col-lg-6.col-12
+										.limit
+											- if (url = attachment.asset&.url).present?
+												=image_tag("", class: "owl-lazy", "data-src": attachment.asset.url )
+											- else
+												=image_tag("image_not_found.png", class: "owl-lazy", class: "w-100" )
+									.col-lg-6.col-12.d-block.d-sm-none
+										%h1.text-center
 											=attachment.title
 											%br
 											=link_to attachment&.url_product || "/", class: "btn btn-dark" do
 												GET MORE
-								.col-lg-6.col-12
-									.limit
-										- if (url = attachment.asset&.url).present?
-											=image_tag("", class: "owl-lazy", "data-src": attachment.asset.url )
-										- else
-											=image_tag("image_not_found.png", class: "owl-lazy", class: "w-100" )
-								.col-lg-6.col-12.d-block.d-sm-none
-									%h1.text-center
-										=attachment.title
-										%br
-										=link_to attachment&.url_product || "/", class: "btn btn-dark" do
-											GET MORE
 
 :javascript
 
