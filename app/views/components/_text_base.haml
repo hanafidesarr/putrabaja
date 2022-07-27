@@ -6,9 +6,11 @@
 		- else
 			.row 
 				.col-lg-6.col-12
-					%h1
-						=component.name
-					%p
-						=component.description.to_s.html_safe
-					=link_to component&.url_text || "/", class: "btn bg-yellow" do
-						READ MORE
+
+					.card.card-body.bg-secondary.text-white.p-5{style: "border-radius: 1rem;"}
+						%h1
+							=component.name
+						%p
+							=component.description.to_s.html_safe
+						=link_to component&.url_text || "/", class: "btn bg-light" do
+							.fw-bold.text-secondary="READ MORE"

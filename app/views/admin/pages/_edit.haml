@@ -17,10 +17,10 @@
 			.card
 				#headingOne.card-header{ class: "#{exist ? 'bg-secondary' : ''}"}
 					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
-						.col-6
+						.col-11
 							%h5{ class: "#{exist ? 'text-light' : ''}"}
 								="#{comp.object.name} ( #{comp.object.layout.to_s.upcase} )"
-						.col-6{style: "text-align: right;"}
+						.col-1{style: "text-align: right;"}
 							- if comp.object.id.present?
 								=link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
 									%i.fa.fa-trash.text-danger

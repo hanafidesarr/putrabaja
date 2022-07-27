@@ -40,13 +40,13 @@
           -if @setting.url_media_socials[:instagram].present?
             %li.nav-item.m-auto
               =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-                %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl
+                %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl.text-white
                 %span.text-white="Whatsapp"
 
             %li.nav-item.m-auto
               =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
                 -# = image_tag("frontend/instagram.png", width: "25")
-                %i.fa-brands.fa-instagram.fa-xl
+                %i.fa-brands.fa-instagram.fa-xl.text-white
                 %span.text-white="Instagram"
 
           -# %hr.text-white.d-block.d-lg-none
