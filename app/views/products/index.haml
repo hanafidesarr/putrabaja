@@ -14,7 +14,91 @@
         - if (products = @categories&.first&.products).present?
           =render partial: "categories/products", locals: { products:products }
     
-    -if ( products_page = Page.find_by(layout: "products") )
-      - products_page.components.order(:position).each do |component|
+    .row
+      - @page.components.order(:position).each do |component|
         =render partial: "components/#{component.layout.to_s}", locals: { component:component } if component.layout.present?
-      %hr
+
+    .row
+      .col-lg-6.col-12
+        .row.pb-4
+          .col-1
+            %p.m-0
+              %i.fa.fa-light.fa-bullhorn{style: "font-size: 2.5rem"}
+          .col-11
+            %h2 Butuh Paket Pribadi ?
+            %p Mohon maaf untuk saat ini layanan untuk pribadi masih di batasi silahkan hubungi pusat layanan kami untuk info lebih lanjut. 
+        .row.pb-4
+          .col-1
+            %p.m-0
+              %i.fa.fa-duotone.fa-money-bill{style: "font-size: 2.5rem"}
+          .col-11
+            %h2 Sistem Diskon Fleksibel
+            %p Dapatkan diskon menarik dan cashback khusus untuk sewa laptop untuk durasi penyewaan yang panjang dan jumlah laptop yang banyak. Konsultasikan budget perusahaan anda kepada kami. Kami akan sangat senang membantu
+        .row.pb-4
+          .col-1
+            %p.m-0
+              %i.fa.fa-comment-dots{style: "font-size: 2.5rem"}
+          .col-11
+            %h2 Punya Pertanyaan?
+            %p Hubungi kami di pusat panggilan kami di Phone : 08175001688 atau email : marketing@rentalgadget.co.id
+      .col-lg-6.col-12
+        #accordion
+          .card
+            #headingOne.card-header{"aria-controls" => "collapseZero", "aria-expanded" => "true", "data-target" => "#collapseZero", "data-toggle" => "collapse", style: "cursor:pointer", class: "py-3"}
+              Alamat anda dimana ?
+            #collapseZero.collapse.show{"aria-labelledby" => "headingOne", "data-parent" => "#accordion"}
+              .card-body
+                Domisili DKI Jakarta, Jl. Anggrek Garuda III No.67, Slipi Jakarta Barat
+          .card
+            #headingTwo.card-header{"aria-controls" => "collapseOne", "aria-expanded" => "false", "data-target" => "#collapseOne", "data-toggle" => "collapse", style: "cursor:pointer", class: "py-3"}
+              Layanan apa yang anda sediakan ?
+            #collapseOne.collapse{"aria-labelledby" => "headingTwo", "data-parent" => "#accordion"}
+              .card-body
+                Berbagai layanan kami sediakan. Paket-paket yang kami sediakan antara lain:
+                %ul
+                  %li Sewa laptop unit. Unit akan kami kirim ke alamat lokasi yang dikehendaki client lengkap dengan tas, baterai, dan mouse.
+                  %li Spesifikasi sesuai keinginan klien.
+                  %li Software-software disediakan sesuai keinginan client.
+                  %li Paket sewa laptop lengkap bersama teknisi, jaringan listrik, dan jaringan LAN.
+                  %li Paket sewa laptop lengkap dengan back up unit.
+          .card
+            #headingOne.card-header{"aria-controls" => "collapseTwo", "aria-expanded" => "true", "data-target" => "#collapseTwo", "data-toggle" => "collapse", style: "cursor:pointer", class: "py-3"}
+              Apakah ada uang muka ?
+            #collapseTwo.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordion"}
+              .card-body
+                Uang muka diberikan untuk menunjang operasional project. Besaran disesuaikan biasanya antara 20-30% dari nilai PO.
+          .card
+            #headingOne.card-header{"aria-controls" => "collapseThree", "aria-expanded" => "true", "data-target" => "#collapseThree", "data-toggle" => "collapse", style: "cursor:pointer", class: "py-3"}
+              Apakah perusahaan kena pajak ?
+            #collapseThree.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordion"}
+              .card-body
+                Kami menyesuaikan dengan client kami karena kami memiliki legalitas yang lengkap dan dapat mengeluarkan faktur pajak.
+          .card
+            #headingOne.card-header{"aria-controls" => "collapseFour", "aria-expanded" => "true", "data-target" => "#collapseFour", "data-toggle" => "collapse", style: "cursor:pointer", class: "py-3"}
+              Apakah bisa sewa beli ?
+            #collapseFour.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordion"}
+              .card-body
+                Bisa minimal DP 50% dari total lama sewa
+          .card
+            #headingOne.card-header{"aria-controls" => "collapseFive", "aria-expanded" => "true", "data-target" => "#collapseFive", "data-toggle" => "collapse", style: "cursor:pointer", class: "py-3"}
+              Apakah ada ketentuan lama sewa ?
+            #collapseFive.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordion"}
+              .card-body
+                Kami mempunyai fleksibilitas sewa laptop sesuai dengan kebutuhan user.
+
+
+
+                
+        -# .card.card-body
+        -#   %div{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#alamat", :role => "button"} Alamat di mana ?
+        -# #alamat.collapse.multi-collapse
+        -#   .card.card-body
+        -#     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          
+        -# .card.card-body
+        -#   %div{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#layanan", :role => "button"} Alamat di mana ?
+        -# #layanan.collapse.multi-collapse
+        -#   .card.card-body
+        -#     Berbagai layanan kami sediakan. Paket-paket yang kami sediakan antara lain:
+
+
