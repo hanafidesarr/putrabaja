@@ -2,17 +2,17 @@
   #clothe-tshirt-maker
 :javascript
 
-  var template_t_shirt = [{url: './assets/design/t-shirt-white.png', title:'HUHU'}, {url: './assets/design/t-shirt-white.png', title:'Gundam Head Skate'}]
+  var template_t_shirt = [{url: "#{image_url('design/t-shirt-white.png')}", title:'HUHU'}, {url: "#{image_url('design/t-shirt-black.png')}", title:'Gundam Head Skate'}]
   
   $('#clothe-tshirt-maker').imageMaker({
     merge_images:[
-      {url: './assets/design/gundam-head-skate.png', title:'Gundam Head Skate'},
-      {url: './assets/design/wolf-head-skate.png', title:'Wolf Head Skate'},
-      {url: './assets/design/gorilla-head-skate.png', title:'Gorilla Head Skate'},
-      {url: './assets/design/sasuke-chibi.png', title:'Sasuke Chibi'},
-      {url: './assets/design/gundam-head-skate.png', title:'Gundam Head Skate'},
-      {url: './assets/design/pain-head.png', title:'Pain Head'},
-      {url: './assets/design/wolf-head-skate.png', title:'Wolf Head Skate'}
+      {url: "#{image_url('design/gundam-head-skate.png')}", title:'Gundam Head Skate'},
+      {url: "#{image_url('design/wolf-head-skate.png')}", title:'Wolf Head Skate'},
+      {url: "#{image_url('design/gorilla-head-skate.png')}", title:'Gorilla Head Skate'},
+      {url: "#{image_url('design/sasuke-chibi.png')}", title:'Sasuke Chibi'},
+      {url: "#{image_url('design/gundam-head-skate.png')}", title:'Gundam Head Skate'},
+      {url: "#{image_url('design/pain-head.png')}", title:'Pain Head'},
+      {url: "#{image_url('design/wolf-head-skate.png')}", title:'Wolf Head Skate'}
     ],
     templates: template_t_shirt,
     text_boxes_count:0,
