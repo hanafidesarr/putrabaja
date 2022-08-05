@@ -8,5 +8,9 @@ Swal.fire({
     '<i class="fa fa-thumbs-up"></i> Ok! Pesan Lewat Whatapp sekarang',
   confirmButtonAriaLabel: 'Kirim gambar untuk saya pesan'
   }).then((result) => {
-    window.location.href = "https://web.whatsapp.com/send?phone=+6281222194150&text=ini gambar design nya http://base-qiube.herokuapp.com/<%= @name_image %>";
+    if (result.value) {
+      window.location.href = "https://web.whatsapp.com/send?phone=+6281222194150&text=ini gambar design nya http://base-qiube.herokuapp.com/<%= @name_image %>";
+    } else {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
   })

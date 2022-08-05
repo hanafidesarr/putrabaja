@@ -4,12 +4,7 @@ class HomeController < ApplicationController
 
   def index
     @products = Product.normal
-    @product_template = [ ]
     @components = Page.find_by(layout: "home").components
-    @products.each do |product|
-      @product_template << {'title': product.name, 'url': product.attachments.first&.asset&.url}
-    end
-
   end
 
   def custom_design

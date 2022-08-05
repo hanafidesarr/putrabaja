@@ -230,3 +230,12 @@ a {
 	z-index: 9999;  
 	background: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif') 50% 50% no-repeat rgb(249,249,249);  
 }  
+
+.selector {
+	user-drag: none;
+	-webkit-user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}

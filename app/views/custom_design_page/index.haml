@@ -1,23 +1,8 @@
-
 .container-fluid
   #clothe-tshirt-maker
-  %hr
-  .row
-    - @products.each do |product|
-      .col-md-3
-        .card
-          .single-item
-            - product.attachments.each do |attachment|
-              =image_tag(attachment.asset.url, width: "100%")
-          .card-body.text-center
-            %h5= product.name
-            = product.short_description
-            %hr
-            %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
-
 :javascript
 
-  var template_t_shirt = [{url: './assets/design/t-shirt-white.png', title:'Gundam Head Skate'}]
+  var template_t_shirt = [{url: './assets/design/t-shirt-white.png', title:'HUHU'}, {url: './assets/design/t-shirt-white.png', title:'Gundam Head Skate'}]
   
   $('#clothe-tshirt-maker').imageMaker({
     merge_images:[

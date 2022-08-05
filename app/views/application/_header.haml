@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.bg-secondary.text-decoration-none.fixed-top
+%nav.navbar.navbar-expand-lg.bg-secondary.text-decoration-none
   .container
     %a.navbar-brand.title-header{:href => "/"}
       = @setting.name
@@ -31,8 +31,8 @@
             - else
               = link_to page_path(page), class: "nav-link text-uppercase text-white" do
                 = page.title
-        -# %li.nav-item
-        -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
+        %li.nav-item
+          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
 
       %form.flex-container.navbar-right-custom
         %hr.text-white.d-block.d-lg-none
