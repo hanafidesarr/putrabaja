@@ -231,6 +231,22 @@ a {
 	background: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif') 50% 50% no-repeat rgb(249,249,249);  
 }  
 
+
+// .responsive-container {
+// 	width: 100%;
+// 	padding-bottom: 56.25%; /* 9/16 = aspect ratio of image */
+// 	position: relative;
+// 	height: 0;
+// 	overflow: hidden;
+// }
+
+// .responsive-container img {
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// }
+
 .selector {
 	user-drag: none;
 	-webkit-user-drag: none;
