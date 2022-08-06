@@ -1,6 +1,6 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 
-@import "frontend/custom/image_maker/imageMaker.min.css";
+@import "frontend/custom/image_maker/imageMaker.min.scss";
 
 @import "font-awesome";
 @import "frontend/lib/slick.scss";
@@ -9,6 +9,7 @@
 
 @import "frontend/lib/owl.carousel.min.scss";
 @import "frontend/lib/owl.theme.default.scss";
+
 
 // Graphical variables
 @import "config/fonts";
@@ -248,7 +249,6 @@ a {
 // }
 
 .selector {
-	user-drag: none;
 	-webkit-user-drag: none;
 	user-select: none;
 	-moz-user-select: none;
