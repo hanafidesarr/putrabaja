@@ -1,0 +1,25 @@
+/* line 4, app/assets/stylesheets/components/banner_full.scss */
+.banner_full .owl-carousel .text {
+  color: white;
+  bottom: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* line 1, app/assets/stylesheets/components/products.scss */
+.btn-whatsapp {
+  background-color: #28D146;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* line 7, app/assets/stylesheets/components/products.scss */
+.btn-shopee {
+  background-color: #EE4D2D;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+}
