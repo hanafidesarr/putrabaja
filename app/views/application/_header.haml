@@ -1,10 +1,12 @@
 
 %nav.navbar.navbar-expand-lg.bg-secondary.text-decoration-none
   .container
-    %a.navbar-brand.title-header{:href => "/"}
-      = @setting.name
-    -# = link_to "/", class: "mr-4" do
-    -#   = image_tag("frontend/ahaddin.png", width: "50", style: "margin-right:2rem;")
+    - if (attachments = @setting.attachments).present?
+      = link_to "/", class: "mr-4" do
+        = image_tag(attachments.last.asset.url, width: "50", style: "margin-right:2rem;")
+    - else
+      %a.navbar-brand.title-header{:href => "/"}
+        .text-secondary= @setting.name
 
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
@@ -25,9 +27,6 @@
                 .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                   - @categories.root.each do |category|
                     =link_to category.name, category_path(category), class: "dropdown-item"
-            - when "products"
-              = link_to products_path, class: "nav-link text-uppercase text-white" do
-                = page.title
             - else
               = link_to page_path(page), class: "nav-link text-uppercase text-white" do
                 = page.title
@@ -48,7 +47,6 @@
                 -# = image_tag("frontend/instagram.png", width: "25")
                 %i.fa-brands.fa-instagram.fa-xl.text-white
                 %span.text-white="Instagram"
-
           -# %hr.text-white.d-block.d-lg-none
           -# %li.nav-item
           -#   - if user_signed_in?

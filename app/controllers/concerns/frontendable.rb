@@ -1,4 +1,5 @@
 module Frontendable
+
 	extend ActiveSupport::Concern
 
 	included do
@@ -7,10 +8,10 @@ module Frontendable
 
 	private
 
-		def set_common_variables
+	def set_common_variables
+		@setting = Setting.first
+		@pages = Page.order(:position).active.root_page
+		@categories = Category.active if @pages.pluck(:layout).include?("categories")
+	end
 
-			@setting = Setting.first
-			@pages = Page.order(:position).active.root_page
-			@categories = Category.all
-		end
 end
