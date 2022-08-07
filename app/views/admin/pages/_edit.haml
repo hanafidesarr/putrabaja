@@ -13,7 +13,7 @@
 
 	- f.has_many :components, new_record: true, heading: false do | comp |
 		- exist = comp.object.id.present?
-		.level-list-item
+		.text{class: "level-list-item", "component_id"=>"#{comp.object.id}"}
 			.card
 				#headingOne.card-header{ class: "#{exist ? 'bg-secondary' : ''}"}
 					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
@@ -57,30 +57,47 @@
 															- attach.input :title, :input_html => { :class => "w-100" }
 															- attach.input :url, label: "Url", :input_html => { :class => "w-100" }
 															- attach.input :note, :input_html => { :rows => 5, :class => "w-100" }
+		:javascript
+
+			$(".has_many_container").addClass("level-list")
+			$(".has_many_fields").attr("component_id","#{comp.object.id}");
+			$(".has_many_container").attr('id', 'accordionExample');
+			
+			$(".has_many_add").click(function(){
+				if ($(".new_record")[0]){
+					// alert("anda sudah membuat new record baru")
+					$(".new_record").closest(".has_many_fields").remove()
+				} else {
+						// Do something if class does not exist
+				}
+			})
+			$(".level-list").sortable({
+				start: function(event, ui) {
+					console.log(ui.item)
+					ui.item.addClass("highlight");
+				},
+				stop: function(event, ui) {
+					console.log(ui.item.index())
+					ui.item.toggleClass("highlight");
+
+					var comp_id = ui.item.children().children().attr("component_id")
+					var position_update = ui.item.index()
+					console.log(comp_id)
+					update_position(comp_id, position_update)
+				}
+			});
+
+			function update_position(comp_id, position_update) {
+				$.ajax({
+					type: "GET",
+					url: "/components/update_position/" + comp_id,
+					data: {
+						position_update: position_update
+					},	
+					success: function (data) {},
+					complete: function() {}}
+					)
+			}
 
 	= f.actions do 
 		= f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }, class: "sasa"
-
-	:javascript
-		$(".has_many_container").addClass("level-list")
-		$(".has_many_container").attr('id', 'accordionExample');
-		
-		$(".has_many_add").click(function(){
-			if ($(".new_record")[0]){
-				// alert("anda sudah membuat new record baru")
-				$(".new_record").closest(".has_many_fields").remove()
-			} else {
-					// Do something if class does not exist
-			}
-		})
-
-		$(".level-list").sortable({
-			start: function(event, ui) {
-				console.log(ui.item.index())
-				ui.item.toggleClass("highlight");
-			},
-			stop: function(event, ui) {
-				console.log(ui.item.index())
-				ui.item.toggleClass("highlight");
-			}
-		});

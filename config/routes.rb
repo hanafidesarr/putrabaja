@@ -17,6 +17,11 @@ Rails.application.routes.draw do
 
   resources :products
   resources :pages
+  resources :components do
+    collection do
+      get 'update_position/:id', to: "components#update_position", as: "update_position"
+    end
+  end
 
   # get "confirmation_order/:id", to: "pdf#confirmation_order"
   get '*path', to: 'exceptions#not_found'

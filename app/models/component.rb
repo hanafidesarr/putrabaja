@@ -1,5 +1,6 @@
 class Component < ApplicationRecord
 
+  acts_as_list scope: :page
   default_scope { order(:position) }
   # attachment
   has_many :attachments,  class_name: "Attachment",  as: "parent", dependent: :destroy
