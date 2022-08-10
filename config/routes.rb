@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :products
   resources :pages
+  resources :settings
   resources :components do
     collection do
       get 'update_position/:id', to: "components#update_position", as: "update_position"

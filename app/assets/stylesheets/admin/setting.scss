@@ -1,0 +1,31 @@
+
+
+// form fieldset > ol > li {
+//   display: flex !important;
+//   flex-direction: column !important;
+//   p { order: 1; }
+//   label { order: 2; }
+//   input { order: 3; }
+  
+// }
+
+.modal-image-upload > li {
+  display: flex !important;
+  flex-direction: column !important;
+  p { order: 1; }
+  label { order: 2; }
+  input { order: 3; }
+  p.inline-hints {
+    font-size: 0.95em;
+    font-style: italic;
+    color: #666;
+    margin: 0.5rem 0;
+  }
+}
+
+form fieldset > ol > li p.inline-hints {
+    font-size: 0.95em;
+    font-style: italic;
+    color: #666;
+    margin: 0.5rem 0;
+}

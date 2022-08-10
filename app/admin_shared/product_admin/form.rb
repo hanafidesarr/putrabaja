@@ -63,42 +63,18 @@ module ProductAdmin
 
 						tab 'Attachment' do
 							
-							f.has_many :attachments, allow_destroy: true, heading: false do |attach|
+							f.has_many :attachments, allow_destroy: true, heading: false, class: "col-2 mx-2" do |attach|
 								arbre do
-									
+									attach.input :asset, :as => :file, label: false, :hint => attach.template.image_tag(attach.object.asset.url(:thumb), class: "w-100"), "data-placement"=>"top"
+								end
+								attach.template.concat(Arbre::Context.new do
+									hr
 									div class: "row" do
-
-										div class: "col-3" do
-											if (url = attach.object.asset.url rescue nil).present?
-												image_tag(url, width: "100%")
-											end
-
-										end
-										div class: "col-3" do
-											attach.inputs do
-												attach.input :asset
-											end
+										div class: "col-12" do
+											attach.template.render partial: "admin/admin_shared/image_upload", locals: {f: attach}
 										end
 									end
-								end
-								# f.inputs '' do
-									
-								# 	columns do
-								# 		column span: 2 do
-											# if (url = attach.object.asset.url rescue nil).present?
-											# 	li do 
-											# 		image_tag(url, width: "200px")
-											# 	end
-											# end
-								# 		end
-								# 		column do
-								# 			attach.input :asset
-								# 		end
-								# 	end
-								# 	# div class: "col-6" do
-								# 	# 	# attach.input :asset
-								# 	# end
-								# end
+								end.to_s)
 							end
 						end
 

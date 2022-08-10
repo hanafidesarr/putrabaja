@@ -16,7 +16,12 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+@import "toastr";
+
+
+// Custom
 @import "custom/form";
+@import "admin/setting";
 
 // Overriding any non-variable Sass must be done after the fact.
 // For example, to change the default status-tag color:

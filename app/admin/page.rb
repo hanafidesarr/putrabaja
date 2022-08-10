@@ -5,6 +5,7 @@ ActiveAdmin.register Page do
 	include PageAdmin::Index
   include PageAdmin::Controller
 
+  actions :all, except: :new
   before_filter :skip_sidebar!, :only => :index
   
   permit_params :title, :active, :description, :layout, :_destroy,
