@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.position-absolute.w-100{style: "z-index:999"}
+%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-secondary' : 'position-absolute'}"}
   .container
     - if (attachments = @setting.attachments).present?
       = link_to "/", class: "mr-4" do

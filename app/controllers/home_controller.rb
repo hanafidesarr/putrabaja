@@ -4,7 +4,8 @@ class HomeController < ApplicationController
 
   def index
     @products = Product.normal
-    @components = Page.find_by(layout: "home").components
+    @page = Page.find_by(layout: "home")
+    @components = @page.components
   end
 
   def custom_design
