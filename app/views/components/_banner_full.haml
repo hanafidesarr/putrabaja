@@ -1,21 +1,20 @@
 .banner_full.container-fluid.p-0
 	.d-block
-		- if device.eql?("desktop")
-			.nav-banner-cursor
-				%i.fa.fa-chevron-left.fa-2xl.prev-btn
-				%i.fa.fa-chevron-right.fa-2xl.next-btn
-		.owl-carousel
-			- component.attachments.each do |attachment|
-				%div
-					.textoverlay
-						.row.align-items-center
-							.col-12
-								.text
-									%h2.d-block.title.text-center=attachment.title.to_s.html_safe
-									%p=attachment.note.to_s.html_safe
-								.image
-									- if (url = attachment.asset&.url).present?
-										=image_tag(attachment.asset.url )
+		.owl-carousel.owl-theme
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x450&text=1", "data-src-retina" => "https://via.placeholder.com/350x250&text=1-retina"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x650&text=2", "data-src-retina" => "https://via.placeholder.com/350x250&text=2-retina"}/
+			%picture
+				%source.owl-lazy{"data-srcset" => "https://via.placeholder.com/350x250&text=3-large", :media => "(min-width: 650px)"}
+					%source.owl-lazy{"data-srcset" => "https://via.placeholder.com/350x250&text=3-medium", :media => "(min-width: 350px)"}
+						%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x250&text=3-fallback"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x250&text=4"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x250&text=5"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x250&text=6"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x250&text=7"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x250&text=8"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x400&text=9"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x400&text=10"}/
+			%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x450&text=11"}/
 
 :javascript
 
