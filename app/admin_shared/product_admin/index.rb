@@ -15,6 +15,12 @@ module ProductAdmin
           column :created_at
           actions
         end
+
+        index :as => :sortable do
+          label :active # item content
+          label :name # item content
+          actions
+        end
 			end
 		end
 	end
