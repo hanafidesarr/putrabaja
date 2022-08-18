@@ -61,9 +61,9 @@ module ProductAdmin
 							end
 						end
 
-						tab 'Attachment' do
+						tab 'Images' do
 							
-							f.has_many :attachments, allow_destroy: true, heading: false, class: "col-2 mx-2" do |attach|
+							f.has_many :images, allow_destroy: true, heading: false, class: "col-2 mx-2" do |attach|
 								arbre do
 									attach.input :asset, :as => :file, label: false, :hint => attach.template.image_tag(attach.object.asset.url(:thumb), class: "w-100"), "data-placement"=>"top"
 								end

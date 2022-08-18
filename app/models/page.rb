@@ -2,9 +2,9 @@ class Page < ApplicationRecord
 
   has_ancestry :orphan_strategy => :rootify
 
-  # attachment
-  has_many :attachments,  class_name: "Attachment",  as: "parent", dependent: :destroy
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
+  # images relation
+  has_many :images, class_name: "Image",  as: "parent", dependent: :destroy
+  accepts_nested_attributes_for :images, allow_destroy: true
 
   # association
   has_many :components, dependent: :destroy
