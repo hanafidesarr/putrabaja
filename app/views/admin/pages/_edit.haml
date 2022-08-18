@@ -30,7 +30,7 @@
 							.col-3
 								#v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
 									%a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} General
-									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-attachment", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-attachment-#{comp.object.id}", :role => "tab"} Attachment
+									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-images", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-images-#{comp.object.id}", :role => "tab"} Images
 							.col-9
 								#v-pills-tabContent.tab-content.p-0
 									.tab-pane.fade.show.active{"aria-labelledby" => "v-pills-general-tab", :role => "tabpanel", id: "nav-general-#{comp.object.id}"}
@@ -40,17 +40,14 @@
 											- comp.input :url_text, :input_html => { :class => "w-100" }
 											- comp.input :description, :input_html => { :rows => 5, :class => "w-100" }
 											- comp.input :position, :input_html => { :class => "w-100" }
-									.tab-pane.fade{"aria-labelledby" => "v-pills-attachment-tab", :role => "tabpanel", id: "nav-attachment-#{comp.object.id}"}			
-										- amount_attachments = f.object.attachments.size
+									.tab-pane.fade{"aria-labelledby" => "v-pills-images-tab", :role => "tabpanel", id: "nav-images-#{comp.object.id}"}
 										.row 
 											.col-12.mx-4
-												- comp.has_many :attachments, allow_destroy: true, class:"col-3 mx-2" do |attach|
-													-# - attach.template.render partial: "admin/admin_shared/image_upload", locals: {f: attach}
-
-													= image_tag(attach.object.asset.url(:thumb), class: "w-100 my-2")
-													- attach.template.concat(Arbre::Context.new do
+												- comp.has_many :images, allow_destroy: true, class:"col-3 mx-2" do |image|
+													= image_tag(image.object.asset.url(:thumb), class: "w-100 my-2")
+													- image.template.concat(Arbre::Context.new do
 														- div class: "col" do
-															- attach.template.render partial: "admin/admin_shared/image_upload", locals: {f: attach}
+															- image.template.render partial: "admin/admin_shared/image_upload", locals: {f: image}
 													- end.to_s)
 									.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel", id: "nav-contact-#{comp.object.id}"} ...
 

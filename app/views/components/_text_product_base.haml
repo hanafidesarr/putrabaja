@@ -7,9 +7,9 @@
 						=link_to product_path(product) do
 							.card
 								.product-slick
-									- product.attachments.each do |attachment|
+									- product.images.each do |image|
 										.mx-3.my-4
-											=image_tag(attachment.asset.thumb.url, class: "img-center img-fluid")
+											=image_tag(image.asset.thumb.url, class: "img-center img-fluid")
 								.card-body.text-center
 									%h5= product.name.to_s.truncate(15)
 									%hr

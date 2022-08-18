@@ -8,29 +8,29 @@
 				%i.fa.fa-chevron-left.prev-btn
 				%i.fa.fa-chevron-right.next-btn
 			.owl-carousel
-				- component.attachments.each do |attachment|
-					- if attachment.present?
+				- component.images.each do |image|
+					- if image.present?
 						%div
 							.textoverlay
 								.row.align-items-center
 									.col-lg-6.col-12.d-none.d-lg-block.d-xl-block
 										.ml-3{style: "margin-left: 8rem"}
 											%h1
-												=attachment.title
+												=image.title
 												%br
-												=link_to attachment&.url || "/", class: "btn btn-dark" do
+												=link_to image&.url || "/", class: "btn btn-dark" do
 													GET MORE
 									.col-lg-6.col-12
 										.limit
-											- if (url = attachment.asset&.url).present?
-												=image_tag("", class: "owl-lazy", "data-src": attachment.asset.url )
+											- if (url = image.asset&.url).present?
+												=image_tag("", class: "owl-lazy", "data-src": image.asset.url )
 											- else
 												=image_tag("image_not_found.png", class: "owl-lazy", class: "w-100" )
 									.col-lg-6.col-12.d-block.d-sm-none
 										%h1.text-center
-											=attachment.title
+											=image.title
 											%br
-											=link_to attachment&.url || "/", class: "btn btn-dark" do
+											=link_to image&.url || "/", class: "btn btn-dark" do
 												GET MORE
 
 :javascript

@@ -7,8 +7,8 @@
 				.card.card-body
 					=link_to product_path(product) do
 						.product-slick
-							- product.attachments.each do |attachment|
-								=image_tag(attachment.asset.url, width: "100%")
+							- product.images.each do |image|
+								=image_tag(image.asset.url, width: "100%")
 					%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}"
 					%hr.m-0
 					.text-center=product.name

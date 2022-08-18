@@ -1,9 +1,9 @@
 
 %nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-secondary' : 'position-absolute'}"}
   .container
-    - if (attachments = @setting.attachments).present?
+    - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do
-        = image_tag(attachments.last.asset.url, width: "50", style: "margin-right:2rem;")
+        = image_tag(images.last.asset.url, width: "50", style: "margin-right:2rem;")
     - else
       %a.navbar-brand.title-header{:href => "/"}
         .text-secondary= @setting.name

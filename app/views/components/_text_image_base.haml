@@ -13,9 +13,9 @@
 					=link_to component&.url_text || "/", class: "btn bg-yellow" do
 						READ MORE
 				.col-lg-6.col-12
-					- if (attachments = component.attachments).present?
-						- attachments.each do |attachment|
-							=image_tag(attachment.asset.url, width: "100%")
+					- if (images = component.images).present?
+						- images.each do |image|
+							=image_tag(image.asset.url, width: "100%")
 
 					:javascript
 						$('.product-slick').not('.slick-initialized').slick({

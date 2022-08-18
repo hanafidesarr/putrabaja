@@ -3,11 +3,11 @@ class Product < ApplicationRecord
   default_scope { order(:position) }
 
   belongs_to :category
-  has_many :attachments,  class_name: "Attachment",  as: "parent", dependent: :destroy
+  has_many :images,  class_name: "Image",  as: "parent", dependent: :destroy
   has_ancestry :orphan_strategy => :rootify
   # has_many :media_socials
 
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
+  accepts_nested_attributes_for :images, :allow_destroy => true
   # accepts_nested_attributes_for :media_socials, :allow_destroy => true
 
   scope :design, -> { where("image_type = ?", 1) }

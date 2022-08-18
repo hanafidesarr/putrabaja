@@ -10,7 +10,7 @@ module PageAdmin
 								f.input :layout
 							end
 							div class: "col-4" do
-								f.has_many :attachments do |attach|
+								f.has_many :images do |attach|
 									
 									if (url = attach.object.asset.url rescue nil).present?
 										li do 
@@ -28,7 +28,7 @@ module PageAdmin
 									x.input :name
 									div class: "row" do
 										div class: "col-4" do
-											x.has_many :attachments do |attach|
+											x.has_many :images do |attach|
 												if (url = attach.object.asset.url rescue nil).present?
 													li do 
 														image_tag(url, width: "200px")

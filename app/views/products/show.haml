@@ -3,7 +3,7 @@
 		.row 
 			.col-lg-6.col-12
 				.product-slick
-					- @product.attachments.each do |attachment|
+					- @product.images.each do |image|
 						=image_tag(attachment.asset.url, width: "100%")
 
 			.col-lg-6.col-12

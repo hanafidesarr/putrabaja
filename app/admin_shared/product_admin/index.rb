@@ -6,8 +6,8 @@ module ProductAdmin
         index do
           selectable_column
           id_column
-          column :attachments do |obj|
-            image_tag(obj.attachments.first.asset.url, width: "100", height: "100") if obj.attachments.present?
+          column :images do |obj|
+            image_tag(obj.images.first.asset.url, width: "100", height: "100") if obj.images.present?
           end
           column :name
           column :image_type

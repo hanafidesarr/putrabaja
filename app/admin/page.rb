@@ -1,7 +1,7 @@
 ActiveAdmin.register Page do
   menu priority: 1
   config.batch_actions = false
-  include PageAdmin::Form
+  # include PageAdmin::Form  # this useless because we use sortable
 	include PageAdmin::Index
   include PageAdmin::Controller
 
@@ -9,8 +9,8 @@ ActiveAdmin.register Page do
   before_filter :skip_sidebar!, :only => :index
   
   permit_params :title, :active, :description, :layout, :_destroy,
-  components_attributes: [:id, :name, :layout, :description, :position, :url_product, :url_text, :_destroy, attachments_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
-  attachments_attributes: [:id, :active, :asset, :content_type, :note, :title, :_destroy] # *note add id for disable duplicate when attribute updated 
+  components_attributes: [:id, :name, :layout, :description, :position, :url_product, :url_text, :_destroy, images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
+  images_attributes: [:id, :active, :asset, :content_type, :note, :title, :_destroy] # *note add id for disable duplicate when attribute updated 
   
   sortable tree: true,
             max_levels: 0,               # infinite indent levels
