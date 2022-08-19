@@ -23,7 +23,7 @@
 									.col-lg-6.col-12
 										.limit
 											- if (url = image.asset&.url).present?
-												=image_tag("", class: "owl-lazy", "data-src": image.asset.url )
+												=image_tag("", class: "owl-lazy", "data-src": image.asset.url(:banner) )
 											- else
 												=image_tag("image_not_found.png", class: "owl-lazy", class: "w-100" )
 									.col-lg-6.col-12.d-block.d-sm-none

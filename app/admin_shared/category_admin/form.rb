@@ -4,6 +4,8 @@ module CategoryAdmin
 			base.instance_eval do
 				form do |f|
 					f.inputs do
+						f.input :active
+						br
 						f.input :name
 					end
 

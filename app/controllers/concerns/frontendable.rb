@@ -11,7 +11,7 @@ module Frontendable
 	def set_common_variables
 		@setting = Setting.first
 		@pages = Page.order(:position).active.root_page
-		@categories = Category.active if @pages.pluck(:layout).include?("categories")
+		@categories = Category.active
 	end
 
 end

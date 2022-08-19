@@ -1,12 +1,13 @@
 .banner_full.container-fluid.p-0
 	.d-block
-
-		- if device.eql?("desktop")
+		- images = component.images
+		- if device.eql?("desktop") && images.size > 1
 			.nav-banner-cursor
-				%i.fa.fa-chevron-left.fa-2xl.prev-btn
-				%i.fa.fa-chevron-right.fa-2xl.next-btn
+
+				%i.fa.fa-square-caret-left.prev-btn.text-light
+				%i.fa.fa-square-caret-right.next-btn.text-light
 		.owl-carousel
-			- component.images.each do |image|
+			- images.each do |image|
 				%div
 					.textoverlay
 						.row.align-items-center
@@ -17,7 +18,7 @@
 								.image
 									- if (url = image.asset&.url).present?
 
-										%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x450&text=1", "data-src-retina" => attachment.asset.url}/
+										%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x450&text=1", "data-src-retina" => image.asset.url(:banner_full)}/
 
 :javascript
 

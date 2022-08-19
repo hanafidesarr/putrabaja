@@ -9,14 +9,15 @@
 			.col-lg-4.col-12
 				%h3.text-lg-left.text-sm-center="Kategori"
 				%hr
-				- @categories.root.each do |category|
-					.my-3
-						.fw-bold.text-uppercase{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample-#{category.id}", :role => "button"}=category.name
-						- if ( childrens = category.children ).present?
-							- childrens.each do | cat_child |
-								.collapse{id: "collapseExample-#{cat_child.parent_id}"}
-									= link_to show_product_categories_path(id: cat_child.id), remote: :true do
-										= cat_child.name
+				- if @categories.present?
+					- @categories.each do |category|
+						.my-3
+							.fw-bold.text-uppercase{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample-#{category.id}", :role => "button"}=category.name
+							- if ( childrens = category.children ).present?
+								- childrens.each do | cat_child |
+									.collapse{id: "collapseExample-#{cat_child.parent_id}"}
+										= link_to show_product_categories_path(id: cat_child.id), remote: :true do
+											= cat_child.name
 			- if device.eql?("desktop")
 				.col-lg-8.col-12
 					.products-show
