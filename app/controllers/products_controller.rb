@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   def index
-    @page = Page.find_by(layout: "products")
+    @page = Page.active.find_by(layout: "products")
   end
   def show
-    @product = Product.find(params[:id])
+    @product = Product.active.find(params[:id])
   end
 end

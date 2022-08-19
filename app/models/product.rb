@@ -3,6 +3,7 @@ class Product < ApplicationRecord
 
   # scoped area
   default_scope { order(:position) }
+  scope :active, -> { where(active:true) }
   scope :design, -> { where("image_type = ?", 1) }
   scope :normal, -> { where("image_type = ?", 0) }
 

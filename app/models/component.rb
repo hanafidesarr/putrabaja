@@ -2,6 +2,7 @@ class Component < ApplicationRecord
 
   # scoped area
   default_scope { order(:position) }
+  scope :active, -> { where(active: true) }
 
   # association area
   belongs_to :page

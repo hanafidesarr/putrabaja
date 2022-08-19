@@ -8,7 +8,7 @@
 				%i.fa.fa-chevron-left.prev-btn
 				%i.fa.fa-chevron-right.next-btn
 			.owl-carousel
-				- component.images.each do |image|
+				- component.images.banners.each do |image|
 					- if image.present?
 						%div
 							.textoverlay
