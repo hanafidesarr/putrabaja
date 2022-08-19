@@ -6,7 +6,7 @@ module SettingAdmin
           selectable_column
           id_column
           column :image do |setting|
-            if (url = setting.images.last.asset.url rescue nil).present?
+            if (url = setting.images.active.last.asset.url rescue nil).present?
               image_tag url, style: "width:50px;"
             end
           end

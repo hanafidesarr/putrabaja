@@ -8,6 +8,6 @@ class CategoriesController < ApplicationController
   end
   def show_product
     @category = Category.find(params[:id])
-    @products = @category.products
+    @products = @category.products.active
   end
 end

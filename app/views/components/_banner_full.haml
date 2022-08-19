@@ -7,7 +7,7 @@
 				%i.fa.fa-square-caret-left.prev-btn.text-light
 				%i.fa.fa-square-caret-right.next-btn.text-light
 		.owl-carousel
-			- images.each do |image|
+			- images.banners.each do |image|
 				%div
 					.textoverlay
 						.row.align-items-center
@@ -18,7 +18,7 @@
 								.image
 									- if (url = image.asset&.url).present?
 
-										%img.owl-lazy{:alt => "", "data-src" => "https://via.placeholder.com/350x450&text=1", "data-src-retina" => image.asset.url(:banner_full)}/
+										%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full)}/
 
 :javascript
 

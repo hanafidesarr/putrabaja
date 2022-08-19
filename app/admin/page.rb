@@ -9,8 +9,8 @@ ActiveAdmin.register Page do
   before_filter :skip_sidebar!, :only => :index
   
   permit_params :title, :active, :description, :layout, :_destroy,
-  components_attributes: [:id, :name, :layout, :description, :position, :url_product, :url_text, :_destroy, images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
-  images_attributes: [:id, :active, :asset, :content_type, :note, :title, :_destroy] # *note add id for disable duplicate when attribute updated 
+  components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :_destroy, images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
+  images_attributes: [:id, :active, :asset, :content_type, :note, :title, :layout_type, :_destroy] # *note add id for disable duplicate when attribute updated 
   
   sortable tree: true,
             max_levels: 0,               # infinite indent levels

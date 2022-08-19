@@ -7,6 +7,12 @@ module ProductAdmin
 					tabs do
 						tab 'General' do
 							f.inputs 'General' do
+
+								div class: "d-flex justify-content-end px-4" do
+									div class: "form-check form-switch" do
+										f.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
+									end
+								end
 								f.input :sku
 								f.input :name
 								f.input :category

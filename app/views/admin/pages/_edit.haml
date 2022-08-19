@@ -1,6 +1,8 @@
 
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
 	= f.inputs :name => "Page" do
+		.form-check.form-switch.px-3{style: "text-align: right"}
+			= f.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
 		.row.mx-2
 			.col-lg-6.col-12
 				= f.input :title, input_html: {class: "form-control w-100"}
@@ -11,21 +13,26 @@
 
 	- f.has_many :components, new_record: true, heading: false, class: "component-parent" do | comp |
 		- exist = comp.object.id.present?
+
 		.text{class: "level-list-item", "component_id"=>"#{comp.object.id}"}
 			.card
 				#headingOne.card-header{ class: "#{exist ? 'bg-secondary' : ''}"}
 					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
 						.col-11
-							%h5.mb-0{ class: "#{exist ? 'text-light' : ''}"}
-								="#{comp.object.name.to_s.capitalize}"
-							%hr.text-white.my-1
-							%small.text-light=comp.object.layout.to_s.capitalize
+							.d-flex.justify-content-between
+								%h5.mb-0{ class: "#{exist ? 'text-light' : ''}"}
+									="#{comp.object.name.to_s.capitalize}"
+								%small.text-light="( #{comp.object.layout.to_s.capitalize} )"
 						.col-1{style: "text-align: right;"}
 							- if comp.object.id.present?
 								=link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
 									%i.fa.fa-trash.text-danger
 				.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionExample", id: "collapse-#{comp.object.id}", class: "#{comp.object.id ? '' : 'show'}"}
 					.card-body
+
+						.d-flex.justify-content-end
+							.form-check.form-switch{style: "text-align: right"}
+								- comp.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
 						.row
 							.col-3
 								#v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
@@ -43,7 +50,7 @@
 									.tab-pane.fade{"aria-labelledby" => "v-pills-images-tab", :role => "tabpanel", id: "nav-images-#{comp.object.id}"}
 										.row 
 											.col-12.mx-4
-												- comp.has_many :images, allow_destroy: true, class:"col-3 mx-2" do |image|
+												- comp.has_many :images, allow_destroy: true, heading: false, class:"col-3 mx-2 my-4" do |image|
 													= image_tag(image.object.asset.url(:thumb), class: "w-100 my-2")
 													- image.template.concat(Arbre::Context.new do
 														- div class: "col" do
