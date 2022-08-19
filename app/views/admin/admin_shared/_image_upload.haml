@@ -14,7 +14,7 @@
         .modal-body
           .row 
             .col-lg-4.col-12.modal-image-upload
-              - f.input :asset, :as => :file, label: false, :hint => f.template.image_tag(f.object.asset.url(:thumb), class: "w-100"), "data-placement"=>"top"
+              - f.input :asset, :as => :file, label: false, :hint => f.template.image_tag(f.object.asset.url(:perview), class: "w-100"), "data-placement"=>"top"
             .col-lg-8.col-12
               - f.input :active
               - f.input :title, input_html: { class: "form-control w-100" }

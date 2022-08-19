@@ -1,9 +1,10 @@
-- @categories.root.each do |category|
-  .my-3
-    = link_to category_path(category) do
-      %h5.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
-    - if ( childrens = category.children ).present?
-      - childrens.each do | cat_child |
-        .card.card-body
-          = link_to category_path(cat_child) , class: "#{ cat_child.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}" do
-            = cat_child.name 
+- if @categories.present?
+  - @categories.each do |category|
+    .my-3
+      = link_to category_path(category) do
+        %h5.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+      - if ( childrens = category.children ).present?
+        - childrens.each do | cat_child |
+          .card.card-body
+            = link_to category_path(cat_child) , class: "#{ cat_child.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}" do
+              = cat_child.name 
