@@ -1,12 +1,15 @@
 class Product < ApplicationRecord
 
+
   # scoped area
+  default_scope { order(:position) }
   scope :design, -> { where("image_type = ?", 1) }
   scope :normal, -> { where("image_type = ?", 0) }
 
   # association area
   belongs_to :category
   has_many :images,  class_name: "Image",  as: "parent", dependent: :destroy
+  has_ancestry :orphan_strategy => :rootify
   # has_many :media_socials
 
   # nested attribute form

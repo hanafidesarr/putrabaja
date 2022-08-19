@@ -6,9 +6,17 @@ module CategoryAdmin
           selectable_column
           id_column
           column :name
+          column :active
           column do |category|
             category.is_root?
           end
+      
+          actions
+        end
+
+        index :as => :sortable do
+          label :active # item content
+          label :name # item content
           actions
         end
 			end
