@@ -5,7 +5,8 @@ class HomeController < ApplicationController
   def index
     @products = Product.active.normal
     @page = Page.find_by(layout: "home")
-    @components = @page.components
+    
+    @components = @page&.components.active if @page&.components.present?
   end
 
   def custom_design

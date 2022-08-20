@@ -2,6 +2,7 @@ class Image < Attachment
   #                     0        1         2         3       4
   enum layout_type: [:normal, :banner, :thumbnail, :logo, :perview]
 
+  LAYOUT_TYPE = ["normal", "banner", "thumbnail", "logo", "perview"]
   # scoped area
   # default_scope { where("layout_type = ?", 2) }
   # default_scope { where(active: true) }
