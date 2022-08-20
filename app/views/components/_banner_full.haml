@@ -1,24 +1,25 @@
 .banner_full.container-fluid.p-0
 	.d-block
-		- images = component.images
-		- if device.eql?("desktop") && images.size > 1
-			.nav-banner-cursor
 
-				%i.fa.fa-square-caret-left.prev-btn.text-light
-				%i.fa.fa-square-caret-right.next-btn.text-light
-		.owl-carousel
-			- images.banners.each do |image|
-				%div
-					.textoverlay
-						.row.align-items-center
-							.col-12
-								.text
-									%h2.d-block.title.text-center=image.title.to_s.html_safe
-									%p=image.note.to_s.html_safe
-								.image
-									- if (url = image.asset&.url).present?
+		- if (images = component.images).present?
+			- if device.eql?("desktop") && images.size > 1
+				.nav-banner-cursor
 
-										%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full)}/
+					%i.fa.fa-square-caret-left.prev-btn.text-light
+					%i.fa.fa-square-caret-right.next-btn.text-light
+			.owl-carousel
+				- images.banners.each do |image|
+					%div
+						.textoverlay
+							.row.align-items-center
+								.col-12
+									.text
+										%h2.d-block.title.text-center=image.title.to_s.html_safe
+										%p=image.note.to_s.html_safe
+									.image
+										- if (url = image.asset&.url).present?
+
+											%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full)}/
 
 :javascript
 
