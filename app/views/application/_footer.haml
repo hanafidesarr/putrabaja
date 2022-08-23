@@ -19,3 +19,10 @@
       .col-lg-4.col-12.mb-4
         %h2.fw-bold="Lokasi"
         %iframe{ :src => "#{@setting.youtube_url}", :class => "w-100"}
+  %hr
+    .row
+      .col-12.col-md-3.text-center.mt-3.text-md-right
+        ="created by "
+        .text-white.d-inline
+          =link_to "http://axeonsoft.com", rel: "noopener", target: "_blank", title: "Pembuat situs website cms" do
+            ="Axeonsoft."

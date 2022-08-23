@@ -1,3 +1,4 @@
 - if @components.present?
   - @components.order(:position).each do |component|
-    =render partial: "components/#{component.layout.to_s}", locals: { component:component } if component.layout.present?
+    - file_yml =  YAML.load_file  Rails.root.join("app", "views", "components", component.layout.to_s, "#{component.layout.to_s}.yml")
+    =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: { component:component, file_yml: file_yml } if component.layout.present?
