@@ -32,10 +32,34 @@ module SettingAdmin
                   end
                 end
               end
+              tab 'General style', style: "list-style-type: none;" do
+                yml_setting = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
+
+                columns do
+                  yml_setting[:general_style].each do |obj|
+                    column do
+                      f.input obj, input_html: {class: "w-100 form-control"}
+                    end
+                  end
+                end
+                panel "Header" do
+                  columns do
+                    yml_setting[:header_style].each do |obj|
+                      column do
+                        if obj.eql?("layout")
+                          f.input obj, as: :select, collection: ["layout_left", "layout_center", "layout_right"], input_html: {class: "w-100 form-control select2"}
+                        else
+                          f.input obj, input_html: {class: "w-100 form-control"}
+                        end
+                      end
+                    end
+                  end
+                end
+              end
               tab 'Media Social', style: "list-style-type: none;" do
                 columns do
-                  yaml_url_media_socials = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
-                  yaml_url_media_socials[:url_media_socials].each do |obj|
+                  yml_setting = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
+                  yml_setting[:url_media_socials].each do |obj|
                     column do
                       f.input obj, input_html: {class: "w-100 form-control"}
                     end
