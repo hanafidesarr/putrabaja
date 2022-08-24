@@ -6,7 +6,14 @@ $green: #1EDD88;
 $gray: #0E0000;
 $light-gray: #F4F4F4;
 
+$red-soft: #eb4034;
+$black-soft: #2c2c2c;
+
 .bg-yellow {
-    background-color: $yellow !important;
-    font-weight: 800;
-  }
+  background-color: $yellow !important;
+  font-weight: 800;
+}
+
+.bg-dark-soft {
+  background-color: $black-soft !important;
+}

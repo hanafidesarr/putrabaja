@@ -1,0 +1,22 @@
+%nav.navbar.navbar-dark.navbar-expand-lg.bg-dark
+  .container-fluid
+    .navbar-header
+      -# %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+      -#   %span.sr-only Toggle navigation
+      -#   %span.icon-bar
+      -#   %span.icon-bar
+      -#   %span.icon-bar
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse{style: "text-align: center;"}
+      .nav.navbar-nav{style: "  display: inline-block; float: none; vertical-align: top;"}
+        .active
+          %a{:href => "#"}
+            Link 1
+            %span.sr-only (current)
+        %a{:href => "#"} Link 2
+        %a{:href => "#"} Link 3
+    
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+      %span.fa.fa-bars.text-light
+      %a.navbar-brand{:href => "#"} Brand
+    / /.navbar-collapse
+  / /.container-fluid
