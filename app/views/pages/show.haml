@@ -5,7 +5,8 @@
 
 .container
   - @page.components.each do |component|
-    =render partial: "components/#{component.layout.present? ? component.layout.to_s : "default"}", locals: { component:component }
+    =render partial: "components/#{component.layout.to_s}/#{component.layout.present? ? component.layout.to_s : "default"}", locals: { component:component }
+    -# =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
 
 :javascript
   var owl = $('.owl-carousel');
