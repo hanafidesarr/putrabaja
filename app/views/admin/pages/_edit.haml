@@ -68,11 +68,13 @@
 															- image.template.render partial: "admin/admin_shared/image_upload", locals: {f: image}
 													- end.to_s)
 									.tab-pane.fade{"aria-labelledby" => "nav-properties-tab", :role => "tabpanel", id: "nav-properties-#{comp.object.id}"}
-										- if comp.object.layout.present?
-											- component_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join("app","views", "components","#{comp.object.layout}","#{comp.object.layout}.yml")) 
-											= render partial: "admin/pages/components/properties", locals: {comp: comp, component_yml: component_yml}
-										- else
-											="HAH ? kosong"
+										.row 
+											.col-12.my-4
+												- if comp.object.layout.present?
+													- component_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join("app","views", "components","#{comp.object.layout}","#{comp.object.layout}.yml")) 
+													= render partial: "admin/pages/components/properties", locals: {comp: comp, component_yml: component_yml}
+												- else
+													="HAH ? kosong"
 
 		:javascript
 
