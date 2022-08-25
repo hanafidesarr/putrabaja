@@ -1,0 +1,5 @@
+- component_yml[:properties].each do |obj|
+	.row.mx-2
+		- if comp.object.respond_to? obj
+			.col-lg-6.col-12
+				- comp.input obj, :input_html => { :class => "form-control w-100" }
