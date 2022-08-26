@@ -2,12 +2,12 @@
 .banner_full.container-fluid.p-0
 	.d-block
 		- if (images = component.images).present?
-			- if device.eql?("desktop") && images.size > 1
+			- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
 				.nav-banner-cursor
 
 					%i.fa.fa-square-caret-left.prev-btn.text-light
 					%i.fa.fa-square-caret-right.next-btn.text-light
-			.owl-carousel.demo
+			.owl-carousel.demo.owl-theme
 				- images.banners.each do |image|
 					%div
 						.textoverlay
@@ -18,7 +18,11 @@
 										%p=image.note.to_s.html_safe
 									.image
 										- if (url = image.asset&.url).present?
-											%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "800"}/
+											- if device.eql?("desktop")
+												%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.desktop_height rescue '800'}"}/
+											- else
+												%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.mobile_height rescue '300'}"}/
+
 
 :javascript
 
@@ -26,8 +30,8 @@
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({
 			items: 1,
-			dots: true,
-			loop: true,
+			dots: "#{component.show_dots}" === "true",
+			loop: "#{images.size > 1}" === "true",
 			nav: false,
 			autoplay:true,
 			lazyLoad:true,
