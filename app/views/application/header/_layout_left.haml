@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-dark-soft' : 'position-absolute'}"}
+%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-dark-soft' : 'bg-dark-soft'}"}
   .container
     - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do
@@ -29,8 +29,17 @@
                     - @categories.each do |category|
                       =link_to category.name, category_path(category), class: "dropdown-item"
             - else
-              = link_to page_path(page), class: "nav-link text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
-                = page.title
+              - if ( childrens = page.children ).present?
+                .dropdown
+                  #dropdownMenuButtonPage.dropdown-toggle.nav-link.text-uppercase.text-white{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                    = page.title
+                  .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
+                    - childrens.each do |child|
+                      =link_to child.title, page_path(child), class: "dropdown-item", "target" => "_blank" 
+              - else
+                = link_to page_path(page), class: "nav-link text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
+                  = page.title
+
         %li.nav-item
           =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
 
