@@ -8,9 +8,13 @@ ActiveAdmin.register Page do
   actions :all, except: :new
   before_filter :skip_sidebar!, :only => :index
   banner_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner','banner.yml')) 
+  banner_full_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner_full','banner_full.yml')) 
   text_base_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','text_base','text_base.yml')) 
+  
   permit_params :title, :active, :description, :layout, :_destroy,
-  components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, banner_yml[:properties], text_base_yml[:properties], :_destroy, images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
+  components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :_destroy,
+  banner_yml[:properties], text_base_yml[:properties], banner_full_yml[:properties],
+  images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :layout_type, :_destroy] # *note add id for disable duplicate when attribute updated 
   
   sortable tree: true,
