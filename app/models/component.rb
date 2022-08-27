@@ -17,7 +17,7 @@ class Component < ApplicationRecord
   # this collection layout
   #needfix
   #move to yaml file , and set must dynamic
-  COMPONENT_LAYOUT=["banner", "banner_full","custom_categories_products","text_base","text_image_base","text_maqruee_base","text_product_base", "text_base_with_card"]
+  COMPONENT_LAYOUT=["banner", "banner_text","categories_products","text_base","text_image_base","text_product_base"]
   store :properties, coder: JSON
   after_initialize :add_accessors_for_content_attributes, if: -> { self.layout.present? }
 
@@ -25,6 +25,7 @@ class Component < ApplicationRecord
     component_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join("app","views", "components","#{self.layout}","#{self.layout}.yml"))
     singleton_class.class_eval do
       store_accessor :properties, component_yml[:properties]
+      store_accessor :properties, component_yml[:active_fields]
     end
   end
 

@@ -4,4 +4,9 @@ properties:
   - margin_left_right_side
 
   - content_position
-  
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body

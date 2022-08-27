@@ -2,3 +2,9 @@ properties:
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body

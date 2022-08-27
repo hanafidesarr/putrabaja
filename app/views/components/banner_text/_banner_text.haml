@@ -1,0 +1,74 @@
+
+
+%script{:src => "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"}
+/ or
+%script{:src => "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js"}
+#container.container
+	.section-wrapper
+		.d-block
+			.nav-banner-cursor.d-none.d-lg-block.d-xl-block
+				%i.fa.fa-chevron-left.prev-btn
+				%i.fa.fa-chevron-right.next-btn
+			.owl-carousel
+				- component.images.banners.each do |image|
+					- if image.present?
+						%div
+							.textoverlay
+								.row.align-items-center
+									.col-lg-6.col-12.d-none.d-lg-block.d-xl-block
+										.ml-3{style: "margin-left: 8rem"}
+											%h1
+												=image.title
+												%br
+												=link_to image&.url || "/", class: "btn btn-dark" do
+													GET MORE
+									.col-lg-6.col-12
+										.limit
+											- if (url = image.asset&.url).present?
+												=image_tag("", class: "owl-lazy", "data-src": image.asset.url(:banner) )
+											- else
+												=image_tag("image_not_found.png", class: "owl-lazy", class: "w-100" )
+									.col-lg-6.col-12.d-block.d-sm-none
+										%h1.text-center
+											=image.title
+											%br
+											=link_to image&.url || "/", class: "btn btn-dark" do
+												GET MORE
+
+:javascript
+
+	$('#container').imagesLoaded()
+		.always( function( instance ) {
+			console.log('all images loaded');
+		})
+		.done( function( instance ) {
+			console.log('all images successfully loaded');
+		})
+		.fail( function() {
+			console.log('all images loaded, at least one is broken');
+		})
+		.progress( function( instance, image ) {
+			var result = image.isLoaded ? 'loaded' : 'broken';
+			console.log( 'image is ' + result + ' for ' + image.img.src );
+		});
+
+	var owl = $('.owl-carousel');
+	owl.owlCarousel({
+		items: 1,
+		loop: true,
+		nav: false,
+		autoplay:true,
+		lazyLoad:true,
+		touchDrag: false,
+		autoplayHoverPause:true,
+		autoplayTimeout: 3000,
+		smartSpeed: 1000
+	});
+
+	$('.next-btn').click(function() {
+			owl.trigger('next.owl.carousel');
+	})
+
+	$('.prev-btn').click(function() {
+			owl.trigger('prev.owl.carousel');
+	})

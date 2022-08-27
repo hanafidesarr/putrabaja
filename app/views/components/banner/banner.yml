@@ -1,4 +1,17 @@
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body
+
 properties:
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
+
+  - show_dots
+  - show_nav
+  - desktop_height
+  - mobile_height
+
