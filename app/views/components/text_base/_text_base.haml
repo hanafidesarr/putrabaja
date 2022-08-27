@@ -1,10 +1,11 @@
 .container 
 	.section-wrapper
 		%h1
-			=component.name
+			=component.title.to_s.html_safe
+		%small=component.subtitle.to_s.html_safe
 		%p
-			=component.description.to_s.html_safe
+			=component.body.to_s.html_safe
 
-		- if component&.url_text.present?
+		- if component&.link.present?
 			=link_to component&.url_text || "/", class: "btn bg-light" do
 				.fw-bold.text-secondary="READ MORE"
