@@ -11,10 +11,11 @@ module CategoryAdmin
 						end
 						f.input :name
 					end
-
-					f.inputs do
-						f.has_many :children, allow_destroy: true, heading: "" do |attach|
-							attach.input :name
+					if f.object.id.present?
+						f.inputs do
+							f.has_many :children, allow_destroy: true, new_record: true, heading: "" do |attach|
+								attach.input :name
+							end
 						end
 					end
 					f.actions

@@ -11,7 +11,9 @@ module CategoryAdmin
           def new
             @category = Category.new
           end
-
+          def edit
+            @category = Category.find(params[:id])
+          end
           def create
             create! { admin_categories_url }
           end 

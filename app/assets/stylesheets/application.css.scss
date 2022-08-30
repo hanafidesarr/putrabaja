@@ -1,7 +1,6 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 
-@import "frontend/custom/image_maker/imageMaker.min.scss";
-
+@import 'bootstrap';
 @import "font-awesome";
 @import "frontend/lib/slick.scss";
 @import "frontend/lib/slick-theme.scss";
@@ -16,8 +15,6 @@
 @import "config/colors";
 @import "config/bootstrap_variables";
 
-// External libraries
-@import "bootstrap-custom";
 
 // Internal
 @import "components";
@@ -96,9 +93,6 @@
 	.prev-btn {
 		position: absolute !important;
 		left: 5rem;
-		@include media-breakpoint-only(xs) { 
-			margin-top: 20%;
-		}
 				// Extra small devices (portrait phones, less than 576px)
 		@media (max-width: 575.98px) { top: 10%; }
 

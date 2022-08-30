@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   get 'custom_design_page', to: "custom_design_page#index"
-
   resources :categories do
     collection do
       get 'show_product/:id', to: "categories#show_product", as: "show_product"

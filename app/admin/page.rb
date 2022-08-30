@@ -6,7 +6,7 @@ ActiveAdmin.register Page do
   include PageAdmin::Controller
 
   actions :all, except: :new
-  before_filter :skip_sidebar!, :only => :index
+  before_action :skip_sidebar!, :only => :index
 
   banner_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner','banner.yml')) 
   banner_text_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner_text','banner_text.yml'))
