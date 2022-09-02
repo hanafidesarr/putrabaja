@@ -259,3 +259,12 @@ a {
 // 	left: 0;
 // 	width: 100%;
 // }
+
+@include media-breakpoint-down(md) {
+	html {
+			font-size: 14px;
+			h1 {
+				font-size: 16px;
+			}
+	}
+}

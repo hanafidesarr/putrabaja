@@ -1,3 +1,8 @@
 - if @components.present?
   - @components.order(:position).each do |component|
-    =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+    - case component.layout
+    - when "banner"
+      =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+    - else
+      .container
+        =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
