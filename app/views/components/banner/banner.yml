@@ -12,6 +12,7 @@ properties:
 
   - show_dots
   - show_nav
+  - autoplay
   - desktop_height
   - mobile_height
 
