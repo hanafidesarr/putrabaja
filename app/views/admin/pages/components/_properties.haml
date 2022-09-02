@@ -1,6 +1,9 @@
-
 .row.mx-2
 	- component_yml[:properties].each do |obj|
 		- if comp.object.respond_to? obj
 			.col-lg-6.col-12
-				- comp.input obj, :input_html => { :class => "form-control w-100" }
+				- case obj
+				- when "autoplay", "show_nav", "show_dots"
+					- comp.input obj, as: :select, collection: ["true","false"], :input_html => { :class => "form-control w-100" }
+				- else
+					- comp.input obj, :input_html => { :class => "form-control w-100" }
