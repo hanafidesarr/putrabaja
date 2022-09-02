@@ -7,7 +7,7 @@
 			.row 
 				.col-lg-6.col-12
 					%h1
-						=component.name
+						=component.name.to_s.html_safe
 					%p
 						=component.description.to_s.html_safe
 					=link_to component&.url_text || "/", class: "btn bg-yellow" do
