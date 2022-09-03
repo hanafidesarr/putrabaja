@@ -1,25 +1,26 @@
-.container
-	.section-wrapper
-		- if component.page.layout.eql?("products")
-			%p
-				=component.description.to_s.html_safe
-		- else
-			.row 
-				.col-lg-6.col-12
-					%h1
-						=component.name.to_s.html_safe
-					%p
-						=component.description.to_s.html_safe
-					=link_to component&.url_text || "/", class: "btn bg-yellow" do
-						READ MORE
-				.col-lg-6.col-12
-					- if (images = component.images).present?
-						- images.each do |image|
-							=image_tag(image.asset.url, width: "100%")
+- cache component do
+	.container
+		.section-wrapper
+			- if component.page.layout.eql?("products")
+				%p
+					=component.description.to_s.html_safe
+			- else
+				.row 
+					.col-lg-6.col-12
+						%h1
+							=component.name.to_s.html_safe
+						%p
+							=component.description.to_s.html_safe
+						=link_to component&.url_text || "/", class: "btn bg-yellow" do
+							READ MORE
+					.col-lg-6.col-12
+						- if (images = component.images).present?
+							- images.each do |image|
+								=image_tag(image.asset.url, width: "100%")
 
-					:javascript
-						$('.product-slick').not('.slick-initialized').slick({
-							autoplay:true,
-							dots: true,
-							infinite: true
-						});
+						:javascript
+							$('.product-slick').not('.slick-initialized').slick({
+								autoplay:true,
+								dots: true,
+								infinite: true
+							});

@@ -1,6 +1,6 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
-
-@import 'bootstrap';
+// $primary: purple;
+// $danger: red;
 @import "font-awesome";
 @import "frontend/lib/slick.scss";
 @import "frontend/lib/slick-theme.scss";
@@ -15,6 +15,7 @@
 @import "config/colors";
 @import "config/bootstrap_variables";
 
+@import 'bootstrap';
 
 // Internal
 @import "components";

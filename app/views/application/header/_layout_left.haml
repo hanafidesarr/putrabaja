@@ -1,9 +1,9 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-secondary' : 'position-absolute top-0'}"}
+%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-white' : 'bg-white'}"}
   .container
     - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do
-        = image_tag(images.last.asset.url, width: "50", style: "margin-right:2rem;")
+        = image_tag(images.last.asset.url(:thumb), width: "50", style: "margin-right:2rem;")
     - else
       %a.navbar-brand.title-header{:href => "/"}
         .text-secondary= @setting.name
@@ -17,12 +17,12 @@
           %li.nav-item
             - case page.layout
             - when "home"
-              = link_to "/", class: "nav-link text-uppercase #{params[:id].nil? ? 'text-dark' : ''}" do
+              = link_to "/", class: "nav-link text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
                 = page.title
 
             - when "categories"
               .dropdown
-                #dropdownMenuButton.dropdown-toggle.nav-link.text-uppercase.text-dark{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                #dropdownMenuButton.dropdown-toggle.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                   Kategori
                 .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                   - if @categories.present?
@@ -31,7 +31,7 @@
             - else
               - if ( childrens = page.children ).present?
                 .dropdown
-                  #dropdownMenuButtonPage.dropdown-toggle.nav-link.text-uppercase.text-dark{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                  #dropdownMenuButtonPage.dropdown-toggle.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                     = page.title
                   .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
                     - childrens.each do |child|
@@ -40,8 +40,8 @@
                 = link_to page_path(page), class: "nav-link text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
                   = page.title
 
-        %li.nav-item
-          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-dark"
+        -# %li.nav-item
+        -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
 
       %form.flex-container.navbar-right-custom
         %hr.text-white.d-block.d-lg-none
@@ -49,7 +49,7 @@
           -if @setting.url_media_socials[:instagram].present?
             %li.nav-item.m-auto
               =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-                %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl.text-white
+                %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl
                 %span.text-white="Whatsapp"
 
             %li.nav-item.m-auto

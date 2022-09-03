@@ -1,7 +1,40 @@
-- if (images = component.images).present?
-  .row.text-center
-    - images.each do |image|
-      .col-6{class: "col-lg-#{12/images.size}"}
-        =image_tag(image.asset.url(:perview), class: "w-50") 
-        %br
-        =image.title
+- cache component do
+  - images = component.images
+  - if component.use_slideReveal == "true"
+    .row
+      .col-12.p-0.mb-4{style: "text-align: right;"}
+        %button#trigger.btn.btn-primary.text-white.py-0.px-4{:type => "button"}
+          %span.fa.fa-angle-double-left
+          Lihat semua
+    #slider.p-2{style: "background-color: #F7F7F9;"}
+      - if images.present?
+        .container
+          .row
+            - images.each do |image|
+              .col-6.col-lg-3.my-2.px-1
+                .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
+                  =image_tag(image.asset.url(:thumb), class: "w-80 text-center", alt: "#{image.title}")
+                  %hr{style: "color: gray;"}
+                  .text-center=image.title
+
+  - if images.present?
+    .container
+      .row.text-center
+        - images.each do |image|
+          .col-6.my-2{class: "col-lg-#{12/images.size}"}
+            .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
+              =image_tag(image.asset.url(:thumb), class: "w-50 mx-auto", alt: "#{image.title}") 
+              
+              %hr{style: "color: gray;"}
+              =image.title
+
+:javascript
+  if ("#{component.use_slideReveal == 'true'}") {
+    $('#slider').slideReveal({
+      trigger: $("#trigger"),
+      width: "75%",
+      overlay: true,
+      speed: 700,
+      position: "right"
+    });
+  }
