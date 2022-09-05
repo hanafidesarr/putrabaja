@@ -21,8 +21,8 @@
         %iframe{ :src => "#{@setting.youtube_url}", :class => "w-100"}
   %hr
     .row
-      .col-12.col-md-3.text-center.mt-3.text-md-right
-        ="created by "
-        .text-white.d-inline
-          =link_to "http://axeonsoft.com", rel: "noopener", target: "_blank", title: "Pembuat situs website cms" do
+      .col-12.text-center.mt-3.mb-5
+        %small.text-gray="created by "
+        .text-primary.d-inline
+          =link_to "http://axeonsoft.com", class: "text-primary", rel: "noopener", target: "_blank", title: "Pembuat situs website cms" do
             ="Axeonsoft."

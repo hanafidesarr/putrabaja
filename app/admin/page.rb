@@ -15,15 +15,16 @@ ActiveAdmin.register Page do
   text_image_base_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','text_image_base','text_image_base.yml'))
   space_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','space','space.yml'))
   list_images_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','list_images','list_images.yml'))
+  typing_animation_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','typing_animation','typing_animation.yml'))
 
   permit_params :title, :active, :description, :layout, :_destroy,
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :_destroy,
 
   banner_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],
-  list_images_yml[:properties],
+  list_images_yml[:properties], typing_animation_yml[:properties],
 
   banner_yml[:active_fields], banner_text_yml[:active_fields], categories_products_yml[:active_fields], text_base_yml[:active_fields], text_image_base_yml[:active_fields],
-  space_yml[:active_fields], list_images_yml[:active_fields],
+  space_yml[:active_fields], list_images_yml[:active_fields], typing_animation_yml[:active_fields],
 
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :layout_type, :_destroy] # *note add id for disable duplicate when attribute updated 

@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-white' : 'bg-white'}"}
+%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'}", class: "#{@page.nil? || @page.layout != "home" ? 'bg-white' : 'bg-white'}"}
   .container
     - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do
@@ -9,7 +9,7 @@
         .text-secondary= @setting.name
 
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.fa.fa-bars.text-light
+      %span.fa.fa-bars.text-dark
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
         %br.d-block.d-lg-none
@@ -17,7 +17,7 @@
           %li.nav-item
             - case page.layout
             - when "home"
-              = link_to "/", class: "nav-link text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
+              = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
                 = page.title
 
             - when "categories"
@@ -37,7 +37,7 @@
                     - childrens.each do |child|
                       =link_to child.title, page_path(child), class: "dropdown-item", "target" => "_blank" 
               - else
-                = link_to page_path(page), class: "nav-link text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
+                = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
                   = page.title
 
         -# %li.nav-item

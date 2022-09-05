@@ -1,5 +1,5 @@
-.container 
-	.section-wrapper
+.section-wrapper
+	.text-base{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		%h3
 			=component.title.to_s.html_safe
 		%small=component.subtitle.to_s.html_safe
