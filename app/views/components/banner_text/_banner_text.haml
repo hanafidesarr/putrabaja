@@ -1,5 +1,5 @@
 
-.banner-text
+.banner-text{name: "#{component.slug}"}
 	.section-wrapper
 		.banner-slick
 			- component.images.each do |image|
@@ -7,14 +7,14 @@
 					.col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
 						%h1=image.title.html_safe
 						%p=image.note.html_safe
-					.col-lg-6.col-12
+					.col-lg-6.col-12.p-0
 						=image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset.url}")
 					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
 						%h1=image.title.html_safe
 						%p=image.note.html_safe
 
 :javascript
-	$(".banner-slick").slick({
+	$(".banner-slick").not('.slick-initialized').slick({
 		lazyLoad: "ondemand",
 		slidesToShow: 1
 	});

@@ -16,36 +16,36 @@
 										%h2.d-block.title.text-center=image.title.to_s.html_safe
 										%p=image.note.to_s.html_safe
 									.image
-										- if (url = image.asset&.url).present?
+										- if (url = image.asset_url).present?
 											- if device.eql?("desktop")
-												%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.desktop_height rescue '800'}"}/
+												=image_tag(image.asset.url, alt: image.title, "data-src": image.asset.url, style: "height: #{component.desktop_height rescue '700px'}", class: "owl-lazy")
+												-# %img.owl-lazy{:alt => "", "data-src" => image.asset.url, height: "#{component.desktop_height rescue '800px'}"}/
 											- else
-												%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.mobile_height rescue '300'}"}/
+												-# %img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.mobile_height rescue '300'}"}/
+
+												=image_tag(image.asset.url, alt: image.title, "data-src": image.asset.url, style: "height: #{component.desktop_height rescue '300'}", class: "owl-lazy")
 
 
 :javascript
 
-	$(document).on('turbolinks:load', function() {
-		var owl = $('.owl-carousel');
-		owl.owlCarousel({
-			items: 1,
-			dots: "#{component.show_dots rescue nil}" === "true",
-			loop: "#{images.size > 1}" === "true",
-			nav: false,
-			autoplay:true,
-			lazyLoad:true,
-			touchDrag: false,
-			autoplayHoverPause:true,
-			autoplayTimeout: 3000,
-			smartSpeed: 1000
-		});
+	var owl = $('.owl-carousel');
+	owl.owlCarousel({
+		items: 1,
+		dots: "#{component.show_dots rescue nil}" === "true",
+		loop: "#{images.size > 1}" === "true",
+		nav: false,
+		autoplay:true,
+		lazyLoad:true,
+		touchDrag: false,
+		autoplayHoverPause:true,
+		autoplayTimeout: 3000,
+		smartSpeed: 1000
+	});
 
-		$('.next-btn').click(function() {
-				owl.trigger('next.owl.carousel');
-		})
+	$('.next-btn').click(function() {
+			owl.trigger('next.owl.carousel');
+	})
 
-		$('.prev-btn').click(function() {
-				owl.trigger('prev.owl.carousel');
-		})
-
+	$('.prev-btn').click(function() {
+			owl.trigger('prev.owl.carousel');
 	})

@@ -9,7 +9,6 @@
 @import "frontend/lib/owl.carousel.min.scss";
 @import "frontend/lib/owl.theme.default.scss";
 
-
 // Graphical variables
 @import "config/fonts";
 @import "config/colors";
@@ -19,6 +18,8 @@
 
 // Internal
 @import "components";
+// gallery grid images
+@import "frontend/lib/newWaterfall";
 // .slider {
 //     margin: 0 auto;
 // }
@@ -288,3 +289,4 @@ a {
 .text-right {
 	text-align: right !important;
 }
+

@@ -22,8 +22,8 @@
 
             - when "categories"
               .dropdown
-                #dropdownMenuButton.dropdown-toggle.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                  Kategori
+                #dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                  = page.title
                 .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                   - if @categories.present?
                     - @categories.each do |category|
@@ -31,11 +31,11 @@
             - else
               - if ( childrens = page.children ).present?
                 .dropdown
-                  #dropdownMenuButtonPage.dropdown-toggle.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                     = page.title
                   .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
-                    - childrens.each do |child|
-                      =link_to child.title, page_path(child), class: "dropdown-item", "target" => "_blank" 
+                    - childrens.order(:position).each do |child|
+                      =link_to child.title, page_path(child), class: "dropdown-item"
               - else
                 = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
                   = page.title

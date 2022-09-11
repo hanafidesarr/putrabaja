@@ -1,14 +1,27 @@
-%link{href: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css", rel: "stylesheet"}/
-%link{href: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css", rel: "stylesheet"}/
 
-%script{src: "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"}
 
-.container
-  - @page.components.each do |component|
-    =render partial: "components/#{component.layout.to_s}/#{component.layout.present? ? component.layout.to_s : "default"}", locals: { component:component }
-    -# =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+-# .container
+-#   - @page.components.each do |component|
+-#     =render partial: "components/#{component.layout.to_s}/#{component.layout.present? ? component.layout.to_s : "default"}", locals: { component:component }
+-#     -# =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+
+- if ( components = @page.components ).present?
+  - components.order(:position).each do |component|
+    - case component.layout
+    - when "banner", "list_images"
+      .component{name: "#{component.slug}"}
+        =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+    - else
+      .container
+        .component{name: "#{component.slug}"}
+          =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
 
 :javascript
+  //$(".banner").parent().siblings("nav").addClass("position-absolute top-0")
+
+  //$(".banner").parent().siblings("nav").css("z-index", "999")
+  //$(".banner").parent().siblings("nav").css("background", "transparant")
+
   var owl = $('.owl-carousel');
   owl.owlCarousel({
     items: 1,

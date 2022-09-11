@@ -9,3 +9,4 @@
 //= require frontend/lib/owl.carousel.min
 //= require frontend/lib/jquery.slidereveal.min
 //= require frontend/lib/typingEffect.js
+//= require frontend/lib/newWaterfall

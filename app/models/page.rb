@@ -13,7 +13,16 @@ class Page < ApplicationRecord
   accepts_nested_attributes_for :components
   accepts_nested_attributes_for :images, allow_destroy: true
 
-
   PAGE_LAYOUT=["home","categories","products", "page"]
 
+  after_validation :set_slug, only: [:create, :update]
+
+  def to_param
+    "#{id}-#{slug}"
+  end
+  
+  private
+  def set_slug
+    self.slug = self.slug.present? ? self.slug.to_s.parameterize : self.title
+  end
 end

@@ -38,7 +38,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :thumb do
     process :quality => 50
-    process :resize_to_fill => [400, 400]
+    process :resize_to_fill => [300, 300]
   end
 
 
