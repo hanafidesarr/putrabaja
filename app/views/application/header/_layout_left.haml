@@ -14,7 +14,7 @@
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
         %br.d-block.d-lg-none
         - @pages.each do |page|
-          %li.nav-item
+          %li.nav-item.m-1
             - case page.layout
             - when "home"
               = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
@@ -31,13 +31,13 @@
             - else
               - if ( childrens = page.children ).present?
                 .dropdown
-                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}"}
                     = page.title
                   .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
                     - childrens.order(:position).each do |child|
-                      =link_to child.title, page_path(child), class: "dropdown-item"
+                      =link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}"
               - else
-                = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
+                = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}" do
                   = page.title
 
         -# %li.nav-item

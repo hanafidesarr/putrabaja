@@ -20,6 +20,11 @@
 :javascript
 	var string = "#{component.text_typing}"
 
+	$(document).on('turbolinks:render', function() {
+		// your code
+		$("#typed").html("")
+	});
+
 	$("#typed").typing({
 		strings: string.split(","),
 
