@@ -27,25 +27,27 @@
 
 
 :javascript
+	loadjs(["/assets/frontend/lib/owl.carousel.min.js"], 'banner');
+	loadjs.ready('banner', function() {
+		var owl = $('.owl-carousel');
+		owl.owlCarousel({
+			items: 1,
+			dots: "#{component.show_dots rescue nil}" === "true",
+			loop: "#{images.size > 1}" === "true",
+			nav: false,
+			autoplay:true,
+			lazyLoad:true,
+			touchDrag: false,
+			autoplayHoverPause:true,
+			autoplayTimeout: 3000,
+			smartSpeed: 1000
+		});
 
-	var owl = $('.owl-carousel');
-	owl.owlCarousel({
-		items: 1,
-		dots: "#{component.show_dots rescue nil}" === "true",
-		loop: "#{images.size > 1}" === "true",
-		nav: false,
-		autoplay:true,
-		lazyLoad:true,
-		touchDrag: false,
-		autoplayHoverPause:true,
-		autoplayTimeout: 3000,
-		smartSpeed: 1000
-	});
+		$('.next-btn').click(function() {
+				owl.trigger('next.owl.carousel');
+		})
 
-	$('.next-btn').click(function() {
-			owl.trigger('next.owl.carousel');
-	})
-
-	$('.prev-btn').click(function() {
-			owl.trigger('prev.owl.carousel');
+		$('.prev-btn').click(function() {
+				owl.trigger('prev.owl.carousel');
+		})
 	})

@@ -18,42 +18,48 @@
 				.fw-bold.text-secondary="READ MORE"
 
 :javascript
-	var string = "#{component.text_typing}"
+
+	// define a dependency bundle and execute code when it loads
+	loadjs(["/assets/frontend/lib/typingEffect.js"], 'typing_animation');
+	loadjs.ready('typing_animation', function() {
+		var string = "#{component.text_typing}"
+		$("#typed").typing({
+			strings: string.split(","),
+
+			// time before typing in milliseconds
+			typeDelay: 70,
+			eraseDelay: 50,
+
+			// time before string typing in milliseconds
+			stringStartDelay: 1000,
+
+			// text color
+			color: 'black',
+
+			// text color when typing
+			typingColor: 'black',
+
+			// opacity when typing
+			typingOpacity: '0.1',
+
+			// amount of loops
+			loopCount: 3,
+
+			// shows blink cursor
+			cursorBlink: false,
+
+			// character for cursor
+			cursorChar: '<small></small>',
+
+			// enables fade animation
+			fade: false
+
+		});
+	})
 
 	$(document).on('turbolinks:render', function() {
 		// your code
 		$("#typed").html("")
 	});
 
-	$("#typed").typing({
-		strings: string.split(","),
-
-		// time before typing in milliseconds
-		typeDelay: 70,
-		eraseDelay: 50,
-
-		// time before string typing in milliseconds
-		stringStartDelay: 1000,
-
-		// text color
-		color: 'black',
-
-		// text color when typing
-		typingColor: 'black',
-
-		// opacity when typing
-		typingOpacity: '0.1',
-
-		// amount of loops
-		loopCount: 3,
-
-		// shows blink cursor
-		cursorBlink: false,
-
-		// character for cursor
-		cursorChar: '<small></small>',
-
-		// enables fade animation
-		fade: false
-
-	});
+	

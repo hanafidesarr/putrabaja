@@ -6,13 +6,11 @@
 
 // that code so it'll be compiled.
 
- 
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
 
-import Rails from "@rails/ujs"
-
-import Turbolinks from "turbolinks"
-
-import * as ActiveStorage from "@rails/activestorage"
 
 import "channels"
 
@@ -26,11 +24,5 @@ import Swal from '../../assets/javascripts/frontend/lib/sweetalert2.min'
 window.jQuery = $;
 window.$ = $;
 window.Swal = Swal;
-
-Rails.start()
-
-Turbolinks.start()
-
-ActiveStorage.start()
 
 import './default.js'

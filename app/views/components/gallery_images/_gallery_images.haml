@@ -9,9 +9,14 @@
         - images.each do |image|
           %li{style: "list-style-type: none;"}
             %img{src: image.asset.url(:thumb), class: "w-100 p-1"}
+
 :javascript
-  var x = ( $(window).width() / 6 ) + 4
-  $('#waterfall').NewWaterfall({
-    width: x,
-    delay: 100
+
+  loadjs(["/assets/frontend/lib/newWaterfall.js"], 'gallery_images');
+  loadjs.ready('gallery_images', function() {
+    var x = ( $(window).width() / 6 ) + 4
+    $('#waterfall').NewWaterfall({
+      width: x,
+      delay: 100
+    });
   });

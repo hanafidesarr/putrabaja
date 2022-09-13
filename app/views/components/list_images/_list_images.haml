@@ -30,12 +30,16 @@
               %small.text-dark=image.title
 
 :javascript
-  if ("#{component.use_slideReveal == 'true'}") {
-    $('#slider').slideReveal({
-      trigger: $("#trigger"),
-      width: "75%",
-      overlay: true,
-      speed: 700,
-      position: "right"
-    });
-  }
+
+  loadjs(["/assets/frontend/lib/jquery.slidereveal.min.js"], 'list_images');
+  loadjs.ready('list_images', function() {
+    if ("#{component.use_slideReveal == 'true'}") {
+      $('#slider').slideReveal({
+        trigger: $("#trigger"),
+        width: "75%",
+        overlay: true,
+        speed: 700,
+        position: "right"
+      });
+    }
+  });
