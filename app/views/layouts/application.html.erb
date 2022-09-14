@@ -18,9 +18,11 @@
   </head>
 
   <body>
-    <%= render 'header' %>
-    <%= yield %>
-    <%= render 'footer' %>
+    <div style="background-color: <%= @setting.background_body %>; color: <%= @setting.text_color_body %>;">
+      <%= render 'header' %>
+      <%= yield %>
+      <%= render 'footer' %>
+    </div>
   </body>
 
   <script>

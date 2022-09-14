@@ -8,6 +8,7 @@ properties:
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
+  - position_text
 
   - show_dots
   - show_nav

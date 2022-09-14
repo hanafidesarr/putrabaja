@@ -1,16 +1,20 @@
-Swal.fire({
-  title: '<strong>DESIGN CUSTOM</strong>',
-  html:
-    '<b>Final design</b>' +
-    '<img src=<%= @name_image %> >',
-  showCloseButton: true,
-  confirmButtonText:
-    '<i class="fa fa-thumbs-up"></i> Ok! Pesan Lewat Whatapp sekarang',
-  confirmButtonAriaLabel: 'Kirim gambar untuk saya pesan'
-  }).then((result) => {
-    if (result.value) {
-      window.location.href = "https://web.whatsapp.com/send?phone=+6281222194150&text=ini gambar design nya http://base-qiube.herokuapp.com/<%= @name_image %>";
-    } else {
-      Swal.fire('Changes are not saved', '', 'info')
-    }
-  })
+
+loadjs(["/assets/frontend/lib/sweetalert2.min"], 'products');
+loadjs.ready('products', function() {
+  Swal.fire({
+    title: '<strong>DESIGN CUSTOM</strong>',
+    html:
+      '<b>Final design</b>' +
+      '<img src=<%= @name_image %> >',
+    showCloseButton: true,
+    confirmButtonText:
+      '<i class="fa fa-thumbs-up"></i> Ok! Pesan Lewat Whatapp sekarang',
+    confirmButtonAriaLabel: 'Kirim gambar untuk saya pesan'
+    }).then((result) => {
+      if (result.value) {
+        window.location.href = "https://web.whatsapp.com/send?phone=+6281222194150&text=ini gambar design nya http://base-qiube.herokuapp.com/<%= @name_image %>";
+      } else {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+})

@@ -18,8 +18,12 @@
 							=image_tag(image.asset.url, width: "100%")
 
 					:javascript
-						$('.product-slick').not('.slick-initialized').slick({
-							autoplay:true,
-							dots: true,
-							infinite: true
-						});
+
+						loadjs(["/assets/frontend/lib/slick.min.js"], 'text_image_base');
+						loadjs.ready('text_image_base', function() {
+							$('.product-slick').not('.slick-initialized').slick({
+								autoplay:true,
+								dots: true,
+								infinite: true
+							});
+						})

@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'}", class: "#{@page.nil? || @page.layout != "home" ? 'bg-white' : 'bg-white'}"}
+%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'}", style: "color: #{@setting.text_color_body}"}
   .container
     - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do
@@ -9,7 +9,7 @@
         .text-secondary= @setting.name
 
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.fa.fa-bars.text-dark
+      %span.fa.fa-bars{style: "color: #{@setting.text_color_body}"}
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
         %br.d-block.d-lg-none
@@ -17,12 +17,12 @@
           %li.nav-item.m-1
             - case page.layout
             - when "home"
-              = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
+              = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color_body}" do
                 = page.title
 
             - when "categories"
               .dropdown
-                #dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                #dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@setting.text_color_body}"}
                   = page.title
                 .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                   - if @categories.present?
@@ -31,17 +31,17 @@
             - else
               - if ( childrens = page.children ).present?
                 .dropdown
-                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}"}
+                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color_body}"}
                     = page.title
                   .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
                     - childrens.order(:position).each do |child|
                       =link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}"
               - else
-                = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}" do
+                = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color_body}" do
                   = page.title
 
-        -# %li.nav-item
-        -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
+        %li.nav-item
+          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
 
       %form.flex-container.navbar-right-custom
         %hr.text-white.d-block.d-lg-none

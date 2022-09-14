@@ -91,8 +91,11 @@
 				%p= @product.description
 
 :javascript
-	$('.product-slick').not('.slick-initialized').slick({
-		autoplay:true,
-		dots: true,
-		infinite: true
-	});
+	loadjs(["/assets/frontend/lib/slick.min.js"], 'products_show');
+	loadjs.ready('products_show', function() {
+		$('.product-slick').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: true,
+			infinite: true
+		});
+	})

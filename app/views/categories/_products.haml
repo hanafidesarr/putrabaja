@@ -14,8 +14,13 @@
 					.text-center=product.name
 
 :javascript
-	$('.product-slick').not('.slick-initialized').slick({
-		autoplay:true,
-		dots: true,
-		infinite: true
-	});
+
+	loadjs(["/assets/frontend/lib/slick.min.js"], 'products');
+	loadjs.ready('products', function() {
+		
+		$('.product-slick').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: true,
+			infinite: true
+		});
+	})

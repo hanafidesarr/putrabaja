@@ -12,17 +12,14 @@ require("@rails/activestorage").start()
 require("channels")
 
 
-import "channels"
+// import "channels"
 
-import 'jquery'
-import 'popper.js'
+// import 'jquery'
+// import 'popper.js'
 import 'bootstrap'
-import '../../assets/javascripts/frontend/lib/slick.min'
 
-import Swal from '../../assets/javascripts/frontend/lib/sweetalert2.min'
 
 window.jQuery = $;
 window.$ = $;
-window.Swal = Swal;
 
 import './default.js'

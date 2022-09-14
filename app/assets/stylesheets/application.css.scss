@@ -22,9 +22,11 @@
 @import "components";
 
 // gallery grid images
+
 @import "frontend/lib/newWaterfall";
 
 
+@import "frontend/custom/image_maker/imageMaker.min.scss";
 // global
 .section-wrapper {
 	// // Extra small devices (portrait phones, less than 576px)

@@ -1,5 +1,5 @@
 
-.banner-text{name: "#{component.slug}"}
+.banner-text{name: "#{component.slug}", class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 	.section-wrapper
 		.banner-slick
 			- component.images.each do |image|
@@ -14,7 +14,11 @@
 						%p=image.note.html_safe
 
 :javascript
-	$(".banner-slick").not('.slick-initialized').slick({
-		lazyLoad: "ondemand",
-		slidesToShow: 1
-	});
+
+	loadjs(["/assets/frontend/lib/slick.min.js"], 'banner_text');
+	loadjs.ready('banner_text', function() {
+		$(".banner-slick").not('.slick-initialized').slick({
+			lazyLoad: "ondemand",
+			slidesToShow: 1
+		});
+	})
