@@ -12,7 +12,7 @@
 
 :javascript
 
-  loadjs(["/assets/frontend/lib/newWaterfall.js"], 'gallery_images');
+  loadjs(["/assets/frontend/lib/newWaterfall.js", "/assets/frontend/lib/newWaterfall.css"], 'gallery_images');
   loadjs.ready('gallery_images', function() {
     var x = ( $(window).width() / 6 ) + 4
     $('#waterfall').NewWaterfall({

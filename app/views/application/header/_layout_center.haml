@@ -1,4 +1,4 @@
-%nav.navbar.navbar-expand-md.bg-faded.justify-content-center.pt-3
+%nav.header-layout-center.navbar.navbar-expand-md.bg-faded.justify-content-center.pt-3{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'} color: #{@setting.text_color_body}"}
   .container
     - unless device.eql?("desktop")
       - if (images = @setting.images).present?
@@ -7,10 +7,12 @@
       - else
         %a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center{:href => "/"}
           .text-secondary= @setting.name
+    
     %button.navbar-toggler{"aria-controls" => "collapsingNavbar3", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => ".collapsingNavbar3", "data-toggle" => "collapse", :type => "button"}
       %span.fa.fa-bars{style: "color: #{@setting.text_color_body}"}
     
-    .collapsingNavbar3.navbar-collapse.collapse.w-100
+
+    .collapsingNavbar3.navbar-collapse.collapse.w-100.left-side
       %ul.navbar-nav.w-100
         - @pages.each do |page|
           %li.nav-item.m-1
@@ -40,7 +42,8 @@
                   = page.title
         %li.nav-item
           =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
-    .collapsingNavbar3.navbar-collapse.collapse
+
+    .collapsingNavbar3.navbar-collapse.collapse.center-side
       - if device.eql?("desktop")
         - if (images = @setting.images).present?
           = link_to "/" do
@@ -49,7 +52,7 @@
           %a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center.m-auto{:href => "/"}
             .text-secondary= @setting.name
     
-    .collapsingNavbar3.navbar-collapse.collapse.w-100
+    .collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
       %ul.navbar-nav.ms-auto.w-100.justify-content-end
         -if @setting.url_media_socials[:instagram].present?
           %li.nav-item.m-auto

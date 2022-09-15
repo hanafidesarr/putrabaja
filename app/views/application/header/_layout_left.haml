@@ -1,5 +1,5 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'}", style: "color: #{@setting.text_color_body}"}
+%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'} color: #{@setting.text_color_body}"}
   .container
     - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do

@@ -15,10 +15,11 @@
 
 :javascript
 
-	loadjs(["/assets/frontend/lib/slick.min.js"], 'banner_text');
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'banner_text');
 	loadjs.ready('banner_text', function() {
 		$(".banner-slick").not('.slick-initialized').slick({
 			lazyLoad: "ondemand",
+			arrows: false,
 			slidesToShow: 1
 		});
 	})
