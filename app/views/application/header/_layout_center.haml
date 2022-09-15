@@ -40,8 +40,8 @@
               - else
                 = link_to page_path(page), style: "color: #{@setting.text_color_body}", class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}" do
                   = page.title
-        %li.nav-item
-          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
+        -# %li.nav-item
+        -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
 
     .collapsingNavbar3.navbar-collapse.collapse.center-side
       - if device.eql?("desktop")
@@ -54,24 +54,29 @@
     
     .collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
       %ul.navbar-nav.ms-auto.w-100.justify-content-end
+        -if @setting.url_media_socials[:linkedin].present?
+          %li.nav-item
+            =link_to @setting.url_media_socials[:linkedin], class: "nav-link" do
+              %i.fa-brands.fa-font-awesome.fa-linkedin.fa-xl
+              %span="Linkedin"
+        -if @setting.url_media_socials[:twitter].present?
+          %li.nav-item
+            =link_to @setting.url_media_socials[:twitter], class: "nav-link" do
+              %i.fa-brands.fa-font-awesome.fa-twitter.fa-xl
+              %span="Twitter"
         -if @setting.url_media_socials[:instagram].present?
-          %li.nav-item.m-auto
-            =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-              %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl
-              %span.text-white="Whatsapp"
-
-          %li.nav-item.m-auto
+          %li.nav-item
             =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
-              %i.fa-brands.fa-instagram.fa-xl.text-white
-              %span.text-white="Instagram"
+              %i.fa-brands.fa-instagram.fa-xl
+              %span="Instagram"
         %hr.text-white.d-block.d-lg-none
-        %li.nav-item
-          - if user_signed_in?
-            %a.text-white.nav-link="Hallo, #{current_user.email}"
-            =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@setting.text_color_body}" do
-              %i.fa.fa-exit
-              ="KELUAR"
-          - else
-            =link_to new_user_session_path, class: "nav-link", style: "color: #{@setting.text_color_body}" do
-              %i.fa.fa-user
-              ="DAFTAR/MASUK"
+        -# %li.nav-item
+        -#   - if user_signed_in?
+        -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+        -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@setting.text_color_body}" do
+        -#       %i.fa.fa-exit
+        -#       ="KELUAR"
+        -#   - else
+        -#     =link_to new_user_session_path, class: "nav-link", style: "color: #{@setting.text_color_body}" do
+        -#       %i.fa.fa-user
+        -#       ="DAFTAR/MASUK"

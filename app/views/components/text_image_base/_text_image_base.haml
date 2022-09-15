@@ -7,10 +7,10 @@
 			.row 
 				.col-lg-6.col-12
 					%h1
-						=component.name.to_s.html_safe
+						=component.title.to_s.html_safe
 					%p
-						=component.description.to_s.html_safe
-					=link_to component&.url_text || "/", class: "btn bg-yellow" do
+						=component.body.to_s.html_safe
+					=link_to component&.url_text || "/", class: "btn btn-primary text-white" do
 						READ MORE
 				.col-lg-6.col-12
 					- if (images = component.images).present?

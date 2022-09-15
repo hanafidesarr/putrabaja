@@ -2,7 +2,8 @@
 - if component.use_slideReveal == "true"
   .row
     .col-12.p-0.mb-4{style: "text-align: right;"}
-      %button#trigger.btn.btn-primary.text-white.py-0.px-4{:type => "button"}
+
+      =button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
         %span.fa.fa-angle-double-left
         Lihat semua
   #slider.p-2{style: "background-color: #F7F7F9;"}
