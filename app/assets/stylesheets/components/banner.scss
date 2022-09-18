@@ -58,3 +58,28 @@
 		}
 	}
 }
+
+
+
+.vertical-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	.title {
+		@include media-breakpoint-down(md) {
+			div {
+				font-size: 32px !important;
+			}
+		}
+	}
+}
+
+// .slider a {
+//   background-position: center;
+//   background-size: cover;  
+//   display: block;
+//   width: 100%;
+//   height: auto;
+//   padding-top: 18.33%; /** HEIGHT : WIDTH x 100 **/
+// }

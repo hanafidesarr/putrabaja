@@ -85,3 +85,5 @@ gem "figaro"
 gem "fog-aws"
 
 # gem 'rails_sortable'
+
+gem "draper"

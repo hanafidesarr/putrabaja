@@ -3,6 +3,11 @@ properties:
   - margin_top_bottom_side
   - margin_left_right_side
   - use_slideReveal
+  - coloumn_desktop
+  - coloumn_mobile
+  - use_border_image
+  - padding_images
+  - border_radius
 
 active_fields:
   - title

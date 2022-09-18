@@ -1,34 +1,37 @@
-- images = component.images
-- if component.use_slideReveal == "true"
-  .row
-    .col-12.p-0.mb-4{style: "text-align: right;"}
+.list_images{style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+  - images = component.images
+  - if component.use_slideReveal == "true"
+    .row
+      .col-12.p-0.mb-4{style: "text-align: right;"}
 
-      =button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
-        %span.fa.fa-angle-double-left
-        Lihat semua
-  #slider.p-2{style: "background-color: #F7F7F9;"}
-    - if images.present?
-      .container
-        .row
-          - images.each do |image|
-            .col-6.col-lg-2.my-1.px-1
-              .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
-                =link_to image.url do
-                  =image_tag(image.asset.url(:thumb), class: "w-50 text-center", alt: "#{image.title}")
+        =button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
+          %span.fa.fa-angle-double-left
+          Lihat semua
+    #slider.p-2{style: "background-color: #F7F7F9;"}
+      - if images.present?
+        .container
+          .row
+            - images.each do |image|
+              .col-6.col-lg-2.my-1.px-1
+                .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
+                  =link_to image.url do
+                    =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
+                    - if image.title.present?
+                      %hr{style: "color: gray;"}
+                      %small.text-center.text-dark=image.title
+
+  - if images.present?
+    .container
+      .row.text-center
+        - images.limit(6).each do |image|
+          .my-2{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
+            .card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'}"}
+              =link_to image.url do
+                =image_tag(image.asset.url(:perview), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
+                
+                - if image.title.present?
                   %hr{style: "color: gray;"}
-                  %small.text-center.text-dark=image.title
-
-- if images.present?
-  .container
-    .row.text-center
-      - images.limit(6).each do |image|
-        .col-6.my-2{class: "col-lg-2"}
-          .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
-            =link_to image.url do
-              =image_tag(image.asset.url(:thumb), class: "w-50 mx-auto lazy", alt: "#{image.title}", style: "height: 70px;", "data-src": image.asset.url(:thumb)) 
-              
-              %hr{style: "color: gray;"}
-              %small.text-dark=image.title
+                  %small.text-dark=image.title
 
 :javascript
 
