@@ -10,9 +10,11 @@ class Category < ApplicationRecord
   belongs_to  :parent, class_name: self.name, foreign_key: "parent_id", touch: true, optional: true #this for nested parent children
   has_many    :children,  class_name: self.name,    foreign_key: "parent_id", inverse_of: :parent #this for nested parent children
   has_many    :products
+  has_many :images,  class_name: "Image",  as: "parent", dependent: :destroy
   has_ancestry :orphan_strategy => :rootify
 
   # nested attribute form
+  accepts_nested_attributes_for :images, :allow_destroy => true
   accepts_nested_attributes_for :children, :allow_destroy => true
   accepts_nested_attributes_for :products, :allow_destroy => true
 

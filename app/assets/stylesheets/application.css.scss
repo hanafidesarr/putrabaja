@@ -149,3 +149,10 @@ a {
 		}
 	}
 }
+
+
+.title-mobile {
+  @include media-breakpoint-down(md) {
+    font-size: 32px !important;
+  }
+}

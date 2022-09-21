@@ -18,7 +18,7 @@
   </head>
 
   <body>
-    <div style="background-color: <%= @setting.background_body %>; color: <%= @setting.text_color_body %>;">
+    <div style="background-color: <%= @page&.background_body || @setting.background_body %>; color: <%= @page&.text_body_color || @setting.text_color_body %>;">
       <%= render 'header' %>
       <%= yield %>
       <%= render 'footer' %>
@@ -52,7 +52,7 @@
           "ctaText":"Mulai Chat",
           "borderRadius":"25",
           "autoShow":false,
-          "phoneNumber":"<%= @setting.phone_1 || @setting.phone_1 %>"
+          "phoneNumber":"<%= @setting.whatsapp || @setting.phone_1 || @setting.phone_2 %>"
       }
     };
     s.onload = function() {

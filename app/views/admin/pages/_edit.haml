@@ -13,6 +13,11 @@
 				= f.input :layout, as: :select, collection: Page::PAGE_LAYOUT, input_html: {class: "form-control select2"}
 			.col-12.my-3
 				= f.input :description, input_html: {class: "form-control w-100", rows: 5}
+			.col-12.my-3
+				= f.input :background_body, input_html: {class: "form-control w-100"}
+			.col-12.my-3
+				= f.input :text_body_color, input_html: {class: "form-control w-100"}
+
 
 	- f.has_many :components, new_record: true, heading: false, class: "component-parent" do | comp |
 

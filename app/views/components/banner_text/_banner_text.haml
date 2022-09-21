@@ -1,17 +1,17 @@
 
-.banner-text{name: "#{component.slug}", class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+.banner-text{name: "#{component.slug}", class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side} background-color: #{component.bg_color} color: #{component.color_text}"}
 	.section-wrapper
 		.banner-slick
 			- component.images.each do |image|
 				.row.d-flex.align-items-center
 					.col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
 						%h1=image.title.html_safe
-						%p=image.note.html_safe
+						%p.title-mobile=image.note.html_safe
 					.col-lg-6.col-12.p-0
 						=image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset.url}")
 					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
 						%h1=image.title.html_safe
-						%p=image.note.html_safe
+						%p.title-mobile=image.note.html_safe
 
 :javascript
 

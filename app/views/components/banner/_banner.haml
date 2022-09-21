@@ -1,4 +1,4 @@
-.banner{style: "height: #{component.desktop_height.present? ? component.desktop_height : '700px'}"}
+.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }"}
 	.d-block
 		- if (images = component.images).present?
 			- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
@@ -8,7 +8,7 @@
 					%i.fa.fa-square-caret-right.next-btn.text-light
 			.owl-carousel.demo.owl-theme
 				- images.banners.each do |image|
-					.item{style: "background-image: url(#{image_url(image.asset.url, class: "img-fluid")}); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; background-color: white; height: #{component.desktop_height.to_s.presence || '700px'}; ", "data-src": "#{image.asset.url}"}
+					.item{style: "background-image: url(#{image_url(image.asset.url, class: "img-fluid")}); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; background-color: white; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
 						.vertical-center.text-white
 							%div.title=image.title.to_s.html_safe
 							%p=image.note.to_s.html_safe

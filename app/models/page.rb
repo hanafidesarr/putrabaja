@@ -17,6 +17,8 @@ class Page < ApplicationRecord
 
   after_validation :set_slug, only: [:create, :update]
 
+  store :properties, accessors: [ :background_body, :text_body_color ], coder: JSON
+
   def to_param
     "#{id}-#{slug}"
   end
