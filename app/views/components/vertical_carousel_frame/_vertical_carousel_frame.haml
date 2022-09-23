@@ -1,0 +1,26 @@
+.section-wrapper
+	.vertical_carousel_frame{class: "text-#{component.position_text}", style: "height: #{component.height}; margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+		.carousel-container.justify-content-center
+			#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
+				%ol.carousel-indicators
+
+					- if component.is_images_from_online == 'true' && ( list_images_online = component.link_images_online ).present?
+						- list_images_online.split(",").each_with_index do |link_image, i|
+							%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
+					- else
+						- component.images.pluck(:id).each_with_index do |image, i|
+							%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
+				.carousel-inner
+					- if component.is_images_from_online == 'true' && ( list_images_online = component.link_images_online ).present?
+						- list_images_online.split(",").each_with_index do |link_image, i|
+							.carousel-item{:style => "background-image:url(#{link_image});", class: "#{i == 0 ? 'active' : ''}"}
+					- else
+						- component.images.each_with_index do |image, i|
+							.carousel-item{:style => "background-image:url(#{image.asset.url});", class: "#{i == 0 ? 'active' : ''}"}
+
+:javascript
+
+	loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js", "/assets/frontend/lib/test.css"], 'vertical_carousel_frame');
+	loadjs.ready('vertical_carousel_frame', function() {
+
+	})

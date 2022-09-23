@@ -27,7 +27,7 @@
           .my-2{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
             .card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'}"}
               =link_to image.url do
-                =image_tag(image.asset.url(:perview), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
+                =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
                 
                 - if image.title.present?
                   %hr{style: "color: gray;"}
