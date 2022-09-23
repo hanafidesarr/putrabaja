@@ -89,6 +89,17 @@ module SettingAdmin
                   end.to_s)
                 end
               end
+
+              tab 'Meta SEO', style: "list-style-type: none;" do
+                columns do
+                  yml_setting = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
+                  yml_setting[:meta].each do |obj|
+                    column do
+                      f.input obj, input_html: {class: "w-100 form-control"}
+                    end
+                  end
+                end
+              end
             end
             f.actions
           end
