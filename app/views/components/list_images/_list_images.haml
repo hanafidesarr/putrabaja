@@ -11,11 +11,13 @@
       - if images.present?
         .container
           .row
+            - image_quality = device.eql?("desktop") ? 'thumb' : 'low_thumb'
             - images.each do |image|
               .col-6.col-lg-2.my-1.px-1
                 .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
                   =link_to image.url do
-                    =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
+                    -# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
+                    = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center"})
                     - if image.title.present?
                       %hr{style: "color: gray;"}
                       %small.text-center.text-dark=image.title
@@ -23,12 +25,13 @@
   - if images.present?
     .container
       .row.text-center
+        - image_quality = device.eql?("desktop") ? 'thumb' : 'low_thumb'
         - images.limit(6).each do |image|
           .my-2{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
             .card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'}"}
               =link_to image.url do
-                =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
-                
+                -# =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
+                = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy", data_src: image_quality})
                 - if image.title.present?
                   %hr{style: "color: gray;"}
                   %small.text-dark=image.title

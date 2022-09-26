@@ -36,6 +36,12 @@ class FileUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+
+  version :low_thumb do
+    process :quality => 50
+    process :resize_to_fill => [150, 150]
+  end
+
   version :thumb do
     process :quality => 50
     process :resize_to_fill => [300, 300]
@@ -47,15 +53,14 @@ class FileUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [600, 600]
   end
 
-  version :banner do
+  version :low_banner do
     process :quality => 100
     process :resize_to_fill => [1400, 600]
   end
 
-
-  version :banner_full do
+  version :banner do
     process :quality => 100
-    process :resize_to_fill => [1400, 800]
+    process :resize_to_fill => [1400, 600]
   end
 
   # Create different versions of your uploaded files:

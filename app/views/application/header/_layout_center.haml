@@ -3,7 +3,8 @@
     - unless device.eql?("desktop")
       - if (images = @setting.images).present?
         = link_to "/" do
-          = image_tag(images.last.asset.url(:thumb), width: "50")
+          = manipulate_image_tag(images.last, options: {image_quality: "low_thumb"}, html: {width: "50"})
+          
       - else
         %a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center{:href => "/"}
           .text-secondary= @setting.name
@@ -47,7 +48,7 @@
       - if device.eql?("desktop")
         - if (images = @setting.images).present?
           = link_to "/" do
-            = image_tag(images.last.asset.url(:thumb), width: "50")
+            = manipulate_image_tag(images.last, options: {image_quality: "thumb"}, html: {width: "50"})
         - else
           %a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center.m-auto{:href => "/"}
             .text-secondary= @setting.name

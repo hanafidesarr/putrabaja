@@ -3,12 +3,18 @@
 	.section-wrapper
 		.banner-slick
 			- component.images.each do |image|
+				- unless image.check_type_image.eql?("gif")
+					- image_quality = device.eql?("desktop") ? 'perview' : 'thumb'
+				- else
+					- image_quality = nil
+
 				.row.d-flex.align-items-center
 					.col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
 						%h1=image.title.html_safe
 						%p.title-mobile=image.note.html_safe
 					.col-lg-6.col-12.p-0
-						=image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset.url}")
+						-# =image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset.url}")
+						= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy", data_lazy: "true"})
 					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
 						%h1=image.title.html_safe
 						%p.title-mobile=image.note.html_safe

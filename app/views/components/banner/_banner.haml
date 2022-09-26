@@ -13,25 +13,6 @@
 							%div.title=image.title.to_s.html_safe
 							%p=image.note.to_s.html_safe
 
-					-# .slider
-					-# 	.textoverlay
-					-# 		.row.align-items-center
-					-# 			.col-12.thumb
-					-# 				.text
-					-# 					%h2.d-block.title.text-center=image.title.to_s.html_safe
-					-# 					%p=image.note.to_s.html_safe
-					-# 				.image{style: "height:100vh"}
-					-# 					- if (url = image.asset_url).present?
-					-# 						- if device.eql?("desktop")
-					-# 							=image_tag(image.asset.url, alt: image.title, "data-src": image.asset.url, style: "height: #{component.desktop_height rescue '700px'} ; min-height: 500px", class: "owl-lazy")
-					-# 							-# %img.owl-lazy{:alt => "", "data-src" => image.asset.url, height: "#{component.desktop_height rescue '800px'}"}/
-					-# 						- else
-					-# 							-# %img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.mobile_height rescue '300'}"}/
-
-					-# 							=image_tag(image.asset.url, alt: image.title, "data-src": image.asset.url, style: "height: #{component.desktop_height rescue '300'}", class: "owl-lazy")
-
-
-
 :javascript
 	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css", "/assets/frontend/lib/owl.theme.default.css"], 'banner');
 	loadjs.ready('banner', function() {
