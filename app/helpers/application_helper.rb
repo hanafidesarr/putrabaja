@@ -40,10 +40,11 @@ module ApplicationHelper
     else
       data_src = obj.asset_url
     end
+
     if html[:data_lazy].present?
-      image_tag("", width: html[:width], alt: "#{obj.alt}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src], "data-lazy": url)
+      image_tag("", width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src], "data-lazy": url)
     else
-      image_tag(url, width: html[:width], alt: "#{obj.alt}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src])
+      image_tag(url, width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src])
     end
   end
 end

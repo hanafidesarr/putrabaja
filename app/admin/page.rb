@@ -30,7 +30,7 @@ ActiveAdmin.register Page do
   space_yml[:active_fields], list_images_yml[:active_fields], typing_animation_yml[:active_fields], gallery_images_yml[:active_fields], products_by_category_yml[:active_fields],
   vertical_carousel_frame_yml[:active_fields],
 
-  images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :url, :_destroy]], # *note add id for disable duplicate when attribute updated
+  images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :url, :alt, :_destroy]], # *note add id for disable duplicate when attribute updated
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :layout_type, :_destroy] # *note add id for disable duplicate when attribute updated 
   
   sortable tree: true,

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Axeonsoft</title>
+    <title><%= @setting.name || 'Axeonsoft' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta property="og:title" content="<%= @setting.meta_title %>" />
     <meta property="og:description" content="<%= @setting.meta_description %>" />
     <meta property="og:url" content="<%= @setting.meta_url %>" />
     <meta property="og:image" content="<%= @setting.meta_image %>" />
+    <meta name="description" content="<%= @setting.meta_description %>">
     <meta name="keywords" content="<%= @setting.keywords %>">
     <meta name="author" content="<%= @setting.author %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
   </head>
 
   <body>
-    <div style="background-color: <%= @page&.background_body || @setting.background_body %>; color: <%= @page&.text_body_color || @setting.text_color_body %>;">
+    <div style="background-color: <%= @page&.background_body.presence || @setting.background_body %>; color: <%= @page&.text_body_color || @setting.text_color_body %>;">
       <%= render 'header' %>
       <%= yield %>
       <%= render 'footer' %>
@@ -32,6 +33,7 @@
     s.type = 'text/javascript';
     s.async = true;
     s.src = url;
+    s.title = "whatsapp chat"
     var options = {
       "enabled":true,
       "chatButtonSetting":{
@@ -46,7 +48,7 @@
       "brandSetting":{
           "brandName":"<%= @setting.name %>",
           "brandSubTitle":"Melayani dengan hati",
-          "brandImg":"https://cdn.clare.ai/wati/images/WATI_logo_square_2.png",
+          "brandImg":"https://via.placeholder.com/100x100",
           "welcomeText":"Hai !\nAda yang bisa kami bantu?",
           "messageText":"Hallo <%= @setting.name %>",
           "backgroundColor":"#0a5f54",
