@@ -10,6 +10,12 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+// $skinActiveColor: #665df5;
+$skinActiveColor: #F50057;
+
+// $skinHeaderBck: #665df5;
+// $panelHeaderBck: #002744;
+@import "active_skin";
 @import "active_admin/sortable";
 @import "font-awesome";
 

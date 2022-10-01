@@ -42,6 +42,7 @@ GEM
       coffee-rails
       jquery-rails
       sass (~> 3.1)
+    active_skin (0.0.13)
     activeadmin (2.12.0)
       arbre (~> 1.2, >= 1.2.1)
       formtastic (>= 3.1, < 5.0)
@@ -385,6 +386,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin-sortable_tree (~> 2.0.0)
+  active_skin
   activeadmin
   acts_as_list
   ancestry
