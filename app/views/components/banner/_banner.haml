@@ -9,12 +9,12 @@
 			.owl-carousel.demo.owl-theme
 				- images.banners.each do |image|
 					.item{style: "background-image: url(#{image_url(image.asset.url, class: "img-fluid")}); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; background-color: white; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
-						.vertical-center.text-white
+						.text-justify.text-white
 							%div.title=image.title.to_s.html_safe
 							%p=image.note.to_s.html_safe
 
 :javascript
-	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css", "/assets/frontend/lib/owl.theme.default.css"], 'banner');
+	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css"], 'banner');
 	loadjs.ready('banner', function() {
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({

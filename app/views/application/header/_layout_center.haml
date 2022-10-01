@@ -1,8 +1,8 @@
-%nav.header-layout-center.navbar.navbar-expand-md.bg-faded.justify-content-center.pt-3{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'} color: #{@setting.text_color_body}"}
+%nav.header.header-layout-center.navbar.navbar-expand-md.bg-faded.justify-content-center.pt-3{style: "background-color: #{device != 'desktop' &&  @setting.nav_mobile_bg.present? ? @setting.nav_mobile_bg : ''  }", class: "#{@setting.position == 'absolute' && controller_name == 'home' ? 'nav-absolute' : ''} #{device.eql?("desktop") ? '' : 'nav-box-shadow'}"}
   .container
     - unless device.eql?("desktop")
       - if (images = @setting.images).present?
-        = link_to "/" do
+        = link_to root_path, title: "axeonsoft" do
           = manipulate_image_tag(images.last, options: {image_quality: "low_thumb"}, html: {width: "50"})
           
       - else
@@ -16,30 +16,30 @@
     .collapsingNavbar3.navbar-collapse.collapse.w-100.left-side
       %ul.navbar-nav.w-100
         - @pages.each do |page|
-          %li.nav-item.m-1
+          %li.nav-item.mx-2
             - case page.layout
             - when "home"
-              = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color_body}" do
+              = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color}" do
                 = page.title
 
             - when "categories"
               .dropdown
-                #dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@setting.text_color_body}"}
+                #dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@setting.text_color}"}
                   = page.title
                 .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                   - if @categories.present?
                     - @categories.each do |category|
-                      =link_to category.name, category_path(category), class: "dropdown-item"
+                      =link_to category.name, category_path(category), class: "dropdown-item", title: "#{page.slug || page.title}"
             - else
               - if ( childrens = page.children ).present?
                 .dropdown
-                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color_body}"}
+                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@setting.text_color}"}
                     = page.title
                   .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
                     - childrens.order(:position).each do |child|
-                      =link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}"
+                      =link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", title: "#{page.slug || page.title}"
               - else
-                = link_to page_path(page), style: "color: #{@setting.text_color_body}", class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}" do
+                = link_to page_path(page), title: "#{page.title}", style: "color: #{@setting.text_color}", class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}" do
                   = page.title
         -# %li.nav-item
         -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
@@ -57,27 +57,27 @@
       %ul.navbar-nav.ms-auto.w-100.justify-content-end
         -if @setting.url_media_socials[:linkedin].present?
           %li.nav-item
-            =link_to @setting.url_media_socials[:linkedin], class: "nav-link" do
+            =link_to @setting.url_media_socials[:linkedin], class: "nav-link", title: "Linkedin", style: "color: #{@setting.text_color}" do
               %i.fa-brands.fa-font-awesome.fa-linkedin.fa-xl
               %span="Linkedin"
         -if @setting.url_media_socials[:twitter].present?
           %li.nav-item
-            =link_to @setting.url_media_socials[:twitter], class: "nav-link" do
+            =link_to @setting.url_media_socials[:twitter], class: "nav-link", title: "Twitter", style: "color: #{@setting.text_color}" do
               %i.fa-brands.fa-font-awesome.fa-twitter.fa-xl
               %span="Twitter"
         -if @setting.url_media_socials[:instagram].present?
           %li.nav-item
-            =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
+            =link_to @setting.url_media_socials[:instagram], class: "nav-link", title: "Instagram", style: "color: #{@setting.text_color}" do
               %i.fa-brands.fa-instagram.fa-xl
               %span="Instagram"
         %hr.text-white.d-block.d-lg-none
         -# %li.nav-item
         -#   - if user_signed_in?
         -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
-        -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@setting.text_color_body}" do
+        -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@setting.text_color}" do
         -#       %i.fa.fa-exit
         -#       ="KELUAR"
         -#   - else
-        -#     =link_to new_user_session_path, class: "nav-link", style: "color: #{@setting.text_color_body}" do
+        -#     =link_to new_user_session_path, class: "nav-link", style: "color: #{@setting.text_color}" do
         -#       %i.fa.fa-user
         -#       ="DAFTAR/MASUK"

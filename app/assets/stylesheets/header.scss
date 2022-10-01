@@ -10,3 +10,13 @@
 		text-decoration: none;
 	}
 }
+
+.nav-absolute {
+	position: absolute;
+	z-index: 100;
+	width: 100%;
+}
+
+.nav-box-shadow {
+	box-shadow: 4px 7px 11px #eee;
+}
