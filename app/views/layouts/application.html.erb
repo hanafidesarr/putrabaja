@@ -20,7 +20,7 @@
   </head>
 
   <body>
-    <div style="background-color: <%= @page&.background_body.presence || @setting.background_body %>; color: <%= @page&.text_body_color || @setting.text_color_body %>;">
+    <div style="background-color: <%= @page&.background_body_color %>; color: <%= @page&.text_body_color %>;">
       <%= render 'header' %>
       <%= yield %>
       <%= render 'footer' %>

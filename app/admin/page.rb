@@ -20,7 +20,7 @@ ActiveAdmin.register Page do
   products_by_category_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','products_by_category','products_by_category.yml'))
   vertical_carousel_frame_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','vertical_carousel_frame','vertical_carousel_frame.yml'))
 
-  permit_params :title, :active, :description, :layout, :slug, :background_body, :text_body_color, :_destroy,
+  permit_params :title, :active, :description, :layout, :slug, :background_body_color, :text_body_color, :_destroy, Page.stored_attributes[:header_desktop_properties], Page.stored_attributes[:header_mobile_properties],
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :slug, :_destroy,
 
   banner_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],

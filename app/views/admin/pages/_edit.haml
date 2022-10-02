@@ -1,23 +1,51 @@
-
+%h1= @page.title
+%hr
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
-	= f.inputs :name => "Page" do
-		.form-check.form-switch.px-3{style: "text-align: right"}
-			= f.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
-		.row.mx-2
-			.col-lg-6.col-12
-				= f.input :title, input_html: {class: "form-control w-100"}
-			.col-lg-6.col-12
-				= f.input :slug, input_html: {class: "form-control w-100"}
-			.col-lg-12.col-12
-				-# = f.select :layout, Page::PAGE_LAYOUT, {}, { :class => 'js-example-basic-single' }
-				= f.input :layout, as: :select, collection: Page::PAGE_LAYOUT, input_html: {class: "form-control select2"}
-			.col-12.my-3
-				= f.input :description, input_html: {class: "form-control w-100", rows: 5}
-			.col-12.my-3
-				= f.input :background_body, input_html: {class: "form-control w-100"}
-			.col-12.my-3
-				= f.input :text_body_color, input_html: {class: "form-control w-100"}
+	.mb-4
+		%nav
+			#nav-tab.nav.nav-tabs{:role => "tablist"}
+				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab"} General
+				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-global-style", :role => "tab"} Global Style
+				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab"} Header
+		#nav-tabContent.tab-content
+			#page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
+				= f.inputs :name => "Page" do
+					.form-check.form-switch.px-3{style: "text-align: right"}
+						= f.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
+					.row.mx-2
+						.col-lg-4.col-12
+							= f.input :title, input_html: {class: "form-control w-100"}
+						.col-lg-4.col-12
+							= f.input :slug, input_html: {class: "form-control w-100"}
+						.col-lg-4.col-12
+							-# = f.select :layout, Page::PAGE_LAYOUT, {}, { :class => 'js-example-basic-single' }
+							= f.input :layout, as: :select, collection: Page::PAGE_LAYOUT, input_html: {class: "form-control select2"}
+						.col-12.my-3
+							= f.input :description, input_html: {class: "form-control w-100", rows: 5}
 
+			#page-global-style.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel"}
+				= f.inputs :name => "Global Style" do
+					.row.mx-2
+						.col-12.mb-2
+							= f.input :background_body_color, input_html: {class: "form-control w-100"}
+						.col-12.mb-2
+							= f.input :text_body_color, input_html: {class: "form-control w-100"}
+							
+			#page-header.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel"}
+				= f.inputs :name => "Header Desktop" do
+					.row.mx-2
+						- Page.stored_attributes[:header_desktop_properties].each do | obj |
+							.col-lg-3.col-12.mb-2
+								= f.input obj, input_html: {class: "form-control w-100"}
+
+				= f.inputs :name => "Header Mobile" do
+					.row.mx-2
+						- Page.stored_attributes[:header_mobile_properties].each do | obj |
+							.col-lg-3.col-12.mb-2
+								= f.input obj, input_html: {class: "form-control w-100"}
+
+
+	
 
 	- f.has_many :components, new_record: true, heading: false, class: "component-parent" do | comp |
 

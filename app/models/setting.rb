@@ -8,7 +8,6 @@ class Setting < ApplicationRecord
   yml_setting = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
   store :url_media_socials, accessors: yml_setting[:url_media_socials], coder: JSON
   store :general_style, accessors: yml_setting[:general_style], coder: JSON
-  store :header_style, accessors: yml_setting[:header_style], coder: JSON
   store :meta, accessors: yml_setting[:meta], coder: JSON
   
 

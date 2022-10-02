@@ -8,7 +8,7 @@
 					%i.fa.fa-square-caret-right.next-btn.text-light
 			.owl-carousel.demo.owl-theme
 				- images.banners.each do |image|
-					.item{style: "background-image: url(#{image_url(image.asset.url, class: "img-fluid")}); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; background-color: white; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
+					.item{style: "background-image: url(#{image_url(image.asset.url, class: "img-fluid")}); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; background-color: #{@page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
 						.text-justify.text-white
 							%div.title=image.title.to_s.html_safe
 							%p=image.note.to_s.html_safe

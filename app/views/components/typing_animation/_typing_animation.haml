@@ -2,7 +2,7 @@
 	.section-wrapper
 		%div{:style => "width: 100%; height: 18px; border-bottom: 1px solid #e6e6e6; text-align: center"}
 			%h3
-				%span#typed{:style => "background-color: #{@setting.background_body}; padding: 0 10px;"}
+				%span#typed{:style => "background-color: #{@page.background_body_color}; padding: 0 10px;"}
 				%span.cursor
 		-# %h1
 		-# 	%span#typed
@@ -34,10 +34,10 @@
 			stringStartDelay: 1000,
 
 			// text color
-			color: "#{@setting.text_color_body}",
+			color: "#{@page.text_body_color}",
 
 			// text color when typing
-			typingColor: "#{@setting.text_color_body}",
+			typingColor: "#{@page.text_body_color}",
 
 			// opacity when typing
 			typingOpacity: '0.1',

@@ -45,21 +45,6 @@ module SettingAdmin
                     end
                   end
                 end
-                panel "Header" do
-                  columns do
-                    yml_setting[:header_style].each do |obj|
-                      column do
-                        if obj.eql?("layout")
-                          f.input obj, as: :select, collection: ["layout_left", "layout_center", "layout_right"], input_html: {class: "w-100 form-control"}
-                        elsif obj.eql?("position")
-                          f.input obj, as: :select, collection: ["absolute", "relative"], input_html: {class: "w-100 form-control"}
-                        else
-                          f.input obj, input_html: {class: "w-100 form-control"}
-                        end
-                      end
-                    end
-                  end
-                end
               end
 
               tab 'Media Social', style: "list-style-type: none;" do
@@ -87,7 +72,7 @@ module SettingAdmin
                 panel "Image" do
                   f.has_many :images, allow_destroy: true, panel: false, heading: false, new_record: true, class: "col-2 mx-2" do |attach|
                     arbre do
-                      attach.input :asset, :as => :file, label: false, :hint => attach.template.image_tag(attach.object.asset.url(:thumb), class: "w-100"), "data-placement"=>"top"
+                      attach.input :asset, :as => :file, label: false, :hint => attach.template.image_tag(attach.object.asset_url, class: "w-100"), "data-placement"=>"top"
                     end
                     attach.template.concat(Arbre::Context.new do
                       hr
