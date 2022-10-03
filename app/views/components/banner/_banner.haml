@@ -1,4 +1,4 @@
-.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }"}
+.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) } background-color: #{component.background_color}"}
 	.d-block
 		- if (images = component.images).present?
 			- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
@@ -7,8 +7,9 @@
 					%i.fa.fa-square-caret-left.prev-btn.text-light
 					%i.fa.fa-square-caret-right.next-btn.text-light
 			.owl-carousel.demo.owl-theme
-				- images.banners.each do |image|
-					.item{style: "background-image: url(#{image_url(image.asset.url, class: "img-fluid")}); background-repeat: no-repeat; background-size: cover; background-position: center; width: 100%; background-color: #{@page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
+				- images.each do |image|
+					- image_quality = image.image_quality
+					.item{style: "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image_quality}, html: {class: "img-fluid", data_src: image_quality})}); background-repeat: no-repeat; background-size: #{image.background_image_size}; background-position: #{image.background_image_position || 'center'}; width: 100%; background-color: #{image.background_image_color || @page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
 						.text-justify.text-white
 							%div.title=image.title.to_s.html_safe
 							%p=image.note.to_s.html_safe

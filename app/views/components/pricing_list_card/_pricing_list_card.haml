@@ -1,0 +1,61 @@
+.section-wrapper
+	.pricing-list-card{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+		%h3
+			=component.title.to_s.html_safe
+		%small=component.subtitle.to_s.html_safe
+		%p
+			=component.body.to_s.html_safe
+
+		-# - if (images = component.images).present?
+		-# 	.pricing-list-card-component
+		-# 		- images.each do |image|
+		-# 			.card.card-body.mx-2{style: "border-radius: 10px"}
+		-# 				%h1="HAHAHA"
+		-# 				= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid text-center"})
+
+		.pricing-list-card-component
+			.card.mx-2{style: "border-radius: 10px;"}
+				.card-header.text-center.bg-primary.text-white
+					%h3.my-3="Premium"
+				.card-body
+					%ul
+						%li="Gratis hosting selama 1 tahun"
+						%li="Gratis domain .com selama 1 tahun"
+						%li="Gratis 3 page include"
+						%li="SEO friendly"
+			-# .card.mx-2{style: "border-radius: 10px;"}
+			-# 	.card-header.text-center="Landing Page"
+			-# 	.card-body
+			-# 		%ul
+			-# 			%li="Gratis hosting selama 1 tahun"
+			-# 			%li="Gratis domain .com selama 1 tahun"
+			-# 			%li="Gratis domain .com selama 1 tahun"
+			-# .card.mx-2{style: "border-radius: 10px;"}
+			-# 	.card-header.text-center="Landing Page"
+			-# 	.card-body
+			-# 		%ul
+			-# 			%li="Gratis hosting selama 1 tahun"
+			-# 			%li="Gratis domain .com selama 1 tahun"
+			-# 			%li="Gratis domain .com selama 1 tahun"
+			-# .card.mx-2{style: "border-radius: 10px;"}
+			-# 	.card-header.text-center="Landing Page"
+			-# 	.card-body
+			-# 		%ul
+			-# 			%li="Gratis hosting selama 1 tahun"
+			-# 			%li="Gratis domain .com selama 1 tahun"
+			-# 			%li="Gratis domain .com selama 1 tahun"
+
+			-# .card.card-body.mx-2{style: "border-radius: 10px"}
+			-# 	%h1="HAHAHHA"
+
+:javascript
+
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'pricing-list-card');
+	loadjs.ready('pricing-list-card', function() {
+		$('.pricing-list-card-component').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: true,
+			slidesToShow: 3,
+			infinite: true
+		});
+	})

@@ -1,4 +1,3 @@
-
 .modal-image-upload.mx-2
 	/ Button trigger modal
 	%button.btn.btn-primary.w-100{"data-target" => "#exampleModal-#{f.object.id}", "data-toggle" => "modal", :type => "button"}
@@ -8,7 +7,7 @@
 		.modal-dialog.modal-xl{:role => "document"}
 			.modal-content
 				.modal-header
-					%h5#exampleModalLabel.modal-title Modal title
+					%h5#exampleModalLabel.modal-title Image Title
 					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
 						%span{"aria-hidden" => "true"} ×
 				.modal-body
@@ -17,12 +16,28 @@
 							- f.input :active, label: false, input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
 					.row 
 						.col-lg-4.col-12.modal-image-upload
-							- f.input :asset, :as => :file, label: false, :hint => f.template.image_tag(f.object.asset.url(:perview), class: "w-100"), "data-placement"=>"top"
+							- f.input :asset, :as => :file, label: false, :hint => f.template.image_tag(f.object.asset_url, class: "w-100"), "data-placement"=>"top"
 						.col-lg-8.col-12
-							- f.input :layout_type, as: :select, collection: Image::LAYOUT_TYPE, input_html: {class: "form-control select2"}
-							- f.input :title, input_html: { class: "form-control w-100" }
-							- f.input :url, input_html: { class: "form-control w-100" }
-							- f.input :alt, input_html: { class: "form-control w-100" }
+							.row
+								.col-4
+									- f.input :layout_type, as: :select, collection: Image::LAYOUT_TYPE, input_html: {class: "form-control w-100"}
+								.col-4
+									- f.input :title, input_html: { class: "form-control w-100" }
+								.col-4
+									- f.input :url, input_html: { class: "form-control w-100" }
+							.row
+								.col-4
+									- f.input :alt, input_html: { class: "form-control w-100" }
+								.col-4
+									- f.input :image_quality, as: :select, collection: ["low_thumb", "thumb", "perview", "low_banner", "banner"], input_html: {class: "form-control w-100"}
+								.col-4
+									- f.input :background_image_size, as: :select, collection: ["auto", "contain", "cover"], input_html: {class: "form-control w-100"}
+							.row
+								.col-4
+									- f.input :background_image_position, as: :select, collection: ["top", "right", "bottom", "left"], input_html: {class: "form-control w-100"}
+								.col-4
+									- f.input :background_image_color, input_html: { class: "form-control w-100" }
+							
 							- f.input :note, input_html: { class: "form-control", rows: 5 }
 				.modal-footer
 					-# %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
