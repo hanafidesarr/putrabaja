@@ -5,7 +5,8 @@
     - unless device.eql?("desktop")
       - if (images = @setting.images).present?
         = link_to root_path, title: "axeonsoft" do
-          = manipulate_image_tag(images.last, html: {width: "50"})
+          - image_quality = image.last.image_quality
+          = manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
           
       - else
         %a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center{:href => "/"}

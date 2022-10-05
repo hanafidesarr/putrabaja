@@ -14,8 +14,8 @@
 						READ MORE
 				.col-lg-6.col-12
 					- if (images = component.images).present?
-						- image_quality = device.eql?("desktop") ? 'perview' : 'thumb'
 						- images.each do |image|
+							- image_quality = image.image_quality
 							= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center"})
 
 					:javascript

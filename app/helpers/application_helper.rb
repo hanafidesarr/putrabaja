@@ -11,36 +11,8 @@ module ApplicationHelper
 
   def manipulate_image_tag(obj, options: {}, html: {})
 
-    case options[:image_quality]
-    when "low_thumb"
-      url = obj.asset.url(:low_thumb)
-    when "thumb"
-      url = obj.asset.url(:thumb)
-    when "perview"
-      url = obj.asset.url(:perview)
-    when "low_banner"
-      url = obj.asset.url(:low_banner)
-    when "banner"
-      url = obj.asset.url(:banner)
-    else
-      url = obj.asset_url
-    end
-
-    case options[:data_src]
-    when "low_thumb"
-      data_src = obj.asset.url(:low_thumb)
-    when "thumb"
-      data_src = obj.asset.url(:thumb)
-    when "perview"
-      data_src = obj.asset.url(:perview)
-    when "low_banner"
-      data_src = obj.asset.url(:low_banner)
-    when "banner"
-      data_src = obj.asset.url(:banner)
-    else
-      data_src = obj.asset_url
-    end
- 
+    url = render_image_quality(obj, options[:image_quality])
+    data_src = self.render_image_quality(obj, options[:data_src])
     if html[:data_lazy].present?
       image_tag("", width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src], "data-lazy": url)
     else
@@ -49,36 +21,7 @@ module ApplicationHelper
   end
 
   def manipulate_image_tag_url(obj, options: {}, html: {})
-
-    case options[:image_quality]
-    when "low_thumb"
-      url = obj.asset.url(:low_thumb)
-    when "thumb"
-      url = obj.asset.url(:thumb)
-    when "perview"
-      url = obj.asset.url(:perview)
-    when "low_banner"
-      url = obj.asset.url(:low_banner)
-    when "banner"
-      url = obj.asset.url(:banner)
-    else
-      url = obj.asset_url
-    end
-
-    case options[:data_src]
-    when "low_thumb"
-      data_src = obj.asset.url(:low_thumb)
-    when "thumb"
-      data_src = obj.asset.url(:thumb)
-    when "perview"
-      data_src = obj.asset.url(:perview)
-    when "low_banner"
-      data_src = obj.asset.url(:low_banner)
-    when "banner"
-      data_src = obj.asset.url(:banner)
-    else
-      data_src = obj.asset_url
-    end
+    url = render_image_quality(obj, options[:image_quality])
 
     
     if html[:data_lazy].present?
@@ -87,4 +30,21 @@ module ApplicationHelper
       image_url(url, width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src])
     end
   end
+
+  def render_image_quality(obj, option = nil)
+    case option
+    when "low_thumb"
+      return obj.asset.url(:low_thumb)
+    when "thumb"
+      return obj.asset.url(:thumb)
+    when "perview"
+      return obj.asset.url(:perview)
+    when "low_banner"
+      return obj.asset.url(:low_banner)
+    when "banner"
+      return obj.asset.url(:banner)
+    else
+      return obj.asset_url
+    end
+  end 
 end
