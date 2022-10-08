@@ -5,7 +5,7 @@
     - unless device.eql?("desktop")
       - if (images = @setting.images).present?
         = link_to root_path, title: "axeonsoft" do
-          - image_quality = image.last.image_quality
+          - image_quality = images.last.image_quality
           = manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
           
       - else
@@ -42,7 +42,7 @@
                     - childrens.order(:position).each do |child|
                       =link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", title: "#{page.slug || page.title}"
               - else
-                = link_to page_path(page), title: "#{page.title}", style: "color: #{@page&.text_color_desktop}", class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}" do
+                = link_to page_path(page), title: "#{page.title}", style: "color: #{@page&.text_color_desktop}", class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}",  "data-turbolinks": "false" do
                   = page.title
         -# %li.nav-item
         -#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"

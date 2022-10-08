@@ -1,0 +1,40 @@
+- content_for :no_turbolink, false
+.section-wrapper
+	.split_product_showcase{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+		#ps-container.ps-container.position-relative{style: "height:100vh"}
+			.ps-header
+				%h1 Vertical Slider Showcase
+			/ /ps-header
+			.ps-contentwrapper
+
+				- if (images = component.images ).present?
+					- images.each do |image|
+						.ps-content
+							%h2=image.title
+							%span.ps-price £100
+							%p=image.note
+							%a{:href => "#"} Buy this item
+			.ps-slidewrapper
+				.ps-slides
+					- if (images = component.images ).present?
+						- images.each do |image|
+							%div{:style =>  "background-image:url(#{image.asset_url});"}
+				%nav
+					%a.ps-prev{:href => "#"}
+					%a.ps-next{:href => "#"}
+
+:javascript
+	loadjs(["/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js", "/assets/frontend/lib/split_product_showcase/js/slider.js", "/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/css/normalize.css"], 'split_product_showcase');
+
+
+	loadjs.ready('split_product_showcase', function() {
+		Slider.init();
+	})
+
+	$(document).on('turbolinks:load', function() {
+		$("body").attr("data-turbolinks", "false")
+		loadjs(["/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js", "/assets/frontend/lib/split_product_showcase/js/slider.js", "/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/css/normalize.css"], 'split_product_showcase');
+		loadjs.ready('split_product_showcase', function() {
+			Slider.init();
+		})
+	});

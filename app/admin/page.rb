@@ -19,16 +19,18 @@ ActiveAdmin.register Page do
   gallery_images_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','gallery_images','gallery_images.yml'))
   products_by_category_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','products_by_category','products_by_category.yml'))
   vertical_carousel_frame_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','vertical_carousel_frame','vertical_carousel_frame.yml'))
+  split_product_showcase_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','split_product_showcase','split_product_showcase.yml'))
+  
 
   permit_params :title, :active, :description, :layout, :slug, :background_body_color, :text_body_color, :_destroy, Page.stored_attributes[:header_desktop_properties], Page.stored_attributes[:header_mobile_properties],
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :slug, :_destroy,
 
   banner_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],
-  list_images_yml[:properties], typing_animation_yml[:properties], gallery_images_yml[:properties], products_by_category_yml[:properties], vertical_carousel_frame_yml[:properties],
+  list_images_yml[:properties], typing_animation_yml[:properties], gallery_images_yml[:properties], products_by_category_yml[:properties], vertical_carousel_frame_yml[:properties], split_product_showcase_yml[:properties],
 
   banner_yml[:active_fields], banner_text_yml[:active_fields], categories_products_yml[:active_fields], text_base_yml[:active_fields], text_image_base_yml[:active_fields],
   space_yml[:active_fields], list_images_yml[:active_fields], typing_animation_yml[:active_fields], gallery_images_yml[:active_fields], products_by_category_yml[:active_fields],
-  vertical_carousel_frame_yml[:active_fields],
+  vertical_carousel_frame_yml[:active_fields],split_product_showcase_yml[:active_fields],
 
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :url_product, :layout_type, :image_quality, :background_image_size, :background_image_position, :background_image_color, :url, :alt, :_destroy]], # *note add id for disable duplicate when attribute updated
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :layout_type, :image_quality, :background_image_size, :background_image_position, :background_image_color, :_destroy] # *note add id for disable duplicate when attribute updated 
