@@ -88,3 +88,6 @@ gem "fog-aws"
 # gem 'rails_sortable'
 
 gem "draper"
+
+# SEO
+gem 'canonical-rails', github: 'jumph4x/canonical-rails'

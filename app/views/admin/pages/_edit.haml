@@ -7,6 +7,7 @@
 				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab"} General
 				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-global-style", :role => "tab"} Global Style
 				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab"} Header
+				%a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab"} SEO Page
 		#nav-tabContent.tab-content
 			#page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
 				= f.inputs :name => "Page" do
@@ -55,6 +56,17 @@
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 
+			#page-seo_page.tab-pane.fade{"aria-labelledby" => "nav-seo_page", :role => "tabpanel"}
+				= f.inputs :name => "Header Mobile" do
+					.row.mx-2
+						- Page.stored_attributes[:seo_page_properties].each do | obj |
+							.col-lg-12.col-12.mb-2
+								-# = f.input obj, input_html: {class: "form-control w-100"}
+								- case obj
+								- when :keywords, :meta_description
+									= f.input obj, as: :text, input_html: {class: "form-control w-100", rows: 5}
+								- else
+									= f.input obj, input_html: {class: "form-control w-100"}
 
 	
 

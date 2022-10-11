@@ -22,7 +22,7 @@ ActiveAdmin.register Page do
   split_product_showcase_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','split_product_showcase','split_product_showcase.yml'))
   
 
-  permit_params :title, :active, :description, :layout, :slug, :background_body_color, :text_body_color, :_destroy, Page.stored_attributes[:header_desktop_properties], Page.stored_attributes[:header_mobile_properties],
+  permit_params :title, :active, :description, :layout, :slug, :background_body_color, :text_body_color, :_destroy, Page.stored_attributes[:header_desktop_properties], Page.stored_attributes[:header_mobile_properties], Page.stored_attributes[:seo_page_properties],
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :slug, :_destroy,
 
   banner_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],

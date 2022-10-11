@@ -20,7 +20,7 @@ class Page < ApplicationRecord
   store :properties, accessors: [ :background_body_image, :background_body_color, :text_body_color ], coder: JSON
   store :header_desktop_properties, accessors: [ :layout_desktop, :position_desktop, :background_color_desktop, :text_color_desktop, :font_family_desktop, :font_size_desktop ], coder: JSON
   store :header_mobile_properties, accessors: [ :layout_mobile, :position_mobile, :background_color_mobile, :text_color_mobile, :font_family_mobile, :font_size_mobile ], coder: JSON
-  
+  store :seo_page_properties, accessors: [:author, :meta_url, :meta_title, :meta_description, :keywords, :meta_image], coder: JSON
 
   def to_param
     "#{id}-#{slug}"

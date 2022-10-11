@@ -10,15 +10,21 @@
 		- if component&.link.present?
 			=link_to component&.url_text || "/", class: "btn bg-light" do
 				.fw-bold.text-secondary="READ MORE"
-
-		- if (products = Category.find(component.category_id.to_i).products).present?
-			.row
-				- products.each do | product |
-					.col-md-3.col-6
-						= link_to product_path(product) do
+		- if component.category_id.present?
+			- if (products = Category.find_by(id: component.category_id&.to_i)&.products).present?
+				.row
+					- products.each do | product |
+						.col-md-3.col-6.mb-4
+							-# = link_to product_path(product) do
 							.product-slick
-								- product.images.each do | image |
-									= image_tag(image.asset.url(:thumb), class: "img-fluid")
+								- if product.images.present?
+									- product.images.each do | image |
+										= image_tag(image.asset.url(:thumb), class: "img-fluid")
+
+							%hr.mb-0
+							.mt-2.text-center=product.name
+			- else
+				.text-danger="ID KATEGORY TIDAK ADA"
 		- else
 			Silahkan masukan category atau karena product ini kosong
 
