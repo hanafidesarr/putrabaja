@@ -37,7 +37,13 @@
 									- f.input :background_image_position, as: :select, collection: ["top", "right", "bottom", "left"], input_html: {class: "form-control w-100"}
 								.col-4
 									- f.input :background_image_color, input_html: { class: "form-control w-100" }
-							
+								.col-4
+									- f.input :price, input_html: { class: "form-control w-100" }
+								.col-4
+									- f.input :series, input_html: { class: "form-control w-100" }
+								.col-4
+									- f.input :url_image, input_html: { class: "form-control w-100" }
+
 							- f.input :note, input_html: { class: "form-control", rows: 5 }
 				.modal-footer
 					-# %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close

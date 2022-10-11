@@ -17,7 +17,7 @@
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	color: #555;
 	background: #fafafa;
 }
@@ -52,7 +52,7 @@
 }
 
 .ps-contentwrapper {
-	top: 150px;
+	top: 80px;
 	bottom: 0px;
 	overflow: hidden;
 	z-index: 1000;
@@ -118,7 +118,7 @@
 }
 
 .ps-content a:last-child:before {
-	content: '\53';
+	/* content: '\53'; */
 	font-family: 'icon';
 	font-style: normal;
 	font-weight: normal;

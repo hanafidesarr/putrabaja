@@ -26,17 +26,19 @@
 			#page-global-style.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel"}
 				= f.inputs :name => "Global Style" do
 					.row.mx-2
-						.col-12.mb-2
+						.col-md-6.col-12.mb-2
 							= f.input :background_body_color, input_html: {class: "form-control w-100"}
-						.col-12.mb-2
+						.col-md-6.col-12.mb-2
 							= f.input :text_body_color, input_html: {class: "form-control w-100"}
 							
 			#page-header.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel"}
 				= f.inputs :name => "Header Desktop" do
 					.row.mx-2
 						- Page.stored_attributes[:header_desktop_properties].each do | obj |
-							.col-lg-3.col-12.mb-2
+							.col-lg-4.col-6.mb-2
 								- case obj
+								- when :layout_desktop
+									= f.input obj, as: :select, collection: ["layout_center", "layout_left", "layout_right"], input_html: {class: "form-control w-100"}
 								- when :position_desktop
 									= f.input obj, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
 								- else
@@ -45,7 +47,7 @@
 				= f.inputs :name => "Header Mobile" do
 					.row.mx-2
 						- Page.stored_attributes[:header_mobile_properties].each do | obj |
-							.col-lg-3.col-12.mb-2
+							.col-lg-4.col-12.mb-2
 								-# = f.input obj, input_html: {class: "form-control w-100"}
 								- case obj
 								- when :position_mobile

@@ -1,9 +1,9 @@
 - content_for :no_turbolink, false
 .section-wrapper
 	.split_product_showcase{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
-		#ps-container.ps-container.position-relative{style: "height:100vh"}
+		#ps-container.ps-container.position-relative{style: "height:#{component.height}"}
 			.ps-header
-				%h1 Vertical Slider Showcase
+				%h1.fw-bold Product baru dari samsung
 			/ /ps-header
 			.ps-contentwrapper
 
@@ -11,14 +11,15 @@
 					- images.each do |image|
 						.ps-content
 							%h2=image.title
-							%span.ps-price £100
+							%span.ps-price=image.series
 							%p=image.note
-							%a{:href => "#"} Buy this item
+							=link_to image.url do
+								Lihat detail
 			.ps-slidewrapper
 				.ps-slides
 					- if (images = component.images ).present?
 						- images.each do |image|
-							%div{:style =>  "background-image:url(#{image.asset_url});"}
+							%div{:style =>  "background-image:url(#{image.url_image.presence || image.asset_url});"}
 				%nav
 					%a.ps-prev{:href => "#"}
 					%a.ps-next{:href => "#"}

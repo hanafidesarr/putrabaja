@@ -5,6 +5,7 @@ properties:
 
   - content_position
   - position_text
+  - height
 
 active_fields:
   - title
