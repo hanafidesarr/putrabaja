@@ -11,7 +11,8 @@ module ApplicationHelper
 
   def manipulate_image_tag(obj, options: {}, html: {})
 
-    url = render_image_quality(obj, options[:image_quality])
+    # use online image if exist
+    url = obj.url_image.presence || render_image_quality(obj, options[:image_quality])
     data_src = self.render_image_quality(obj, options[:data_src])
     if html[:data_lazy].present?
       image_tag("", width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], "data-src": html[:data_src], "data-lazy": url)
@@ -21,7 +22,8 @@ module ApplicationHelper
   end
 
   def manipulate_image_tag_url(obj, options: {}, html: {})
-    url = render_image_quality(obj, options[:image_quality])
+    # use online image if exist 
+    url = obj.url_image.presence || render_image_quality(obj, options[:image_quality]) 
 
     
     if html[:data_lazy].present?

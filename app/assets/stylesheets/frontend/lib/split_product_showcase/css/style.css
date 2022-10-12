@@ -77,7 +77,7 @@
 
 .ps-content p {
 	line-height: 26px;
-	font-size: 12px;
+	/* font-size: 12px; */
 	/* letter-spacing: 2px; */
 	/* word-spacing: 10px; */
 	padding: 10px 15px;

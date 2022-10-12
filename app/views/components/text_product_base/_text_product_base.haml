@@ -9,11 +9,11 @@
 								.product-slick
 									- product.images.each do |image|
 										.mx-3.my-4
-											=image_tag(image.asset.thumb.url, class: "img-center img-fluid")
+											= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {width: "50", class: "img-center img-fluid"})
 								.card-body.text-center
 									%h5= product.name.to_s.truncate(15)
 									%hr
-									%p.text-center= product.short_description
+									%p.text-center= product.short_description.to_s.html_safe
 									-# %b= number_to_currency(product.price, unit: "Rp. ", separator: ",", delimiter: ".")
 		.col-lg-5.col-12
 			= component.description.to_s.html_safe

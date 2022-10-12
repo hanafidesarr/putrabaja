@@ -10,16 +10,16 @@
 				- if (images = component.images ).present?
 					- images.each do |image|
 						.ps-content
-							%h2=image.title
+							%h2=image.title.to_s.html_safe
 							%span.ps-price=image.series
-							%p=image.note
+							=image.note.html_safe
 							=link_to image.url do
 								Lihat detail
 			.ps-slidewrapper
 				.ps-slides
 					- if (images = component.images ).present?
 						- images.each do |image|
-							%div{:style =>  "background-image:url(#{image.url_image.presence || image.asset_url});"}
+							%div{:style =>  "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})});"}
 				%nav
 					%a.ps-prev{:href => "#"}
 					%a.ps-next{:href => "#"}

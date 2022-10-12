@@ -20,7 +20,7 @@
                     = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center"})
                     - if image.title.present?
                       %hr{style: "color: gray;"}
-                      %small.text-center.text-dark=image.title
+                      %small.text-center.text-dark=image.title.to_s.html_safe
 
   - if images.present?
     .container
@@ -34,7 +34,7 @@
                 = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy", data_src: image_quality})
                 - if image.title.present?
                   %hr{style: "color: gray;"}
-                  %small.text-dark=image.title
+                  %small.text-dark=image.title.to_s.html_safe
 
 :javascript
 

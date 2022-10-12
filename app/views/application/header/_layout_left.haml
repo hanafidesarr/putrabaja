@@ -3,7 +3,9 @@
   .container
     - if (images = @setting.images).present?
       = link_to "/", class: "mr-4" do
-        = image_tag(images.last.asset.url(:thumb), width: "50", style: "margin-right:2rem;")
+        - image_quality = images.last.image_quality
+        = manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
+        -# = image_tag(images.last.asset.url(:thumb), width: "50", style: "margin-right:2rem;")
     - else
       %a.navbar-brand.title-header{:href => "/"}
         .text-secondary= @setting.name

@@ -16,7 +16,7 @@
 							- f.input :active, label: false, input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
 					.row 
 						.col-lg-4.col-12.modal-image-upload
-							- f.input :asset, :as => :file, label: false, :hint => f.template.image_tag(f.object.asset_url, class: "w-100"), "data-placement"=>"top"
+							- f.input :asset, :as => :file, label: false, :hint => f.template.image_tag(f.object.url_image.presence || f.object.asset_url, class: "w-100"), "data-placement"=>"top"
 						.col-lg-8.col-12
 							.row
 								.col-4

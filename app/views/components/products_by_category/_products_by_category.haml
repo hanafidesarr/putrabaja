@@ -14,12 +14,12 @@
 			- if (products = Category.find_by(id: component.category_id&.to_i)&.products).present?
 				.row
 					- products.each do | product |
-						.col-md-3.col-6.mb-4
+						.col-md-2.col-6.mb-4
 							-# = link_to product_path(product) do
 							.product-slick
 								- if product.images.present?
 									- product.images.each do | image |
-										= image_tag(image.asset.url(:thumb), class: "img-fluid")
+										= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid"})
 
 							%hr.mb-0
 							.mt-2.text-center=product.name
