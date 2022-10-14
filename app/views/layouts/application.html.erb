@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Google Tag Manager -->
+    <% if Rails.env.production? %>
+      <script>
+      document.addEventListener('turbolinks:load', function(event) {
+        var url = event.data.url;  dataLayer.push({
+          'event':'pageView',
+          'virtualUrl': url
+        });
+      });(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-P6PJX32');
+      </script>
+      <% end %>
+      <!-- End Google Tag Manager -->
+
     <%= canonical_tag -%>
-    <title><%= @setting.name || 'Axeonsoft' %></title>
+    <title><%= @setting&.name || 'Axeonsoft' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta property="og:title" content="<%= @page.meta_title.presence || @setting.meta_title %>" />
-    <meta property="og:description" content="<%= @page.meta_description.presence || @setting.meta_description %>" />
-    <meta property="og:url" content="<%= @page.meta_url.presence || @setting.meta_url %>" />
-    <meta property="og:image" content="<%= @page.meta_image.presence || @setting.meta_image %>" />
-    <meta name="description" content="<%= @page.meta_description.presence || @setting.meta_description %>">
-    <meta name="keywords" content="<%= @page.keywords.presence || @setting.keywords %>">
-    <meta name="author" content="<%= @page.author.presence || @setting.author %>">
+    <meta property="og:title" content="<%= @page&.meta_title.presence || @setting&.meta_title %>" />
+    <meta property="og:description" content="<%= @page&.meta_description.presence || @setting&.meta_description %>" />
+    <meta property="og:url" content="<%= @page&.meta_url.presence || @setting&.meta_url %>" />
+    <meta property="og:image" content="<%= @page&.meta_image.presence || @setting&.meta_image %>" />
+    <meta name="description" content="<%= @page&.meta_description.presence || @setting&.meta_description %>">
+    <meta name="keywords" content="<%= @page&.keywords.presence || @setting&.keywords %>">
+    <meta name="author" content="<%= @page&.author.presence || @setting&.author %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -21,6 +38,11 @@
   </head>
 
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PJX32"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div style="background-color: <%= @page&.background_body_color %>; color: <%= @page&.text_body_color %>;">
       <%= render 'header' %>
       <%= yield %>
@@ -47,16 +69,16 @@
           "position":"right"
       },
       "brandSetting":{
-          "brandName":"<%= @setting.name %>",
+          "brandName":"<%= @setting&.name %>",
           "brandSubTitle":"Melayani dengan hati",
           "brandImg":"https://via.placeholder.com/100x100",
           "welcomeText":"Hai !\nAda yang bisa kami bantu?",
-          "messageText":"Hallo <%= @setting.name %>",
+          "messageText":"Hallo <%= @setting&.name %>",
           "backgroundColor":"#0a5f54",
           "ctaText":"Mulai Chat",
           "borderRadius":"25",
           "autoShow":false,
-          "phoneNumber":"<%= @setting.whatsapp || @setting.phone_1 || @setting.phone_2 %>"
+          "phoneNumber":"<%= @setting&.whatsapp || @setting&.phone_1 || @setting&.phone_2 %>"
       }
     };
     s.onload = function() {
