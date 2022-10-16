@@ -2,6 +2,11 @@ properties:
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
+  - position_text
+
+  - position_image
+  - width_image
+  - position_image_slider
 
 active_fields:
   - title

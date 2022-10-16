@@ -1,5 +1,5 @@
 .row
-	.modern-slide-in{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+	.modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		%h3
 			=component.title.to_s.html_safe
 		%small=component.subtitle.to_s.html_safe
@@ -18,10 +18,12 @@
 
 						%li.seq-in
 							.seq-model
-								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {style: "height: 500px"})
+								= manipulate_image_tag(image, options: {image_quality: image.image_quality})
 								-# %img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
-							.seq-title.position-absolute{style: "top:20%;"}
-								%h2{"data-seq" => ""}=image.title.to_s.html_safe
+							.seq-title.ml-4
+								.row
+									%h1=image.title.to_s
+								%h2{"data-seq" => ""}=image.subtitle.to_s.html_safe
 								%h3{"data-seq" => ""}=image.note.to_s.html_safe
 
 					-# %li.seq-in

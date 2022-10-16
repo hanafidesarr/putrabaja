@@ -1,22 +1,27 @@
-.container
-	.section-wrapper
+.section-wrapper
+
+	.text-base{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		- if component.page.layout.eql?("products")
 			%p
 				=component.description.to_s.html_safe
 		- else
-			.row 
-				.col-lg-6.col-12
-					%h1
-						=component.title.to_s.html_safe
-					%p
-						=component.body.to_s.html_safe
-					=link_to component&.url_text || "/", class: "btn btn-primary text-white" do
-						READ MORE
+			.row
+				- if component.position_image.eql?("right") && device.eql?("desktop")
+					.col-lg-6.col-12
+						%h1
+							=component.title.to_s.html_safe
+						%p
+							=component.body.to_s.html_safe
+
+						- if component&.link.present?
+							=link_to component&.link || "/", class: "btn btn-primary text-white" do
+								Lihat selengkapnya
 				.col-lg-6.col-12
 					- if (images = component.images).present?
-						- images.each do |image|
-							- image_quality = image.image_quality
-							= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center"})
+						.product-slick{style: "width: #{component.width_image.presence || '100%'}; margin: #{component.position_image_slider.eql?('center') ? 'auto' : ''}"}
+							- images.each do |image|
+								- image_quality = image.image_quality
+								= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center", style: "width: #{component.width_image.presence || '100%'}"})
 
 					:javascript
 
@@ -28,3 +33,14 @@
 								infinite: true
 							});
 						})
+
+				- if component.position_image.eql?("left") || ["mobile","tablet"].include?(device.to_s)
+					.col-lg-6.col-12
+						%h1
+							=component.title.to_s.html_safe
+						%p
+							=component.body.to_s.html_safe
+						
+						- if component&.link.present?
+							=link_to component&.link || "/", class: "btn btn-primary text-white" do
+								Lihat selengkapnya
