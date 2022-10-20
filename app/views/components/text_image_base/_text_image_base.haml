@@ -18,7 +18,13 @@
 								Lihat selengkapnya
 				.col-lg-6.col-12
 					- if (images = component.images).present?
-						.product-slick{style: "width: #{component.width_image.presence || '100%'}; margin: #{component.position_image_slider.eql?('center') ? 'auto' : ''}"}
+						- if component.position_image_slider.eql?('center')
+							- position_image_slider = 'margin: auto;'
+						- elsif component.position_image_slider.eql?('right')
+							- position_image_slider = 'margin: auto; margin-right: 0;'
+						- else
+							- position_image_slider = ''
+						.product-slick{style: "width: #{component.width_image.presence || '100%'}; #{position_image_slider}"}
 							- images.each do |image|
 								- image_quality = image.image_quality
 								= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center", style: "width: #{component.width_image.presence || '100%'}"})
