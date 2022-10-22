@@ -141,7 +141,8 @@
   }
 
 %nav.navbar.navbar-expand-lg.navbar-mainbg
-  %a.navbar-brand.navbar-logo=@setting.name
+  =link_to root_path, class: "navbar-brand navbar-logo" do
+    =@setting.name
   %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
     %i.fas.fa-bars.text-white
   #navbarSupportedContent.collapse.navbar-collapse
@@ -151,11 +152,7 @@
         .right
       - @pages.each do |page|
         %li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
-          %a.nav-link{:href => "javascript:void(0);"}
-            - if page.children.present?
-              %span{id: "hover-page-#{page.id}"}=page.title
-            - else
-              %span{id: "click-page-#{page.id}"}=page.title
+          =link_to page.title, page_url(page), class: "nav-link"
 
         :javascript
           $("#click-page-#{page.id}").on("click",function(e){

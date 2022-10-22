@@ -13,7 +13,7 @@
           .row
             - images.each do |image|
               - image_quality = image.image_quality
-              .col-6.col-lg-2.my-1.px-1
+              .col-4.col-lg-2.my-1.px-1
                 .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
                   =link_to image.url do
                     -# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")

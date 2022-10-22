@@ -1,0 +1,35 @@
+.section-wrapper{style: "padding: 0 5%;"}
+	- box_shadow = "lightgrey 2px 3px 15px 0px"
+	%h3
+		=component.title.to_s.html_safe
+	%small=component.subtitle.to_s.html_safe
+	%p
+		=component.body.to_s.html_safe
+
+	.banner_flip_effects_rocket{class: "text-#{component.position_text}", style: "box-shadow:#{box_shadow}; margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+
+		- height = device.eql?("desktop") ? ( component.desktop_height.presence || '500px' ) : ( component.mobile_height.presence || '200px' )
+		.pageflip{style: "max-width: 100% !important; height: #{height}"}
+			- if (images = component.images).present?
+				- images.each_with_index do |image, i|
+					- current = i == 0 ? 'page-current' : ''
+					- url = manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})
+					- bg_size = image.background_image_size.presence || 'contain'
+					- bg_position = image.background_image_position.presence || 'center'
+					.page{
+						class: current,
+						style: "background: #e9ecef url(#{url}); background-repeat: no-repeat; background-position: #{bg_position}; background-size: #{bg_size}; ",
+					}
+						- if image.url.present?
+							.d-flex.justify-content-center{style: ""}
+								=link_to image.url, class: "btn btn-link" do
+									=image.title
+			-# .page.page-current{:style => "background: #0387A5 url('https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_PERS_REVO_SX-450F-MY23-front-right_%23SALL_%23AEPI_%23V1.png') no-repeat center center"}
+			-# .page{:style => "background: #A5C8CB url('img/3.jpg') no-repeat center center"}
+			-# .page{:style => "background: #0B0B0B url('img/4.jpg') no-repeat center center"}
+			-# .page{:style => "background: #82BDC4 url('img/5.jpg') no-repeat center center"}
+:javascript
+	loadjs(["/assets/frontend/lib/page_flip/pageflip.css", "/assets/frontend/lib/page_flip/pageflip-min.js" ], 'banner_flip_effects_rocket');
+	loadjs.ready('banner_flip_effects_rocket', function() {
+		var pageflip = new RocketPageFlip('.pageflip', { current: 0 });
+	})
