@@ -152,7 +152,11 @@
         .right
       - @pages.each do |page|
         %li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
-          =link_to page.title, page_url(page), class: "nav-link"
+          - case page.layout
+          - when "home"
+            =link_to page.title, root_path, class: "nav-link"
+          - else
+            =link_to page.title, page_url(page), class: "nav-link"
 
         :javascript
           $("#click-page-#{page.id}").on("click",function(e){
