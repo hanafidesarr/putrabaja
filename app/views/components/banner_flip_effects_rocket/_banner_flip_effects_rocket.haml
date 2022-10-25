@@ -1,3 +1,4 @@
+
 .section-wrapper{style: "padding: 0 5%;"}
 	- box_shadow = "lightgrey 2px 3px 15px 0px"
 	%h3
@@ -17,8 +18,8 @@
 					- bg_size = image.background_image_size.presence || 'contain'
 					- bg_position = image.background_image_position.presence || 'center'
 					.page{
-						class: current,
-						style: "background: #e9ecef url(#{url}); background-repeat: no-repeat; background-position: #{bg_position}; background-size: #{bg_size}; ",
+						class: "#{current}",
+						style: "background-image: url(#{url}); background-color: #e9ecef; background-repeat: no-repeat; background-position: #{bg_position}; background-size: #{bg_size}; "
 					}
 						- if image.url.present?
 							.d-flex.justify-content-center{style: ""}
@@ -31,5 +32,10 @@
 :javascript
 	loadjs(["/assets/frontend/lib/page_flip/pageflip.css", "/assets/frontend/lib/page_flip/pageflip-min.js" ], 'banner_flip_effects_rocket');
 	loadjs.ready('banner_flip_effects_rocket', function() {
+		var pageflip = new RocketPageFlip('.pageflip', { current: 0 });
+	})
+
+	$(document).on('turbolinks:load', function() {
+
 		var pageflip = new RocketPageFlip('.pageflip', { current: 0 });
 	})
