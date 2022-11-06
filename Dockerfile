@@ -1,10 +1,10 @@
 # syntax = docker/dockerfile:experimental
-ARG RUBY_VERSION=3.0.0
+ARG RUBY_VERSION=3.0.1
 ARG VARIANT=jemalloc-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
 
 ARG NODE_VERSION=16
-ARG BUNDLER_VERSION=2.2.5
+ARG BUNDLER_VERSION=2.2.15
 
 ARG RAILS_ENV=production
 ENV RAILS_ENV=${RAILS_ENV}
@@ -81,6 +81,7 @@ ENV SECRET_KEY_BASE 1
 
 COPY . .
 
+RUN yarn set version 1.22.17
 RUN bundle exec rails assets:precompile
 
 ENV PORT 8080

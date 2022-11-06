@@ -7,9 +7,9 @@ processes = []
 
 [build]
   [build.args]
-    BUNDLER_VERSION = "2.2.5"
+    BUNDLER_VERSION = "2.2.15"
     NODE_VERSION = "16"
-    RUBY_VERSION = "3.0.0"
+    RUBY_VERSION = "3.0.1"
 
 [deploy]
   release_command = "bundle exec rake first_setup"
