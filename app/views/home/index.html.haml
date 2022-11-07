@@ -1,7 +1,7 @@
 - if @components.present?
   - @components.order(:position).each do |component|
     - case component.layout
-    - when "banner", "list_images", "gallery_images", "is_images_from_online", "modern_slide_in", "banner_flip_effects_rocket"
+    - when "banner", "list_images", "gallery_images", "is_images_from_online", "modern_slide_in", "banner_flip_effects_rocket", "split_product_showcase"
       .component{name: "#{component.slug}"}
         =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
     - else

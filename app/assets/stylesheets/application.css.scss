@@ -16,67 +16,67 @@
 
 // global
 .section-wrapper {
-	// // Extra small devices (portrait phones, less than 576px)
-	// @media (max-width: 575.98px) { top: 10%; }
+  // // Extra small devices (portrait phones, less than 576px)
+  // @media (max-width: 575.98px) { top: 10%; }
 
-	// // Small devices (landscape phones, 576px and up)
-	// @media (min-width: 576px) and (max-width: 767.98px) { margin-top: 10%; }
+  // // Small devices (landscape phones, 576px and up)
+  // @media (min-width: 576px) and (max-width: 767.98px) { margin-top: 10%; }
 
-	// // Medium devices (tablets, 768px and up)
-	// @media (min-width: 768px) and (max-width: 991.98px) { margin-top: 10%; }
+  // // Medium devices (tablets, 768px and up)
+  // @media (min-width: 768px) and (max-width: 991.98px) { margin-top: 10%; }
 
-	// Large devices (desktops, 992px and up)
-	@media (min-width: 320px) and (max-width: 1199.98px) { margin: 1.5rem 0; }
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 320px) and (max-width: 1199.98px) { margin: 1.5rem 0; }
 
-	// Extra large devices (large desktops, 1200px and up)
-	@media (min-width: 1200px) { margin: 4rem 0; }
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) { margin: 4rem 0; }
 }
 
 
 
 .owl-carousel .owl-stage {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 
 
 .owl-carousel .animated { 
-	animation-duration: 1000ms;
-	animation-fill-mode: both; }
+  animation-duration: 1000ms;
+  animation-fill-mode: both; }
 
-	.owl-theme .owl-controls .owl-page {
-		display: inline-block;
-	}
-	.owl-theme .owl-controls .owl-page span {
-		background: none repeat scroll 0 0 #869791;
-		border-radius: 20px;
-		display: block;
-		height: 12px;
-		margin: 5px 7px;
-		opacity: 0.5;
-		width: 12px;
-	}
+  .owl-theme .owl-controls .owl-page {
+    display: inline-block;
+  }
+  .owl-theme .owl-controls .owl-page span {
+    background: none repeat scroll 0 0 #869791;
+    border-radius: 20px;
+    display: block;
+    height: 12px;
+    margin: 5px 7px;
+    opacity: 0.5;
+    width: 12px;
+  }
 
 .img-center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a {
-	color: white;
-	-webkit-transition: color 0.5s;
-	-moz-transition:    color 0.5s;
-	-ms-transition:     color 0.5s;
-	-o-transition:      color 0.5s;
-	transition:         color 0.5s;
-	&:link {
-		text-decoration: none;
-	}
-	&:hover {
-		font-weight: bold;
-	}
+  color: white;
+  -webkit-transition: color 0.5s;
+  -moz-transition:    color 0.5s;
+  -ms-transition:     color 0.5s;
+  -o-transition:      color 0.5s;
+  transition:         color 0.5s;
+  &:link {
+    text-decoration: none;
+  }
+  &:hover {
+    font-weight: bold;
+  }
 }
 
 
@@ -85,37 +85,37 @@ a {
 @media (max-width: 800px) {
   .flex-container {
     flex-direction: column;
-		li {
-			padding: 0;
-			list-style-type: none;
-		}
+    li {
+      padding: 0;
+      list-style-type: none;
+    }
   }
 }
 @media (min-width: 801px) {
   .flex-container {
     flex-direction: row;
-		display: flex;
+    display: flex;
   }
 }
 
 #loading {  
-	position: fixed;  
-	opacity: 0.7;
-	left: 0px;  
-	top: 0px;  
-	width: 100%;  
-	height: 100%;  
-	z-index: 9999;  
-	background: image-url('frontend/spinner.gif') 50% 50% no-repeat rgb(249,249,249);  
+  position: fixed;  
+  opacity: 0.7;
+  left: 0px;  
+  top: 0px;  
+  width: 100%;  
+  height: 100%;  
+  z-index: 9999;  
+  background: image-url('frontend/spinner.gif') 50% 50% no-repeat rgb(249,249,249);  
 }  
 
 @include media-breakpoint-down(md) {
-	html {
-			font-size: 12px;
-			h1 {
-				font-size: 16px;
-			}
-	}
+  html {
+      font-size: 12px;
+      h1 {
+        font-size: 16px;
+      }
+  }
 }
 
 
@@ -134,19 +134,19 @@ a {
 }
 
 .text-right {
-	text-align: right !important;
+  text-align: right !important;
 }
 
 
 .header-layout-center {
-	.left-side {
-		@include media-breakpoint-down(md) {
-			margin-top: 2rem;
-			li {
-				margin: 0 !important;
-			}
-		}
-	}
+  .left-side {
+    @include media-breakpoint-down(md) {
+      margin-top: 2rem;
+      li {
+        margin: 0 !important;
+      }
+    }
+  }
 }
 
 
@@ -154,4 +154,11 @@ a {
   @include media-breakpoint-down(md) {
     font-size: 32px !important;
   }
+}
+
+.dropdown:hover .dropdown-menu {
+  transition-delay: 3s;
+  transition-delay: 2s, 4ms;
+  display: block;
+  margin-top: 0; // remove the gap so it doesn't close
 }

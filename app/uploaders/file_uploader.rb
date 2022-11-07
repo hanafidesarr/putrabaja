@@ -54,8 +54,8 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   version :low_banner do
-    process :quality => 100
-    process :resize_to_fill => [1400, 600]
+    process :quality => 80
+    process :resize_to_fill => [600, 300]
   end
 
   version :banner do

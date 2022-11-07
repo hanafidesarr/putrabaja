@@ -81,7 +81,7 @@
   */
   .hero * {
     position: relative;
-    z-index: 1;
+    z-index: 100000;
   }
 
   #masthead {
@@ -459,8 +459,8 @@
     %symbol#icon-twitter{:viewbox => "0 0 60 60"}
       %path{:d => "M34.2 18.3c-2.6 1-4.3 3.4-4.1 6.1l.1 1-1-.1c-3.8-.5-7.1-2.1-10-4.9L17.7 19l-.4 1c-.8 2.3-.3 4.7 1.3 6.3.8.9.6 1-.8.5-.5-.2-.9-.3-1-.2-.1.1.4 2.1.8 2.8.5 1.1 1.7 2.1 2.9 2.7l1 .5h-1.2c-1.2 0-1.2 0-1.1.5.4 1.4 2.1 2.8 3.9 3.5l1.3.4-1.1.7c-1.7 1-3.6 1.5-5.6 1.6-.9 0-1.7.1-1.7.2 0 .2 2.6 1.4 4 1.9 4.5 1.4 9.8.8 13.7-1.6 2.8-1.7 5.7-5 7-8.2.7-1.7 1.4-4.9 1.4-6.4 0-1 .1-1.1 1.2-2.3.7-.7 1.3-1.4 1.5-1.6.2-.4.2-.4-.9 0-1.8.6-2 .6-1.2-.4.6-.7 1.4-1.9 1.4-2.3 0-.1-.3 0-.7.2-.4.2-1.2.5-1.8.7l-1.1.4-1-.7c-.6-.4-1.4-.8-1.8-.9-.9-.4-2.6-.4-3.5 0zM30 60C13.4 60 0 46.6 0 30S13.4 0 30 0s30 13.4 30 30-13.4 30-30 30z"}
 .hero.bg-primary
-  %header#masthead.position-absolute.w-100{style: "z-index:1200",:role => "banner"}
-    .container
+  %header#masthead.position-absolute.w-100.pb-4{style: "z-index:1200",:role => "banner"}
+    .container-fluid.px-4
       %button.hamburger.hamburger--boring{:type => "button"}
         %span.hamburger-box
           %span.hamburger-inner
@@ -469,19 +469,20 @@
       -#   %input.draw{"aria-labelledby" => "search-label", :name => "s", :placeholder => "Search…", :type => "search"}/
       -#   %button{:type => "submit"} →
       %nav#site-nav{:role => "navigation"}
-
-        - @pages.each do |page|
-          -# - if (child = page.children).present?
-            
-          .col
-            =link_to page_path(page) , class: "text-dark" do
-              %h4=page.title
-            - if (childrens = page.children).present?
-              %ul
-                - childrens.each do |child|
-                  %li
-                    =link_to page_path(page) do
-                      =child.title
+        .row.w-100
+          - pages_result = @pages.select{|x|x.show_title != 'false'}
+          - pages_result.each do |page|
+            -# - if (child = page.children).present?
+              
+            .col-12.my-2{class: "col-md-#{12/pages_result.size}"}
+              =link_to page_path(page) , class: "text-dark" do
+                %h5=page.title.html_safe
+              - if (childrens = page.children).present?
+                %ul
+                  - childrens.each do |child|
+                    %li
+                      =link_to page_path(page) do
+                        =child.title
 
         -# .col
         -#   %h4 Expertise

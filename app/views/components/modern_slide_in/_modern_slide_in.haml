@@ -1,92 +1,64 @@
+:css
+  @import "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css";
 .row
-	.modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
-		%h3
-			=component.title.to_s.html_safe
-		%small=component.subtitle.to_s.html_safe
-		%p
-			=component.body.to_s.html_safe
+  .modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+    %h3
+      =component.title.to_s.html_safe
+    %small=component.subtitle.to_s.html_safe
+    %p
+      =component.body.to_s.html_safe
 
-		- if component&.link.present?
-			=link_to component&.url_text || "/", class: "btn bg-light" do
-				.fw-bold.text-secondary="READ MORE"
+    - if component&.link.present?
+      =link_to component&.url_text || "/", class: "btn bg-light" do
+        .fw-bold.text-secondary="READ MORE"
 
-		#sequence.seq{style: "min-width: 100% !important;"}
-			- images = component.images
-			.seq-screen
-				%ul.seq-canvas
-					- images.each do |image|
+    #sequence.seq{style: "min-width: 100% !important;"}
+      - images = component.images
+      .seq-screen
+        %ul.seq-canvas
+          - images.each do |image|
 
-						%li.seq-in
-							.seq-model
-								= manipulate_image_tag(image, options: {image_quality: image.image_quality})
-								-# %img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
-							.seq-title.ml-4
-								.row
-									%h1=image.title.to_s
-								%h2{"data-seq" => ""}=image.subtitle.to_s.html_safe
-								%h3{"data-seq" => ""}=image.note.to_s.html_safe
+            %li.seq-in
+              .seq-model
+                = manipulate_image_tag(image, options: {image_quality: image.image_quality})
+                -# %img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
+              .seq-title.ml-4
+                .row
+                  %h1=image.title.to_s
+                %h2{"data-seq" => ""}=image.subtitle.to_s.html_safe
+                %h3{"data-seq" => ""}=image.note.to_s.html_safe
 
-					-# %li.seq-in
-					-# 	.seq-model
-					-# 		%img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
-					-# 	.seq-title
-					-# 		%h2{"data-seq" => ""} Powered by Sequence.js
-					-# 		%h3{"data-seq" => ""} The responsive CSS animation framework
-					-# %li
-					-# 	.seq-model
-					-# 		%img{:alt => "A pale-skin female model with dark eye shadow and tied up hair wears dark green gloves, gray linen boots, and a woolen lined hood on a black zip-up jacket over a black top and shorts. She holds her jacket open with both hands and slightly raises her left knee whilst looking to the floor", "data-seq" => "", :src => "images/model2.png"}/
-					-# 	.seq-title
-					-# 		%h2{"data-seq" => ""} Create Unique Animated Themes
-					-# 		%h3{"data-seq" => ""}
-					-# 			For sliders, presentations,
-					-# 			= succeed "banners," do
-					-# 				%br/
-					-# %li
-					-# 	.seq-model
-					-# 		%img{:alt => "A pale-skin female model with platted hair wears a dark button-up jacket with gray shorts, black tights, brown shoes, and black gloves. She throws both arms back and raises one knee -- as if mid-jump -- whilst looking into the distance", "data-seq" => "", :src => "images/model3.png"}/
-					-# 	.seq-title
-					-# 		%h2{"data-seq" => ""} Rapid Development of Step-Based Applications
-					-# 		%h3{"data-seq" => ""} All of the JavaScript functionality you need built-in
-			%fieldset.seq-nav{"aria-controls" => "sequence", "aria-label" => "Slider buttons", style: "min-width: 100% !important;"}
-				%button.seq-prev{"aria-label" => "Previous", :type => "button"} Previous
-				%button.seq-next{"aria-label" => "Next", :type => "button"} Next
-			%ul.seq-pagination.w-100{"aria-label" => "Pagination", :role => "navigation", style: "min-width: 100% !important;"}
-				- images.each_with_index do |image, i|
-					%li
-						%a{:href => "#step#{i + 1}", :rel => "#step#{i + 1}", :title => "Go to slide #{i + 1}"}
-							-# %img{:src => "images/tn-model1.png"}/
-							= image_tag(image.url_image_thumb, style: "width: 100px")
-							-# = manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {style: "width: 100px"})
-				-# %li
-				-# 	%a{:href => "#step1", :rel => "step1", :title => "Go to slide 1"}
-				-# 		%img{:src => "https://i.pinimg.com/originals/6d/b7/ae/6db7ae4c1905457bdaa134f73fb510c2.png", :style => 'width:150px' }/
-				-# %li
-				-# 	%a{:href => "#step2", :rel => "step2", :title => "Go to slide 2"}
-				-# 		%img{:src => "https://i.pinimg.com/originals/6d/b7/ae/6db7ae4c1905457bdaa134f73fb510c2.png", :style => 'width:150px' }/
-				-# %li
-				-# 	%a{:href => "#step2", :rel => "step2", :title => "Go to slide 2"}
-				-# 		%img{:src => "https://i.pinimg.com/originals/6d/b7/ae/6db7ae4c1905457bdaa134f73fb510c2.png", :style => 'width:150px' }/
+      %fieldset.seq-nav{"aria-controls" => "sequence", "aria-label" => "Slider buttons", style: "min-width: 100% !important;"}
+        %button.seq-prev{"aria-label" => "Previous", :type => "button"} Previous
+        %button.seq-next{"aria-label" => "Next", :type => "button"} Next
+      %ul.seq-pagination.w-100{"aria-label" => "Pagination", :role => "navigation", style: "min-width: 100% !important;"}
+        - images.each_with_index do |image, i|
+          %li
+            %a{:href => "#step#{i + 1}", :rel => "#step#{i + 1}", :title => "Go to slide #{i + 1}"}
+              -# %img{:src => "images/tn-model1.png"}/
+              = image_tag(image.url_image_thumb, style: "width: 100px")
+              -# = manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {style: "width: 100px"})
 :javascript
 
-	loadjs([
-		"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
-		"/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
-		"/assets/frontend/lib/modern_slide_in/hammer.min.js",
-		"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in');
-	loadjs.ready('modern_slide_in', function() {
+  loadjs([
+    "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
+    "/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
+    "/assets/frontend/lib/modern_slide_in/hammer.min.js",
+    "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in');
+  loadjs.ready('modern_slide_in', function() {
 
-	})
+  })
 
-	$(document).on('turbolinks:load', function() {
-		$("body").attr("data-turbolinks", "false")
+  $(document).on('turbolinks:load', function() {
+    $("body").attr("data-turbolinks", "false")
 
 
-		loadjs([
-			"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
-			"/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
-			"/assets/frontend/lib/modern_slide_in/hammer.min.js",
-			"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in');
-		loadjs.ready('modern_slide_in', function() {
+    loadjs([
+      "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
+      "/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
+      "/assets/frontend/lib/modern_slide_in/hammer.min.js",
+      "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in');
+    loadjs.ready('modern_slide_in', function() {
 
-		})
-	});
+    })
+  });

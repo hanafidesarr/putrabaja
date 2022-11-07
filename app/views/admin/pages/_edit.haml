@@ -29,7 +29,11 @@
 					.row.mx-2
 						- Page.stored_attributes[:properties].each do | obj |
 							.col-md-6.col-12.mb-2
-								= f.input obj, input_html: {class: "form-control w-100"}
+								- case obj
+								- when :show_title
+									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control select2"}
+								- else
+									= f.input obj, input_html: {class: "form-control w-100"}
 							
 			#page-header.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel"}
 				= f.inputs :name => "Header Desktop" do
