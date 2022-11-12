@@ -1,4 +1,4 @@
-.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) } background-color: #{component.background_color}"}
+.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; background-color: #{component.background_color}"}
 	.d-block
 		- if (images = component.images).present?
 			- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
