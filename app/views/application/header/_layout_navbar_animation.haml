@@ -170,8 +170,14 @@
     }
 
   %nav.navbar.navbar-expand-lg.navbar-mainbg
-    =link_to root_path, class: "text-white navbar-logo", style: "z-index: 100;" do
-      =@setting.name
+
+    - if (images = @setting.images).present?
+      = link_to root_path, title: "axeonsoft", style: "z-index: 100;", class: "mx-4" do
+        - image_quality = images.last.image_quality
+        = manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "100"})
+    - else
+      =link_to root_path, class: "text-white navbar-logo", style: "z-index: 100;" do
+        =@setting.name
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
       %i.fas.fa-bars.text-white
     #navbarSupportedContent.collapse.navbar-collapse
