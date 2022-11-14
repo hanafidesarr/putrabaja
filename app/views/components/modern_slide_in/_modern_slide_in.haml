@@ -1,5 +1,6 @@
 :css
   @import "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css";
+
 .row
   .modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
     %h3
@@ -38,6 +39,9 @@
               -# %img{:src => "images/tn-model1.png"}/
               = image_tag(image.url_image_thumb, style: "width: 100px")
               -# = manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {style: "width: 100px"})
+
+= javascript_include_tag '/assets/frontend/lib/modern_slide_in/sequence.min.js'
+
 :javascript
 
   loadjs([
@@ -54,7 +58,7 @@
 
 
     loadjs([
-      "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
+    "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
       "/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
       "/assets/frontend/lib/modern_slide_in/hammer.min.js",
       "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in');

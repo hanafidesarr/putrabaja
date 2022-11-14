@@ -1,4 +1,8 @@
-- content_for :no_turbolink, false
+:css
+	@import "/assets/frontend/lib/split_product_showcase/css/style.css";
+	@import "/assets/frontend/lib/split_product_showcase/css/normalize.css";
+
+-# %link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/normalize.css"}/	
 .section-wrapper
 	.split_product_showcase{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		#ps-container.ps-container.position-relative{style: "height:#{component.height}"}
@@ -24,17 +28,17 @@
 					%a.ps-prev{:href => "#"}
 					%a.ps-next{:href => "#"}
 
-:javascript
-	loadjs(["/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js", "/assets/frontend/lib/split_product_showcase/js/slider.js", "/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/css/normalize.css"], 'split_product_showcase');
+= javascript_include_tag '/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js'
 
-
+:javascript	
+	loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase');
 	loadjs.ready('split_product_showcase', function() {
 		Slider.init();
 	})
 
 	$(document).on('turbolinks:load', function() {
 		$("body").attr("data-turbolinks", "false")
-		loadjs(["/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js", "/assets/frontend/lib/split_product_showcase/js/slider.js", "/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/css/normalize.css"], 'split_product_showcase');
+		loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase');
 		loadjs.ready('split_product_showcase', function() {
 			Slider.init();
 		})
