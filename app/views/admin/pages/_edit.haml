@@ -31,7 +31,7 @@
 							.col-md-6.col-12.mb-2
 								- case obj
 								- when :show_title
-									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control select2"}
+									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control  w-100"}
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 							
@@ -112,15 +112,17 @@
 											.row.mx-2
 												.col-lg-6.col-12
 													- comp.input :name, :input_html => { :class => "form-control w-100" }
-												.col-lg-6.col-12.d-block
-													- comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 select2"}
-												.col-6
+												.col-lg-6.col-12
 													- comp.input :slug, :input_html => { :class => "form-control w-100" }
-												.col-6
-													- comp.input :position, :input_html => { :class => "form-control w-100" }
+												.col-12
+													- comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 
 											- if comp.object.layout.present?
 												= render partial: "admin/pages/components/active_fields", locals: {comp: comp, component_yml: component_yml}
+											.row.mx-2
+												.col-12
+													- comp.input :position, :input_html => { :class => "form-control w-100" }
+
 											-# .row.m-2	
 											-# 	.col-lg-6.col-12
 											-# 		- comp.input :url_text, :input_html => { :class => "w-100" }

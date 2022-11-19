@@ -15,47 +15,11 @@
 		font-size: 3rem;
 		cursor: pointer;
 	
-		.prev-btn {
-			position: absolute !important;
-			left: 5rem;
-					// Extra small devices (portrait phones, less than 576px)
-			@media (max-width: 575.98px) { top: 10%; }
-	
-			// Small devices (landscape phones, 576px and up)
-			@media (min-width: 576px) and (max-width: 767.98px) { margin-top: 10%; }
-	
-			// Medium devices (tablets, 768px and up)
-			@media (min-width: 768px) and (max-width: 991.98px) { margin-top: 10%; }
-	
-			// Large devices (desktops, 992px and up)
-			@media (min-width: 992px) and (max-width: 1199.98px) { margin-top: 20%; }
-	
-			// Extra large devices (large desktops, 1200px and up)
-			@media (min-width: 1200px) { margin-top: 20%; }
-	
-			z-index:100;
-		}
-		.next-btn {
-			position: absolute !important;
-			right: 5rem;
-			z-index:100;
-	
-					// Extra small devices (portrait phones, less than 576px)
-			@media (max-width: 575.98px) { margin-top: 10%; }
-	
-			// Small devices (landscape phones, 576px and up)
-			@media (min-width: 576px) and (max-width: 767.98px) { margin-top: 10%; }
-	
-			// Medium devices (tablets, 768px and up)
-			@media (min-width: 768px) and (max-width: 991.98px) { margin-top: 10%; }
-	
-			// Large devices (desktops, 992px and up)
-			@media (min-width: 992px) and (max-width: 1199.98px) { margin-top: 20%; }
-	
-			// Extra large devices (large desktops, 1200px and up)
-			@media (min-width: 1200px) { margin-top: 20%; }
-	
-		}
+		position: absolute;
+		bottom: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1000;
 	}
 }
 
@@ -83,3 +47,11 @@
 //   height: auto;
 //   padding-top: 18.33%; /** HEIGHT : WIDTH x 100 **/
 // }
+
+
+.owl-carousel div h2, .owl-carousel div .textoverlay{
+	position:absolute;
+	color:#FFF;
+ font-size:12px;
+ display:block;
+}

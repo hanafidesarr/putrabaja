@@ -1,6 +1,7 @@
 :css
   @import "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css";
 
+%link{:rel => "preload", as: "style", href:"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css"}/	
 .row
   .modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
     %h3

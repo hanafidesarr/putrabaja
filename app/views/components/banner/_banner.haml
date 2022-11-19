@@ -4,8 +4,11 @@
 			- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
 				.nav-banner-cursor
 
-					%i.fa.fa-square-caret-left.prev-btn.text-light
-					%i.fa.fa-square-caret-right.next-btn.text-light
+					%i.fa.fa-square-caret-left.prev-btn.text-primary
+					%i.fa.fa-square-caret-right.next-btn.text-primary
+				
+			.position-absolute{style: "z-index:1000"}
+				=component.title.html_safe
 			.owl-carousel.demo.owl-theme
 				- images.each do |image|
 					- image_quality = image.image_quality
@@ -19,11 +22,12 @@
 	loadjs.ready('banner', function() {
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({
-			items: 1,
+			items: "#{component.items_show || 1}",
+			margin: "#{component.margin_slider}",
 			dots: "#{component.show_dots rescue nil}" === "true",
 			loop: "#{images.size > 1}" === "true",
-			nav: false,
-			autoplay:true,
+			nav: "#{component.show_nav rescue nil}" === "true",
+			autoplay:"#{component.autoplay rescue nil}" === "true",
 			lazyLoad:true,
 			touchDrag: false,
 			autoplayHoverPause:true,

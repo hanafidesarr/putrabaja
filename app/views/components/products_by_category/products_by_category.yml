@@ -6,6 +6,13 @@ properties:
   - content_position
   - position_text
 
+  - coloumn_desktop
+  - coloumn_mobile
+
+  - use_border_image
+  - padding_images
+  - border_radius
+
 active_fields:
   - title
   - link

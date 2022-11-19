@@ -9,11 +9,16 @@ properties:
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
+
+  # styling
+  - desktop_height
+  - mobile_height
   - background_color
 
+  # slider
+  - margin_slider
   - show_dots
   - show_nav
   - autoplay
-  - desktop_height
-  - mobile_height
+  - items_show
 
