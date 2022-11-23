@@ -32,6 +32,8 @@
 								- case obj
 								- when :show_title
 									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control  w-100"}
+								- when :body_layout
+									= f.input obj, label: "", as: :select, collection: Component::BODY_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 							

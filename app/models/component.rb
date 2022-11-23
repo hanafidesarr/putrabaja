@@ -22,6 +22,9 @@ class Component < ApplicationRecord
     "space", "list_images", "typing_animation", "gallery_images", "products_by_category", "vertical_carousel_frame",
     "pricing_list_card", "split_product_showcase", "modern_slide_in", "banner_flip_effects_rocket"
   ]
+
+  BODY_LAYOUT = ["fancy_sidebar_navigation"]
+
   store :properties, coder: JSON
   after_initialize :add_accessors_for_content_attributes, if: -> { self.layout.present? }
   after_validation :set_slug, only: [:create, :update]

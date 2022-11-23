@@ -37,7 +37,7 @@
                   .custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
                     #dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                       =page.title
-                    .dropdown-menu.bg-red{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; box-shadow: #cbcccd 11px 11px 23px 0px; border-radius: 10px;"}
+                    .dropdown-menu.position-absolute.bg-red{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; box-shadow: #cbcccd 11px 11px 23px 0px; border-radius: 10px;"}
                       - childrens.order(:position).each do |child|
                         =link_to child.title, page_path(child), class: "dropdown-item text-primary py-2 #{child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
               - else

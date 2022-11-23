@@ -30,11 +30,14 @@
 			-# .page{:style => "background: #0B0B0B url('img/4.jpg') no-repeat center center"}
 			-# .page{:style => "background: #82BDC4 url('img/5.jpg') no-repeat center center"}
 :javascript
-	loadjs(["/assets/frontend/lib/page_flip/pageflip.css", "/assets/frontend/lib/page_flip/pageflip-min.js" ], 'banner_flip_effects_rocket');
-	loadjs.ready('banner_flip_effects_rocket', function() {
-		var pageflip = new RocketPageFlip('.pageflip', { current: 0 });
-	})
+	$(document).ready(function() {
 
+		loadjs(["/assets/frontend/lib/page_flip/pageflip.css", "/assets/frontend/lib/page_flip/pageflip-min.js" ], 'banner_flip_effects_rocket', {async: false});
+		loadjs.ready('banner_flip_effects_rocket', function() {
+			var pageflip = new RocketPageFlip('.pageflip', { current: 0 });
+		})
+
+	})
 	$(document).on('turbolinks:load', function() {
 
 		var pageflip = new RocketPageFlip('.pageflip', { current: 0 });

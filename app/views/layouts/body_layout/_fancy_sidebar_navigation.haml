@@ -1,0 +1,57 @@
+%section#exampleSide.km-side-navi
+#fullpage
+	- if @components.present?
+		- @components.order(:position).each do |component|
+			.section
+				.m-inner-wrap
+					- case component.layout
+					- when "banner", "list_images", "gallery_images", "is_images_from_online", "modern_slide_in", "banner_flip_effects_rocket", "split_product_showcase"
+						.component{name: "#{component.slug}"}
+							=render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+					- else
+						.container
+							.component{name: "#{component.slug}"}
+								=render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+
+:javascript
+	$(document).ready(function() {
+		loadjs(["/assets/frontend/body_layout/fancy_sidebar_navigation/sideNavi.css", "/assets/frontend/body_layout/fancy_sidebar_navigation/animate.min.css", "/assets/frontend/body_layout/fancy_sidebar_navigation/jquery.fullpage.min.css", "/assets/frontend/body_layout/fancy_sidebar_navigation/TweenMax.min.js", "/assets/frontend/body_layout/fancy_sidebar_navigation/jquery.fullpage.min.js", "/assets/frontend/body_layout/fancy_sidebar_navigation/SideNav.js"], 'fancy_sidebar_navigation', {async: false});
+		loadjs.ready('fancy_sidebar_navigation', function() {
+			var names_components = JSON.parse('#{@components.pluck(:name).to_json.html_safe}')
+			var ids_components = JSON.parse('#{ ( 1..@components.size ).to_a.map{|x|x.to_s}.to_json.html_safe }')
+			var options = {
+				menu : names_components,
+				position : 'right',
+				themeColor : '#1ed1dc',
+				id : 'exampleSide',
+				afterInit : function(){
+					var currentIndex = parseInt($('#fullpage').find('.fp-section.active').attr('data-anchor'));
+					sidenav.activeMenuAndTag(currentIndex);
+				}
+			}
+			var sidenav = new SideNavi(options);
+			$('#fullpage').fullpage({
+				sectionsColor: ['#f5f7f9', '#eeefff', '#fff', '#eee'],
+				anchors: ids_components,
+				onLeave: function(index,nextIndex){
+						sidenav.activeMenuAndTag(nextIndex);
+				},
+				afterLoad:function(index){
+					var loadedSection = $(this);
+					// effect text
+					// fadeInUp , rotateIn, rotateInDownLeft, rotateInUpRight
+					switch(index){
+						case 1 : loadedSection.find('h2').addClass('animated fadeInUp');
+						break;
+						case 2 : loadedSection.find('h2').addClass('animated fadeInUp');
+						break;
+						case 3 : loadedSection.find('h2').addClass('animated fadeInUp');
+						break;
+						case 4 : loadedSection.find('h2').addClass('animated fadeInUp');
+						break;
+					}
+						
+				}
+			});
+		})
+	})

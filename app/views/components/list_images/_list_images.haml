@@ -31,7 +31,8 @@
             .card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'}; background-color: #{image.background_image_color.presence || 'white'}"}
               =link_to image.url, title: "#{image.alt || image.title}" do
                 -# =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
-                = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy", data_src: image_quality})
+                
+                = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy"})
                 - if image.title.present?
                   .text-dark=image.title.to_s.html_safe
                 - if image.subtitle.present?
