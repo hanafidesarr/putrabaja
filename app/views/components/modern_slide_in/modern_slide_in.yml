@@ -5,6 +5,9 @@ properties:
 
   - content_position
   - position_text
+  - background_color
+  - background_image_online
+  - show_arrows
 
 active_fields:
   - title

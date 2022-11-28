@@ -22,7 +22,7 @@
 	loadjs.ready('banner', function() {
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({
-			items: "#{component.items_show || 1}",
+			items: "#{component.items_show.presence || 1}",
 			margin: "#{component.margin_slider}",
 			dots: "#{component.show_dots rescue nil}" === "true",
 			loop: "#{images.size > 1}" === "true",

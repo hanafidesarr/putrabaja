@@ -30,15 +30,28 @@
 = javascript_include_tag '/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js'
 
 :javascript	
-	loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase');
+	loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
+		before: function(path, scriptEl) {
+			$('#loading_component').show();
+		},
+		async: false
+	});
 	loadjs.ready('split_product_showcase', function() {
 		Slider.init();
+		$('#loading_component').hide();
 	})
 
 	$(document).on('turbolinks:load', function() {
 		$("body").attr("data-turbolinks", "false")
-		loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase');
+		loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
+			before: function(path, scriptEl) {
+				$('#loading_component').show();
+			},
+			async: false
+		});
 		loadjs.ready('split_product_showcase', function() {
 			Slider.init();
+
+			$('#loading_component').hide();
 		})
 	});

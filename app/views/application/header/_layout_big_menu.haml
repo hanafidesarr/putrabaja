@@ -473,7 +473,7 @@
                 %h5=page.title.html_safe
               - if (childrens = page.children).present?
                 %ul
-                  - childrens.each do |child|
+                  - childrens.order(:position).each do |child|
                     %li
                       =link_to page_path(child) do
                         =child.title

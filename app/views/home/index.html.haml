@@ -1,5 +1,7 @@
 
 - case @page.body_layout
+- when "one_page_scroll"
+	= render "/layouts/body_layout/#{@page.body_layout}"
 - when "fancy_sidebar_navigation"
 	= render "/layouts/body_layout/#{@page.body_layout}"
 - else

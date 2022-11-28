@@ -1,5 +1,10 @@
 .section-wrapper
-	.text-base{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+	- style_padding = "padding: #{component.padding_all_side}; padding: 0 #{component.padding_left_right_side}; padding: #{component.padding_top_bottom_side} 0;"
+	- style_margin = "margin: #{component.margin_all_side}; margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background = "background-color: #{component.background_color}"
+	- style = "#{style_margin} #{style_padding} #{style_background}"
+
+	.text-base{class: "text-#{component.position_text}", style: style}
 		%h3
 			=component.title.to_s.html_safe
 		%small=component.subtitle.to_s.html_safe

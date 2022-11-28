@@ -23,7 +23,7 @@ class Component < ApplicationRecord
     "pricing_list_card", "split_product_showcase", "modern_slide_in", "banner_flip_effects_rocket", "wave_liquid_animation"
   ]
 
-  BODY_LAYOUT = ["fancy_sidebar_navigation"]
+  BODY_LAYOUT = ["fancy_sidebar_navigation", "one_page_scroll"]
 
   store :properties, coder: JSON
   after_initialize :add_accessors_for_content_attributes, if: -> { self.layout.present? }
