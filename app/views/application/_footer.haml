@@ -1,5 +1,6 @@
-- case @page.layout_footer
-- when "wave"
-	= render "application/footer/wave"
-- else
-	= render "application/footer/default"
+- if @page.present?
+	- case @page.layout_footer
+	- when "wave"
+		= render "application/footer/wave"
+	- else
+		= render "application/footer/default"
