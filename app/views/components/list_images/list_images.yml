@@ -1,7 +1,11 @@
 properties:
-  - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
+  - padding_top_bottom_side
+  - padding_left_right_side
+  
+  - background_color
+  
   - use_slideReveal
   - coloumn_desktop
   - coloumn_mobile

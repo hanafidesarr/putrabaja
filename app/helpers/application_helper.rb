@@ -17,7 +17,7 @@ module ApplicationHelper
     if html[:data_lazy].present?
       image_tag("", width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], style: html[:style], "data-src": html[:data_src], "data-lazy": url)
     else
-      image_tag(url, width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], style: html[:style], "data-src": html[:data_src])
+      image_tag(url, width: html[:width], alt: "#{obj.alt || obj.title}", title: "#{obj.title}", class: html[:class], style: html[:style], "data-src": html[:data_src], width: obj.width.presence || '100%', height: obj.height.presence || 'auto')
     end
   end
 

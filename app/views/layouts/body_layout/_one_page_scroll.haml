@@ -26,8 +26,7 @@
 	- @components.order(:position).each do |component|
 		#loading_component
 		%div{"data-serialscrolling-target" => "homes-#{component.id}"}
-			.row.w-100
-				=render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+			=render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
 		-# %div{"data-serialscrolling-target" => "work"} Section 2
 	-# %div{"data-serialscrolling-target" => "work"} Section 2
 	-# %div{"data-serialscrolling-target" => "team"} Section 3

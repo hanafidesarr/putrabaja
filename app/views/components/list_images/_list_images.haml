@@ -1,5 +1,16 @@
-.list_images{style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
-  - images = component.images
+- image_background = component.images.backgrounds.first
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_background_color = " background-color: #{component.background_color};"
+- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+- background_repeat =  " no-repeat;"
+- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+.list_images{style: style}
+  - images = component.images.normals
   - if component.use_slideReveal == "true"
     .row
       .col-12.p-0.mb-4{style: "text-align: right;"}
@@ -17,10 +28,10 @@
                 .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
                   =link_to image.url do
                     -# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
-                    = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center"})
+                    = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "text-center"})
                     - if image.title.present?
                       %hr{style: "color: gray;"}
-                      %small.text-center.text-dark=image.title.to_s.html_safe
+                      =image.title.to_s.html_safe
 
   - if images.present?
     .container
@@ -32,13 +43,13 @@
               =link_to image.url, title: "#{image.alt || image.title}" do
                 -# =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
                 
-                = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy"})
+                = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "mx-auto lazy"})
                 - if image.title.present?
-                  .text-dark=image.title.to_s.html_safe
+                  =image.title.to_s.html_safe
                 - if image.subtitle.present?
-                  .text-dark=image.subtitle.to_s.html_safe
+                  =image.subtitle.to_s.html_safe
                 - if image.note.present?
-                  .text-dark=image.note.to_s.html_safe
+                  =image.note.to_s.html_safe
 
 
 :javascript

@@ -1,23 +1,31 @@
 .section-wrapper
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
 
-	.text-base{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+	.text-base-base{id: component.id, class: "text-#{component.position_text}", style: style}
 		- if component.page.layout.eql?("products")
 			%p
 				=component.description.to_s.html_safe
 		- else
 			.row
-				- if component.position_image.eql?("right") && device.eql?("desktop")
+				- if ( component.position_image.eql?("right") || component.position_image.eql?("") ) && device.eql?("desktop")
 					.col-lg-6.col-12
-						%h1
-							=component.title.to_s.html_safe
-						%p
-							=component.body.to_s.html_safe
+						=component.title.to_s.html_safe
+						=component.body.to_s.html_safe
 
 						- if component&.link.present?
 							=link_to component&.link || "/", class: "btn btn-primary text-white" do
 								Lihat selengkapnya
 				.col-lg-6.col-12
-					- if (images = component.images).present?
+					- if (images = component.images.normals).present?
 						- if component.position_image_slider.eql?('center')
 							- position_image_slider = 'margin: auto;'
 						- elsif component.position_image_slider.eql?('right')
@@ -42,10 +50,8 @@
 
 				- if component.position_image.eql?("left") || ["mobile","tablet"].include?(device.to_s)
 					.col-lg-6.col-12
-						%h1
-							=component.title.to_s.html_safe
-						%p
-							=component.body.to_s.html_safe
+						=component.title.to_s.html_safe
+						=component.body.to_s.html_safe
 						
 						- if component&.link.present?
 							=link_to component&.link || "/", class: "btn btn-primary text-white" do
