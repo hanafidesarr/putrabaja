@@ -7,6 +7,7 @@
 				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab"} General
 				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-global-style", :role => "tab"} Global Style
 				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab"} Header
+				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-footer", :role => "tab"} Footer
 				%a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab"} SEO Page
 		#nav-tabContent.tab-content
 			#page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
@@ -33,7 +34,7 @@
 								- when :show_title
 									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control  w-100"}
 								- when :body_layout
-									= f.input obj, label: "", as: :select, collection: Component::BODY_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+									= f.input obj, label: "", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 							
@@ -61,8 +62,15 @@
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 
+			#page-footer.tab-pane.fade{"aria-labelledby" => "nav-footer", :role => "tabpanel"}
+				= f.inputs :name => "LAYOUT" do
+					.row.mx-2
+						- Page.stored_attributes[:footer].each do | obj |
+							.col-lg-12.col-12.mb-2
+								= f.input obj, label: "", as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+
 			#page-seo_page.tab-pane.fade{"aria-labelledby" => "nav-seo_page", :role => "tabpanel"}
-				= f.inputs :name => "Header Mobile" do
+				= f.inputs :name => "SEO" do
 					.row.mx-2
 						- Page.stored_attributes[:seo_page_properties].each do | obj |
 							.col-lg-12.col-12.mb-2
@@ -73,7 +81,6 @@
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 
-	
 
 	- f.has_many :components, new_record: true, heading: false, class: "component-parent" do | comp |
 
