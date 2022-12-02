@@ -15,6 +15,7 @@ ActiveAdmin.register Page do
   text_image_base_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','text_image_base','text_image_base.yml'))
   space_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','space','space.yml'))
   list_images_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','list_images','list_images.yml'))
+  list_images_slider_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','list_images_slider','list_images_slider.yml'))
   typing_animation_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','typing_animation','typing_animation.yml'))
   gallery_images_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','gallery_images','gallery_images.yml'))
   products_by_category_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','products_by_category','products_by_category.yml'))
@@ -29,11 +30,11 @@ ActiveAdmin.register Page do
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :slug, :_destroy,
 
   banner_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],
-  list_images_yml[:properties], typing_animation_yml[:properties], gallery_images_yml[:properties], products_by_category_yml[:properties], vertical_carousel_frame_yml[:properties],
+  list_images_yml[:properties], list_images_slider_yml[:properties], typing_animation_yml[:properties], gallery_images_yml[:properties], products_by_category_yml[:properties], vertical_carousel_frame_yml[:properties],
   split_product_showcase_yml[:properties], modern_slide_in_yml[:properties], banner_flip_effects_rocket_yml[:properties], wave_liquid_animation_yml[:properties],
 
   banner_yml[:active_fields], banner_text_yml[:active_fields], categories_products_yml[:active_fields], text_base_yml[:active_fields], text_image_base_yml[:active_fields],
-  space_yml[:active_fields], list_images_yml[:active_fields], typing_animation_yml[:active_fields], gallery_images_yml[:active_fields], products_by_category_yml[:active_fields],
+  space_yml[:active_fields], list_images_yml[:active_fields], list_images_slider_yml[:active_fields], typing_animation_yml[:active_fields], gallery_images_yml[:active_fields], products_by_category_yml[:active_fields],
   vertical_carousel_frame_yml[:active_fields],split_product_showcase_yml[:active_fields], modern_slide_in_yml[:active_fields], banner_flip_effects_rocket_yml[:active_fields], wave_liquid_animation_yml[:active_fields],
 
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :subtitle, :url_product, :layout_type, :image_quality, :background_image_size, :background_image_position, :background_image_color, :url, :url_image, :url_image_thumb, :price, :series, :alt, :width, :height, :_destroy]], # *note add id for disable duplicate when attribute updated

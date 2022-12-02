@@ -1,0 +1,24 @@
+properties:
+  - margin_top_bottom_side
+  - margin_left_right_side
+  - padding_top_bottom_side
+  - padding_left_right_side
+  - background_color
+  - coloumn_desktop
+  - coloumn_mobile
+  - autoplay
+  - show_arrows
+  - show_dots
+
+  # each images
+  - show_up_image
+  - padding_images
+  - border
+  - box_shadow
+  - border_radius
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body
