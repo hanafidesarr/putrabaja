@@ -55,18 +55,18 @@
                 });
               })
               
-      .collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
-        %ul.navbar-nav.ms-auto.w-100.justify-content-end.my-0
-          %li.nav-item
-            - if user_signed_in?
-              %a.text-white.nav-link="Hallo, #{current_user.email}"
-              =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
-                %i.fa.fa-exit
-                ="KELUAR"
-            - else
-              =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
-                %i.fa.fa-user
-                ="DAFTAR/MASUK"
+      -# .collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
+      -#   %ul.navbar-nav.ms-auto.w-100.justify-content-end.my-0
+      -#     %li.nav-item
+      -#       - if user_signed_in?
+      -#         %a.text-white.nav-link="Hallo, #{current_user.email}"
+      -#         =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
+      -#           %i.fa.fa-exit
+      -#           ="KELUAR"
+      -#       - else
+      -#         =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
+      -#           %i.fa.fa-user
+      -#           ="DAFTAR/MASUK"
 
 
   :javascript

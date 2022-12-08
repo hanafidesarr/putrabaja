@@ -103,7 +103,7 @@ a {
   width: 100%;  
   height: 100%;  
   z-index: 9999;  
-  background: image-url('frontend/spinner.gif') 50% 50% no-repeat rgb(249,249,249);  
+  background: image-url('') 50% 50% no-repeat rgb(249,249,249);  
 }  
 
 @include media-breakpoint-down(md) {
@@ -162,13 +162,11 @@ a {
 
 
 
-#loading_component {
-  display: none;
+.loading_component {
   position: absolute;
   left: 0px;
-  top: 0px;
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url('') 50% 50% no-repeat #fff; 
+  background: url('frontend/pesawat-kertas.gif') 50% 50% no-repeat #fff; 
 }

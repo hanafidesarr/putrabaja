@@ -7,8 +7,9 @@
 					%i.fa.fa-square-caret-left.prev-btn.text-primary
 					%i.fa.fa-square-caret-right.next-btn.text-primary
 				
-			.position-absolute{style: "z-index:1000"}
-				=component.title.html_safe
+			=component.title.to_s.html_safe
+			=component.description.to_s.html_safe
+			=component.note.to_s.html_safe
 			.owl-carousel.demo.owl-theme
 				- images.each do |image|
 					- image_quality = image.image_quality
@@ -18,8 +19,15 @@
 							%p=image.note.to_s.html_safe
 
 :javascript
-	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css"], 'banner');
+	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css"], 'banner', {
+		before: function(path, scriptEl) {
+			console.log("show loading_component")
+			$("#loading_component-#{component.id}").addClass("loading_component");
+		},
+		async: false
+	});
 	loadjs.ready('banner', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component");
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({
 			items: "#{component.items_show.presence || 1}",

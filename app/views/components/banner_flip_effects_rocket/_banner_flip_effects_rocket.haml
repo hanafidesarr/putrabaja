@@ -32,8 +32,14 @@
 :javascript
 	$(document).ready(function() {
 
-		loadjs(["/assets/frontend/lib/page_flip/pageflip.css", "/assets/frontend/lib/page_flip/pageflip-min.js" ], 'banner_flip_effects_rocket', {async: false});
+		loadjs(["/assets/frontend/lib/page_flip/pageflip.css", "/assets/frontend/lib/page_flip/pageflip-min.js" ], 'banner_flip_effects_rocket', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component");
+			},
+			async: false
+		});
 		loadjs.ready('banner_flip_effects_rocket', function() {
+			$("#loading_component-#{component.id}").removeClass("loading_component");
 			var pageflip = new RocketPageFlip('.pageflip', { current: 0 });
 		})
 

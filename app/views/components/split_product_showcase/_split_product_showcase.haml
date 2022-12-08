@@ -32,26 +32,25 @@
 :javascript	
 	loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
 		before: function(path, scriptEl) {
-			$('#loading_component').show();
+			$("#loading_component-#{component.id}").addClass("loading_component")
 		},
 		async: false
 	});
 	loadjs.ready('split_product_showcase', function() {
 		Slider.init();
-		$('#loading_component').hide();
+		$("#loading_component-#{component.id}").removeClass("loading_component")
 	})
 
 	$(document).on('turbolinks:load', function() {
 		$("body").attr("data-turbolinks", "false")
 		loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
 			before: function(path, scriptEl) {
-				$('#loading_component').show();
+				$("#loading_component-#{component.id}").addClass("loading_component")
 			},
 			async: false
 		});
 		loadjs.ready('split_product_showcase', function() {
 			Slider.init();
-
-			$('#loading_component').hide();
+			$("#loading_component-#{component.id}").removeClass("loading_component")
 		})
 	});

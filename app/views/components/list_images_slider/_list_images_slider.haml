@@ -59,14 +59,14 @@
 	loadjs(["/assets/frontend/lib/view-image.js", "/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'list_images_slider', {
 		before: function(path, scriptEl) {
 			console.log("show loading_component")
-			$('#loading_component').show();
+			$("#loading_component-#{component.id}").addClass("loading_component");
 		},
 		async: false
 	});
 
 	loadjs.ready('list_images_slider', function() {
 		console.log("hide loading_component")
-		$('#loading_component').hide();
+		$("#loading_component-#{component.id}").removeClass("loading_component");
 		window.ViewImage && ViewImage.init('#list_images_slider_view-#{component.id} img');
 
 		var coloumn_desktop = "#{component.coloumn_desktop.presence || '3.5'}"

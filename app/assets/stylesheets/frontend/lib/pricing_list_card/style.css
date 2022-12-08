@@ -9,9 +9,6 @@ Primary style
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
 
 html * {
   -webkit-font-smoothing: antialiased;
@@ -19,10 +16,6 @@ html * {
 }
 
 body {
-  font-size: 1.6rem;
-  font-family: "Open Sans", sans-serif;
-  color: #173d50;
-  background-color: #173d50;
 }
 
 a {
@@ -43,7 +36,6 @@ Main Components
 .cd-header h1 {
   text-align: center;
   color: #FFFFFF;
-  font-size: 2.2rem;
 }
 @media only screen and (min-width: 768px) {
   .cd-header {
@@ -51,7 +43,6 @@ Main Components
     line-height: 280px;
   }
   .cd-header h1 {
-    font-size: 3.6rem;
     font-weight: 300;
   }
 }
@@ -94,7 +85,6 @@ Main Components
   height: 40px;
   line-height: 40px;
   cursor: pointer;
-  font-size: 1.4rem;
   color: #FFFFFF;
 }
 .cd-pricing-switcher .cd-switch {
@@ -125,6 +115,8 @@ Main Components
 }
 
 .cd-pricing-list {
+  list-style: none;
+  padding: 0;
   margin: 2em 0 0;
 }
 .cd-pricing-list > li {
@@ -155,6 +147,8 @@ Main Components
 }
 
 .cd-pricing-wrapper {
+  list-style: none;
+  padding: 0;
   /* this is the item that rotates */
   position: relative;
 }
@@ -373,24 +367,21 @@ Main Components
     color: #FFFFFF;
   }
   .cd-pricing-header h2 {
-    font-size: 1.8rem;
     letter-spacing: 2px;
   }
 }
 
 .cd-currency, .cd-value {
-  font-size: 3rem;
   font-weight: 300;
 }
 
 .cd-duration {
   font-weight: 700;
-  font-size: 1.3rem;
   color: #8dc8e4;
   text-transform: uppercase;
 }
 .cd-popular .cd-duration {
-  color: #f3b6ab;
+  color: #fff;
 }
 .cd-duration::before {
   content: '/';
@@ -399,7 +390,7 @@ Main Components
 
 @media only screen and (min-width: 768px) {
   .cd-value {
-    font-size: 7rem;
+    font-size: 4rem;
     font-weight: 300;
   }
 
@@ -420,7 +411,6 @@ Main Components
     display: inline-block;
     margin-top: 10px;
     vertical-align: top;
-    font-size: 2rem;
     font-weight: 700;
   }
 
@@ -454,7 +444,6 @@ Main Components
   width: 100px;
   float: left;
   padding: 1.6em 1em;
-  font-size: 1.4rem;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -556,19 +545,20 @@ Main Components
     color: #FFFFFF;
     border-radius: 2px;
     background-color: #0c1f28;
-    font-size: 1.4rem;
     text-indent: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
   .no-touch .cd-select:hover {
-    background-color: #112e3c;
+    background-color: white;
+    border: solid #5161ce;
   }
   .cd-popular .cd-select {
     background-color: #5161ce;
   }
   .no-touch .cd-popular .cd-select:hover {
-    background-color: #ec907e;
+    background-color: white;
+    border: solid #5161ce;
   }
   .cd-secondary-theme .cd-popular .cd-select {
     background-color: #0c1f28;

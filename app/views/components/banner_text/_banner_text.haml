@@ -17,8 +17,12 @@
 
 :javascript
 
-	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'banner_text');
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'banner_text', {
+		before: function(path, scriptEl) {
+			$("#loading_component-#{component.id}").addClass("loading_component")
+		}});
 	loadjs.ready('banner_text', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component")
 		$(".banner-slick").not('.slick-initialized').slick({
 			lazyLoad: "ondemand",
 			arrows: false,

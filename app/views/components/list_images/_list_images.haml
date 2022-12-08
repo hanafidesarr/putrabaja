@@ -9,60 +9,69 @@
 
 - style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
 
-.list_images{style: style}
-  - images = component.images.normals
-  - if component.use_slideReveal == "true"
-    .row
-      .col-12.p-0.mb-4{style: "text-align: right;"}
+.list-images-slider{style: style}
+	- images = component.images.normals
+	- if component.use_slideReveal == "true"
+		.row
+			.col-12.p-0.mb-4{style: "text-align: right;"}
 
-        =button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
-          %span.fa.fa-angle-double-left
-          Lihat semua
-    #slider.p-2{style: "background-color: #F7F7F9;"}
-      - if images.present?
-        .container
-          .row
-            - images.each do |image|
-              - image_quality = image.image_quality
-              .col-4.col-lg-2.my-1.px-1
-                .card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
-                  =link_to image.url do
-                    -# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
-                    = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "text-center"})
-                    - if image.title.present?
-                      %hr{style: "color: gray;"}
-                      =image.title.to_s.html_safe
+				=button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
+					%span.fa.fa-angle-double-left
+					Lihat semua
+		#slider.p-2{style: "background-color: #F7F7F9;"}
+			- if images.present?
+				.container
+					.row
+						- images.each do |image|
+							- image_quality = image.image_quality
+							.col-4.col-lg-2.my-1.px-1
+								.card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
+									=link_to image.url do
+										-# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
+										= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "text-center"})
+										- if image.title.present?
+											%hr{style: "color: gray;"}
+											=image.title.to_s.html_safe
 
-  - if images.present?
-    .container
-      .row.text-center
-        - images.limit(6).each do |image|
-          - image_quality = image.image_quality
-          .my-2{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
-            .card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'}; background-color: #{image.background_image_color.presence || 'white'}"}
-              =link_to image.url, title: "#{image.alt || image.title}" do
-                -# =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
-                
-                = manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "mx-auto lazy"})
-                - if image.title.present?
-                  =image.title.to_s.html_safe
-                - if image.subtitle.present?
-                  =image.subtitle.to_s.html_safe
-                - if image.note.present?
-                  =image.note.to_s.html_safe
+	- if images.present?
+		.container
+			#example.row.text-center
+				- images.limit(6).each do |image|
+					- image_quality = image.image_quality
+					.my-2{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
+						.card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'}; background-color: #{image.background_image_color.presence || 'white'}"}
+							=link_to image.url, title: "#{image.alt || image.title}" do
+								-# =image_tag(image.asset.url(:thumb), class: "w-100 mx-auto lazy", alt: "#{image.title}", "data-src": image.asset.url(:thumb)) 
+								
+								= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "mx-auto lazy"})
+								- if image.title.present?
+									=image.title.to_s.html_safe
+								- if image.subtitle.present?
+									=image.subtitle.to_s.html_safe
+								- if image.note.present?
+									=image.note.to_s.html_safe
 
 
 :javascript
 
-  loadjs(["/assets/frontend/lib/jquery.slidereveal.min.js"], 'list_images');
-  loadjs.ready('list_images', function() {
-    if ("#{component.use_slideReveal == 'true'}") {
-      $('#slider').slideReveal({
-        trigger: $("#trigger"),
-        width: "75%",
-        overlay: true,
-        speed: 700,
-        position: "right"
-      });
-    }
-  });
+	loadjs(["/assets/frontend/lib/jquery.slidereveal.min.js", "/assets/frontend/lib/view-image.js"], 'list_images', {
+		before: function(path, scriptEl) {
+			console.log("show loading_component")
+			$("#loading_component-#{component.id}").addClass("loading_component");
+		},
+		async: false
+	});
+	loadjs.ready('list_images', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component");
+		window.ViewImage && ViewImage.init('#example img');
+
+		if ("#{component.use_slideReveal == 'true'}") {
+			$('#slider').slideReveal({
+				trigger: $("#trigger"),
+				width: "75%",
+				overlay: true,
+				speed: 700,
+				position: "right"
+			});
+		}
+	});
