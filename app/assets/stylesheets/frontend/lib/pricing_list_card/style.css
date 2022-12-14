@@ -18,6 +18,10 @@ html * {
 body {
 }
 
+em {
+    font-style: normal;
+}
+
 a {
   color: #5161ce;
   text-decoration: none;
@@ -345,7 +349,10 @@ Main Components
 .cd-pricing-header h2 {
   margin-bottom: 3px;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  /* padding-bottom: 2rem;
+  border-bottom: solid 1px black; */
 }
 .cd-popular .cd-pricing-header {
   background-color: #5161ce;
@@ -378,7 +385,7 @@ Main Components
 .cd-duration {
   font-weight: 700;
   color: #8dc8e4;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 .cd-popular .cd-duration {
   color: #fff;
@@ -390,7 +397,7 @@ Main Components
 
 @media only screen and (min-width: 768px) {
   .cd-value {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 300;
   }
 
@@ -415,7 +422,7 @@ Main Components
   }
 
   .cd-duration {
-    font-size: 1.4rem;
+    font-size: 0.8rem;
   }
 }
 .cd-pricing-body {
@@ -433,6 +440,8 @@ Main Components
 }
 
 .cd-pricing-features {
+  padding: 0 !important;
+  margin: 0 1rem !important;
   width: 600px;
 }
 .cd-pricing-features:after {

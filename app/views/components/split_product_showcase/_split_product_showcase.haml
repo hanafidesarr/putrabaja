@@ -1,6 +1,7 @@
 :css
 	@import "/assets/frontend/lib/split_product_showcase/css/style.css";
 
+%link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/style.css"}/	
 %link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/normalize.css"}/	
 .section-wrapper
 	.split_product_showcase{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
@@ -30,15 +31,17 @@
 = javascript_include_tag '/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js'
 
 :javascript	
-	loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
-		before: function(path, scriptEl) {
-			$("#loading_component-#{component.id}").addClass("loading_component")
-		},
-		async: false
-	});
-	loadjs.ready('split_product_showcase', function() {
-		Slider.init();
-		$("#loading_component-#{component.id}").removeClass("loading_component")
+	$(document).ready(function(){
+		loadjs(["/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+		loadjs.ready('split_product_showcase', function() {
+			Slider.init();
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+		})
 	})
 
 	$(document).on('turbolinks:load', function() {

@@ -10,6 +10,8 @@ properties:
   - width_image
   - position_image_slider
 
+  - class_parent_component
+
 active_fields:
   - title
   - link

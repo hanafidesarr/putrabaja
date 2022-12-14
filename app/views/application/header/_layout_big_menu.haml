@@ -475,7 +475,7 @@
                 %ul
                   - childrens.order(:position).each do |child|
                     %li
-                      =link_to page_path(child) do
+                      =link_to page_path(child), class: "#{child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
                         =child.title
 
 :javascript
