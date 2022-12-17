@@ -91,13 +91,15 @@
 			.card
 				#headingOne.card-header{ class: "#{exist ? 'bg-secondary' : 'bg-secondary'}"}
 					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
-						.col-11
+						.col-10
 							.d-flex.justify-content-between
 								%h5.mb-0{ class: "#{exist ? 'text-light' : ''}"}
 									="#{comp.object.name.to_s.capitalize}"
 								%small.text-light="( #{comp.object.layout.to_s.capitalize} )"
-						.col-1{style: "text-align: right;"}
+						.col-2{style: "text-align: right;"}
 							- if comp.object.id.present?
+								.form-check.form-switch{style: "text-align: right; display: inline-block;"}
+									- comp.input :active, label: "", input_html: {class: "form-check-input", disabled: true, "aria-label"=>"..."}
 								= link_to duplicate_record_admin_component_path(id: comp.object.id) do
 									%i.fa.fa-copy.text-light{style: "margin-right: 5px;"}
 								=link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do

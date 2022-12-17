@@ -3,6 +3,7 @@ properties:
   - margin_left_right_side
   - padding_top_bottom_side
   - padding_left_right_side
+  - grid_position
   
   - background_color
   
@@ -10,8 +11,10 @@ properties:
   - coloumn_desktop
   - coloumn_mobile
   - use_border_image
+  - box_shadow
   - padding_images
   - border_radius
+
 
 active_fields:
   - title

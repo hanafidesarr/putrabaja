@@ -2,6 +2,13 @@ i {
   margin-right: 10px;
 }
 /*----------multi-level-accordian-menu------------*/
+.navbar-toggler {
+  border: none;
+  z-index: 99;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
 .navbar-logo{
   padding: 15px;
   color: #ffff;
@@ -11,6 +18,14 @@ i {
   
   padding: 0px;
 }
+
+@media (max-width: 991px){
+  .navbar-mainbg{
+
+    padding: 1rem 0;
+  }
+}
+
 #navbarSupportedContent ul{
   padding: 0px;
   margin: 0px;

@@ -158,7 +158,7 @@
   .hamburger-inner::after {
     width: 30px;
     height: 2px;
-    background-color: #555555;
+    background-color: white;
     border-radius: 4px;
     position: absolute;
     transition-property: -webkit-transform;
@@ -470,13 +470,14 @@
           - pages_result.each do |page|
             .col-12.my-2{class: "col-md-#{12/pages_result.size}"}
               =link_to page_path(page) , class: "text-dark" do
-                %h5=page.title.html_safe
+                %h4=page.title.html_safe
               - if (childrens = page.children).present?
-                %ul
+                %hr.text-dark
+                %ul.mt-2.mb-4
                   - childrens.order(:position).each do |child|
                     %li
                       =link_to page_path(child), class: "#{child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
-                        =child.title
+                        %h5=child.title
 
 :javascript
   $(function() {
