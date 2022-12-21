@@ -1,0 +1,78 @@
+:css
+	.slick-slide, .slick-track, .slick-list, .slick-slide-fade {
+		/* ... */
+		position: relative;
+		z-index:100;
+	}
+%div{class: "#{component.class_parent_component}"}
+	.section-wrapper
+		- image_background = component.images.backgrounds.first
+		- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+		- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+		- style_background_color = " background-color: #{component.background_color};"
+		- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+		- background_repeat =  " no-repeat;"
+		- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+		- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+		- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+		- images = component.images.normals
+		.slick-slider-multiple{style: style}
+			.row
+				%div{class:"#{((component.title.presence || component.body.presence).present? && device.eql?("desktop") ) ? 'col-6' : 'col-12'}"}
+					-content_for :nav_image do
+						.nav-slider
+							- images.each do |image|
+								= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center px-1 py-2", style: "cursor: pointer;"})
+
+					.row
+						- if component.nav_position.presence == "vertical"
+							.col-2 
+								=yield :nav_image
+						%div{class: "#{component.nav_position.presence == 'vertical' ? 'col-10' : 'col-12'}"}
+							.main-slider
+								- images.each do |image|
+									.slick-slide
+										=image.title.html_safe
+										=image.subtitle.html_safe
+										=image.note.html_safe
+										= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center", style: "width:#{image.width}; height: #{image.height}; object-fit: #{component.object_fit};"})
+									
+							=yield :nav_image if component.nav_position.presence != "vertical"
+				%div{class:"#{(component.title.presence || component.body.presence).present? ? 'col-lg-6 col-12' : 'd-none'}"}
+					=component.title.to_s.html_safe
+					=component.subtitle.to_s.html_safe
+					=component.body.to_s.html_safe
+
+
+
+:javascript
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'slick_slider_multiple', {
+		before: function(path, scriptEl) {
+			$("#loading_component-#{component.id}").addClass("loading_component")
+		}});
+	loadjs.ready('slick_slider_multiple', function() {
+
+		$("#loading_component-#{component.id}").removeClass("loading_component")
+
+		$('.main-slider').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			arrows: false,
+			fade: true,
+			dots: false,
+			asNavFor: '.nav-slider'
+		});
+		$('.nav-slider').slick({
+			slidesToShow: "#{component.slide_to_show.presence || '4'}",
+			vertical: "#{component.nav_position}" === 'vertical',
+			arrows: false,
+			verticalSwiping: "#{component.nav_position}"  === 'vertical',
+			slidesToScroll: 1,
+			asNavFor: '.main-slider',
+			dots: false,
+			centerMode: true,
+			focusOnSelect: true
+		});
+	})
