@@ -1,13 +1,21 @@
 properties:
-  - margin_all_side
+  - class_parent_component
+  - position_text
+
+
+  - padding_top_bottom_side
+  - padding_left_right_side
   - margin_top_bottom_side
   - margin_left_right_side
-  - height
-  - content_position
   - position_text
-  - is_images_from_online
-  - link_images_online
 
+  - background_color
+  - position_image
+  - width_image
+  - position_image_slider
+
+  - desktop_height
+  - mobile_height
 active_fields:
   - title
   - link

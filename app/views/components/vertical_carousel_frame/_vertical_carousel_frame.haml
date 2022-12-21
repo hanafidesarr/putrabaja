@@ -1,26 +1,57 @@
-.section-wrapper
-	.vertical_carousel_frame{class: "text-#{component.position_text}", style: "height: #{component.height}; margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+%div{class: "#{component.class_parent_component}"}
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+	- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s, height.to_s)
+
+	.vertical_carousel_frame{class: "text-#{component.position_text}", style: style}
 		.carousel-container.justify-content-center
 			#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
 				%ol.carousel-indicators
-
-					- if component.is_images_from_online == 'true' && ( list_images_online = component.link_images_online ).present?
-						- list_images_online.split(",").each_with_index do |link_image, i|
-							%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
-					- else
-						- component.images.pluck(:id).each_with_index do |image, i|
-							%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
+					- component.images.pluck(:id).each_with_index do |image, i|
+						%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
 				.carousel-inner
-					- if component.is_images_from_online == 'true' && ( list_images_online = component.link_images_online ).present?
-						- list_images_online.split(",").each_with_index do |link_image, i|
-							.carousel-item{:style => "background-image:url(#{link_image});", class: "#{i == 0 ? 'active' : ''}"}
-					- else
-						- component.images.each_with_index do |image, i|
-							.carousel-item{:style => "background-image:url(#{image.asset.url});", class: "#{i == 0 ? 'active' : ''}"}
+					- component.images.each_with_index do |image, i|
+						- url = manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})
+						.carousel-item{:style => "background-image:url(#{url});", class: "#{i == 0 ? 'active' : ''}"}
+							.container
+								.row.align-items-center{style:"height: 100%"}
+									-# .display-3.text-center.text-light.text-justify
+									-# 	="HANAFI"
+									=image.title.to_s.html_safe
+									=image.subtitle.to_s.html_safe
+									=image.note.to_s.html_safe
 
 :javascript
 
-	loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js"], 'vertical_carousel_frame');
+	loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js"], 'vertical_carousel_frame', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
 	loadjs.ready('vertical_carousel_frame', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component")
+
+	})
+
+
+	$(document).on('turbolinks:load', function() {
+		$("body").attr("data-turbolinks", "false")
+		loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js"], 'vertical_carousel_frame', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+		loadjs.ready('vertical_carousel_frame', function() {
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+		})
 
 	})
