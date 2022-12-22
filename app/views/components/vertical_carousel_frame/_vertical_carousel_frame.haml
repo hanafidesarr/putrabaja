@@ -27,8 +27,27 @@
 									=image.title.to_s.html_safe
 									=image.subtitle.to_s.html_safe
 									=image.note.to_s.html_safe
+	.row.text-center.mt-2
+		.col
+			%i#button.fa.fa-angles-down.fa-lg{style: "cursor: pointer;"}
+
+	-# %button.unclickable.carousel-control-prev{"data-bs-slide" => "prev", "data-bs-target" => "#vertical-carousel", :type => "button"}
+	-# 	%span.clickable.carousel-control-prev-icon{"aria-hidden" => "true"}
+	-# 	%span.visually-hidden Previous
+	-# %button#button.carousel-control-next
+	-# 	%span.clickable.carousel-control-next-icon{"aria-hidden" => "true"}
+	-# 	%span.visually-hidden Next
+
+
 
 :javascript
+
+	x = $(window).height() - 50
+	$("#button").click(function() {
+		$('html, body').animate({
+				scrollTop: x
+		}, 1000);
+	});
 
 	loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js"], 'vertical_carousel_frame', {
 			before: function(path, scriptEl) {

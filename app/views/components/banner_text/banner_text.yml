@@ -5,6 +5,7 @@ active_fields:
   - body
 
 properties:
+  - class_parent_component
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side

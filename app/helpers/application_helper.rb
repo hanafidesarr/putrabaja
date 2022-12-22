@@ -13,7 +13,6 @@ module ApplicationHelper
 
     # use online image if exist
     url = obj.url_image.presence || render_image_quality(obj, options[:image_quality])
-    data_src = self.render_image_quality(obj, options[:data_src])
     if html[:data_lazy].present?
       image_tag("", width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], style: html[:style], "data-src": html[:data_src], "data-lazy": url)
     else

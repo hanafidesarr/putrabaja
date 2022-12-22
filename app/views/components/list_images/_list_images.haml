@@ -1,41 +1,41 @@
-- image_background = component.images.backgrounds.first
-- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
-- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
-- style_background_color = " background-color: #{component.background_color};"
-- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
-- background_repeat =  " no-repeat;"
-- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
-- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+%div{class: "#{component.class_parent_component}"}
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
 
-- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
 
-.list-images{style: style}
-	- images = component.images.normals
-	- if component.use_slideReveal == "true"
-		.container
-			.row
-				.col-12.p-0.mb-4{style: "text-align: right;"}
+	.list-images{style: style}
+		- images = component.images.normals
+		- if component.use_slideReveal == "true"
+			.container
+				.row
+					.col-12.p-0.mb-4{style: "text-align: right;"}
 
-					=button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
-						%span.fa.fa-angle-double-left
-						Lihat semua
-		#slider.p-2{style: "background-color: #F7F7F9;"}
-			- if images.present?
-				.container
-					.row
-						- images.each do |image|
-							- image_quality = image.image_quality
-							.col-4.col-lg-2.my-1.px-1
-								.card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
-									=link_to image.url do
-										-# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
-										= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "text-center"})
-										- if image.title.present?
-											%hr{style: "color: gray;"}
-											=image.title.to_s.html_safe
+						=button_tag id: "trigger", class: "btn btn-primary text-white py-0 px-4" do 
+							%span.fa.fa-angle-double-left
+							Lihat semua
+			#slider.p-2{style: "background-color: #F7F7F9;"}
+				- if images.present?
+					.container
+						.row
+							- images.each do |image|
+								- image_quality = image.image_quality
+								.col-4.col-lg-2.my-1.px-1
+									.card.card-body{style: "border-radius: 10px; border: solid #eee; box-shadow: 4px 7px 11px #eee;"}
+										=link_to image.url do
+											-# =image_tag(image.asset.url(:thumb), class: "img-fluid text-center", alt: "#{image.title}")
+											= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "text-center"})
+											- if image.title.present?
+												%hr{style: "color: gray;"}
+												=image.title.to_s.html_safe
 
-	- if images.present?
-		.container
+		- if images.present?
 			.row.text-center
 				- images.limit(6).each do |image|
 					- image_quality = image.image_quality

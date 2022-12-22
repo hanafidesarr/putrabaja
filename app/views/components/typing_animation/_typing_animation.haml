@@ -1,5 +1,5 @@
-.typing-animation{style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
-	.section-wrapper
+%div{class: "#{component.class_parent_component}"}
+	.typing-animation{style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		%div{:style => "width: 100%; height: 18px; border-bottom: 1px solid #e6e6e6; text-align: center"}
 			%h3
 				%span#typed{:style => "background-color: #{@page.background_body_color}; padding: 0 10px;"}

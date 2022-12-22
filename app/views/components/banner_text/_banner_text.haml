@@ -1,6 +1,5 @@
-
-.banner-text{name: "#{component.slug}", class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side} background-color: #{component.bg_color} color: #{component.color_text}"}
-	.section-wrapper
+%div{class: "#{component.class_parent_component}"}
+	.banner-text{name: "#{component.slug}", class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side} background-color: #{component.bg_color} color: #{component.color_text}"}
 		.banner-slick
 			- component.images.each do |image|
 				.row.d-flex.align-items-center
@@ -25,7 +24,7 @@
 		$("#loading_component-#{component.id}").removeClass("loading_component")
 		$(".banner-slick").not('.slick-initialized').slick({
 			lazyLoad: "ondemand",
-			arrows: false,
+			arrows: true,
 			slidesToShow: 1
 		});
 	})

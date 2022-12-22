@@ -1,4 +1,5 @@
 properties:
+  - class_parent_component
   - margin_top_bottom_side
   - margin_left_right_side
   - padding_top_bottom_side

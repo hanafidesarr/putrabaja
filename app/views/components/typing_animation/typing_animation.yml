@@ -1,4 +1,5 @@
 properties:
+  - class_parent_component
   - text_typing
   - margin_all_side
   - margin_top_bottom_side

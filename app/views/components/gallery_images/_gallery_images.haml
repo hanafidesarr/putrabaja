@@ -1,14 +1,15 @@
-.row
-  %ul#waterfall.p-0.m-0
-    - if component.is_images_from_online == 'true' && ( list_images_online = component.link_images_online ).present?
-      - list_images_online.split(",").each do |link_image|
-        %li{style: "list-style-type: none;"}
-          %img{src: link_image, class: "w-100 p-1"}
-    - else
-      - if (images = component.images).present?
-        - images.each do |image|
+%div{class: "#{component.class_parent_component}"}
+  .row
+    %ul#waterfall.p-0.m-0
+      - if component.is_images_from_online == 'true' && ( list_images_online = component.link_images_online ).present?
+        - list_images_online.split(",").each do |link_image|
           %li{style: "list-style-type: none;"}
-            %img{src: image.asset.url(:thumb), class: "w-100 p-1"}
+            %img{src: link_image, class: "w-100 p-1"}
+      - else
+        - if (images = component.images).present?
+          - images.each do |image|
+            %li{style: "list-style-type: none;"}
+              %img{src: image.asset.url(:thumb), class: "w-100 p-1"}
 
 :javascript
 

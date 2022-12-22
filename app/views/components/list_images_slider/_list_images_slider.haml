@@ -28,31 +28,31 @@
 - background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
 
 - style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
-.section-wrapper
+
+%div{class: "#{component.class_parent_component}"}
 	.list_images_slider{style: style}
-		.container-fluid.w-100
-			- images = component.images.normals
-			.row
-				.col-12
-					=component.title.html_safe
-					=component.subtitle&.html_safe
-					=component.body&.html_safe
-			- if images.present?
-				.row.text-center.w-100.mx-0
-					.product-slick-slider{id: component.show_up_image.eql?('true') ? "list_images_slider_view-#{component.id}" : ""}
-						- img_padding = " padding: #{component.padding_images};"
-						- img_border = " border: #{component.border};"
-						- img_box_shadow = " box-shadow: #{component.box_shadow};"
-						- img_border_radius = " border-radius: #{component.border_radius};"
-						- style_image = " ".concat(img_padding,img_border,img_box_shadow,img_border_radius)
-						- images.each do |image|
-							.mx-2
-								=link_to component.show_up_image.eql?('true') ? "javascript:void(0)" : image.url do
-									= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "w-100 mx-auto lazy", data_lazy: "true", style: style_image})
-									%hr
-									- if image.title.present?
-										.text-dark=image.title.to_s.html_safe
-										.text-dark=image.note.to_s.html_safe
+		- images = component.images.normals
+		.row
+			.col-12
+				=component.title.html_safe
+				=component.subtitle&.html_safe
+				=component.body&.html_safe
+		- if images.present?
+			.row.text-center.w-100.mx-0
+				.product-slick-slider{id: component.show_up_image.eql?('true') ? "list_images_slider_view-#{component.id}" : ""}
+					- img_padding = " padding: #{component.padding_images};"
+					- img_border = " border: #{component.border};"
+					- img_box_shadow = " box-shadow: #{component.box_shadow};"
+					- img_border_radius = " border-radius: #{component.border_radius};"
+					- style_image = " ".concat(img_padding,img_border,img_box_shadow,img_border_radius)
+					- images.each do |image|
+						.mx-2
+							=link_to component.show_up_image.eql?('true') ? "javascript:void(0)" : image.url do
+								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "w-100 mx-auto lazy", data_lazy: "true", style: style_image})
+								%hr
+								- if image.title.present?
+									.text-dark=image.title.to_s.html_safe
+									.text-dark=image.note.to_s.html_safe
 
 :javascript
 

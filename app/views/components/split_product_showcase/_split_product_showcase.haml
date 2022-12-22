@@ -3,7 +3,7 @@
 
 %link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/style.css"}/	
 %link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/normalize.css"}/	
-.section-wrapper
+%div{class: "#{component.class_parent_component}"}
 	.split_product_showcase{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		#ps-container.ps-container.position-relative{style: "height:#{component.height}"}
 			.ps-header
