@@ -3,7 +3,7 @@
 		- if comp.object.respond_to? obj
 			.col-lg-6.col-12
 				- case obj
-				- when "autoplay", "show_nav", "show_dots", "use_slideReveal", "is_images_from_online", "use_border_image", "show_arrows", "autoplay", "show_up_image"
+				- when "autoplay", "show_nav", "show_dots", "use_slideReveal", "is_images_from_online", "use_border_image", "show_arrows", "autoplay", "show_up_image", "fade"
 					- comp.input obj, as: :select, collection: ["true","false"], :input_html => { :class => "form-control w-100" }
 				- when "position_image"
 					- comp.input obj, as: :select, collection: ["left","right"], :input_html => { :class => "form-control w-100" }
@@ -15,5 +15,8 @@
 					- comp.input obj, as: :select, collection: ["vertical","horizontal"], :input_html => { :class => "form-control w-100" }
 				- when "slide_to_show"
 					- comp.input obj, as: :select, collection: ["2","3","4","5","6","7","8"], :input_html => { :class => "form-control w-100" }
+				- when "tipe_arrows"
+					- comp.input obj, as: :select, collection: ["arrow_between", "arrow_center"], :input_html => { :class => "form-control w-100" }
+					
 				- else
 					- comp.input obj, :input_html => { :class => "form-control w-100" }
