@@ -14,9 +14,9 @@ module ApplicationHelper
     # use online image if exist
     url = obj.url_image.presence || render_image_quality(obj, options[:image_quality])
     if html[:data_lazy].present?
-      image_tag("", width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], style: html[:style], "data-src": html[:data_src], "data-lazy": url)
+      image_tag("", width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], style: html[:style], "data-src": html[:data_src], "data-lazy": url, onerror: "this.onerror=null;this.src='/assets/image_not_found.png';")
     else
-      image_tag(url, width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], style: html[:style], "data-src": html[:data_src], width: obj.width.presence || '100%', height: obj.height.presence || 'auto')
+      image_tag(url, width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], style: html[:style], "data-src": html[:data_src], width: obj.width.presence || '100%', height: obj.height.presence || 'auto', onerror: "this.onerror=null;this.src='/assets/image_not_found.png';")
     end
   end
 
@@ -26,9 +26,9 @@ module ApplicationHelper
 
     
     if html[:data_lazy].present?
-      image_url("", width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], "data-src": html[:data_src], "data-lazy": url)
+      image_url("", width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], "data-src": html[:data_src], "data-lazy": url, onerror: "this.onerror=null;this.src='/assets/image_not_found.png';")
     else
-      image_url(url, width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], "data-src": html[:data_src])
+      image_url(url, width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], "data-src": html[:data_src], onerror: "this.onerror=null;this.src='/assets/image_not_found.png';")
     end
   end
 
