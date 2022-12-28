@@ -35,9 +35,10 @@
 												%hr{style: "color: gray;"}
 												=image.title.to_s.html_safe
 
-		- if images.present?
-			.row.text-center
-				- images.limit(6).each do |image|
+	- if images.present?
+		.container
+			#example.row.text-center
+				- images.each do |image|
 					- image_quality = image.image_quality
 					.my-2{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
 
