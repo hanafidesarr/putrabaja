@@ -29,7 +29,7 @@
 
 - style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
 
-%div{class: "#{component.class_parent_component}"}
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
 	.list_images_slider{style: style}
 		- images = component.images.normals
 		.row
