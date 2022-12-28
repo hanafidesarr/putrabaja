@@ -15,9 +15,11 @@ properties:
   # specific properties
   # main image
   - object_fit
-  #nav image
+
+  #slider image
   - nav_position
   - slide_to_show
+  - autoplay
 active_fields:
   - title
   - link

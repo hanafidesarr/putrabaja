@@ -60,10 +60,12 @@
 			slidesToShow: 1,
 			slidesToScroll: 1,
 			arrows: false,
+			autoplay: "#{component.autoplay}"  === 'true',
 			fade: true,
 			dots: false,
 			asNavFor: '.nav-slider'
 		});
+
 		$('.nav-slider').slick({
 			slidesToShow: "#{component.slide_to_show.presence || '4'}",
 			vertical: "#{component.nav_position}" === 'vertical',
