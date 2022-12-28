@@ -9,6 +9,7 @@ ActiveAdmin.register Page do
   before_action :skip_sidebar!, :only => :index
 
   banner_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner','banner.yml')) 
+  banner_slick_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner_slick','banner_slick.yml')) 
   banner_text_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner_text','banner_text.yml'))
   categories_products_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','categories_products','categories_products.yml')) 
   text_base_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','text_base','text_base.yml'))
@@ -30,11 +31,11 @@ ActiveAdmin.register Page do
   permit_params :title, :active, :description, :layout, :slug, :show_title, :background_body_color, :text_body_color, :body_layout, :_destroy, Page.stored_attributes[:header_desktop_properties], Page.stored_attributes[:header_mobile_properties], Page.stored_attributes[:seo_page_properties], Page.stored_attributes[:footer],
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :slug, :_destroy,
 
-  banner_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],
+  banner_yml[:properties], banner_slick_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],
   list_images_yml[:properties], list_images_slider_yml[:properties], typing_animation_yml[:properties], gallery_images_yml[:properties], products_by_category_yml[:properties], vertical_carousel_frame_yml[:properties],
   split_product_showcase_yml[:properties], modern_slide_in_yml[:properties], banner_flip_effects_rocket_yml[:properties], wave_liquid_animation_yml[:properties],  wave_liquid_animation_yml[:properties], slick_slider_multiple_yml[:properties], 
 
-  banner_yml[:active_fields], banner_text_yml[:active_fields], categories_products_yml[:active_fields], text_base_yml[:active_fields], text_image_base_yml[:active_fields],
+  banner_yml[:active_fields], banner_slick_yml[:active_fields], banner_text_yml[:active_fields], categories_products_yml[:active_fields], text_base_yml[:active_fields], text_image_base_yml[:active_fields],
   space_yml[:active_fields], list_images_yml[:active_fields], list_images_slider_yml[:active_fields], typing_animation_yml[:active_fields], gallery_images_yml[:active_fields], products_by_category_yml[:active_fields],
   vertical_carousel_frame_yml[:active_fields],split_product_showcase_yml[:active_fields], modern_slide_in_yml[:active_fields], banner_flip_effects_rocket_yml[:active_fields], wave_liquid_animation_yml[:active_fields],
   slick_slider_multiple_yml[:active_fields],

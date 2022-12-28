@@ -1,0 +1,92 @@
+-# %div{class: "#{component.class_parent_component}"}
+-# 	.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; background-color: #{component.background_color}"}
+-# 		.d-block
+-# 			- if (images = component.images).present?
+-# 				- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
+-# 					.nav-banner-cursor
+
+-# 						%i.fa.fa-square-caret-left.prev-btn.text-primary
+-# 						%i.fa.fa-square-caret-right.next-btn.text-primary
+					
+-# 				=component.title.to_s.html_safe
+-# 				=component.description.to_s.html_safe
+-# 				=component.note.to_s.html_safe
+
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+	.banner-text.position-relative{name: "#{component.slug}", style: style}
+		
+
+		- if component.tipe_arrows.eql?("arrow_between")
+			.position-absolute{style: "z-index: 99; left: 0; bottom: 50%; cursor: pointer;"}
+				%i.fa.fa-square-caret-left.m-0.fa-2xl.text-primary{id: "prev-arrow-#{component.id}"}
+			.position-absolute{style: "z-index: 99; right: 0; bottom: 50%;"}
+				%i.fa.fa-square-caret-right.m-0.fa-2xl.text-primary{id: "prev-arrow-#{component.id}"}
+		- elsif component.tipe_arrows.eql?("arrow_center")
+			.position-absolute.text-justify{style: "z-index: 99; cursor: pointer;"}
+				%div
+					%i.fa.fa-square-caret-left.m-0.fa-2xl.text-primary{id: "prev-arrow-#{component.id}"}
+					%i.fa.fa-square-caret-right.m-0.fa-2xl.text-primary{id: "next-arrow-#{component.id}"}
+
+
+		%div{id: "banner-slick-#{component.id}"}
+			- component.images.each do |image|
+				.row.d-flex.align-items-center
+					-# .col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
+					-# 	%h1=image.title.html_safe
+					-# 	%p.title-mobile=image.note.html_safe
+					.col-lg-12.col-12.p-0
+						-# = manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center", style: "width:#{image.width}; height: #{image.height}; object-fit: #{component.object_fit};"})
+								
+						-# =image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset_url}")
+						-# = manipulate_image_tag(image, options: {image_quality: image.image_quality})
+
+						.item{style: "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})}); background-repeat: no-repeat; background-size: #{image.background_image_size}; background-position: #{image.background_image_position || 'center'}; width: 100%; background-color: #{image.background_image_color || @page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
+							.text-justify.text-white
+								=image.title.html_safe
+								=image.subtitle.html_safe
+								%p=image.note.to_s.html_safe
+					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
+						%h1=image.title.html_safe
+						%p.title-mobile=image.note.html_safe
+
+:javascript
+
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'banner_slick', {
+		before: function(path, scriptEl) {
+			$("#loading_component-#{component.id}").addClass("loading_component")
+		}});
+	loadjs.ready('banner_slick', function() {
+		var slidesToShow = "#{component.slide_to_show.presence}"
+		if (slidesToShow != "") {
+			result_slidesToShow = parseInt(slidesToShow)
+		} else {
+			result_slidesToShow = 1
+		}
+		$("#loading_component-#{component.id}").removeClass("loading_component")
+		$("#banner-slick-#{component.id}").not('.slick-initialized').slick({
+			lazyLoad: "ondemand",
+			arrows: true,
+			autoplay: "#{component.autoplay}" == "true",
+			dots: "#{component.show_dots}" == "true",
+			prevArrow: $("#prev-arrow-#{component.id}"),
+			nextArrow: $("#next-arrow-#{component.id}"),
+			fade: "#{component.fade}" == "true",
+			slidesToShow: result_slidesToShow,
+			slidesToScroll: result_slidesToShow,
+			variableWidth: "#{component.variableWidth}" == "true",
+			pauseOnFocus: "#{component.pauseOnFocus}" == "true",
+			pauseOnHover: "#{component.pauseOnHover}" == "true",
+			autoplaySpeed: parseInt("#{component.autoplaySpeed.presence || '3000'}")
+		});
+	})
