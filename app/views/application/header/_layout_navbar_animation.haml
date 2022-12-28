@@ -40,7 +40,7 @@
               %li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
                 =link_to page.title, root_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
             - else
-              - if (childrens = page.children).present?
+              - if (childrens = page.children.active).present?
                 %li.nav-item{id: "page-li-#{page.id}", class: "#{ page.id.to_i.eql?(params[:id].to_i) || childrens.pluck(:id).include?(params[:id].to_i) ? 'active' : ''}"}
                   .custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
                     #dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}

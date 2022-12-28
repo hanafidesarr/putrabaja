@@ -471,7 +471,7 @@
             .col-12.my-2{class: "col-md-#{12/pages_result.size}"}
               =link_to page_path(page) , class: "text-dark" do
                 %h4=page.title.html_safe
-              - if (childrens = page.children).present?
+              - if (childrens = page.children.active).present?
                 %hr.text-dark
                 %ul.mt-2.mb-4
                   - childrens.order(:position).each do |child|

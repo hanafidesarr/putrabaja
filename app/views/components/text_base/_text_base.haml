@@ -11,7 +11,7 @@
 	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
 
 	.text-base{class: "text-#{component.position_text}", style: style}
-		.row.w-100
+		.row.w-100.m-0
 			.col-12
 				=component.title.to_s.html_safe
 				=component.subtitle.to_s.html_safe
