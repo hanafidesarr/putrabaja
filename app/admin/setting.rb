@@ -1,6 +1,6 @@
 ActiveAdmin.register Setting do
 
-  menu priority: 5
+  menu priority: 6
   # before_filter :skip_sidebar!, :only => :index
 
   yml_setting = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))

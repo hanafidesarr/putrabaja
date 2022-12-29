@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_11_145323) do
+ActiveRecord::Schema.define(version: 2022_12_28_151325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 2022_10_11_145323) do
     t.text "header_desktop_properties"
     t.text "header_mobile_properties"
     t.text "seo_page_properties"
+    t.text "footer"
     t.index ["ancestry"], name: "index_pages_on_ancestry"
   end
 
@@ -186,6 +187,15 @@ ActiveRecord::Schema.define(version: 2022_10_11_145323) do
     t.string "parent_type"
     t.text "general_style"
     t.text "meta"
+  end
+
+  create_table "subscribe_users", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
