@@ -1,0 +1,23 @@
+properties:
+  - class_parent_component
+  - style_parent_component
+  - margin_all_side
+  - margin_top_bottom_side
+  - margin_left_right_side
+
+  - padding_all_side
+  - padding_top_bottom_side
+  - padding_left_right_side
+
+  - content_position
+  - position_text
+  - background_color
+  - width_image
+
+  - set_timeout
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body

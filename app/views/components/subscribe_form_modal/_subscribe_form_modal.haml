@@ -1,0 +1,66 @@
+
+- image_background = component.images.backgrounds.first
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_background_color = " background-color: #{component.background_color};"
+- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+- background_repeat =  " no-repeat;"
+- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+%div{id: "subscribe-form-modal-#{component.id}", class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
+
+	#myModal.modal
+		.modal-dialog.modal-xl
+			.modal-content
+				/ Modal Header
+				.modal-header
+					%h4.modal-title="Subscribe Form"
+					%button#btn-close.btn-close{"data-dismiss" => "modal", type: "button", "aria-label" => "Close"}
+				/ Modal body
+				.modal-body
+					.row.align-items-center
+						.col-md-6
+							- if (images = component.images).present?
+								- image = images.first
+								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid text-center", style: "width: #{component.width_image.presence || '100%'}"})
+						.col-md-6
+							.row
+								= component.title.to_s.html_safe
+								= component.subtitle.to_s.html_safe
+								= component.body.to_s.html_safe
+							= form_with(url: subscribe_users_path) do |form|
+								.row.align-items-center
+									.col-12
+										.form-floating.mb-3.mt-3
+											= form.text_field :name, class: "form-control border-start-0 border-top-0 border-end-0", placeholder: "Enter name"
+											= form.label "nama*"
+									.col-12
+										.form-floating.mb-3.mt-3
+											= form.text_field :phone, class: "form-control border-start-0 border-top-0 border-end-0", placeholder: "Enter phone"
+											= form.label "phone"
+									.col-12
+										.form-floating.mb-3.mt-3
+											= form.text_field :email, class: "form-control border-start-0 border-top-0 border-end-0", placeholder: "Enter email"
+											= form.label "email*"
+									.col-12
+										.form-floating.mb-3.mt-3
+											= form.submit "Kirim", class: "btn btn-primary mx-auto d-block w-100 btn-lg"
+					/ Modal footer
+					-# .modal-footer
+					-# 	%button.btn.btn-danger{"data-bs-dismiss" => "modal", type: "button"} Close
+:javascript
+	loadjs(["/assets/frontend/lib/sweetalert2.min", "/assets/frontend/lib/sweetalert2.min.css"], 'subscribe_users');
+	loadjs.ready('subscribe_users', function() {
+
+		var visited = localStorage.getItem("visited?")
+		if (visited != 'true') {
+
+			setTimeout(() => {
+				$('#myModal').modal('show');
+			}, "#{component.set_timeout || '6000'}")
+			localStorage.setItem("visited?", true);
+		}
+	})
