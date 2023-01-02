@@ -31,17 +31,15 @@
 = javascript_include_tag '/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js'
 
 :javascript	
-	$(document).ready(function(){
-		loadjs(["/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
-			before: function(path, scriptEl) {
-				$("#loading_component-#{component.id}").addClass("loading_component")
-			},
-			async: false
-		});
-		loadjs.ready('split_product_showcase', function() {
-			Slider.init();
-			$("#loading_component-#{component.id}").removeClass("loading_component")
-		})
+	loadjs(["/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
+		before: function(path, scriptEl) {
+			$("#loading_component-#{component.id}").addClass("loading_component")
+		},
+		async: false
+	});
+	loadjs.ready('split_product_showcase', function() {
+		Slider.init();
+		$("#loading_component-#{component.id}").removeClass("loading_component")
 	})
 
 	$(document).on('turbolinks:load', function() {
