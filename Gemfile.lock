@@ -414,6 +414,7 @@ DEPENDENCIES
   haml
   html2haml
   jbuilder (~> 2.7)
+  kaminari
   listen (~> 3.2)
   mysql2
   pg
