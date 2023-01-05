@@ -1,0 +1,148 @@
+
+-# - if device.eql?("desktop")
+:css
+
+	.card{
+		border-radius: 4px;
+		background: #fff;
+		box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+		transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+		cursor: pointer;
+	}
+
+	.card:hover{
+			transform: scale(1.05);
+		box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+	}
+
+.container
+	.section-wrapper
+		.row
+			- if @categories.present?
+				- @categories.where(parent_id: nil).each do |category|
+					.col-lg-2.col-3.justify-content-center.text-center
+						.my-3
+							= link_to category_path(category) do
+								%h6.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+			%hr
+			-# %h2.my-5.text-center Pilih Template Website
+			
+			.col-12
+				.container
+					- if @category_children.present?
+						- @category_children.each do | cat_child |
+							%h5= cat_child.name 
+							%hr
+
+							- is_view_image = false
+							- if cat_child.products.present?
+								.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
+									.product-slick
+										- cat_child.products.each do |product|
+											.card.card-body.shadow.border-0.m-2.p-2
+												=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
+													- product.images.each do |image|
+														=image_tag(image.asset.url, width: "100%")
+												-# %small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+												- if product.name.present?
+													%hr.m-0
+													-# .text-center=product.name
+							%hr
+					- else
+						- if @products.present?
+							-# - is_view_image = !@category.name.to_s.downcase.eql?('template')
+							- is_view_image = true
+							.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
+								- @products.each do |product|
+									.col-lg-4.col-6.my-2
+										.card.card-body.shadow.border-0
+											=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
+												- product.images.each do |image|
+													=image_tag(image.asset.url, width: "100%")
+											%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+											- if product.name.present?
+												%hr.m-0
+												.text-center=product.name
+			.col-12.my-5
+				.d-block.mx-auto
+					= paginate @products
+
+					= paginate @category_children
+:javascript
+
+	loadjs(["/assets/frontend/lib/view-image.js", "/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'category_axeonsoft');
+	loadjs.ready('category_axeonsoft', function() {
+		window.ViewImage && ViewImage.init('#list_images_slider_view_category-#{@category.id} img');
+		$('.product-slick').not('.slick-initialized').slick({
+			slidesToShow: 2.5,
+			autoplay:false,
+			dots: true,
+			arrows: true,
+			infinite: true,
+			prevArrow: "<div class='position-absolute' style='z-index: 99; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-square-caret-left m-0 fa-2xl text-primary'></i></div>",
+			nextArrow: "<div class='position-absolute' style='z-index: 99; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-square-caret-right m-0 fa-2xl text-primary'></i></div>",
+			responsive: [
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1.5
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1.5
+					}
+				}
+				// You can unslick at a given breakpoint now by adding:
+				// settings: "unslick"
+				// instead of a settings object
+			]
+		});
+	})
+
+	document.addEventListener("turbolinks:before-cache", function () {
+		const sliders = document.querySelectorAll('.slick-initialized');
+		sliders.forEach(item => {
+			$(item).slick('unslick');
+		})
+	});
+-# - else
+
+-#   .container
+-#     .section-wrapper
+-#       .row
+-#         - if @categories.present?
+-#           - @categories.each do |category|
+-#             .container
+-#               .row.bg-light.my-1{id: "slider-#{category.id}", style: "height:auto !important"}
+
+-#                 - category.products.each do |product|
+-#                   .col-6
+-#                     .card.card-body.m-0.p-0
+-#                       =link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
+-#                         .product-slick
+-#                           - product.images.each do |image|
+-#                             =image_tag(image.asset.url, width: "100%")
+-#             .col-12.my-1
+-#               .card.card-body.shadow{id: "trigger-#{category.id}"}
+-#                 .d-flex.justify-content-between.align-items-center
+-#                   %div
+-#                     %h6.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+-#                     ="DSDSDS dsd dsd d sds d DSDS dsd dsd d sds d DSDS dsd dsd d sds d DSDS dsd dsd d sds d sd sd sd sd s ds dsd s d ds ds ds d"
+-#                   %i.fa.fa-search
+-#             :javascript
+-#               loadjs(["/assets/frontend/lib/jquery.slidereveal.min.js"], 'category_axeonsoft');
+-#               loadjs.ready('category_axeonsoft', function() {
+-#                 $("#slider-#{category.id}").slideReveal({
+-#                   trigger: $("#trigger-#{category.id}"),
+-#                   width: "80%",
+-#                   overlay: true,
+-#                   speed: 700,
+-#                   position: "right"
+-#                 });
+-#               });
+
+				

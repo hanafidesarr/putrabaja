@@ -1,5 +1,4 @@
-=render partial: "categories/show_layout/#{@category.layout.presence || 'default'}", locals: {comp: ""}
-
+=render "categories/index_layout/#{@page.template_categories.presence || 'default'}"
 - if @page.components.present?
   - @page.components.order(:position).each do |component|
     %div{id: "loading_component-#{component.id}"}

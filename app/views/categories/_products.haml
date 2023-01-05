@@ -9,9 +9,10 @@
 						.product-slick
 							- product.images.each do |image|
 								=image_tag(image.asset.url, width: "100%")
-					%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}"
-					%hr.m-0
-					.text-center=product.name
+					%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+					- if product.name.present?
+						%hr.m-0
+						.text-center=product.name
 
 :javascript
 

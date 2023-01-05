@@ -17,12 +17,15 @@
 								%h2 Basic
 								.cd-price
 									%span.cd-currency Rp
-									%span.cd-value 99
+									%span.cd-value 150
 									%small .000
 									%span.cd-duration bln
 							/ .cd-pricing-header
 							.cd-pricing-body
 								%ul.cd-pricing-features
+									%li
+										%em 1
+										Subdomain 
 									%li
 										%em FREE
 										Hosting
@@ -35,9 +38,6 @@
 									%li
 										%em 10
 										GB Storage
-									%li
-										%em 1
-										Subdomain
 									%li
 										%em Revisi
 										3 kali
@@ -53,7 +53,7 @@
 								%h2 Basic
 								.cd-price
 									%span.cd-currency Rp
-									%span.cd-value 995
+									%span.cd-value 1.600
 									%small .000
 									%span.cd-duration thn
 							/ .cd-pricing-header
@@ -92,7 +92,7 @@
 								%h2 Popular
 								.cd-price
 									%span.cd-currency Rp
-									%span.cd-value 145
+									%span.cd-value 200
 									%small .000
 									%span.cd-duration bln
 							/ .cd-pricing-header
@@ -128,7 +128,7 @@
 								%h2 Popular
 								.cd-price
 									%span.cd-currency Rp
-									%span.cd-value 1.450
+									%span.cd-value 2.100
 									%small .000
 									%span.cd-duration thn
 							/ .cd-pricing-header
@@ -167,7 +167,7 @@
 								%h2 Premier
 								.cd-price
 									%span.cd-currency Rp
-									%span.cd-value 250
+									%span.cd-value 350
 									%small .000
 									%span.cd-duration bln
 							/ .cd-pricing-header
@@ -203,7 +203,7 @@
 								%h2 Premier
 								.cd-price
 									%span.cd-currency Rp
-									%span.cd-value 2.500
+									%span.cd-value 3.600
 									%small .000
 									%span.cd-duration thn
 							/ .cd-pricing-header
@@ -251,3 +251,19 @@
 		})
 		$("#loading_component-#{component.id}").removeClass("loading_component")
 	})
+
+	document.addEventListener("turbolinks:load", function () {
+		
+		$("body").attr("data-turbolinks", "false")
+		loadjs(["/assets/frontend/lib/pricing_list_card/reset.css", "/assets/frontend/lib/pricing_list_card/style.css", "/assets/frontend/lib/pricing_list_card/modernizr.js", "/assets/frontend/lib/pricing_list_card/main.js"], 'pricing-list-card', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			}});
+		loadjs.ready('pricing-list-card', function() {
+			$(".click_choice").click(function(){
+				$(".fieldset > label").css("color", "#5061CE")
+				$(this).css("color", "white")
+			})
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+		})
+	});

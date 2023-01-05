@@ -39,6 +39,18 @@
             - when "home"
               %li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
                 =link_to page.title, root_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
+
+            - when "categories"
+              -# %li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
+              -#   =link_to page.title, categories_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
+              - categories = Category.active
+              %li.nav-item{id: "page-li-#{page.id}", class: "#{ page.id.to_i.eql?(params[:id].to_i) || categories.pluck(:id).include?(params[:id].to_i) ? 'active' : ''}"}
+                .custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
+                  #dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
+                    =page.title
+                  .dropdown-menu.position-absolute.bg-red{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; box-shadow: #cbcccd 11px 11px 23px 0px; border-radius: 10px; right: 0;"}
+                    - categories.each do |child|
+                      =link_to child.name, category_path(child), class: "dropdown-item text-primary py-2 #{child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
             - else
               - if (childrens = page.children.active).present?
                 %li.nav-item{id: "page-li-#{page.id}", class: "#{ page.id.to_i.eql?(params[:id].to_i) || childrens.pluck(:id).include?(params[:id].to_i) ? 'active' : ''}"}

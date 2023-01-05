@@ -1,0 +1,11 @@
+.container
+  .section-wrapper
+    .row 
+      - @categories.each do |category|
+        .col-lg-3.col-12
+          - if (image = category.images&.first).present?
+            =link_to category_path(category) do
+              = manipulate_image_tag(image, options: {image_quality: image&.image_quality}, html: {class: "mx-auto lazy"})
+          .col
+            %hr
+            .text-center=category.name
