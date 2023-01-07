@@ -42,7 +42,7 @@
 											.card.card-body.shadow.border-0.m-2.p-2
 												=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
 													- product.images.each do |image|
-														=image_tag(image.asset.url, width: "100%")
+														=image_tag("", width: "100%", "data-lazy"=>image.asset.url)
 												-# %small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
 												- if product.name.present?
 													%hr.m-0
@@ -55,14 +55,22 @@
 							.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
 								- @products.each do |product|
 									.col-lg-4.col-6.my-2
-										.card.card-body.shadow.border-0
-											=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
+
+										.product-slick-template
+											.card.card-body.shadow.border-0
 												- product.images.each do |image|
-													=image_tag(image.asset.url, width: "100%")
-											%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
-											- if product.name.present?
-												%hr.m-0
-												.text-center=product.name
+													=image_tag("", width: "100%", "data-lazy"=>image.asset.url)
+													.row
+														.col-6.py-2.pr-0.pl-1
+															=link_to product.url, "target"=>"_blank" do
+																%button.w-100.btn.btn-outline-primary.text-justify="Demo"
+														.col-6.py-2.pl-0.pr-1
+															=link_to product_path(product), "target"=>"_blank" do
+																%button.w-100.btn.btn-primary.text-justify="Detail"
+												%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+												- if product.name.present?
+													%hr.m-0
+													.text-center=product.name
 			.col-12.my-5
 				.d-block.mx-auto
 					= paginate @products
@@ -74,7 +82,8 @@
 	loadjs.ready('category_axeonsoft', function() {
 		window.ViewImage && ViewImage.init('#list_images_slider_view_category-#{@category.id} img');
 		$('.product-slick').not('.slick-initialized').slick({
-			slidesToShow: 2.5,
+			lazyLoad: 'ondemand',
+			slidesToShow: 3,
 			autoplay:false,
 			dots: true,
 			arrows: true,
@@ -100,6 +109,14 @@
 				// settings: "unslick"
 				// instead of a settings object
 			]
+		});
+		$('.product-slick-template').not('.slick-initialized').slick({
+			lazyLoad: 'ondemand',
+			slidesToShow: 1,
+			autoplay:false,
+			dots: false,
+			arrows: false,
+			infinite: false
 		});
 	})
 

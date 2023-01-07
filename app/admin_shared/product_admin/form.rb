@@ -19,6 +19,7 @@ module ProductAdmin
 								f.input :image_type
 								f.input :price
 								f.input :discount
+								f.input :url
 								f.input :short_description
 								f.input :description, :input_html => { :rows => 5 }
 								# div class: "row" do
