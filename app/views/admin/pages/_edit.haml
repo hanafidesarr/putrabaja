@@ -35,9 +35,9 @@
 									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control  w-100"}
 								- when :body_layout
 									= f.input obj, label: "", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
-								- when :template_categories
-									- if @page.layout.eql?("categories")
-										= f.input :template_categories, as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+								- when :template
+									- if @page.layout.eql?("categories") || @page.layout.eql?("products")
+										= f.input :template, as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 								- else
 									= f.input obj, input_html: {class: "form-control w-100"}
 							

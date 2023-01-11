@@ -61,7 +61,7 @@ body{
 	right: 20px;
 	width: 400px;
 	font-size: 14px;
-  z-index: 1000;
+  z-index: 500;
 	@include media-breakpoint-down(sm) {
 		padding: 0 1rem;
 		width: 100%;

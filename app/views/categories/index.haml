@@ -1,4 +1,4 @@
-=render "categories/index_layout/#{@page.template_categories.presence || 'default'}"
+=render "categories/index_layout/#{@page.template.presence || 'default'}"
 - if @page.components.present?
   - @page.components.order(:position).each do |component|
     %div{id: "loading_component-#{component.id}"}

@@ -10,6 +10,8 @@ module CategoryAdmin
 							end
 						end
 						f.input :name
+						f.input :short_description
+						f.input :description
 						f.input :layout, as: :select, collection: ["default", "axeonsoft"], input_html: {class: "form-control select2"}
 					end
 					if f.object.id.present?

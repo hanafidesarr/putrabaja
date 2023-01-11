@@ -11,7 +11,6 @@
 
 - if device.eql?("desktop")
 	:css
-
 		#menu {
 			position: fixed;
 			z-index: 1000;
@@ -102,7 +101,6 @@
 					-# 				%a{:href => "#"} One more separated link
 
 					%ul.nav.navbar-nav.pull-right
-
 						- @pages.each do |page|
 							%li.dropdown.pull-right
 								- case page.layout
@@ -111,13 +109,33 @@
 										= page.title
 
 								- when "categories"
-									.dropdown
-										#dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page.text_body_color}"}
+										
+									%li.dropdown
+										%a.dropdown-toggle.a_parent{id: "dropdownMenu1", "aria-expanded" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button", style: "color: #{@page.text_color_desktop}"}
 											= page.title
-										.dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-											- if @categories.present?
-												- @categories.each do |category|
-													=link_to category.name, category_path(category), class: "a_parent dropdown-item"
+										%ul.dropdown-menu.pull-right{style: "border-radius: 5px;",  "aria-labelledby"=>"dropdownMenu1"}
+											- @categories.root.each_with_index do |child, i|
+												- if i == 0
+													.mt-3
+												- else
+													%hr.my-3.mx-4{style: "border-top: 1px solid gray"}
+												%li
+													- if ( childrens2 = child.children ).present?
+														%li.dropdown
+															%a{:href => "#", id: "dropdownMenu2"}
+																= child.name
+																%span.caret
+															%ul.dropdown-menu.pull-right{"aria-labelledby"=>"dropdownMenu2"}
+																- childrens2.order(:position).each_with_index do |child2, i2|
+																	- if i2 == 0
+																		.mt-3
+																	- else
+																		%hr.my-3.mx-4{style: "border-top: 1px solid gray"}
+																	%li
+																		=link_to child2.name, category_path(child2), class: "#{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}"
+													- else
+														=link_to child.name, page_path(child), class: "#{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}"
+
 								- else
 									- if ( childrens = page.children ).present?
 										

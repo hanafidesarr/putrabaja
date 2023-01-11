@@ -2,7 +2,7 @@
 -# - if device.eql?("desktop")
 :css
 
-	.card{
+	.hover_transition{
 		border-radius: 4px;
 		background: #fff;
 		box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
@@ -10,7 +10,7 @@
 		cursor: pointer;
 	}
 
-	.card:hover{
+	.hover_transition:hover{
 			transform: scale(1.05);
 		box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 	}
@@ -19,16 +19,18 @@
 	.section-wrapper
 		.row
 			- if @categories.present?
-				- @categories.where(parent_id: nil).each do |category|
+				- @categories.root.each do |category|
 					.col-lg-2.col-3.justify-content-center.text-center
 						.my-3
 							= link_to category_path(category) do
-								%h6.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+								%h6{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
 			%hr
 			-# %h2.my-5.text-center Pilih Template Website
 			
 			.col-12
 				.container
+					=@category.short_description.to_s.html_safe
+					=@category.description.to_s.html_safe
 					- if @category_children.present?
 						- @category_children.each do | cat_child |
 							%h5= cat_child.name 
@@ -39,10 +41,12 @@
 								.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
 									.product-slick
 										- cat_child.products.each do |product|
-											.card.card-body.shadow.border-0.m-2.p-2
+											.card.card-body.shadow.border-0.m-2.p-2.hover_transition
 												=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
 													- product.images.each do |image|
-														=image_tag("", width: "100%", "data-lazy"=>image.asset.url)
+														-# =image_tag("", width: "100%", "data-lazy"=>image.asset.url)
+
+														= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", data_lazy: true})
 												-# %small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
 												- if product.name.present?
 													%hr.m-0
@@ -55,22 +59,21 @@
 							.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
 								- @products.each do |product|
 									.col-lg-4.col-6.my-2
-
-										.product-slick-template
-											.card.card-body.shadow.border-0
+										.product-slick-template.shadow.hover_transition
+											.card.card-body.border-0
 												- product.images.each do |image|
-													=image_tag("", width: "100%", "data-lazy"=>image.asset.url)
 													.row
 														.col-6.py-2.pr-0.pl-1
-															=link_to product.url, "target"=>"_blank" do
+															=link_to product.url do
 																%button.w-100.btn.btn-outline-primary.text-justify="Demo"
 														.col-6.py-2.pl-0.pr-1
-															=link_to product_path(product), "target"=>"_blank" do
+															=link_to product_path(product) do
 																%button.w-100.btn.btn-primary.text-justify="Detail"
+													%hr
+													= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", data_lazy: true})
 												%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
 												- if product.name.present?
-													%hr.m-0
-													.text-center=product.name
+													=product.name.to_s.html_safe
 			.col-12.my-5
 				.d-block.mx-auto
 					= paginate @products

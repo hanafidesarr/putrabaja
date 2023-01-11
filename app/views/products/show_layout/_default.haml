@@ -1,0 +1,51 @@
+-# =image_tag(@product.category.images.first.asset.url)
+.container
+	.section-wrapper
+		.row 
+			.col-lg-6.col-12
+				.product-slick
+					- @product.images.each do |image|
+						=image_tag(image.asset.url, width: "100%")
+
+			.col-lg-6.col-12
+				.card.card-body{style: "border-radius: 1rem;"}
+					%h1.fw-bolder=@product.name
+					=number_to_currency(20000, :unit => "Rp. ", :separator => ",", :delimiter => ".")
+					%small=@product.short_description
+					%hr
+					%p=@product.description.html_safe
+				%hr
+				.row
+					.col-12.my-1
+						- url = request.original_url
+						=link_to "https://api.whatsapp.com/send?phone=#{Setting.first.whatsapp}&text=ORDER ID-#{@product.id} #{@product.name} harga : #{@product.price} link : #{url}" , class: "btn w-100 btn-info text-white fw-bolder", style: "" do
+							=image_tag("frontend/whatsapp.png", width: "25")
+							="CHAT KE WHATSAPP"
+		- if ( images = @product.images).present?
+			%br
+			%br
+			%h2.text-center="Jenis #{@product.name} yang lain"
+			%hr
+			.row
+				- images.each do |image|
+					.col-lg-3.col-6
+
+						.card.card-body
+							=image_tag(image.asset.url(:thumb), class: "img-fluid")
+							.text-center.fw-bolder=image.title
+							%hr
+							- url = request.original_url
+							=link_to "https://api.whatsapp.com/send?phone=#{Setting.first.whatsapp}&text=ORDER ID-#{@product.id} #{image.title} harga : #{@product.price} link : #{url}" , class: "btn w-100 btn-info text-white fw-bolder", style: "" do
+								=image_tag("frontend/whatsapp.png", width: "25")
+								="CHAT KE WHATSAPP"
+
+
+:javascript
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'products_show');
+	loadjs.ready('products_show', function() {
+		$('.product-slick').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: true,
+			infinite: true
+		});
+	})

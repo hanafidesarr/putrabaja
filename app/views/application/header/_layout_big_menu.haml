@@ -467,17 +467,30 @@
       %nav#site-nav{:role => "navigation"}
         .row.w-100
           - pages_result = @pages.select{|x|x.show_title != 'false'}
+          - categories_root = @categories.root
           - pages_result.each do |page|
             .col-12.my-2{class: "col-md-#{12/pages_result.size}"}
-              =link_to page_path(page) , class: "text-dark" do
-                %h4=page.title.html_safe
-              - if (childrens = page.children.active).present?
-                %hr.text-dark
-                %ul.mt-2.mb-4
-                  - childrens.order(:position).each do |child|
-                    %li
-                      =link_to page_path(child), class: "#{child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
-                        %h5=child.title
+              - if page.layout.eql?("categories")
+
+                =link_to page_path(page) , class: "text-dark" do
+                  %h4=page.title.html_safe
+                - if categories_root.present?
+                  %hr.text-dark
+                  %ul.mt-2.mb-4
+                    - categories_root.each do |child|
+                      %li
+                        =link_to category_path(child), class: "#{controller_name.eql?("categories") && child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
+                          %h5=child.name
+              - else
+                =link_to page_path(page) , class: "text-dark" do
+                  %h4=page.title.html_safe
+                - if (childrens = page.children.active).present?
+                  %hr.text-dark
+                  %ul.mt-2.mb-4
+                    - childrens.order(:position).each do |child|
+                      %li
+                        =link_to page_path(child), class: "#{controller_name.eql?("pages") && child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
+                          %h5=child.title
 
 :javascript
   $(function() {
