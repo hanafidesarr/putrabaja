@@ -192,6 +192,7 @@
 			loadjs.ready('xxxxx2', function() {
 			})
 		})
+		
 		var lastScrollTop = 0;    
 
 		$(document).scroll(function(){
@@ -211,12 +212,14 @@
 				{
 					console.log('up');
 					$("#menu").css({
+						"color": "black",
 						"background-color": "white",
 						"box-shadow": "rgb(222 222 222) 0px -5px 6px 5px"
 						
 					});
-					$("#menu").find("a").css("color", "black");
-					$('#menu').addClass('menu-min');
+					$("#menu").find(".a_parent").css("color", "");
+					$("#menu").find(".a_parent").css("color", "black");
+					$('#menu').addClass('menu-min text-bg-white');
 					$('#menu').removeClass('menu-close');
 				} 
 			} 
@@ -225,7 +228,10 @@
 			if (stop === 0) {
 				$("#menu").find(".a_parent").css("color", "#{@page.text_color_desktop}");
 				$('#menu').css({
-					"background-color": "#{@page.background_color_desktop.presence || 'white'}",
+					"background-color": ""
+				})
+				$('#menu').css({
+					"background-color": "#{@page.background_color_desktop.presence || 'white'} !important",
 					"box-shadow": "none"
 				})
 			}

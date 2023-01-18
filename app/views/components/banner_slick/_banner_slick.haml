@@ -52,10 +52,9 @@
 						-# = manipulate_image_tag(image, options: {image_quality: image.image_quality})
 
 						.item{style: "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})}); background-repeat: no-repeat; background-size: #{image.background_image_size}; background-position: #{image.background_image_position || 'center'}; width: 100%; background-color: #{image.background_image_color || @page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
-							.text-justify.text-white
-								=image.title.html_safe
-								=image.subtitle.html_safe
-								%p=image.note.to_s.html_safe
+							=image.title.html_safe
+							=image.subtitle.html_safe
+							=image.note.to_s.html_safe
 					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
 						%h1=image.title.html_safe
 						%p.title-mobile=image.note.html_safe

@@ -35,8 +35,10 @@
 												%hr{style: "color: gray;"}
 												=image.title.to_s.html_safe
 
-	- if images.present?
-		.container
+		- if images.present?
+			= component.title.to_s.html_safe
+			= component.subtitle.to_s.html_safe
+			= component.body.to_s.html_safe
 			#example.row.text-center
 				- images.each do |image|
 					- image_quality = image.image_quality
