@@ -1,72 +1,205 @@
 
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "#{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'} color: #{@page.text_body_color}"}
-  .container
-    - if (images = @setting.images).present?
-      = link_to "/", class: "mr-4" do
-        - image_quality = images.last.image_quality
-        = manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
-        -# = image_tag(images.last.asset.url(:thumb), width: "50", style: "margin-right:2rem;")
-    - else
-      %a.navbar-brand.title-header{:href => "/"}
-        .text-secondary= @setting.name
+- if device.eql?("desktop")
+	:css
+		#menu {
+			position: fixed;
+			z-index: 1000;
+			display: block;
+			top: 0;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			/* overflow: hidden; */
+			-webkit-transition: 500ms all ease-in-out;
+			-moz-transition: 500ms all ease-in-out;
+			-ms-transition: 500ms all ease-in-out;
+			-o-transition: 500ms all ease-in-out;
+			
+		}
 
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.fa.fa-bars{style: "color: #{@page.text_body_color}"}
-    #navbarSupportedContent.collapse.navbar-collapse
-      %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-        %br.d-block.d-lg-none
-        - @pages.each do |page|
-          %li.nav-item.m-1
-            - case page.layout
-            - when "home"
-              = link_to "/", class: "nav-link py-1 text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}" do
-                = page.title
+		.menu-close {
+			-moz-transform: translateY(-100%);
+			-ms-transform: translateY(-100%);
+			-webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
+			opacity: 0;
+		}
+		.nav>li>a:focus, .nav>li>a:hover {
+				text-decoration: transparent;
+				background-color: transparent !important;
+		}
+		.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
 
-            - when "categories"
-              .dropdown
-                #dropdownMenuButton.dropdown-toggle.nav-link.p-1.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page.text_body_color}"}
-                  = page.title
-                .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-                  - if @categories.present?
-                    - @categories.each do |category|
-                      =link_to category.name, category_path(category), class: "dropdown-item"
-            - else
-              - if ( childrens = page.children ).present?
-                .dropdown
-                  #dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.text-uppercase{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}"}
-                    = page.title
-                  .dropdown-menu{"aria-labelledby" => "dropdownMenuButtonPage"}
-                    - childrens.order(:position).each do |child|
-                      =link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}"
-              - else
-                = link_to page_path(page), class: "nav-link py-1 text-uppercase #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}" do
-                  = page.title
+			background-color: transparent !important;
+		}
+		.dropdown:hover .dropdown-menu {
+			display: block;
+			margin-top: 0;
+		}
+		@media (min-width: 768px) {
+			.animate {
+				animation-duration: 0.3s;
+				-webkit-animation-duration: 0.3s;
+				animation-fill-mode: both;
+				-webkit-animation-fill-mode: both;
+			}
+		}
 
-        %li.nav-item
-          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
+		@keyframes slideIn {
+			0% {
+				transform: translateY(1rem);
+				opacity: 0;
+			}
 
-      %form.flex-container.navbar-right-custom
-        %hr.text-white.d-block.d-lg-none
-        %ul.navbar-nav
-          -if @setting.url_media_socials[:instagram].present?
-            %li.nav-item.m-auto
-              =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-                %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl
-                %span.text-white="Whatsapp"
+			100% {
+				transform: translateY(0rem);
+				opacity: 1;
+			}
 
-            %li.nav-item.m-auto
-              =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
-                -# = image_tag("frontend/instagram.png", width: "25")
-                %i.fa-brands.fa-instagram.fa-xl.text-white
-                %span.text-white="Instagram"
-          -# %hr.text-white.d-block.d-lg-none
-          -# %li.nav-item
-          -#   - if user_signed_in?
-          -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
-          -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
-          -#       %i.fa.fa-exit
-          -#       ="KELUAR"
-          -#   - else
-          -#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
-          -#       %i.fa.fa-user
-          -#       ="DAFTAR/MASUK"
+			0% {
+				transform: translateY(1rem);
+				opacity: 0;
+			}
+		}
+
+		@-webkit-keyframes slideIn {
+			0% {
+				-webkit-transform: transform;
+				-webkit-opacity: 0;
+			}
+
+			100% {
+				-webkit-transform: translateY(0);
+				-webkit-opacity: 1;
+			}
+
+			0% {
+				-webkit-transform: translateY(1rem);
+				-webkit-opacity: 0;
+			}
+		}
+
+		.slideIn {
+			-webkit-animation-name: slideIn;
+			animation-name: slideIn;
+		}
+
+	/* Other styles for the page not related to the animated dropdown */
+	#menu.menu-min{class:"#{@page.class_parent_header}", style: "#{@page.style_parent_header}; #{device.eql?("desktop") ? '' : 'box-shadow: 4px 7px 11px #eee;'} color: #{@page.text_body_color}"}
+		%nav.navbar.navbar-expand-lg.text-decoration-none.w-100
+			.container
+				- if (images = @setting.images).present?
+					= link_to "/", class: "mr-4" do
+						- image_quality = images.last.image_quality
+						= manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
+						-# = image_tag(images.last.asset.url(:thumb), width: "50", style: "margin-right:2rem;")
+				- else
+					%a.navbar-brand.title-header{:href => "/"}
+						.text-secondary{style: "font-size: #{@page.font_size_desktop};"}= @setting.name
+
+				%button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+					%span.fa.fa-bars{style: "color: #{@page.text_body_color}"}
+				#navbarSupportedContent.collapse.navbar-collapse
+					%ul.navbar-nav.me-auto.mb-2.mb-lg-0
+						%br.d-block.d-lg-none
+						- @pages.each do |page|
+							%li.nav-item.m-1
+								- case page.layout
+								- when "home"
+									= link_to "/", class: "nav-link py-1 #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};" do
+										= page.title
+
+								- when "categories"
+									.dropdown
+										#dropdownMenuButton.dropdown-toggle.nav-link.p-1{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};"}
+											= page.title
+										.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButton"}
+											- if @categories.root.present?
+												- @categories.root.each_with_index do |category, i|
+													- if i == 0
+														.mt-2
+													- else
+														%hr.my-2.mx-4{style: "border-top: 1px solid gray"}
+													=link_to category.name, category_path(category), class: "dropdown-item", style: "font-size: #{@page.font_size_desktop};"
+								- else
+									- if ( childrens = page.children ).present?
+										.dropdown
+											#dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};"}
+												= page.title
+											.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButtonPage"}
+												- childrens.order(:position).each_with_index do |child, i|
+													- if i == 0
+														.mt-2
+													- else
+														%hr.my-2.mx-4{style: "border-top: 1px solid gray"}
+													=link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "font-size: #{@page.font_size_desktop};"
+									- else
+										= link_to page_path(page), class: "nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};" do
+											= page.title
+
+						-# %li.nav-item
+						-# 	=link_to "Design", custom_design_page_path, class: "nav-link"
+
+					%form.flex-container.navbar-right-custom
+						%hr.text-white.d-block.d-lg-none
+						%ul.navbar-nav
+							-if @setting.url_media_socials[:instagram].present?
+								%li.nav-item.m-auto
+									=link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
+										%i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl
+										%span{style: "font-size: #{@page.font_size_desktop};"}="Whatsapp"
+
+								%li.nav-item.m-auto
+									=link_to @setting.url_media_socials[:instagram], class: "nav-link" do
+										-# = image_tag("frontend/instagram.png", width: "25")
+										%i.fa-brands.fa-instagram.fa-xl
+										%span{style: "font-size: #{@page.font_size_desktop};"}="Instagram"
+							-# %hr.text-white.d-block.d-lg-none
+							-# %li.nav-item
+							-#   - if user_signed_in?
+							-#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+							-#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
+							-#       %i.fa.fa-exit
+							-#       ="KELUAR"
+							-#   - else
+							-#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
+							-#       %i.fa.fa-user
+							-#       ="DAFTAR/MASUK"
+	:javascript
+		var lastScrollTop = 0;    
+
+		$(document).scroll(function(){
+			
+			var stop = $(this).scrollTop();
+						
+			if (stop > lastScrollTop){
+					// scrolling down
+				if($('#menu').hasClass('menu-min'))
+				{
+						$('#menu').addClass('menu-close');
+						$('#menu').removeClass('menu-min');
+				}
+			} else {
+			// scrolling up
+				if($('#menu').hasClass('menu-close'))
+				{
+					console.log('up');
+					$("#menu").addClass("#{@page.class_parent_header}");
+					$("#menu").find("a").css("color", "black");
+					$('#menu').addClass('menu-min');
+					$('#menu').removeClass('menu-close');
+				} 
+			} 
+			lastScrollTop = stop;
+			
+			if (stop === 0) {
+				$("#menu").find(".a_parent").css("color", "#{@page.text_color_desktop}");
+				$('#menu').css({
+					"background-color": "#{@page.background_color_desktop.presence || 'white'}",
+					"box-shadow": "none"
+				})
+			}
+		
+		});
+- else
+	=render partial: "application/header/layout_big_menu"
