@@ -19,6 +19,9 @@
 					- comp.input obj, as: :select, collection: ["arrow_between", "arrow_center"], :input_html => { :class => "form-control w-100" }
 				- when "object_fit"
 					- comp.input obj, as: :select, collection: ["fill","contain","cover","none","scale-down"], :input_html => { :class => "form-control w-100" }
+				- when "grid_position"
+					- comp.input obj, as: :select, collection: ["horizontal", "vertical"], :input_html => { :class => "form-control w-100" }
+
 
 				- else
 					- comp.input obj, :input_html => { :class => "form-control w-100" }

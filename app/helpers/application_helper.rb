@@ -10,9 +10,9 @@ module ApplicationHelper
   end
 
   def manipulate_image_tag(obj, options: {}, html: {})
-
     # use online image if exist
-    url = obj.url_image.presence || render_image_quality(obj, options[:image_quality])
+    url = obj.url_image&.strip.presence || render_image_quality(obj, options[:image_quality])
+    
     if html[:data_lazy].present?
       image_tag("", width: html[:width], alt: "#{obj.alt.presence || strip_tags(obj.title)}", title: "#{strip_tags(obj.title)}", class: html[:class], style: html[:style], "data-src": html[:data_src], "data-lazy": url, onerror: "this.onerror=null;this.src='/assets/image_not_found.png';")
     else
@@ -22,7 +22,7 @@ module ApplicationHelper
 
   def manipulate_image_tag_url(obj, options: {}, html: {})
     # use online image if exist 
-    url = obj.url_image.presence || render_image_quality(obj, options[:image_quality]) 
+    url = obj.url_image&.strip.presence || render_image_quality(obj, options[:image_quality]) 
 
     
     if html[:data_lazy].present?

@@ -141,7 +141,7 @@
 										.row 
 											.col-12.px-4
 												- comp.has_many :images, allow_destroy: true, heading: false, class:"col-3 mx-2 my-4" do |image|
-													= image_tag(image.object.url_image.presence || image.object.asset.url(:thumb), class: "w-100 my-2")
+													= manipulate_image_tag(image.object, options: {image_quality: "thumb"}, html: {class: "text-center my-2"})
 													- image.template.concat(Arbre::Context.new do
 														- div class: "col" do
 															- image.template.render partial: "admin/admin_shared/image_upload", locals: {f: image}

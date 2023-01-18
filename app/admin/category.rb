@@ -3,7 +3,7 @@ ActiveAdmin.register Category do
   menu priority: 2
   permit_params :id, :active, :name, :short_description, :description, :price, :layout,
   children_attributes: [:id, :name, :_destroy],
-  images_attributes: [:id, :asset, :_destroy] 
+  images_attributes: [:id, :asset, :url_image, :image_quality, :_destroy] 
 
   # config.batch_actions = false
   before_action :skip_sidebar!, :only => :index

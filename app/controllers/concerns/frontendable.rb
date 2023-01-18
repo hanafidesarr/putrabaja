@@ -10,7 +10,7 @@ module Frontendable
 
 	def set_common_variables
 		@setting = Setting.first
-		@pages = Page.order(:position).active.root_page
+		@pages = Page.where.not(layout: "products").order(:position).active.root_page
 		@categories = Category.active
 	end
 
