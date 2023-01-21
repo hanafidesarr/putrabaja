@@ -1,9 +1,9 @@
 ActiveAdmin.register Product do
 
   menu priority: 3
-  permit_params :id, :sku, :name, :url, :active, :short_description, :short_description, :description, :price, :discount, :category_id, :image_type,:battery_life, :model, :processor, :memory, :hard_drive, :vga, :display_type, :os, :optical_drive, :warranty, :wireless, :bluetooth, :other,
+  permit_params :id, :sku, :name, :url, :active, :short_description, :description, :price, :discount, :category_id, :image_type, :video_url,
   images_attributes: [:id, :title, :url, :note, :asset, :active, :layout_type, :alt, :image_quality, :background_image_size, :background_image_position, :background_image_color, :price, :series, :url_image, :width, :height, :_destroy] 
-
+  filter :category
   # before_filter :skip_sidebar!, :only => :index
   
   include ProductAdmin::Form

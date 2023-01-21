@@ -106,12 +106,12 @@
 							%li.nav-item.m-1
 								- case page.layout
 								- when "home"
-									= link_to "/", class: "nav-link py-1 #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};" do
+									= link_to "/", class: "nav-link py-1 #{params[:id].nil? ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop}; font-family: #{@page.font_family_desktop};" do
 										= page.title
 
 								- when "categories"
 									.dropdown
-										#dropdownMenuButton.dropdown-toggle.nav-link.p-1{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};"}
+										#dropdownMenuButton.dropdown-toggle.nav-link.p-1{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop}; font-family: #{@page.font_family_desktop};"}
 											= page.title
 										.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButton"}
 											- if @categories.root.present?
@@ -120,11 +120,11 @@
 														.mt-2
 													- else
 														%hr.my-2.mx-4{style: "border-top: 1px solid gray"}
-													=link_to category.name, category_path(category), class: "dropdown-item", style: "font-size: #{@page.font_size_desktop};"
+													=link_to category.name, category_path(category), class: "dropdown-item", style: "font-size: #{@page.font_size_desktop}; font-family: #{@page.font_family_desktop};"
 								- else
 									- if ( childrens = page.children ).present?
 										.dropdown
-											#dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};"}
+											#dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop}; font-family: #{@page.font_family_desktop};"}
 												= page.title
 											.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButtonPage"}
 												- childrens.order(:position).each_with_index do |child, i|
@@ -132,9 +132,9 @@
 														.mt-2
 													- else
 														%hr.my-2.mx-4{style: "border-top: 1px solid gray"}
-													=link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "font-size: #{@page.font_size_desktop};"
+													=link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "font-size: #{@page.font_size_desktop}; font-family: #{@page.font_family_desktop};"
 									- else
-										= link_to page_path(page), class: "nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop};" do
+										= link_to page_path(page), class: "nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold text-primary' : ''}", style: "color: #{@page.text_body_color}; font-size: #{@page.font_size_desktop}; font-family: #{@page.font_family_desktop};" do
 											= page.title
 
 						-# %li.nav-item

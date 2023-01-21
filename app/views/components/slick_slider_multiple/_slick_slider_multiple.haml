@@ -2,7 +2,7 @@
 	.slick-slide, .slick-track, .slick-list, .slick-slide-fade {
 		/* ... */
 		position: relative;
-		z-index:100;
+		/* z-index:100; */
 	}
 %div{class: "#{component.class_parent_component}"}
 	.section-wrapper
@@ -22,7 +22,7 @@
 			.row
 				%div{class:"#{((component.title.presence || component.body.presence).present? && device.eql?("desktop") ) ? 'col-6' : 'col-12'}"}
 					-content_for :nav_image do
-						.nav-slider
+						.nav-slider.my-4
 							- images.each do |image|
 								= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center px-1 py-2", style: "cursor: pointer;"})
 

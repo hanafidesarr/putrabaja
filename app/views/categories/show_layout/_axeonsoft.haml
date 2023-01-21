@@ -65,20 +65,27 @@
 							%h6= cat_child.name 
 							%hr
 
-							- is_view_image = false
+							- is_view_image = true
 							- if cat_child.products.present?
 								.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
 									.product-slick
 										- cat_child.products.each do |product|
 											.card.card-body.shadow.border-0.m-2.p-2.hover_transition
 												=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
-													- product.images.each do |image|
-														-# =image_tag("", width: "100%", "data-lazy"=>image.asset.url)
-														= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid h-50", data_lazy: true})
-												-# %small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+													.product-slick-images
+														- product.images.each do |image|
+															.row
+																.col-12.d-block{style: "height: #{device.eql?("desktop") ? image.height || 'auto' : '90px'}"}
+																	= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", img_not_found: 'https://via.placeholder.com/400x170.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 												- if product.name.present?
 													%hr.m-0
-													-# .text-center=product.name
+
+												.row.position-absolute.w-100{style: "bottom: 10px"}
+													=link_to product_path(product) do
+														.col.bg-primary{style: "opacity: 0.9;"}
+															.d-block
+																.d-flex.justify-content-around.py-0
+																	.text-white="Detail"
 							%hr
 					- else
 						- if @products.present?
@@ -88,36 +95,29 @@
 								- @products.each do |product|
 									.col-lg-4.col-6.my-3
 										.product-slick-template.shadow.hover_transition
-											.card.card-body.border-0
-												- product.images.each do |image|
-													.row
-														.col-12.d-block{style: "height: #{device.eql?("desktop") ? '700px' : '250px'}"}
-															= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", data_lazy: true})
+											- product.images.each do |image|
 
-													-# %hr
-													-# .row
-													-# 	.col-6.py-2.pr-0.pl-1
-													-# 		=link_to product.url do
-													-# 			%button.w-100.btn.btn-outline-primary.text-justify="Demo"
-													-# 	.col-6.py-2.pl-0.pr-1
-													-# 		=link_to product_path(product) do
-													-# 			%button.w-100.btn.btn-primary.text-justify="Detail"
-												%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
-												.row.position-absolute.w-100{style: "bottom: 10px"}
-													.col.bg-primary{style: "opacity: 0.9;"}
-														.d-block
-															.d-flex.justify-content-around.py-2
-																=link_to product.url do
-																	.text-white="Demo"
-																=link_to product_path(product) do
-																	.text-white="Detail"
+												.card.card-body.border-0
+													.row
+														- height_mobile_cal = @category.name.downcase.eql?("template") ? '300px' : '100px'
+														.col-12.d-block{style: "height: #{device.eql?("desktop") ? image.height.presence || '250px' : height_mobile_cal}"}
+															= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", img_not_found: 'https://via.placeholder.com/400x750.svg/FFFFFF/5061CE?text=axeonsoft.com', data_lazy: true})
+													%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+													.row.position-absolute.w-100{style: "bottom: 10px"}
+														.col.bg-primary{style: "opacity: 0.9;"}
+															.d-block
+																.d-flex.justify-content-around.py-2
+																	=link_to product.url do
+																		.text-white="Demo"
+																	=link_to product_path(product) do
+																		.text-white="Detail"
 			.col-12.my-5
 				.d-block.mx-auto
 					= paginate @products
 
 					= paginate @category_children
-:javascript
 
+:javascript
 	loadjs(["/assets/frontend/lib/view-image.js", "/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'category_axeonsoft');
 	loadjs.ready('category_axeonsoft', function() {
 		window.ViewImage && ViewImage.init('#list_images_slider_view_category-#{@category.id} img');
@@ -125,11 +125,11 @@
 			lazyLoad: 'ondemand',
 			slidesToShow: 3,
 			autoplay:false,
-			dots: true,
+			dots: false,
 			arrows: true,
 			infinite: true,
-			prevArrow: "<div class='position-absolute' style='z-index: 99; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-square-caret-left m-0 fa-2xl text-primary'></i></div>",
-			nextArrow: "<div class='position-absolute' style='z-index: 99; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-square-caret-right m-0 fa-2xl text-primary'></i></div>",
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
 			responsive: [
 				{
 					breakpoint: 600,
@@ -150,14 +150,20 @@
 				// instead of a settings object
 			]
 		});
+		$('.product-slick-images').not('.slick-initialized').slick({
+			autoplay: true,
+			arrows: false
+		})
 		$('.product-slick-template').not('.slick-initialized').slick({
 			lazyLoad: 'ondemand',
 			adaptiveHeight: true,
 			slidesToShow: 1,
-			autoplay:false,
+			autoplay:true,
 			dots: false,
-			arrows: false,
-			infinite: false
+			arrows: true,
+			infinite: true,
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>"
 		});
 	})
 

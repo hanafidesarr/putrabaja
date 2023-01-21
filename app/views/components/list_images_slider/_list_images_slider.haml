@@ -48,7 +48,7 @@
 					- images.each do |image|
 						.mx-2
 							=link_to component.show_up_image.eql?('true') ? "javascript:void(0)" : image.url do
-								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "w-100 mx-auto lazy", data_lazy: "true", style: style_image})
+								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "w-100 mx-auto lazy", data_lazy: "true", style: style_image, img_not_found: 'https://via.placeholder.com/382x282.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 								%hr
 								- if image.title.present?
 									.text-dark=image.title.to_s.html_safe
@@ -79,9 +79,8 @@
 			infinite: true,
 			arrows: ("#{component.show_arrows}" === "true"),
 			slidesToShow: parseFloat(coloumn_desktop),
-
-			prevArrow: '<div class="slick-prev"></div>',
-			nextArrow: '<div class="slick-next"></div>',
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 35%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 35%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
 			responsive: [
 				{
 					breakpoint: 1024,

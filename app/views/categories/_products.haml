@@ -37,6 +37,10 @@
 						.d-flex.justify-content-between.mx-3.my-0 
 							%small.text-secondary="P / L"
 							%small.fw-bold=number_to_currency(product.price, :unit => "Rp. ", :separator => ",", :delimiter => ".")
+- else
+	.container 
+		.row
+			.text-center="Product kosong"
 
 :javascript
 	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'products');
