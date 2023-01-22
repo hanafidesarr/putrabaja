@@ -64,61 +64,62 @@
 		top: 5%;
 	}
 
-	.unclickable {
-		pointer-events: none;
-	}
+- image_background = component.images.backgrounds.first
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_background_color = " background-color: #{component.background_color};"
+- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+- background_repeat =  " no-repeat;"
+- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
+- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s, height.to_s)
 
-	.clickable {
-		pointer-events: all;
-	}
-%div{class: "#{component.class_parent_component}"}
-	- image_background = component.images.backgrounds.first
-	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
-	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
-	- style_background_color = " background-color: #{component.background_color};"
-	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
-	- background_repeat =  " no-repeat;"
-	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
-	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
-	- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
-	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s, height.to_s)
+.vertical_carousel_frame{class: "text-#{component.position_text} #{component.class_parent_component}", style: "#{style} #{component.style_parent_component}"}
+	.carousel-container.justify-content-center
 
-	.vertical_carousel_frame{class: "text-#{component.position_text}", style: style}
-		.carousel-container.justify-content-center
-			#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
-				%ol.carousel-indicators
-					- component.images.pluck(:id).each_with_index do |image, i|
-						%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
-				.carousel-inner
-					- component.images.each_with_index do |image, i|
-						- url = manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})
-						.carousel-item{:style => "background-image:url(#{url});", class: "#{i == 0 ? 'active' : ''}"}
-							.container
-								.row.align-items-center{style:"height: 100%"}
-									-# .display-3.text-center.text-light.text-justify
-									-# 	="HANAFI"
-									=image.title.to_s.html_safe
-									=image.subtitle.to_s.html_safe
-									=image.note.to_s.html_safe
-	.row.text-center.mt-2
-		.col
-			%i#button.fa.fa-angles-down.fa-lg{style: "cursor: pointer;"}
+		=component.title.html_safe
+		=component.subtitle.html_safe
+		=component.body.html_safe
 
-	-# %button.unclickable.carousel-control-prev{"data-bs-slide" => "prev", "data-bs-target" => "#vertical-carousel", :type => "button"}
-	-# 	%span.clickable.carousel-control-prev-icon{"aria-hidden" => "true"}
-	-# 	%span.visually-hidden Previous
-	-# %button#button.carousel-control-next
-	-# 	%span.clickable.carousel-control-next-icon{"aria-hidden" => "true"}
-	-# 	%span.visually-hidden Next
+		#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
+			%ol.carousel-indicators
+				- component.images.normals.pluck(:id).each_with_index do |image, i|
+					%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
+			.carousel-inner
+				- component.images.normals.each_with_index do |image, i|
 
+					- url = manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {data_src: image.image_quality})
+					- background_size_image = " background-size: #{image.background_image_size || 'auto'};"
+					- background_position_image = " background-position: #{image.background_image_position || 'center center'};"
+					- background_color_image = " background-color: #{image.background_image_color || ''};"
+					- height = " height: #{image.height};"
+					- width = " width: #{image.height};"
+					- style_image = " ".concat(background_size_image, background_position_image, background_color_image, height, width)
 
+					.carousel-item{:style => "background-image:url(#{url}); #{image.style_image}; #{style_image}", class: "#{i == 0 ? 'active' : ''} #{image.class_image}"}
+						.container
+							.row.align-items-center
+
+								=image.title.html_safe
+								=image.subtitle.html_safe
+								=image.note.html_safe
+
+							- if image.url.present?
+								.row
+									=link_to image.url, class: "btn btn-primary position-absolute w-100", style: "bottom:1rem;" do
+										="Telusuri"
+
+		.row.text-center.mt-2
+			.col
+				%i#button.fa.fas.fa-chevron-circle-down.fa-lg{style: "cursor: pointer;"}
 
 :javascript
 
-	x = $(window).height() - 50
+	position_scroll = $(window).height() - 50
 	$("#button").click(function() {
 		$('html, body').animate({
-				scrollTop: x
+				scrollTop: position_scroll
 		}, 1000);
 	});
 

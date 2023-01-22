@@ -22,6 +22,10 @@
 								.col-4
 									- f.input :layout_type, as: :select, collection: Image::LAYOUT_TYPE, input_html: {class: "form-control w-100"}
 								.col-4
+									- f.input :class_image, input_html: { class: "form-control w-100" }
+								.col-4
+									- f.input :style_image, input_html: { class: "form-control w-100" }
+								.col-4
 									- f.input :title, input_html: { class: "form-control w-100" }
 								.col-4
 									- f.input :subtitle, input_html: { class: "form-control w-100" }
@@ -31,7 +35,7 @@
 								.col-4
 									- f.input :alt, input_html: { class: "form-control w-100" }
 								.col-4
-									- f.input :image_quality, as: :select, collection: ["low_thumb", "thumb", "perview", "low_banner", "banner"], input_html: {class: "form-control w-100"}
+									- f.input :image_quality, as: :select, label: "image_quality (not url image)", collection: ["low_thumb", "thumb", "perview", "low_banner", "banner"], input_html: {class: "form-control w-100"}
 								.col-4
 									- f.input :background_image_size, as: :select, collection: ["auto", "contain", "cover"], input_html: {class: "form-control w-100"}
 							.row
@@ -40,13 +44,13 @@
 								.col-4
 									- f.input :background_image_color, input_html: { class: "form-control w-100" }
 								.col-4
-									- f.input :price, input_html: { class: "form-control w-100" }
+									- f.input :price, label:"price?", input_html: { class: "form-control w-100" }
 								.col-4
-									- f.input :series, input_html: { class: "form-control w-100" }
+									- f.input :series, label: "series?", input_html: { class: "form-control w-100" }
 								.col-4
 									- f.input :url_image, input_html: { class: "form-control w-100" }
 								.col-4
-									- f.input :url_image_thumb, input_html: { class: "form-control w-100" }
+									- f.input :url_image_thumb, label: "url_image_thumb?", input_html: { class: "form-control w-100" }
 								.col-4
 									- f.input :width, input_html: { class: "form-control w-100" }
 								.col-4

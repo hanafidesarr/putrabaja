@@ -1,5 +1,6 @@
 properties:
   - class_parent_component
+  - style_parent_component
   - position_text
 
 

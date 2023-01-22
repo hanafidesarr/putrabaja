@@ -127,7 +127,7 @@
 												.col-lg-6.col-12
 													- comp.input :name, :input_html => { :class => "form-control w-100" }
 												.col-lg-6.col-12
-													- comp.input :slug, :input_html => { :class => "form-control w-100" }
+													- comp.input :slug, label: "slug / name (for seo)", :input_html => { :class => "form-control w-100" }
 												.col-12
 													- comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 
