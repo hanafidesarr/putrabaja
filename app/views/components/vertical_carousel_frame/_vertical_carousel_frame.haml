@@ -64,18 +64,22 @@
 		top: 5%;
 	}
 
-- image_background = component.images.backgrounds.first
-- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+-# COMPONTENT
 - style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
-- style_background_color = " background-color: #{component.background_color};"
-- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
-- background_repeat =  " no-repeat;"
-- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
-- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
 - height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
-- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s, height.to_s)
 
-.vertical_carousel_frame{class: "text-#{component.position_text} #{component.class_parent_component}", style: "#{style} #{component.style_parent_component}"}
+-# IMAGES
+- image_background = component.images.backgrounds.first
+- if image_background.present?
+	- background_repeat =  "background-repeat: #{image_background.background_image_repeat || ''};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+- style = " ".concat(style_margin.to_s,style_padding.to_s,style_background_image.to_s,background_repeat.to_s,background_size.to_s,background_position.to_s, height.to_s)
+
+.vertical_carousel_frame{class: "#{component.class_parent_component}", style: "#{style} #{component.style_parent_component}"}
 	.carousel-container.justify-content-center
 
 		=component.title.html_safe

@@ -7,7 +7,7 @@
 					- comp.input obj, as: :select, collection: ["true","false"], :input_html => { :class => "form-control w-100" }
 				- when "position_image"
 					- comp.input obj, as: :select, collection: ["left","right"], :input_html => { :class => "form-control w-100" }
-				- when "position_image_slider"
+				- when "position_image_slider", "position_text"
 					- comp.input obj, as: :select, collection: ["left","center","right"], :input_html => { :class => "form-control w-100" }
 				- when "link_images_online"
 					- comp.input obj, as: :text, :input_html => { :class => "form-control w-100" }

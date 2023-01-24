@@ -1,3 +1,8 @@
+:css
+	.form-control {
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
 .modal-image-upload.mx-2
 	/ Button trigger modal
 	%button.btn.btn-primary.w-100{"data-target" => "#exampleModal-#{f.object.id}", "data-toggle" => "modal", :type => "button"}
@@ -30,31 +35,43 @@
 								.col-4
 									- f.input :subtitle, input_html: { class: "form-control w-100" }
 								.col-4
-									- f.input :url, input_html: { class: "form-control w-100" }
-							.row
-								.col-4
 									- f.input :alt, input_html: { class: "form-control w-100" }
-								.col-4
-									- f.input :image_quality, as: :select, label: "image_quality (not url image)", collection: ["low_thumb", "thumb", "perview", "low_banner", "banner"], input_html: {class: "form-control w-100"}
-								.col-4
-									- f.input :background_image_size, as: :select, collection: ["auto", "contain", "cover"], input_html: {class: "form-control w-100"}
+							%br
+							.row
+								.col-12
+									- f.input :url_image, input_html: { class: "form-control w-100" }
+								.col-12
+									- f.input :url, label: "Go url link", input_html: { class: "form-control w-100" }
+
+							%br
 							.row
 								.col-4
-									- f.input :background_image_position, as: :select, collection: ["top", "right", "bottom", "left"], input_html: {class: "form-control w-100"}
+									- f.input :image_quality, as: :select, label: "Quality (not url image)", collection: ["low_thumb", "thumb", "perview", "low_banner", "banner"], input_html: {class: "form-control w-100"}
 								.col-4
-									- f.input :background_image_color, input_html: { class: "form-control w-100" }
+									- f.input :width, input_html: { class: "form-control w-100" }
+								.col-4
+									- f.input :height, input_html: { class: "form-control w-100" }
+								-# .col-3
+								-# 	- f.input :background_image_color, input_html: { class: "form-control w-100" }
+
+							- if f.object.layout_type.eql?("background")
+								%br
+								.row
+									.col-4
+										- f.input :background_image_size, as: :select, collection: ["auto", "contain", "cover"], input_html: {class: "form-control w-100"}
+									.col-4
+										- f.input :background_image_position, as: :select, collection: ["top", "right", "bottom", "left"], input_html: {class: "form-control w-100"}
+									.col-4
+										- f.input :background_image_repeat, as: :select, collection: ["repeat", "no-repeat"], input_html: {class: "form-control w-100"}
+							%br
+							.row
 								.col-4
 									- f.input :price, label:"price?", input_html: { class: "form-control w-100" }
 								.col-4
 									- f.input :series, label: "series?", input_html: { class: "form-control w-100" }
 								.col-4
-									- f.input :url_image, input_html: { class: "form-control w-100" }
-								.col-4
 									- f.input :url_image_thumb, label: "url_image_thumb?", input_html: { class: "form-control w-100" }
-								.col-4
-									- f.input :width, input_html: { class: "form-control w-100" }
-								.col-4
-									- f.input :height, input_html: { class: "form-control w-100" }
+
 							- f.input :note, input_html: { class: "form-control", rows: 5 }
 				.modal-footer
 					-# %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
