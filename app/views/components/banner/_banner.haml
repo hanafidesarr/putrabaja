@@ -1,23 +1,60 @@
-%div{class: "#{component.class_parent_component}"}
-	.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; background-color: #{component.background_color}"}
-		.d-block
-			- if (images = component.images).present?
-				- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
-					.nav-banner-cursor
+:css
+	.nav-banner-cursor {
+		cursor: pointer;
+	}
+	.nav-banner-cursor > .prev-btn {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		left: 20px;
+		padding: 0.6em 0.8em;
+	}
+	.nav-banner-cursor > .next-btn {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		right: 20px;
+		padding: 0.6em 0.8em;
+	}
+-# COMPONTENT
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
 
-						%i.fa.fa-square-caret-left.prev-btn.text-primary
-						%i.fa.fa-square-caret-right.next-btn.text-primary
+-# IMAGES
+- image_background = component.images.backgrounds.first
+- if image_background.present?
+	- background_repeat =  " background-repeat: #{image_background.background_image_repeat.presence || 'no-repeat'};"
+	- background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});"
+	- background_size = " background-size: #{image_background.background_image_size.presence || 'auto'};"
+	- background_position = " background-position: #{image_background.background_image_position.presence || 'center'};"
+
+- style = " ".concat(style_margin.to_s,style_padding.to_s,background_image.to_s,background_repeat.to_s,background_size.to_s,background_position.to_s, height.to_s)
+
+.banner{id: "component-#{component.id}",class: "#{component.class_parent_component}", style: "#{component.style_parent_component}; #{style}; background-color: #{component.background_color};", name: "#{component.slug}"}
+	.d-block.position-relative
+		=component.title.to_s.html_safe
+		=component.subtitle.to_s.html_safe
+		=component.body.to_s.html_safe
+		- if (images = component.images.active.normals).present?
+			- if (component.show_arrows.eql?("true") && images.size > 1 )
+				.nav-banner-cursor
+					%i.prev-btn.fa.fa-angle-left.bg-white.shadow.rounded-circle.text-dark 
+					%i.next-btn.fa.fa-angle-right.bg-white.shadow.rounded-circle.text-dark 
+			
+			.owl-carousel.demo.owl-theme
+				- images.each do |image|
+					- url = " background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image.image_quality})});"
+					- background_size_image = " background-size: #{image.background_image_size.presence || 'auto'};"
+					- background_repeat_image = " background-repeat: #{image.background_image_repeat.presence || 'no-repeat'};"
+					- background_position_image = " background-position: #{image.background_image_position.presence || 'center'};"
+					- background_color_image = " background-color: #{image.background_image_color.presence || ''};"
+					- height_image = "height: #{device.eql?("desktop") ? ( image.height.presence || '700px' ) : ( image.height.presence || '200px' ) }; "
+					- style_image = " ".concat(url, background_size_image, background_repeat_image, background_position_image, background_color_image, height_image)
 					
-				=component.title.to_s.html_safe
-				=component.description.to_s.html_safe
-				=component.note.to_s.html_safe
-				.owl-carousel.demo.owl-theme
-					- images.each do |image|
-						- image_quality = image.image_quality
-						.item{style: "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image_quality}, html: {class: "img-fluid", data_src: image_quality})}); background-repeat: no-repeat; background-size: #{image.background_image_size}; background-position: #{image.background_image_position || 'center'}; width: 100%; background-color: #{image.background_image_color || @page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
-							.text-justify.text-white
-								%div.title=image.title.to_s.html_safe
-								%p=image.note.to_s.html_safe
+					.item{class: "#{image.class_image}", style: "#{image.style_image} #{style_image}", data_src: image.image_quality, "data-src": "#{image.asset.url}" }
+						=image.title.to_s.html_safe
+						=image.note.to_s.html_safe
 
 :javascript
 	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css"], 'banner', {
@@ -32,10 +69,9 @@
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({
 			items: "#{component.items_show.presence || 1}",
-			margin: "#{component.margin_slider}",
-			dots: "#{component.show_dots rescue nil}" === "true",
+			dots: false,
 			loop: "#{images.size > 1}" === "true",
-			nav: "#{component.show_nav rescue nil}" === "true",
+			nav: "#{component.show_arrows rescue nil}" === "true",
 			autoplay:"#{component.autoplay rescue nil}" === "true",
 			lazyLoad:true,
 			touchDrag: false,

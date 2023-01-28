@@ -7,7 +7,9 @@ active_fields:
 
 properties:
   - class_parent_component
-  - margin_all_side
+  - style_parent_component
+  - padding_top_bottom_side
+  - padding_left_right_side
   - margin_top_bottom_side
   - margin_left_right_side
 
@@ -17,9 +19,7 @@ properties:
   - background_color
 
   # slider
-  - margin_slider
-  - show_dots
-  - show_nav
+  - show_arrows
   - autoplay
   - items_show
 

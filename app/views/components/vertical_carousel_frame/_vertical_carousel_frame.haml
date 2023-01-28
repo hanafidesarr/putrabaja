@@ -79,7 +79,7 @@
 
 - style = " ".concat(style_margin.to_s,style_padding.to_s,style_background_image.to_s,background_repeat.to_s,background_size.to_s,background_position.to_s, height.to_s)
 
-.vertical_carousel_frame{class: "#{component.class_parent_component}", style: "#{style} #{component.style_parent_component}"}
+.vertical_carousel_frame{id: "component-#{component.id}",class: "#{component.class_parent_component}", style: "#{style} #{component.style_parent_component}", name: "#{component.slug}"}
 	.carousel-container.justify-content-center
 
 		=component.title.html_safe
@@ -98,7 +98,7 @@
 					- background_position_image = " background-position: #{image.background_image_position || 'center center'};"
 					- background_color_image = " background-color: #{image.background_image_color || ''};"
 					- height = " height: #{image.height};"
-					- width = " width: #{image.height};"
+					- width = " width: #{image.width};"
 					- style_image = " ".concat(background_size_image, background_position_image, background_color_image, height, width)
 
 					.carousel-item{:style => "background-image:url(#{url}); #{image.style_image}; #{style_image}", class: "#{i == 0 ? 'active' : ''} #{image.class_image}"}
