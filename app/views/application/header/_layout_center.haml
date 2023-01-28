@@ -1,4 +1,3 @@
-
 - if device.eql?("desktop")
 	- background_navbar = device.eql?("desktop") ? @page&.background_color_desktop : @page&.background_color_mobile
 
@@ -85,103 +84,96 @@
 			-webkit-animation-name: slideIn;
 			animation-name: slideIn;
 		}
-
+	
 		/* Other styles for the page not related to the animated dropdown */
 	#menu.menu-min{class: "#{@page.class_parent_header}", style: "#{@page.style_parent_header}; background-color: #{@page.background_color_desktop.presence || 'white'};"}
 		%nav.header.header-layout-center.navbar.navbar-expand-md.bg-faded.justify-content-center{class: "#{@page&.position_desktop == 'absolute' ? 'nav-absolute' : ''} #{device.eql?("desktop") ? '' : 'nav-box-shadow'}"}
-			.container
-				- unless device.eql?("desktop")
-					- if (images = @setting.images).present?
-						= link_to root_path, title: "axeonsoft" do
-							- image_quality = images.last.image_quality
-							= manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
-							
-					- else
-						%a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center{:href => "/"}
-							%div{style: "color: #{@page&.text_color_desktop}"}= @setting.name
-				
-				%button.navbar-toggler{"aria-controls" => "collapsingNavbar3", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => ".collapsingNavbar3", "data-toggle" => "collapse", :type => "button"}
-					%span.fa.fa-bars{style: "color: #{@page&.text_body_color}"}
-				
+			- unless device.eql?("desktop")
+				- if (images = @setting.images).present?
+					= link_to root_path, title: "axeonsoft" do
+						- image_quality = images.last.image_quality
+						= manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
+						
+				- else
+					%a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center{:href => "/"}
+						%div.a_parent{style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}= @setting.name
+			
+			%button.navbar-toggler{"aria-controls" => "collapsingNavbar3", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => ".collapsingNavbar3", "data-toggle" => "collapse", :type => "button"}
+				%span.fa.fa-bars.a_parent{style: "color: #{@page&.text_body_color}"}
+			
 
-				.collapsingNavbar3.navbar-collapse.collapse.w-100.left-side
-					%ul.navbar-nav.w-100
-						- @pages.each do |page|
-							%li.nav-item.mx-2
-								- case page.layout
-								- when "home"
-									= link_to "/", class: "a_parent nav-link py-1 #{params[:id].nil? ? 'fw-bold' : ''}", style: "color: #{@page&.text_color_desktop}" do
+			.collapsingNavbar3.navbar-collapse.collapse.w-100.left-side
+				%ul.navbar-nav.w-100
+					- @pages.each do |page|
+						%li.nav-item.mx-2
+							- case page.layout
+							- when "home"
+								= link_to "/", class: "a_parent nav-link py-1 #{params[:id].nil? ? 'fw-bold' : ''}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}" do
+									= page.title
+
+							- when "categories"
+								.dropdown
+									#dropdownMenuButton.dropdown-toggle.p-1.nav-link.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}
 										= page.title
-
-								- when "categories"
+									.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButton"}
+										- if @categories.active.root.present?
+											%ul.list-group.list-group-flush
+												- @categories.active.root.each_with_index do |category, i|
+													%li.list-group-item.px-0.py-2
+														=link_to category.name, category_path(category), class: "dropdown-item", style: "font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", title: "#{page.slug || page.title}"
+							- else
+								- if ( childrens = page.children ).present?
 									.dropdown
-										#dropdownMenuButton.dropdown-toggle.nav-link.p-1.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page&.text_color_desktop}"}
+										#dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold' : ''}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}
 											= page.title
-										.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButton"}
-											- if @categories.root.present?
-												- @categories.root.each_with_index do |category, i|
-													- if i == 0
-														.mt-2
-													- else
-														%hr.my-2.mx-2{style: "border-top: 1px solid gray"}
-													
-													=link_to category.name, category_path(category), class: "dropdown-item", title: "#{page.slug || page.title}"
+										.dropdown-menu.p-2.animate.slideIn.shadow.border-0.rounded-3{"aria-labelledby" => "dropdownMenuButtonPage"}
+											%ul.list-group.list-group-flush
+												- childrens.active.order(:position).each do |child|
+													%li.list-group-item.px-0
+														=link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}", style: "font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", title: "#{page.slug || page.title}"
 								- else
-									- if ( childrens = page.children ).present?
-										.dropdown
-											#dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold' : ''}", style: "color: #{@page&.text_color_desktop}"}
-												= page.title
-											.dropdown-menu.p-2.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButtonPage"}
-												- childrens.order(:position).each_with_index do |child, i|
-													- if i == 0
-														.my-2
-													- else
-														%hr.my-2.mx-2{style: "border-top: 1px solid gray"}
-													
-													=link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}", title: "#{page.slug || page.title}"
-									- else
-										= link_to page_path(page), title: "#{page.title}", style: "color: #{@page&.text_color_desktop}", class: " nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}",  "data-turbolinks": "false" do
-											= page.title
-						-# %li.nav-item
-						-#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
+									= link_to page_path(page), title: "#{page.title}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", class: " nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}",  "data-turbolinks": "false" do
+										= page.title
+					-# %li.nav-item
+					-#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
 
-				.collapsingNavbar3.navbar-collapse.collapse.center-side
-					- if device.eql?("desktop")
-						- if (images = @setting.images).present?
-							= link_to "/" do
-								= manipulate_image_tag(images.last, html: {width: "80"})
-						- else
-							%a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center.m-auto{:href => "/"}
-								%div{style: "color: #{@page&.text_color_desktop}"}= @setting.name
-				
-				.collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
-					%ul.navbar-nav.ms-auto.w-100.justify-content-end
-						-if @setting.url_media_socials[:linkedin].present?
-							%li.nav-item
-								=link_to @setting.url_media_socials[:linkedin], class: "nav-link a_parent", title: "Linkedin", style: "color: #{@page&.text_color_desktop}" do
-									%i.fa-brands.fa-font-awesome.fa-linkedin.fa-xl
-									%span="Linkedin"
-						-if @setting.url_media_socials[:twitter].present?
-							%li.nav-item
-								=link_to @setting.url_media_socials[:twitter], class: "nav-link a_parent", title: "Twitter", style: "color: #{@page&.text_color_desktop}" do
-									%i.fa-brands.fa-font-awesome.fa-twitter.fa-xl
-									%span="Twitter"
-						-if @setting.url_media_socials[:instagram].present?
-							%li.nav-item
-								=link_to @setting.url_media_socials[:instagram], class: "nav-link a_parent", title: "Instagram", style: "color: #{@page&.text_color_desktop}" do
-									%i.fa-brands.fa-instagram.fa-xl
-									%span="Instagram"
-						%hr.text-white.d-block.d-lg-none
-						-# %li.nav-item
-						-#   - if user_signed_in?
-						-#     %a.text-white.nav-link="Hallo, #{current_user.email}"
-						-#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop}" do
-						-#       %i.fa.fa-exit
-						-#       ="KELUAR"
-						-#   - else
-						-#     =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop}" do
-						-#       %i.fa.fa-user
-						-#       ="DAFTAR/MASUK"
+			.collapsingNavbar3.navbar-collapse.collapse.center-side
+				- if device.eql?("desktop")
+					- if (images = @setting.images).present?
+						= link_to "/" do
+							= manipulate_image_tag(images.last, html: {width: "80"})
+					- else
+						%a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center.m-auto{:href => "/"}
+							%div{style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}= @setting.name
+			
+			.collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
+				%ul.navbar-nav.ms-auto.w-100.justify-content-end
+					-if @setting.url_media_socials[:linkedin].present?
+						%li.nav-item
+							=link_to @setting.url_media_socials[:linkedin], class: "nav-link a_parent", title: "Linkedin", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop};" do
+								%i.fa-brands.fa-font-awesome.fa-linkedin.fa-xl
+								%span{style: "font-family: #{@page&.font_family_desktop}"}="Linkedin"
+					-if @setting.url_media_socials[:twitter].present?
+						%li.nav-item
+							=link_to @setting.url_media_socials[:twitter], class: "nav-link a_parent", title: "Twitter", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop};" do
+								%i.fa-brands.fa-font-awesome.fa-twitter.fa-xl
+								%span{style: "font-family: #{@page&.font_family_desktop}"}="Twitter"
+					-if @setting.url_media_socials[:instagram].present?
+						%li.nav-item
+							=link_to @setting.url_media_socials[:instagram], class: "nav-link a_parent", title: "Instagram", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop};" do
+								%i.fa-brands.fa-instagram.fa-xl
+								%span{style: "font-family: #{@page&.font_family_desktop}"}="Instagram"
+					%hr.text-white.d-block.d-lg-none
+					-# %li.nav-item
+					-#   - if user_signed_in?
+					-#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+					-#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop}" do
+					-#       %i.fa.fa-exit
+					-#       ="KELUAR"
+					-#   - else
+					-#     =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop}" do
+					-#       %i.fa.fa-user
+					-#       ="DAFTAR/MASUK"
 
 	:javascript
 		var lastScrollTop = 0;    
@@ -208,7 +200,6 @@
 						"box-shadow": "rgb(222 222 222) 0px -5px 6px 5px"
 						
 					});
-					$("#menu").find(".a_parent").css("color", "");
 					$("#menu").find(".a_parent").css("color", "black");
 					$('#menu').addClass('menu-min text-bg-white');
 					$('#menu').removeClass('menu-close');
