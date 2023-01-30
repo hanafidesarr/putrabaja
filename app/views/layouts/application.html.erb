@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Axeonsoft</title>
+    <!-- Google Tag Manager -->
+    <% if Rails.env.production? %>
+      <script>
+      document.addEventListener('turbolinks:load', function(event) {
+        var url = event.data.url;  dataLayer.push({
+          'event':'pageView',
+          'virtualUrl': url
+        });
+      });(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-P6PJX32');
+      </script>
+      <% end %>
+      <!-- End Google Tag Manager -->
+
+    <%= canonical_tag -%>
+    <title><%= @setting&.name || 'Axeonsoft' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta property="og:title" content="How to change the address bar color in Chrome, Firefox, Opera, Safari" />
-    <meta property="og:description" content="How to change the address bar color in Chrome, Firefox, Opera, Safari" />
-    <meta property="og:url" content="http://webdevelopmentscripts.com/64-how-to-change-the-address-bar-color-in-chrome-firefox-opera-safari" />
-    <meta property="og:image" content="http://webdevelopmentscripts.com/post-images/685b-change-browser-address-bar-color-chrome-android.jpeg" />
-
+    <meta property="og:title" content="<%= @page&.meta_title.presence || @setting&.meta_title %>" />
+    <meta property="og:description" content="<%= @page&.meta_description.presence || @setting&.meta_description %>" />
+    <meta property="og:url" content="<%= @page&.meta_url.presence || @setting&.meta_url %>" />
+    <meta property="og:image" content="<%= @page&.meta_image.presence || @setting&.meta_image %>" />
+    <meta name="description" content="<%= @page&.meta_description.presence || @setting&.meta_description %>">
+    <meta name="keywords" content="<%= @page&.keywords.presence || @setting&.keywords %>">
+    <meta name="author" content="<%= @page&.author.presence || @setting&.author %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -17,18 +37,54 @@
     <div id="loading"></div>
   </head>
 
-  <body>
-    <%= render 'header' %>
-    <%= yield %>
-    <%= render 'footer' %>
-  </body>
+  <body data-turbolinks="<%= @page&.turbolink_is_active %>">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PJX32"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
+    <div style="background-color: <%= @page&.background_body_color %>; color: <%= @page&.text_body_color %>;">
+      <%= render 'header' %>
+      <%= yield %>
+      <%= render 'footer' %>
+
+      <div id="whatsapp-button"></div>
+    </div>
+  </body>
+  
+  <script>
+    whatsappchat.multipleUser(
+      {
+        selector: '#whatsapp-button',
+        users: [
+          {
+            name:'Admin',
+            phone: "<%= @setting.whatsapp %>",
+            designation: 'Customer Service',
+            image : 'https://static.vecteezy.com/system/resources/thumbnails/000/356/576/small/1__2825_29.jpg'
+          },
+          // {
+          //   name:'Admin 2',
+          //   phone: '<%= @setting.whatsapp %>',
+          //   designation: 'Customer Service',
+          //   image: 'https://static.vecteezy.com/system/resources/thumbnails/000/356/576/small/1__2825_29.jpg'
+              
+          // }
+        ],
+        headerMessage: 'Tetap terhubung bersama kami di <strong>WhatsApp</strong>',
+        chatBoxMessage: 'Team kami akan membalas dalam beberapa menit',
+        color: '#25D366',
+      }
+    );
+  </script>
+<!-- 
   <script>
     var url = 'https://wati-integration-service.clare.ai/ShopifyWidget/shopifyWidget.js?57255';
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.async = true;
     s.src = url;
+    s.title = "whatsapp chat"
     var options = {
       "enabled":true,
       "chatButtonSetting":{
@@ -41,16 +97,16 @@
           "position":"right"
       },
       "brandSetting":{
-          "brandName":"<%= @setting.name %>",
+          "brandName":"<%= @setting&.name %>",
           "brandSubTitle":"Melayani dengan hati",
-          "brandImg":"https://cdn.clare.ai/wati/images/WATI_logo_square_2.png",
+          "brandImg":"https://via.placeholder.com/100x100",
           "welcomeText":"Hai !\nAda yang bisa kami bantu?",
-          "messageText":"Hallo <%= @setting.name %>",
+          "messageText":"Hallo <%= @setting&.name %>",
           "backgroundColor":"#0a5f54",
           "ctaText":"Mulai Chat",
           "borderRadius":"25",
           "autoShow":false,
-          "phoneNumber":"<%= @setting.phone_1 || @setting.phone_1 %>"
+          "phoneNumber":"<%= @setting&.whatsapp || @setting&.phone_1 || @setting&.phone_2 %>"
       }
     };
     s.onload = function() {
@@ -59,4 +115,5 @@
     var x = document.getElementsByTagName('script')[0];
     x.parentNode.insertBefore(s, x);
   </script>
+  -->
 </html>

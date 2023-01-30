@@ -1,0 +1,86 @@
+:css
+	@import "/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css";
+
+%link{:rel => "preload", as: "style", href:"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css"}/	
+
+%div{class: "#{component.class_parent_component}"}
+	.row
+		.col-12
+			.modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+				%h3
+					=component.title.to_s.html_safe
+				%small=component.subtitle.to_s.html_safe
+				%p
+					=component.body.to_s.html_safe
+
+				- if component&.link.present?
+					=link_to component&.url_text || "/", class: "btn bg-light" do
+						.fw-bold.text-secondary="READ MORE"
+
+						-# https://img.freepik.com/free-photo/3d-grunge-room-interior-with-spotlight-smoky-atmosphere-background_1048-11333.jpg?w=1800&t=st=1669342609~exp=1669343209~hmac=ab2521b8b2faef1288810014be71ea8b210793c1c22f701b53582a9de6b51c2e
+				-# #sequence.seq{style: "min-width: 100% !important; background-image: url('https://img.freepik.com/free-photo/3d-grunge-room-interior-with-spotlight-smoke-effect_1048-12578.jpg?w=1060&t=st=1669342936~exp=1669343536~hmac=8dec65688fc27e9a628dce371c1b28ed111c8e06ccb958f0e9661cef6e368cf2')"}
+				#sequence.seq{style: "min-width: 100% !important; background-color: #{component.background_color}; background-image: url(#{component.background_image_online})"}
+					- images = component.images
+					.seq-screen
+						%ul.seq-canvas
+							- images.each do |image|
+
+								%li.seq-in
+									.seq-model
+										= manipulate_image_tag(image, options: {image_quality: image.image_quality})
+										-# %img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
+									.seq-title.ml-4
+										.row
+											%h1=image.title.to_s
+										%h2{"data-seq" => ""}=image.subtitle.to_s.html_safe
+										%h3{"data-seq" => ""}=image.note.to_s.html_safe
+					- if component.show_arrows.eql?("true")
+						%fieldset.seq-nav{"aria-controls" => "sequence", "aria-label" => "Slider buttons", style: "min-width: 100% !important;"}
+							%button.seq-prev{"aria-label" => "Previous", :type => "button"} Previous
+							%button.seq-next{"aria-label" => "Next", :type => "button"} Next
+					%ul.seq-pagination.w-100{"aria-label" => "Pagination", :role => "navigation", style: "min-width: 100% !important;"}
+						- images.each_with_index do |image, i|
+							%li
+								%a{:href => "#step#{i + 1}", :rel => "#step#{i + 1}", :title => "Go to slide #{i + 1}"}
+									-# %img{:src => "images/tn-model1.png"}/
+									= image_tag(image.url_image_thumb, style: "width: 100px")
+									-# = manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {style: "width: 100px"})
+
+= javascript_include_tag '/assets/frontend/lib/modern_slide_in/sequence.min.js'
+
+:javascript
+
+	loadjs([
+		"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
+		"/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
+		"/assets/frontend/lib/modern_slide_in/hammer.min.js",
+		"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in', {
+
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+	loadjs.ready('modern_slide_in', function() {
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+	})
+
+	$(document).on('turbolinks:load', function() {
+		$("body").attr("data-turbolinks", "false")
+
+
+		loadjs([
+		"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css",
+			"/assets/frontend/lib/modern_slide_in/imagesloaded.pkgd.min.js",
+			"/assets/frontend/lib/modern_slide_in/hammer.min.js",
+			"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.js"], 'modern_slide_in', {
+
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+		loadjs.ready('modern_slide_in', function() {
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+		})
+	});

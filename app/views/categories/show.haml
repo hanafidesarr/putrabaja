@@ -1,21 +1,7 @@
-.container
-  .section-wrapper
-    %h1=@category.name
-    %hr
-    .row 
-      .col-lg-3.col-12
-        =render partial: "categories/sidebar_categories", locals: { category: @category }
-        %hr
-      .col-lg-9.col-12
-        - if @category.is_root? && ( childrens = @category.children ).present?
-          .row
-            - childrens.each do | cat_child |
-              .col-4
-                .card.card-body
-                  = link_to category_path(cat_child) do
-                    = cat_child.name
-        - else
-          - if ( products = @category.products ).present?
-            =render partial: "categories/products", locals: { products: products }
-                
-        
+=render partial: "categories/show_layout/#{@category.layout.presence || 'default'}", locals: {comp: ""}
+
+- if @page.components.present?
+  - @page.components.order(:position).each do |component|
+    %div{id: "loading_component-#{component.id}"}
+    .component{name: "#{component.slug}"}
+      =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?

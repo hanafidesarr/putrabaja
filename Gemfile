@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.0.1'
 
 # AUTENTIFICATION
 gem 'devise'
@@ -9,8 +9,10 @@ gem 'devise'
 # FOR ADMIN
 gem 'activeadmin'
 gem "active_admin-sortable_tree", "~> 2.0.0"
+gem 'active_skin'
 
 gem 'pg'
+gem 'kaminari'
 
 # style
 gem 'bootstrap'
@@ -29,8 +31,6 @@ gem "font-awesome-sass", "~> 6.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
-# Use mysql2 as the database for Active Record
-gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -54,6 +54,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem "acts_as_list"
 group :development, :test do
+  # Use mysql2 as the database for Active Record
+  gem 'mysql2'
   gem 'awesome_print'
   gem 'pry'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -85,3 +87,8 @@ gem "figaro"
 gem "fog-aws"
 
 # gem 'rails_sortable'
+
+gem "draper"
+
+# SEO
+gem 'canonical-rails', github: 'jumph4x/canonical-rails'

@@ -1,0 +1,46 @@
+%div{class: "#{component.class_parent_component}"}
+	.products-by-category{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+		%h3
+			=component.title.to_s.html_safe
+		%small{style: "color: gray;"}=component.subtitle.to_s.html_safe
+		%hr
+		%p
+			=component.body.to_s.html_safe
+
+		- if component&.link.present?
+			=link_to component&.url_text || "/", class: "btn bg-light" do
+				.fw-bold.text-secondary="READ MORE"
+		- if component.category_id.present?
+			- if (products = Category.find_by(id: component.category_id&.to_i)&.products).present?
+				.row
+					- products.each do | product |
+						.mb-4{class: "col-lg-#{component.decorate.set_coloumn("coloumn_desktop")} col-#{component.decorate.set_coloumn("coloumn_mobile")}"}
+							-# = link_to product_path(product) do
+							.card.card-body{style: "border-radius: #{component.border_radius.presence || '0'};  #{ component.use_border_image == "true" ? 'border: solid #eee; box-shadow: 4px 7px 11px #eee;' : ''} padding: #{component.padding_images.presence || '0'};"}
+								.product-slick
+									- if product.images.present?
+										- product.images.each do | image |
+											= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid"})
+
+								%hr.mb-0
+								=link_to product.url, title: "#{product.name || product.title}" do
+									- if product.name.present?
+										.mt-2.text-dark.text-center=product.name
+									- if product.short_description.present?
+										.text-dark=product.short_description.to_s.html_safe
+									- if product.description.present?
+										%small.text-dark=product.description.to_s.html_safe
+			- else
+				.text-danger="ID KATEGORY TIDAK ADA"
+		- else
+			Silahkan masukan category atau karena product ini kosong
+
+:javascript
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'products_show');
+	loadjs.ready('products_show', function() {
+		$('.product-slick').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: true,
+			infinite: true
+		});
+	})

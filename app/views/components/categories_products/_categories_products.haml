@@ -1,25 +1,24 @@
-.container
-	.section-wrapper
-		.row
-			- if ["mobile","tablet"].include?(device.to_s)
-				.col-lg-8.col-12
-					.products-show
-						- if (products = @categories&.child&.first&.products).present?
-							=render partial: "categories/products", locals: { products:products }
-			.col-lg-4.col-12
-				%h3.text-lg-left.text-sm-center="Kategori"
-				%hr
-				- if @categories.present?
-					- @categories.each do |category|
-						.my-3
-							.fw-bold.text-uppercase{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample-#{category.id}", :role => "button"}=category.name
-							- if ( childrens = category.children ).present?
-								- childrens.each do | cat_child |
-									.collapse{id: "collapseExample-#{cat_child.parent_id}"}
-										= link_to show_product_categories_path(id: cat_child.id), remote: :true do
-											= cat_child.name
-			- if device.eql?("desktop")
-				.col-lg-8.col-12
-					.products-show
-						- if (products = @categories&.child&.first&.products).present?
-							=render partial: "categories/products", locals: { products:products }
+%div{class: "#{component.class_parent_component}"}
+	.row
+		- if ["mobile","tablet"].include?(device.to_s)
+			.col-lg-8.col-12
+				.products-show
+					- if (products = @categories&.child&.first&.products).present?
+						=render partial: "categories/products", locals: { products:products }
+		.col-lg-4.col-12
+			%h3.text-lg-left.text-sm-center="Kategori"
+			%hr
+			- if @categories.present?
+				- @categories.each do |category|
+					.my-3
+						.fw-bold.text-uppercase{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample-#{category.id}", :role => "button"}=category.name
+						- if ( childrens = category.children ).present?
+							- childrens.each do | cat_child |
+								.collapse{id: "collapseExample-#{cat_child.parent_id}"}
+									= link_to show_product_categories_path(id: cat_child.id), remote: :true do
+										= cat_child.name
+		- if device.eql?("desktop")
+			.col-lg-8.col-12
+				.products-show
+					- if (products = @categories&.child&.first&.products).present?
+						=render partial: "categories/products", locals: { products:products }

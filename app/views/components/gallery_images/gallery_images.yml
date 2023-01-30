@@ -1,0 +1,14 @@
+properties:
+  - class_parent_component
+  - margin_all_side
+  - margin_top_bottom_side
+  - margin_left_right_side
+  - use_slideReveal
+  - is_images_from_online
+  - link_images_online
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body

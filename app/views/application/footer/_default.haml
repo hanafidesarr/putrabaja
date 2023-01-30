@@ -1,0 +1,30 @@
+%hr.mx-5
+.container.text-center
+	.section-wrapper
+		.row
+			.col-lg-4.col-12.mb-4
+				%h2.fw-bold=@setting.name
+				.my-2
+					=@setting.description.to_s.html_safe
+			.col-lg-4.col-12.mb-4
+				%h2.fw-bold="Kontak"
+				.col.my-2
+					%i.fa.fa-envelope.fa-lg
+					%span=@setting.email
+				.col.my-2
+					%i.fa.fa-phone.fa-lg
+					%span=@setting.phone_1
+				.col.my-2
+					%i.fa.fa-phone.fa-lg
+					%span=@setting.phone_2
+			.col-lg-4.col-12.mb-4
+				%h2.fw-bold="Lokasi"
+				.my-2
+					%span=@setting.location
+	%hr
+		.row
+			.col-12.text-center.mt-3.mb-5
+				%small.text-gray="created by "
+				.text-primary.d-inline
+					=link_to "http://axeonsoft.com", class: "text-primary", rel: "noopener", target: "_blank", title: "Pembuat situs website cms" do
+						="Axeonsoft."

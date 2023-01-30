@@ -1,22 +1,223 @@
-%nav.navbar.navbar-dark.navbar-expand-lg.bg-dark
-  .container-fluid
-    .navbar-header
-      -# %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
-      -#   %span.sr-only Toggle navigation
-      -#   %span.icon-bar
-      -#   %span.icon-bar
-      -#   %span.icon-bar
-    #bs-example-navbar-collapse-1.collapse.navbar-collapse{style: "text-align: center;"}
-      .nav.navbar-nav{style: "  display: inline-block; float: none; vertical-align: top;"}
-        .active
-          %a{:href => "#"}
-            Link 1
-            %span.sr-only (current)
-        %a{:href => "#"} Link 2
-        %a{:href => "#"} Link 3
-    
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.fa.fa-bars.text-light
-      %a.navbar-brand{:href => "#"} Brand
-    / /.navbar-collapse
-  / /.container-fluid
+- if device.eql?("desktop")
+	- background_navbar = device.eql?("desktop") ? @page&.background_color_desktop : @page&.background_color_mobile
+
+	:css
+		#menu {
+			position: fixed;
+			z-index: 1000;
+			display: block;
+			top: 0;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			/* overflow: hidden; */
+			-webkit-transition: 500ms all ease-in-out;
+			-moz-transition: 500ms all ease-in-out;
+			-ms-transition: 500ms all ease-in-out;
+			-o-transition: 500ms all ease-in-out;
+			
+		}
+
+		.menu-close {
+			-moz-transform: translateY(-100%);
+			-ms-transform: translateY(-100%);
+			-webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
+			opacity: 0;
+		}
+		.nav>li>a:focus, .nav>li>a:hover {
+				text-decoration: transparent;
+				background-color: transparent !important;
+		}
+		.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+
+			background-color: transparent !important;
+		}
+		.dropdown:hover .dropdown-menu {
+			display: block;
+			margin-top: 0;
+		}
+		@media (min-width: 768px) {
+			.animate {
+				animation-duration: 0.3s;
+				-webkit-animation-duration: 0.3s;
+				animation-fill-mode: both;
+				-webkit-animation-fill-mode: both;
+			}
+		}
+
+		@keyframes slideIn {
+			0% {
+				transform: translateY(1rem);
+				opacity: 0;
+			}
+
+			100% {
+				transform: translateY(0rem);
+				opacity: 1;
+			}
+
+			0% {
+				transform: translateY(1rem);
+				opacity: 0;
+			}
+		}
+
+		@-webkit-keyframes slideIn {
+			0% {
+				-webkit-transform: transform;
+				-webkit-opacity: 0;
+			}
+
+			100% {
+				-webkit-transform: translateY(0);
+				-webkit-opacity: 1;
+			}
+
+			0% {
+				-webkit-transform: translateY(1rem);
+				-webkit-opacity: 0;
+			}
+		}
+
+		.slideIn {
+			-webkit-animation-name: slideIn;
+			animation-name: slideIn;
+		}
+	
+		/* Other styles for the page not related to the animated dropdown */
+	#menu.menu-min{class: "#{@page.class_parent_header}", style: "#{@page.style_parent_header}; background-color: #{@page.background_color_desktop.presence || 'white'};"}
+		%nav.header.header-layout-center.navbar.navbar-expand-md.bg-faded.justify-content-center{class: "#{@page&.position_desktop == 'absolute' ? 'nav-absolute' : ''} #{device.eql?("desktop") ? '' : 'nav-box-shadow'}"}
+			- unless device.eql?("desktop")
+				- if (images = @setting.images).present?
+					= link_to root_path, title: "axeonsoft" do
+						- image_quality = images.last.image_quality
+						= manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
+						
+				- else
+					%a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center{:href => "/"}
+						%div.a_parent{style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}= @setting.name
+			
+			%button.navbar-toggler{"aria-controls" => "collapsingNavbar3", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => ".collapsingNavbar3", "data-toggle" => "collapse", :type => "button"}
+				%span.fa.fa-bars.a_parent{style: "color: #{@page&.text_body_color}"}
+			
+
+			.collapsingNavbar3.navbar-collapse.collapse.w-100.left-side
+				%ul.navbar-nav.w-100
+					- @pages.each do |page|
+						%li.nav-item.mx-2
+							- case page.layout
+							- when "home"
+								= link_to "/", class: "a_parent nav-link py-1 #{params[:id].nil? ? 'fw-bold' : ''}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}" do
+									= page.title
+
+							- when "categories"
+								.dropdown
+									#dropdownMenuButton.dropdown-toggle.p-1.nav-link.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}
+										= page.title
+									.dropdown-menu.animate.slideIn.shadow.border-0.rounded{"aria-labelledby" => "dropdownMenuButton"}
+										- if @categories.active.root.present?
+											%ul.list-group.list-group-flush
+												- @categories.active.root.each_with_index do |category, i|
+													%li.list-group-item.px-0.py-2
+														=link_to category.name, category_path(category), class: "dropdown-item", style: "font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", title: "#{page.slug || page.title}"
+							- else
+								- if ( childrens = page.children ).present?
+									.dropdown
+										#dropdownMenuButtonPage.dropdown-toggle.p-1.nav-link.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "#{childrens.pluck(:id).include?(params[:id].to_i) ? 'fw-bold' : ''}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}
+											= page.title
+										.dropdown-menu.p-2.animate.slideIn.shadow.border-0.rounded-3{"aria-labelledby" => "dropdownMenuButtonPage"}
+											%ul.list-group.list-group-flush
+												- childrens.active.order(:position).each do |child|
+													%li.list-group-item.px-0
+														=link_to child.title, page_path(child), class: "dropdown-item #{child.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}", style: "font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", title: "#{page.slug || page.title}"
+								- else
+									= link_to page_path(page), title: "#{page.title}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", class: " nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}",  "data-turbolinks": "false" do
+										= page.title
+					-# %li.nav-item
+					-#   =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase"
+
+			.collapsingNavbar3.navbar-collapse.collapse.center-side
+				- if device.eql?("desktop")
+					- if (images = @setting.images).present?
+						= link_to "/" do
+							= manipulate_image_tag(images.last, html: {width: "80"})
+					- else
+						%a.navbar-brand.title-header.navbar-brand.d-flex.justify-content-center.m-auto{:href => "/"}
+							%div{style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}= @setting.name
+			
+			.collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
+				%ul.navbar-nav.ms-auto.w-100.justify-content-end
+					-if @setting.url_media_socials[:linkedin].present?
+						%li.nav-item
+							=link_to @setting.url_media_socials[:linkedin], class: "nav-link a_parent", title: "Linkedin", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop};" do
+								%i.fa-brands.fa-font-awesome.fa-linkedin.fa-xl
+								%span{style: "font-family: #{@page&.font_family_desktop}"}="Linkedin"
+					-if @setting.url_media_socials[:twitter].present?
+						%li.nav-item
+							=link_to @setting.url_media_socials[:twitter], class: "nav-link a_parent", title: "Twitter", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop};" do
+								%i.fa-brands.fa-font-awesome.fa-twitter.fa-xl
+								%span{style: "font-family: #{@page&.font_family_desktop}"}="Twitter"
+					-if @setting.url_media_socials[:instagram].present?
+						%li.nav-item
+							=link_to @setting.url_media_socials[:instagram], class: "nav-link a_parent", title: "Instagram", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop};" do
+								%i.fa-brands.fa-instagram.fa-xl
+								%span{style: "font-family: #{@page&.font_family_desktop}"}="Instagram"
+					%hr.text-white.d-block.d-lg-none
+					-# %li.nav-item
+					-#   - if user_signed_in?
+					-#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+					-#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop}" do
+					-#       %i.fa.fa-exit
+					-#       ="KELUAR"
+					-#   - else
+					-#     =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop}" do
+					-#       %i.fa.fa-user
+					-#       ="DAFTAR/MASUK"
+
+	:javascript
+		var lastScrollTop = 0;    
+
+		$(document).scroll(function(){
+			
+			var stop = $(this).scrollTop();
+						
+			if (stop > lastScrollTop){
+					// scrolling down
+				if($('#menu').hasClass('menu-min'))
+				{
+						$('#menu').addClass('menu-close');
+						$('#menu').removeClass('menu-min');
+				}
+			} else {
+			// scrolling up
+				if($('#menu').hasClass('menu-close'))
+				{
+					console.log('up');
+					$("#menu").css({
+						"color": "black",
+						"background-color": "white",
+						"box-shadow": "rgb(222 222 222) 0px -5px 6px 5px"
+						
+					});
+					$("#menu").find(".a_parent").css("color", "black");
+					$('#menu').addClass('menu-min text-bg-white');
+					$('#menu').removeClass('menu-close');
+				} 
+			} 
+			lastScrollTop = stop;
+			
+			if (stop === 0) {
+				$("#menu").find(".a_parent").css("color", "#{@page.text_color_desktop}");
+				$('#menu').css({
+					"background-color": ""
+				})
+				$('#menu').css({
+					"background-color": "#{@page.background_color_desktop.presence || 'white'} !important",
+					"box-shadow": "none"
+				})
+			}
+		
+		});
+- else
+	=render partial: "application/header/layout_big_menu"

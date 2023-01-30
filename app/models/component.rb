@@ -17,9 +17,15 @@ class Component < ApplicationRecord
   # this collection layout
   #needfix
   #move to yaml file , and set must dynamic
-  COMPONENT_LAYOUT=["banner", "banner_text","categories_products","text_base","text_image_base","text_product_base"]
+  COMPONENT_LAYOUT=[
+    "banner", "banner_slick", "custom_component", "banner_text","categories_products","text_base","text_image_base","text_product_base",
+    "space", "list_images", "list_images_slider", "typing_animation", "gallery_images", "products_by_category", "vertical_carousel_frame",
+    "pricing_list_card", "split_product_showcase", "modern_slide_in", "banner_flip_effects_rocket", "wave_liquid_animation", "slick_slider_multiple", "subscribe_form", "subscribe_form_modal"
+  ]
+
   store :properties, coder: JSON
   after_initialize :add_accessors_for_content_attributes, if: -> { self.layout.present? }
+  after_validation :set_slug, only: [:create, :update]
 
   def add_accessors_for_content_attributes
     component_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join("app","views", "components","#{self.layout}","#{self.layout}.yml"))
@@ -29,4 +35,12 @@ class Component < ApplicationRecord
     end
   end
 
+  def to_param
+    "#{id}-#{slug}"
+  end
+  
+  private
+  def set_slug
+    self.slug = self.slug.present? ? self.slug.to_s.parameterize : self.title
+  end 
 end

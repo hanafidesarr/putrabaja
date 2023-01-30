@@ -1,60 +1,65 @@
-%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-dark-soft' : 'position-absolute'}"}
-  .container
-    - if (images = @setting.images).present?
-      = link_to "/", class: "mr-4" do
-        = image_tag(images.last.asset.url, width: "50", style: "margin-right:2rem;")
-    - else
-      %a.navbar-brand.title-header{:href => "/"}
-        .text-secondary= @setting.name
 
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.fa.fa-bars.text-light
-    #navbarSupportedContent.collapse.navbar-collapse
-      %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-        %br.d-block.d-lg-none
-        - @pages.each do |page|
-          %li.nav-item
-            - case page.layout
-            - when "home"
-              = link_to "/", class: "nav-link text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
-                = page.title
+- if device.eql?("desktop")
+	%nav.navbar.navbar-expand-lg.text-decoration-none.w-100{style: "z-index:999", class: "#{@page.nil? || @page.layout != "home" ? 'bg-dark-soft' : 'position-absolute'}"}
+		.container
+			- if (images = @setting.images).present?
+				= link_to "/", class: "mr-4" do
+					- image_quality = images.last.image_quality
+					= manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "50"})
+			- else
+				%a.navbar-brand.title-header{:href => "/"}
+					.text-secondary= @setting.name
 
-            - when "categories"
-              .dropdown
-                #dropdownMenuButton.dropdown-toggle.nav-link.text-uppercase.text-white{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                  Kategori
-                .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
-                  - if @categories.present?
-                    - @categories.each do |category|
-                      =link_to category.name, category_path(category), class: "dropdown-item"
-            - else
-              = link_to page_path(page), class: "nav-link text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
-                = page.title
-        %li.nav-item
-          =link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
+			%button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+				%span.fa.fa-bars.text-light
+			#navbarSupportedContent.collapse.navbar-collapse
+				%ul.navbar-nav.me-auto.mb-2.mb-lg-0
+					%br.d-block.d-lg-none
+					- @pages.each do |page|
+						%li.nav-item
+							- case page.layout
+							- when "home"
+								= link_to "/", class: "nav-link text-uppercase #{params[:id].nil? ? 'fw-bold text-primary' : ''}" do
+									= page.title
 
-      %form.flex-container.navbar-right-custom
-        %hr.text-white.d-block.d-lg-none
-        %ul.navbar-nav
-          -if @setting.url_media_socials[:instagram].present?
-            %li.nav-item.m-auto
-              =link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
-                %i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl.text-white
-                %span.text-white="Whatsapp"
+							- when "categories"
+								.dropdown
+									#dropdownMenuButton.dropdown-toggle.nav-link.text-uppercase.text-white{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+										Kategori
+									.dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+										- if @categories.present?
+											- @categories.each do |category|
+												=link_to category.name, category_path(category), class: "dropdown-item"
+							- else
+								= link_to page_path(page), class: "nav-link text-uppercase #{page.id.to_s.eql?(params[:id]) ? 'fw-bold text-primary' : ''}" do
+									= page.title
+					%li.nav-item
+						=link_to "Design", custom_design_page_path, class: "nav-link text-uppercase text-white"
 
-            %li.nav-item.m-auto
-              =link_to @setting.url_media_socials[:instagram], class: "nav-link" do
-                -# = image_tag("frontend/instagram.png", width: "25")
-                %i.fa-brands.fa-instagram.fa-xl.text-white
-                %span.text-white="Instagram"
-          -# %hr.text-white.d-block.d-lg-none
-          -# %li.nav-item
-          -#   - if user_signed_in?
-          -#     %a.text-white.nav-link="Hallo, #{current_user.email}"
-          -#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
-          -#       %i.fa.fa-exit
-          -#       ="KELUAR"
-          -#   - else
-          -#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
-          -#       %i.fa.fa-user
-          -#       ="DAFTAR/MASUK"
+				%form.flex-container.navbar-right-custom
+					%hr.text-white.d-block.d-lg-none
+					%ul.navbar-nav
+						-if @setting.url_media_socials[:instagram].present?
+							%li.nav-item.m-auto
+								=link_to @setting.url_media_socials[:whatsapp], class: "nav-link" do
+									%i.fa-brands.fa-font-awesome.fa-whatsapp.fa-xl.text-white
+									%span.text-white="Whatsapp"
+
+							%li.nav-item.m-auto
+								=link_to @setting.url_media_socials[:instagram], class: "nav-link" do
+									-# = image_tag("frontend/instagram.png", width: "25")
+									%i.fa-brands.fa-instagram.fa-xl.text-white
+									%span.text-white="Instagram"
+						-# %hr.text-white.d-block.d-lg-none
+						-# %li.nav-item
+						-#   - if user_signed_in?
+						-#     %a.text-white.nav-link="Hallo, #{current_user.email}"
+						-#     =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link" do
+						-#       %i.fa.fa-exit
+						-#       ="KELUAR"
+						-#   - else
+						-#     =link_to new_user_session_path, class: "btn bg-yellow nav-link" do
+						-#       %i.fa.fa-user
+						-#       ="DAFTAR/MASUK"
+- else
+	=render partial: "application/header/layout_big_menu"

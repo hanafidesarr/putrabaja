@@ -24,6 +24,6 @@ class Product < ApplicationRecord
   # store_accessor
   # https://api.rubyonrails.org/classes/ActiveRecord/Store.html
   store :tech_specification, accessors: [:battery_life, :model, :processor, :memory, :hard_drive, :vga, :display_type, :os, :optical_drive, :warranty, :wireless, :bluetooth, :other], coder: JSON
-
+  store :properties, accessors: [:video_url, :note], coder: JSON
 
 end

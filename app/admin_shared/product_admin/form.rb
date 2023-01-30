@@ -19,6 +19,7 @@ module ProductAdmin
 								f.input :image_type
 								f.input :price
 								f.input :discount
+								f.input :url
 								f.input :short_description
 								f.input :description, :input_html => { :rows => 5 }
 								# div class: "row" do
@@ -84,20 +85,9 @@ module ProductAdmin
 							end
 						end
 
-						tab 'Tech Specification' do
+						tab 'Properties' do
 							f.inputs do
-								f.input :battery_life
-								f.input :model
-								f.input :processor
-								f.input :memory
-								f.input :hard_drive
-								f.input :vga
-								f.input :os
-								f.input :optical_drive
-								f.input :warranty
-								f.input :wireless
-								f.input :bluetooth
-								f.input :other
+								f.input :video_url
 							end
 						end
 					end

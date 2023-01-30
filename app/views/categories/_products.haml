@@ -1,21 +1,55 @@
-%h3.text-center="Products #{products.first&.category&.name}" || "Products"
-%hr
+:css
+	.text-line {
+		width: 100%; 
+		border-bottom: 1px solid #dee2e6; 
+		line-height: 0.1em;
+		margin: 0.5rem; 
+	} 
+
+	.text-line span { 
+			background:#fff; 
+			padding:0 10px; 
+	}
+
+-# %h3.text-center="Products #{products.first&.category&.name}" || "Products"
+-# %hr
 - if products.present?
 	.row
 		- products.each do |product|
-			.col-lg-3.col-6
-				.card.card-body
+			.col-lg-3.col-6.my-3
+				.card.card-body.p-0.shadow.border-0.hover_transition
 					=link_to product_path(product) do
 						.product-slick
 							- product.images.each do |image|
-								=image_tag(image.asset.url, width: "100%")
-					%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}"
-					%hr.m-0
-					.text-center=product.name
+								-# =image_tag(image.asset.url, width: "100%")
+								= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center", style: "background-color: #{image.background_image_color}"})
+					-# %small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+					-# - if product.name.present?
+					-# 	%hr.m-0
+					-# 	.text-center=product.name
+					.bg-white.position-relative.mb-4
+						.text-line.m-0.px-3
+							.text-right
+								-# .position-absolute{:style => "top: -24px; right: 12px;"}
+								%span.p-3.bg-white.rounded-5.shadow
+									%i.fa.fa-phone.m-0{style: "line-height:0;"}
+						%h6.fw-bold.mt-4.mx-3=product.name
+						.d-flex.justify-content-between.mx-3.my-0 
+							%small.text-secondary="P / L"
+							%small.fw-bold=number_to_currency(product.price, :unit => "Rp. ", :separator => ",", :delimiter => ".")
+- else
+	.container 
+		.row
+			.text-center="Product kosong"
 
 :javascript
-	$('.product-slick').not('.slick-initialized').slick({
-		autoplay:true,
-		dots: true,
-		infinite: true
-	});
+	loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'products');
+	loadjs.ready('products', function() {
+		
+		$('.product-slick').not('.slick-initialized').slick({
+			autoplay:true,
+			dots: false,
+			arrows: false,
+			infinite: true
+		});
+	})

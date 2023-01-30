@@ -338,7 +338,7 @@ padding: 3px;
     height: 32px;
     background-size: auto;
     background-repeat: no-repeat;
-    background-color: transparent!Important;
+    background-color: transparent!important;
 }
 .delete-box-amm{
     position: absolute;
@@ -352,7 +352,7 @@ padding: 3px;
     height: 30px;
     background-repeat: no-repeat;
     background-size: contain;
-    background-color: transparent!Important;
+    background-color: transparent!important;
     border: none;
     cursor: pointer;
 }

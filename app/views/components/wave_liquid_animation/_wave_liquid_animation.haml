@@ -1,0 +1,59 @@
+-# https://www.jqueryscript.net/animation/Smooth-Wave-Liquid-Animation-jQuery-GSAP-SVG.html
+:css
+	.wave {
+		position: absolute;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		z-index: 1;
+	}
+
+	.wave + .wave {
+		z-index: 2;
+	}
+
+%div{class: "#{component.class_parent_component}"}
+	.wave-liquid-animation{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+
+		- if component&.link.present?
+			=link_to component&.url_text || "/", class: "btn bg-light" do
+				.fw-bold.text-secondary="READ MORE"
+		.sss{style: "position: relative; padding: 10px; width: auto; height: #{component.height || '60vh'};"}
+			%svg.wave{:height => "100%", :version => "1.1", :width => "100%", :xmlns => "http://www.w3.org/2000/svg"}
+				%title Wave
+				%defs
+				%path{:d => "", id: "feel-the-wave-#{component.id}"}
+			%svg.wave{:height => "100%", :version => "1.1", :width => "100%", :xmlns => "http://www.w3.org/2000/svg"}
+				%title Wave
+				%defs
+				%path{:d => "", id: "feel-the-wave-two-#{component.id}"}
+			.content.position-absolute{style: "z-index:9; bottom: 0; top: 50%;"}
+				.row
+					=component.title.to_s.html_safe
+					=component.subtitle.to_s.html_safe
+					=component.body.to_s.html_safe
+
+:javascript
+	loadjs([
+		"/assets/frontend/lib/wave_liquid_animation/TweenMax.min.js",
+		"/assets/frontend/lib/wave_liquid_animation/wavify.js",
+		"/assets/frontend/lib/wave_liquid_animation/jquery.wavify.js",
+		], 'wave-liquid-animation');
+	loadjs.ready('wave-liquid-animation', function() {
+		$("#feel-the-wave-#{component.id}").wavify({
+			height: 80,
+			bones: 4,
+			amplitude: 60,
+			color: 'rgba(150, 222, 255, .8)',
+			speed: .15
+		});
+
+		$("#feel-the-wave-two-#{component.id}").wavify({
+			height: 70,
+			bones: 3,
+			amplitude: 40,
+			color: 'rgba(87, 193, 242, .8)',
+			speed: .25
+		});
+	})

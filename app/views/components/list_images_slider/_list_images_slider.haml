@@ -1,0 +1,122 @@
+:css
+	.slick-prev {
+		z-index: 1;
+		left: 0;
+	}
+	.slick-prev:before {
+		color: gray !important;
+		position: absolute;
+		left: 0;
+	}
+	.slick-next {
+		z-index: 1;
+		right: 0;
+	}
+	.slick-next:before  {
+		color: gray !important;
+		position: absolute;
+		right: 0;
+	}
+
+- image_background = component.images.backgrounds.first
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_background_color = " background-color: #{component.background_color};"
+- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+- background_repeat =  " no-repeat;"
+- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
+	.list_images_slider{style: style}
+		- images = component.images.normals
+		.row
+			.col-12
+				=component.title.html_safe
+				=component.subtitle&.html_safe
+				=component.body&.html_safe
+		- if images.present?
+			.row.text-center.w-100.mx-0
+				.product-slick-slider{id: component.show_up_image.eql?('true') ? "list_images_slider_view-#{component.id}" : ""}
+					- img_padding = " padding: #{component.padding_images};"
+					- img_border = " border: #{component.border};"
+					- img_box_shadow = " box-shadow: #{component.box_shadow};"
+					- img_border_radius = " border-radius: #{component.border_radius};"
+					- style_image = " ".concat(img_padding,img_border,img_box_shadow,img_border_radius)
+					- images.each do |image|
+						.mx-2
+							=link_to component.show_up_image.eql?('true') ? "javascript:void(0)" : image.url do
+								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "w-100 mx-auto lazy", data_lazy: "true", style: style_image, img_not_found: 'https://via.placeholder.com/382x282.svg/FFFFFF/5061CE?text=axeonsoft.com'})
+								%hr
+								- if image.title.present?
+									.text-dark=image.title.to_s.html_safe
+									.text-dark=image.note.to_s.html_safe
+
+:javascript
+
+	loadjs(["/assets/frontend/lib/view-image.js", "/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'list_images_slider', {
+		before: function(path, scriptEl) {
+			console.log("show loading_component")
+			$("#loading_component-#{component.id}").addClass("loading_component");
+		},
+		async: false
+	});
+
+	loadjs.ready('list_images_slider', function() {
+		console.log("hide loading_component")
+		$("#loading_component-#{component.id}").removeClass("loading_component");
+		window.ViewImage && ViewImage.init('#list_images_slider_view-#{component.id} img');
+
+		var coloumn_desktop = "#{component.coloumn_desktop.presence || '3.5'}"
+		var coloumn_mobile = "#{component.coloumn_mobile.presence || '1'}"
+
+		$('.product-slick-slider').not('.slick-initialized').slick({
+			lazyLoad: "ondemand",
+			dots: ("#{component.show_dots}" === "true"),
+			autoplay: "#{component.autoplay}",
+			infinite: true,
+			arrows: ("#{component.show_arrows}" === "true"),
+			slidesToShow: parseFloat(coloumn_desktop),
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 35%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 35%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						dots: true
+					}
+				},
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: parseFloat(coloumn_mobile),
+						slidesToScroll: parseFloat(coloumn_mobile)
+					}
+				}
+				// You can unslick at a given breakpoint now by adding:
+				// settings: "unslick"
+				// instead of a settings object
+			]
+		});
+	})
+
+	document.addEventListener("turbolinks:before-cache", function () {
+		window.ViewImage && ViewImage.init('#list_images_slider_view img');
+		const sliders = document.querySelectorAll('.slick-initialized');
+		sliders.forEach(item => {
+			$(item).slick('unslick');
+		})
+	});
+	

@@ -1,0 +1,65 @@
+%div{class: "#{component.class_parent_component}"}
+	.typing-animation{style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+		%div{:style => "width: 100%; height: 18px; border-bottom: 1px solid #e6e6e6; text-align: center"}
+			%h3
+				%span#typed{:style => "background-color: #{@page.background_body_color}; padding: 0 10px;"}
+				%span.cursor
+		-# %h1
+		-# 	%span#typed
+		-# 	%span.cursor
+		%h3
+			=component.title.to_s.html_safe
+		%small=component.subtitle.to_s.html_safe
+		%p
+			=component.body.to_s.html_safe
+
+		- if component&.link.present?
+			=link_to component&.url_text || "/", class: "btn bg-light" do
+				.fw-bold.text-secondary="READ MORE"
+
+:javascript
+
+	// define a dependency bundle and execute code when it loads
+	loadjs(["/assets/frontend/lib/typingEffect.js"], 'typing_animation');
+	loadjs.ready('typing_animation', function() {
+		var string = "#{component.text_typing}"
+		$("#typed").typing({
+			strings: string.split(","),
+
+			// time before typing in milliseconds
+			typeDelay: 70,
+			eraseDelay: 50,
+
+			// time before string typing in milliseconds
+			stringStartDelay: 1000,
+
+			// text color
+			color: "#{@page.text_body_color}",
+
+			// text color when typing
+			typingColor: "#{@page.text_body_color}",
+
+			// opacity when typing
+			typingOpacity: '0.1',
+
+			// amount of loops
+			loopCount: 3,
+
+			// shows blink cursor
+			cursorBlink: false,
+
+			// character for cursor
+			cursorChar: '<small></small>',
+
+			// enables fade animation
+			fade: false
+
+		});
+	})
+
+	$(document).on('turbolinks:render', function() {
+		// your code
+		$("#typed").html("")
+	});
+
+	

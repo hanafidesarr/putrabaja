@@ -1,0 +1,209 @@
+-# :css
+-# 	/* HORIZONTAL SCROLL */
+-# 	.scroll-container{
+-# 		overflow: auto;
+-# 		white-space: nowrap;
+-# 		padding: 5px 70px 5px 20px;
+-# 		background: transparent;
+-# 		height: 100%;
+-# 		border-radius:15px;
+-# 	}
+
+-# 	.gridscroll{
+-# 		display:inline-block;
+-# 	}
+
+-# 	.gridscroll img {
+-# 		margin-right:22px;
+-# 	}
+-# %div{style: "text-align:center; font-style:italic;"} Scroll to left for more picture
+-# .scroll-container
+-# 	.gridscroll
+-# 		/ PLACE YOUR IMG URL HERE
+-# 		%img{src: "https://1.bp.blogspot.com/-0CHslVh6sdg/XonIM4AI0TI/AAAAAAAAAOk/QTp_TSizzAoKIJCX2GKdcY6UAqeqzl_wQCLcBGAsYHQ/s1600/Screenshot_20200405-195007.jpg"}/
+-# 		%img{src: "https://1.bp.blogspot.com/-AGsW3A6jUBY/XonIM6YVbPI/AAAAAAAAAOg/WfQDWXKKwlASyCiZrS1lWaUDvl6Ro6W8wCLcBGAsYHQ/s1600/Screenshot_20200405-195002.jpg"}/
+-# 		%img{src: "https://1.bp.blogspot.com/-sRlzKW5wCEA/XonIPBM3GhI/AAAAAAAAAOo/1SodAhMlnZUv5b701JjMXmPvhPyxryFxwCLcBGAsYHQ/s1600/Screenshot_20200405-195022.jpg"}/
+
+-# :css
+-# 	.gallery-container {
+-# 		display: flex;
+-# 		justify-content: center;
+-# 	}
+
+-# 	.thumbnails {
+-# 		display: flex;
+-# 		flex-direction: column;
+-# 		gap: 8px;
+-# 	}
+
+-# 	.thumbnails img {
+-# 		width: 40px;
+-# 		height: 40px;
+-# 		cursor: pointer;
+-# 	}
+
+-# 	.scrollbar {
+-# 		width: 1px;
+-# 		height: 620px;
+-# 		background: #ccc;
+-# 		display: block;
+-# 		margin: 0 0 0 8px;
+-# 	}
+
+-# 	.thumb {
+-# 		width: 1px;
+-# 		position: absolute;
+-# 		height: 0;
+-# 		background: #000;
+-# 	}
+
+-# 	.slides {
+-# 		margin: 0 16px;
+-# 		display: grid;
+-# 		grid-auto-flow: row;
+-# 		gap: 1rem;
+-# 		width: calc(540px + 1rem);
+-# 		padding: 0 0.25rem;
+-# 		height: 620px;
+-# 		overflow-y: auto;
+-# 		overscroll-behavior-y: contain;
+-# 		scroll-snap-type: y mandatory;
+-# 		scrollbar-width: none;
+-# 	}
+
+-# 	.slides > div {
+-# 		scroll-snap-align: start;
+-# 	}
+
+-# 	.slides img {
+-# 		width: 540px;
+-# 		object-fit: contain;
+-# 	}
+
+-# 	.slides::-webkit-scrollbar {
+-# 		display: none;
+-# 	}
+-# .container.my-5
+-# 	.col-6
+-# 		.gallery-container
+-# 			.thumbnails
+-# 			.scrollbar
+-# 				.thumb
+-# 			.slides
+-# 				%div
+-# 					%img{src: "https://images.pexels.com/photos/15064367/pexels-photo-15064367.png?auto=compress&cs=tinysrgb"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/122/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/188/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/249/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/257/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/259/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/283/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/288/540/720"}/
+-# 				%div
+-# 					%img{src: "https://picsum.photos/id/299/540/720"}/
+-# 	.col-6 
+-# 		="sasas"
+
+-# :javascript
+-# 	const slideGallery = document.querySelector('.slides');
+-# 	const slides = slideGallery.querySelectorAll('div');
+-# 	const scrollbarThumb = document.querySelector('.thumb');
+-# 	const slideCount = slides.length;
+-# 	const slideHeight = 720;
+-# 	const marginTop = 16;
+
+-# 	const scrollThumb = () => {
+-# 		const index = Math.floor(slideGallery.scrollTop / slideHeight);
+-# 		scrollbarThumb.style.height = `${((index + 1) / slideCount) * slideHeight}px`;
+-# 	};
+
+-# 	const scrollToElement = el => {
+-# 		const index = parseInt(el.dataset.id, 10);
+-# 		slideGallery.scrollTo(0, index * slideHeight + marginTop);
+-# 	};
+
+-# 	document.querySelector('.thumbnails').innerHTML += [...slides]
+-# 		.map(
+-# 			(slide, i) => `<img src="${slide.querySelector('img').src}" data-id="${i}">`
+-# 		)
+-# 		.join('');
+
+-# 	document.querySelectorAll('.thumbnails img').forEach(el => {
+-# 		el.addEventListener('click', () => scrollToElement(el));
+-# 	});
+
+-# 	slideGallery.addEventListener('scroll', e => scrollThumb());
+
+-# 	scrollThumb();
+
+-# =image_tag(@product.category.images.first.asset.url)
+
+
+
+:css
+	.scrolling-image {
+		margin: 0 auto;
+		overflow: auto;
+	}
+
+	::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 5px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: #5161ce;
+		box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+	}
+
+.container.my-5
+	.row
+		.col-lg-6.col-12.my-2
+			.product-slick{id: "list_images_slider_view_product-#{@product.id}"} 
+				- @product.images.each do |image|
+					-# =image_tag(image.asset.url, width: "100%")
+					- height_mobile_cal = @product.category&.name.downcase.eql?("template") ? '300px' : '200px'
+					.row.scrolling-image{style: "height: #{device.eql?("desktop") ? image.height || '600px' : height_mobile_cal}"}
+						=manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", img_not_found: 'https://via.placeholder.com/400x170.svg/FFFFFF/5061CE?text=axeonsoft.com'})
+		.col-lg-6.col-12.my-2
+			=@product.name.html_safe
+			=@product.short_description.html_safe
+			
+			.row
+				.col-12.my-1
+					- url = request.original_url
+					=link_to "https://api.whatsapp.com/send?phone=#{Setting.first.whatsapp}&text=ORDER ID-#{@product.id} #{@product.name} harga : #{@product.price} link : #{url}" , class: "btn w-100 btn-primary text-white fw-bolder", style: "" do
+						-# =image_tag("frontend/whatsapp.png", width: "25")
+						%i.fa.fa-question-circle
+						="Coba tanya - tanya deh"
+	.row
+		.col
+			=@product.description.html_safe
+
+	- if @product.video_url.present?
+		.row
+			.col
+				= video_tag @product.video_url, controls: false, autoplay: true, loop: true, muted: :muted, class: "w-100"
+
+:javascript
+	loadjs(["/assets/frontend/lib/view-image.js", "/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'products_show');
+	loadjs.ready('products_show', function() {
+		window.ViewImage && ViewImage.init('#list_images_slider_view_product-#{@product.id}  img');
+		$('.product-slick').not('.slick-initialized').slick({
+			lazyLoad: 'ondemand',
+			autoplay:false,
+			dots: false,
+			arrows: true,
+			infinite: true,
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+		});
+	})

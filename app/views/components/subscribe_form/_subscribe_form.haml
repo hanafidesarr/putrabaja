@@ -1,0 +1,39 @@
+
+- image_background = component.images.backgrounds.first
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_background_color = " background-color: #{component.background_color};"
+- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+- background_repeat =  " no-repeat;"
+- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+%div{id: "subscribe-form-#{component.id}", class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
+	.row
+		= component.title.to_s.html_safe
+		= component.subtitle.to_s.html_safe
+		= component.body.to_s.html_safe
+	= form_with(url: subscribe_users_path) do |form|
+		.row.align-items-center
+			.col-md-3
+				.form-floating.mb-3.mt-3
+					= form.text_field :name, class: "form-control", placeholder: "Enter name"
+					= form.label "nama*"
+			.col-md-3
+				.form-floating.mb-3.mt-3
+					= form.text_field :phone, class: "form-control", placeholder: "Enter phone"
+					= form.label "phone"
+			.col-md-3
+				.form-floating.mb-3.mt-3
+					= form.text_field :email, class: "form-control", placeholder: "Enter email"
+					= form.label "email*"
+			.col-md-3
+				.form-floating.mb-3.mt-3
+					= form.submit "Kirim", class: "btn btn-primary mx-auto d-block w-100 btn-lg"
+
+	:javascript
+		loadjs(["/assets/frontend/lib/sweetalert2.min", "/assets/frontend/lib/sweetalert2.min.css"], 'subscribe_users');
+		loadjs.ready('subscribe_users', function() {
+		})

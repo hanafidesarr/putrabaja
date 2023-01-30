@@ -1,0 +1,39 @@
+:css
+	html,* { font-family: 'Inter'; margin: 0; padding: 0; }
+	body { background-color: #222; color: #fff;}
+	ul, ol{list-style:none;}
+	.lead { font-size: 1.5rem; font-weight: 300; }
+	/* Demo styles */
+	#nav-serialscrolling{position:sticky;top:50%;left:50px;width:250px;margin-left:-250px;float:left;}
+	#nav-serialscrolling .sub-link{position:relative;display:block;padding:10px;font-size:13px;cursor:pointer;opacity:0.5;transition:300ms;}
+	#nav-serialscrolling .sub-link:hover, #nav-serialscrolling .sub-link.is-current{opacity:1;}
+	#nav-serialscrolling .sub-link:before, #nav-serialscrolling .sub-link:after{content:'';position:absolute;top:50%;transform:translateY(-50%);border-radius:100%;transition:300ms;}
+	#nav-serialscrolling .sub-link:before{left:-30px;width:16px;height:16px;border:1px solid rgba(255, 255, 255, .2);}
+	#nav-serialscrolling .sub-link:after{left:-23px;width:5px;height:5px;background-color:#b41c28;opacity:0;}
+	#nav-serialscrolling .sub-link.is-current:before{border-color:rgba(255, 255, 255, .4);}
+	#nav-serialscrolling .sub-link.is-current:after{opacity:1;background-color:#b41c28}
+
+.sssasa.w-100{style: "background-color: ;"}
+
+	- if @components.present?
+		%ul#nav-serialscrolling{style: "z-index: 9999;"}
+			- @components.order(:position).each do |component|
+				%li
+					%span.sub-link{"data-serialscrolling" => "homes-#{component.id}"}
+						=component.name
+	
+
+	- @components.order(:position).each do |component|
+		%div{"data-serialscrolling-target" => "homes-#{component.id}"}
+			=render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+		-# %div{"data-serialscrolling-target" => "work"} Section 2
+	-# %div{"data-serialscrolling-target" => "work"} Section 2
+	-# %div{"data-serialscrolling-target" => "team"} Section 3
+
+:javascript
+	loadjs([
+		"/assets/frontend/body_layout/one_page_scroll/jquery.serialscrolling.min.js",
+		], 'one-page-scroll');
+	loadjs.ready('one-page-scroll', function() {
+		$('[data-serialscrolling]').serialscrolling();
+	})

@@ -6,31 +6,20 @@
 
 // that code so it'll be compiled.
 
- 
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
 
-import Rails from "@rails/ujs"
 
-import Turbolinks from "turbolinks"
+// import "channels"
 
-import * as ActiveStorage from "@rails/activestorage"
-
-import "channels"
-
-import 'jquery'
-import 'popper.js'
+// import 'jquery'
+// import 'popper.js'
 import 'bootstrap'
-import '../../assets/javascripts/frontend/lib/slick.min'
 
-import Swal from '../../assets/javascripts/frontend/lib/sweetalert2.min'
 
 window.jQuery = $;
 window.$ = $;
-window.Swal = Swal;
-
-Rails.start()
-
-Turbolinks.start()
-
-ActiveStorage.start()
 
 import './default.js'

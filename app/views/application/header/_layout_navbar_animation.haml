@@ -1,0 +1,151 @@
+:css
+	.dropdown:hover .dropdown-menu {
+		transition-delay: 3s;
+		transition-delay: 2s, 4ms;
+		display: block;
+		margin-top: 0;
+	}
+
+- unless true
+
+	=render partial: "application/header/layout_center"
+
+- else
+
+	- background_navbar = device.eql?("desktop") ? @page&.background_color_desktop : @page&.background_color_mobile
+
+	:css
+		@import "/assets/frontend/lib/header/layout_navbar_animation.css";
+
+	.header-layout-navbar-animation
+		%nav.navbar.navbar-expand-lg.navbar-mainbg
+			- if (images = @setting.images).present?
+				= link_to root_path, title: "axeonsoft", style: "z-index: 100;", class: "mx-4" do
+					- image_quality = images.last.image_quality
+					= manipulate_image_tag(images.last, options: {image_quality: image_quality}, html: {width: "100"})
+			- else
+				=link_to root_path, class: "text-white navbar-logo", style: "z-index: 100;" do
+					=@setting.name
+			%button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+				%i.fas.fa-bars.text-white
+
+			#navbarSupportedContent.collapse.navbar-collapse
+				%ul.navbar-nav.ml-auto
+					.hori-selector
+						.left
+						.right.d-none.d-md-none.d-lg-block.d-xl-block
+					- @pages.each do |page|
+						- case page.layout
+						- when "home"
+							%li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
+								=link_to page.title, root_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
+
+						- when "categories"
+							-# %li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
+							-#   =link_to page.title, categories_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
+							- categories = Category.active.root
+							- is_active = controller_name.eql?("categories") && (page.id.to_i.eql?(params[:id].to_i) || categories.pluck(:id).include?(params[:id].to_i))
+							%li.nav-item{id: "page-li-#{page.id}", class: "#{ is_active ? 'active' : ''}"}
+								.custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
+									#dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
+										=page.title
+									.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
+										- categories.each do |child|
+											=link_to child.name, category_path(child), class: "dropdown-item text-primary py-2 #{ controller_name.eql?("categories") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
+						- else
+							- if (childrens = page.children.active).present?
+								- is_active = controller_name.eql?("pages") && (page.id.to_i.eql?(params[:id].to_i) || childrens.pluck(:id).include?(params[:id].to_i))
+								%li.nav-item{id: "page-li-#{page.id}", class: "#{ is_active ? 'active' : ''}"}
+									.custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
+										#dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
+											=page.title
+										.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
+											- childrens.order(:position).each do |child|
+												=link_to child.title, page_path(child), class: "dropdown-item text-primary py-2 #{controller_name.eql?("pages") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
+							- else
+								%li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
+									=link_to page.title, page_url(page), class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
+
+						:javascript
+							$("#click-page-#{page.id}").on("click",function(e){
+								window.location.replace("#{page_url(page)}");
+							});
+							$(document).ready(function(){
+								$("#hover-page-#{page.id}").on("mouseover",function(e){
+									$(".hehe").slideDown();
+									console.log("ini punya children")
+								});
+							})
+							
+			-# .collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
+			-#   %ul.navbar-nav.ms-auto.w-100.justify-content-end.my-0
+			-#     %li.nav-item
+			-#       - if user_signed_in?
+			-#         %a.text-white.nav-link="Hallo, #{current_user.email}"
+			-#         =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
+			-#           %i.fa.fa-exit
+			-#           ="KELUAR"
+			-#       - else
+			-#         =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
+			-#           %i.fa.fa-user
+			-#           ="DAFTAR/MASUK"
+
+
+	:javascript
+		// ---------Responsive-navbar-active-animation-----------
+		function test(){
+			var tabsNewAnim = $('#navbarSupportedContent');
+			var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+			var activeItemNewAnim = tabsNewAnim.find('.active');
+			var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+			var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+			var itemPosNewAnimTop = activeItemNewAnim.position();
+			var itemPosNewAnimLeft = activeItemNewAnim.position();
+			$(".hori-selector").css({
+				"top":itemPosNewAnimTop.top + "px",
+				"left":itemPosNewAnimLeft.left + "px",
+				"height": activeWidthNewAnimHeight + "px",
+				"width": activeWidthNewAnimWidth + "px"
+			});
+			$("#navbarSupportedContent").on("mouseover","li",function(e){
+				$('#navbarSupportedContent ul li').removeClass("active");
+				$(this).addClass('active');
+				var activeWidthNewAnimHeight = $(this).innerHeight();
+				var activeWidthNewAnimWidth = $(this).innerWidth();
+				var itemPosNewAnimTop = $(this).position();
+				var itemPosNewAnimLeft = $(this).position();
+				$(".hori-selector").css({
+					"top":itemPosNewAnimTop.top + "px",
+					"left":itemPosNewAnimLeft.left + "px",
+					"height": activeWidthNewAnimHeight + "px",
+					"width": activeWidthNewAnimWidth + "px"
+				});
+			}).mouseout(function() {
+				$('#navbarSupportedContent ul li').removeClass("active");
+				var current_page = $("#page-li-#{@page.parent_id || @page.id}")
+				current_page.addClass('active');
+
+				var activeWidthNewAnimHeight = current_page.innerHeight();
+				var activeWidthNewAnimWidth = current_page.innerWidth();
+				var itemPosNewAnimTop = current_page.position();
+				var itemPosNewAnimLeft = current_page.position();
+				$(".hori-selector").css({
+					"top":itemPosNewAnimTop.top + "px",
+					"left":itemPosNewAnimLeft.left + "px",
+					"height": activeWidthNewAnimHeight + "px",
+					"width": activeWidthNewAnimWidth + "px"
+				});
+			});
+		}
+		$(document).ready(function(){
+			setTimeout(function(){ test(); });
+		});
+		$(window).on('resize', function(){
+			setTimeout(function(){ test(); }, 500);
+		});
+		$(".navbar-toggler").hover(function(){
+			setTimeout(function(){ test(); });
+		});
+		$(document).on('turbolinks:load', function() {
+			setTimeout(function(){ test(); }, 500);
+		})

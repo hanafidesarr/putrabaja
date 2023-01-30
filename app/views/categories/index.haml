@@ -1,0 +1,6 @@
+=render "categories/index_layout/#{@page.template.presence || 'default'}"
+- if @page.components.present?
+  - @page.components.order(:position).each do |component|
+    %div{id: "loading_component-#{component.id}"}
+    .component{name: "#{component.slug}"}
+      =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?

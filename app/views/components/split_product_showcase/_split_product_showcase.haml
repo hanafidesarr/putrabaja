@@ -1,0 +1,57 @@
+:css
+	@import "/assets/frontend/lib/split_product_showcase/css/style.css";
+
+%link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/style.css"}/	
+%link{:rel => "preload", as: "style", href:"/assets/frontend/lib/split_product_showcase/css/normalize.css"}/	
+%div{class: "#{component.class_parent_component}"}
+	.split_product_showcase{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
+		#ps-container.ps-container.position-relative{style: "height:#{component.height}"}
+			.ps-header
+				%h1.fw-bold Product baru dari samsung
+			/ /ps-header
+			.ps-contentwrapper
+
+				- if (images = component.images ).present?
+					- images.each do |image|
+						.ps-content
+							%h2=image.title.to_s.html_safe
+							%span.ps-price=image.series
+							=image.note.html_safe
+							=link_to image.url do
+								Lihat detail
+			.ps-slidewrapper
+				.ps-slides
+					- if (images = component.images ).present?
+						- images.each do |image|
+							%div{:style =>  "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid", data_src: image.image_quality})});"}
+				%nav
+					%a.ps-prev{:href => "#"}
+					%a.ps-next{:href => "#"}
+
+= javascript_include_tag '/assets/frontend/lib/split_product_showcase/js/modernizr.custom.js'
+
+:javascript	
+	loadjs(["/assets/frontend/lib/split_product_showcase/css/style.css", "/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
+		before: function(path, scriptEl) {
+			$("#loading_component-#{component.id}").addClass("loading_component")
+		},
+		async: false
+	});
+	loadjs.ready('split_product_showcase', function() {
+		Slider.init();
+		$("#loading_component-#{component.id}").removeClass("loading_component")
+	})
+
+	$(document).on('turbolinks:load', function() {
+		$("body").attr("data-turbolinks", "false")
+		loadjs(["/assets/frontend/lib/split_product_showcase/js/slider.js"], 'split_product_showcase', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+		loadjs.ready('split_product_showcase', function() {
+			Slider.init();
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+		})
+	});

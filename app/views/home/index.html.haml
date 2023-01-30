@@ -1,3 +1,12 @@
-- if @components.present?
-  - @components.order(:position).each do |component|
-    =render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?
+
+- case @page.body_layout
+- when "one_page_scroll"
+	= render "/layouts/body_layout/#{@page.body_layout}"
+- when "fancy_sidebar_navigation"
+	= render "/layouts/body_layout/#{@page.body_layout}"
+- else
+	- if @components.present?
+		- @components.order(:position).each do |component|
+			.component.position-relative{name: "#{component.slug}"}
+				%div{id: "loading_component-#{component.id}"}
+				=render partial: "components/#{component.layout.to_s}/#{component.layout.to_s}", locals: {component: component} if component.layout.present?

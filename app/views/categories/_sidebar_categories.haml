@@ -1,10 +1,27 @@
+:css
+  .text-line {
+    width: 100%; 
+    border-bottom: 1px solid #dee2e6; 
+    line-height: 0.1em;
+    margin: 0.5rem; 
+  } 
+
+  .text-line span { 
+      background:#fff; 
+      padding:0 10px; 
+  }
 - if @categories.present?
-  - @categories.each do |category|
+  - @categories.root.each do |category|
     .my-3
       = link_to category_path(category) do
-        %h5.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+        %h6.text-dark{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
       - if ( childrens = category.children ).present?
         - childrens.each do | cat_child |
-          .card.card-body
+          %ul.list-group
             = link_to category_path(cat_child) , class: "#{ cat_child.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}" do
-              = cat_child.name 
+              %li.list-group-item.border-0
+                .text-line
+                  .text-left
+                    %span.text-secondary.small= cat_child.name 
+                  .text-right
+                    %span.small= cat_child.products.size

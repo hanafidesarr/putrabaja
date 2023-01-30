@@ -1,7 +1,17 @@
 properties:
-  - margin_all_side
+  - class_parent_component
+  - style_parent_component
+  - padding_top_bottom_side
+  - padding_left_right_side
   - margin_top_bottom_side
   - margin_left_right_side
+  - position_text
+
+  - background_color
+  - position_image
+  - width_image
+  - position_image_slider
+
 
 active_fields:
   - title

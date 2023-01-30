@@ -7,7 +7,11 @@ module ProductAdmin
           selectable_column
           id_column
           column :images do |obj|
-            image_tag(obj.images.first.asset.url, width: "100", height: "100") if obj.images.present?
+            if obj.images.present?
+              manipulate_image_tag(obj.images.first, options: {image_quality: obj.images.first.image_quality}, html: {class: "text-center img-fluid", style: "width: 100px; height:100px;"})
+
+              # image_tag(obj.images.first.asset.url, width: "100", height: "100") if obj.images.present?
+            end
           end
           column :name
           column :image_type

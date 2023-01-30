@@ -1,11 +1,7 @@
+//= require loadjs.min
 
 
-//= require frontend/custom/image_maker/jquery-ui.min.js
+//= require jquery.lazy.js
+// require jquery.lazyload
 
-// image maker plugin
-//= require frontend/custom/image_maker/jquery.ui.touch-punch.min
-//= require frontend/custom/image_maker/imageMaker.min
-
-//= require frontend/lib/owl.carousel.min
-
-
+//= require whatsapp-chat

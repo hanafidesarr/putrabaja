@@ -1,0 +1,17 @@
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body
+  
+properties:
+  - class_parent_component
+  - margin_all_side
+  - margin_top_bottom_side
+  - margin_left_right_side
+
+  - content_position
+  - position_text
+  - desktop_height
+  - mobile_height

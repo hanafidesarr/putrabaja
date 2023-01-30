@@ -1,0 +1,154 @@
+:css
+
+	.carousel {
+	border-radius: 50px 50px 50px 50px;
+	overflow: hidden;
+	}
+
+	.carousel-inner, .carousel, .carousel-item, .carousel-container {
+		height: 100%;
+		width: 100%;
+		background-position: center center;
+		background-size: cover;
+	}
+
+	.carousel-item-prev:not(.carousel-item-end), .active.carousel-item-start {
+		transform: translate3d(0, -100%, 0);
+		-webkit-transform: translate3d(0, -100%, 0);
+		-moz-transform: translate3d(0, -100%, 0);
+		-ms-transform: translate3d(0, -100%, 0);
+		-o-transform: translate3d(0, -100%, 0);
+	}
+
+	.carousel-item-next:not(.carousel-item-start), .active.carousel-item-end {
+		transform: translate3d(0, 100%, 0);
+		-webkit-transform: translate3d(0, 100%, 0);
+		-ms-transform: translate3d(0, 100%, 0);
+		-moz-transform: translate3d(0, 100%, 0);
+		-o-transform: translate3d(0, 100%, 0);
+	}
+
+	.carousel-indicators {
+		top: 0;
+		margin: auto;
+		height: 20px;
+		right: 10px;
+		left: auto;
+		display: block;
+	}
+
+	.carousel-indicators [data-bs-target] {
+		background: none;
+		border: 2px solid white;
+		border-radius: 12px;
+		width: 12px;
+		height: 12px;
+		margin-bottom: 5px;
+	}
+
+	.carousel-indicators li.active {
+		background: white;
+	}
+
+	.carousel-control-next-icon, .carousel-control-prev-icon {
+		width: 4rem;
+		height: 4rem;
+		position: fixed;
+		top: 95%;
+		left: 50%;
+		transform: translate(-50%, -50%) rotate(90deg);
+		z-index: -1;
+	}
+
+	.carousel-control-prev-icon {
+		top: 5%;
+	}
+
+-# COMPONTENT
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
+
+-# IMAGES
+- image_background = component.images.backgrounds.first
+- if image_background.present?
+	- background_repeat =  "background-repeat: #{image_background.background_image_repeat || ''};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+- style = " ".concat(style_margin.to_s,style_padding.to_s,style_background_image.to_s,background_repeat.to_s,background_size.to_s,background_position.to_s, height.to_s)
+
+.vertical_carousel_frame{class: "#{component.class_parent_component}", style: "#{style} #{component.style_parent_component}"}
+	.carousel-container.justify-content-center
+
+		=component.title.html_safe
+		=component.subtitle.html_safe
+		=component.body.html_safe
+
+		#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
+			%ol.carousel-indicators
+				- component.images.normals.pluck(:id).each_with_index do |image, i|
+					%li{"data-bs-slide-to" => i.to_s, "data-bs-target" => "#vertical-carousel", class: "#{i == 0 ? 'active' : ''}"}
+			.carousel-inner
+				- component.images.normals.each_with_index do |image, i|
+
+					- url = manipulate_image_tag_url(image, options: {image_quality: image.image_quality}, html: {data_src: image.image_quality})
+					- background_size_image = " background-size: #{image.background_image_size || 'auto'};"
+					- background_position_image = " background-position: #{image.background_image_position || 'center center'};"
+					- background_color_image = " background-color: #{image.background_image_color || ''};"
+					- height = " height: #{image.height};"
+					- width = " width: #{image.height};"
+					- style_image = " ".concat(background_size_image, background_position_image, background_color_image, height, width)
+
+					.carousel-item{:style => "background-image:url(#{url}); #{image.style_image}; #{style_image}", class: "#{i == 0 ? 'active' : ''} #{image.class_image}"}
+						.container
+							.row.align-items-center
+
+								=image.title.html_safe
+								=image.subtitle.html_safe
+								=image.note.html_safe
+
+							- if image.url.present?
+								.row
+									=link_to image.url, class: "btn btn-primary position-absolute w-100", style: "bottom:1rem;" do
+										="Telusuri"
+
+		.row.text-center.mt-2
+			.col
+				%i#button.fa.fas.fa-chevron-circle-down.fa-lg{style: "cursor: pointer;"}
+
+:javascript
+
+	position_scroll = $(window).height() - 50
+	$("#button").click(function() {
+		$('html, body').animate({
+				scrollTop: position_scroll
+		}, 1000);
+	});
+
+	loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js"], 'vertical_carousel_frame', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+	loadjs.ready('vertical_carousel_frame', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component")
+
+	})
+
+
+	$(document).on('turbolinks:load', function() {
+		$("body").attr("data-turbolinks", "false")
+		loadjs(["/assets/frontend/lib/vertical_carousel_frame.js","/assets/frontend/lib/bootstrap.bundle.min.js"], 'vertical_carousel_frame', {
+			before: function(path, scriptEl) {
+				$("#loading_component-#{component.id}").addClass("loading_component")
+			},
+			async: false
+		});
+		loadjs.ready('vertical_carousel_frame', function() {
+			$("#loading_component-#{component.id}").removeClass("loading_component")
+		})
+
+	})

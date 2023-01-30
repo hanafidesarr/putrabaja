@@ -6,12 +6,20 @@ active_fields:
   - body
 
 properties:
+  - class_parent_component
   - margin_all_side
   - margin_top_bottom_side
   - margin_left_right_side
 
-  - show_dots
-  - show_nav
+  # styling
   - desktop_height
   - mobile_height
+  - background_color
+
+  # slider
+  - margin_slider
+  - show_dots
+  - show_nav
+  - autoplay
+  - items_show
 

@@ -36,9 +36,15 @@ class FileUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+
+  version :low_thumb do
+    process :quality => 50
+    process :resize_to_fill => [150, 150]
+  end
+
   version :thumb do
     process :quality => 50
-    process :resize_to_fill => [400, 400]
+    process :resize_to_fill => [300, 300]
   end
 
 
@@ -47,15 +53,14 @@ class FileUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [600, 600]
   end
 
+  version :low_banner do
+    process :quality => 80
+    process :resize_to_fill => [600, 300]
+  end
+
   version :banner do
     process :quality => 100
     process :resize_to_fill => [1400, 600]
-  end
-
-
-  version :banner_full do
-    process :quality => 100
-    process :resize_to_fill => [1400, 800]
   end
 
   # Create different versions of your uploaded files:
@@ -65,9 +70,9 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_allowlist
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_allowlist
+    %w(jpg jpeg gif png)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

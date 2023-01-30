@@ -1,0 +1,212 @@
+
+-# - if device.eql?("desktop")
+:css
+
+	.hover_transition{
+		border-radius: 4px;
+		background: #fff;
+		box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+		transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+		cursor: pointer;
+	}
+
+	.hover_transition:hover{
+			transform: scale(1.05);
+		box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+	}
+
+	div.scrollmenu {
+		overflow: auto;
+		white-space: nowrap;
+	}
+
+	div.scrollmenu a {
+		display: inline-block;
+		text-align: center;
+		padding: 14px;
+		text-decoration: none;
+	}
+
+	div.scrollmenu a:hover {
+	}
+	/* width */
+	::-webkit-scrollbar {
+		width: 10px !important;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 5px rgb(0 0 0 / 15%);
+		border-radius: 0;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #5161ce;
+		border-radius: 0;
+	}
+.container
+	.section-wrapper
+		.row
+			- if @categories.present?
+				.scrollmenu.d-flex.justify-content-between
+					- @categories.root.each do |category|
+						= link_to category_path(category) do
+							%h6{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+			%hr
+			-# %h2.my-5.text-center Pilih Template Website
+			
+			.col-12
+				.container
+					=@category.short_description.to_s.html_safe
+					=@category.description.to_s.html_safe
+					- if @category_children.present?
+						- @category_children.each do | cat_child |
+							%h6= cat_child.name 
+							%hr
+
+							- is_view_image = true
+							- if cat_child.products.present?
+								.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
+									.product-slick
+										- cat_child.products.each do |product|
+											.card.card-body.shadow.border-0.m-2.p-2.hover_transition
+												=link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
+													.product-slick-images
+														- product.images.each do |image|
+															.row
+																.col-12.d-block{style: "height: #{device.eql?("desktop") ? image.height || 'auto' : '90px'}"}
+																	= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", img_not_found: 'https://via.placeholder.com/400x170.svg/FFFFFF/5061CE?text=axeonsoft.com'})
+												- if product.name.present?
+													%hr.m-0
+
+												.row.position-absolute.w-100{style: "bottom: 10px"}
+													=link_to product_path(product) do
+														.col.bg-primary{style: "opacity: 0.9;"}
+															.d-block
+																.d-flex.justify-content-around.py-0
+																	.text-white="Detail"
+							%hr
+					- else
+						- if @products.present?
+							-# - is_view_image = !@category.name.to_s.downcase.eql?('template')
+							- is_view_image = true
+							.row{id: is_view_image ? "list_images_slider_view_category-#{@category.id}" : ""}
+								- @products.each do |product|
+									.col-lg-4.col-6.my-3
+										.product-slick-template.shadow.hover_transition
+											- product.images.each do |image|
+
+												.card.card-body.border-0
+													.row
+														- height_mobile_cal = @category.name.downcase.eql?("template") ? '300px' : '100px'
+														.col-12.d-block{style: "height: #{device.eql?("desktop") ? image.height.presence || '250px' : height_mobile_cal}"}
+															= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center img-fluid", img_not_found: 'https://via.placeholder.com/400x750.svg/FFFFFF/5061CE?text=axeonsoft.com', data_lazy: true})
+													%small.my-1.fw-bold.text-center="Rp. #{product.price || '-'}" if product.price.present?
+													.row.position-absolute.w-100{style: "bottom: 10px"}
+														.col.bg-primary{style: "opacity: 0.9;"}
+															.d-block
+																.d-flex.justify-content-around.py-2
+																	=link_to product.url do
+																		.text-white="Demo"
+																	=link_to product_path(product) do
+																		.text-white="Detail"
+			.col-12.my-5
+				.d-block.mx-auto
+					= paginate @products
+
+					= paginate @category_children
+
+:javascript
+	loadjs(["/assets/frontend/lib/view-image.js", "/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'category_axeonsoft');
+	loadjs.ready('category_axeonsoft', function() {
+		window.ViewImage && ViewImage.init('#list_images_slider_view_category-#{@category.id} img');
+		$('.product-slick').not('.slick-initialized').slick({
+			lazyLoad: 'ondemand',
+			slidesToShow: 3,
+			autoplay:false,
+			dots: false,
+			arrows: true,
+			infinite: true,
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+			responsive: [
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1.5
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1.5
+					}
+				}
+				// You can unslick at a given breakpoint now by adding:
+				// settings: "unslick"
+				// instead of a settings object
+			]
+		});
+		$('.product-slick-images').not('.slick-initialized').slick({
+			autoplay: true,
+			arrows: false
+		})
+		$('.product-slick-template').not('.slick-initialized').slick({
+			lazyLoad: 'ondemand',
+			adaptiveHeight: true,
+			slidesToShow: 1,
+			autoplay:true,
+			dots: false,
+			arrows: true,
+			infinite: true,
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle' style='padding: 0.6em 0.8em;'></i></div>"
+		});
+	})
+
+	document.addEventListener("turbolinks:before-cache", function () {
+		const sliders = document.querySelectorAll('.slick-initialized');
+		sliders.forEach(item => {
+			$(item).slick('unslick');
+		})
+	});
+-# - else
+
+-#   .container
+-#     .section-wrapper
+-#       .row
+-#         - if @categories.present?
+-#           - @categories.each do |category|
+-#             .container
+-#               .row.bg-light.my-1{id: "slider-#{category.id}", style: "height:auto !important"}
+
+-#                 - category.products.each do |product|
+-#                   .col-6
+-#                     .card.card-body.m-0.p-0
+-#                       =link_to "#{is_view_image ? 'javascript:void(0)' : product_path(product) }" do
+-#                         .product-slick
+-#                           - product.images.each do |image|
+-#                             =image_tag(image.asset.url, width: "100%")
+-#             .col-12.my-1
+-#               .card.card-body.shadow{id: "trigger-#{category.id}"}
+-#                 .d-flex.justify-content-between.align-items-center
+-#                   %div
+-#                     %h6.text-uppercase{class: "#{ category.id.to_s.eql?(params[:id]) ? 'fw-bold' : ''}"}=category.name
+-#                     ="DSDSDS dsd dsd d sds d DSDS dsd dsd d sds d DSDS dsd dsd d sds d DSDS dsd dsd d sds d sd sd sd sd s ds dsd s d ds ds ds d"
+-#                   %i.fa.fa-search
+-#             :javascript
+-#               loadjs(["/assets/frontend/lib/jquery.slidereveal.min.js"], 'category_axeonsoft');
+-#               loadjs.ready('category_axeonsoft', function() {
+-#                 $("#slider-#{category.id}").slideReveal({
+-#                   trigger: $("#trigger-#{category.id}"),
+-#                   width: "80%",
+-#                   overlay: true,
+-#                   speed: 700,
+-#                   position: "right"
+-#                 });
+-#               });
+
+				

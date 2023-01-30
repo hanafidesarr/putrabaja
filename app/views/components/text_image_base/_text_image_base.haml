@@ -1,25 +1,58 @@
-.container
-	.section-wrapper
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}" }
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+	.text-image-base{id: component.id, class: "text-#{component.position_text}", style: style}
 		- if component.page.layout.eql?("products")
 			%p
 				=component.description.to_s.html_safe
 		- else
-			.row 
+			.row.w-100
+				- if ( component.position_image.eql?("right") || component.position_image.eql?("") ) && device.eql?("desktop")
+					.col-lg-6.col-12
+						=component.title.to_s.html_safe
+						=component.body.to_s.html_safe
+
+						- if component&.link.present?
+							=link_to component&.link || "/", class: "btn btn-primary text-white" do
+								Lihat selengkapnya
 				.col-lg-6.col-12
-					%h1
-						=component.name
-					%p
-						=component.description.to_s.html_safe
-					=link_to component&.url_text || "/", class: "btn bg-yellow" do
-						READ MORE
-				.col-lg-6.col-12
-					- if (images = component.images).present?
-						- images.each do |image|
-							=image_tag(image.asset.url, width: "100%")
+					- if (images = component.images.normals).present?
+						- if component.position_image_slider.eql?('center')
+							- position_image_slider = 'margin: auto;'
+						- elsif component.position_image_slider.eql?('right')
+							- position_image_slider = 'margin: auto; margin-right: 0;'
+						- else
+							- position_image_slider = ''
+						.product-slick{style: "width: #{component.width_image.presence || '100%'}; #{position_image_slider}"}
+							- images.each do |image|
+								- image_quality = image.image_quality
+								= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "img-fluid text-center", style: "width: #{component.width_image.presence || '100%'}", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 
 					:javascript
-						$('.product-slick').not('.slick-initialized').slick({
-							autoplay:true,
-							dots: true,
-							infinite: true
-						});
+
+						loadjs(["/assets/frontend/lib/slick.min.js", "/assets/frontend/lib/slick.css", "/assets/frontend/lib/slick-theme.css"], 'text_image_base');
+						loadjs.ready('text_image_base', function() {
+							$('.product-slick').not('.slick-initialized').slick({
+								autoplay:true,
+								dots: true,
+								infinite: true
+							});
+						})
+
+				- if component.position_image.eql?("left") || ["mobile","tablet"].include?(device.to_s)
+					.col-lg-6.col-12
+						=component.title.to_s.html_safe
+						=component.body.to_s.html_safe
+						
+						- if component&.link.present?
+							=link_to component&.link || "/", class: "btn btn-primary text-white" do
+								Lihat selengkapnya

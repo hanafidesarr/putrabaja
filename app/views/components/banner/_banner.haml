@@ -1,39 +1,42 @@
+%div{class: "#{component.class_parent_component}"}
+	.banner{style: "height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; background-color: #{component.background_color}"}
+		.d-block
+			- if (images = component.images).present?
+				- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
+					.nav-banner-cursor
 
-.banner.container-fluid.p-0
-	.d-block
-		- if (images = component.images).present?
-			- if device.eql?("desktop") && images.size > 1 && component.show_nav == "true"
-				.nav-banner-cursor
-
-					%i.fa.fa-square-caret-left.prev-btn.text-light
-					%i.fa.fa-square-caret-right.next-btn.text-light
-			.owl-carousel.demo.owl-theme
-				- images.banners.each do |image|
-					%div
-						.textoverlay
-							.row.align-items-center
-								.col-12.thumb
-									.text
-										%h2.d-block.title.text-center=image.title.to_s.html_safe
-										%p=image.note.to_s.html_safe
-									.image
-										- if (url = image.asset&.url).present?
-											- if device.eql?("desktop")
-												%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.desktop_height rescue '800'}"}/
-											- else
-												%img.owl-lazy{:alt => "", "data-src" => image.asset.url(:banner_full), height: "#{component.mobile_height rescue '300'}"}/
-
+						%i.fa.fa-square-caret-left.prev-btn.text-primary
+						%i.fa.fa-square-caret-right.next-btn.text-primary
+					
+				=component.title.to_s.html_safe
+				=component.description.to_s.html_safe
+				=component.note.to_s.html_safe
+				.owl-carousel.demo.owl-theme
+					- images.each do |image|
+						- image_quality = image.image_quality
+						.item{style: "background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image_quality}, html: {class: "img-fluid", data_src: image_quality})}); background-repeat: no-repeat; background-size: #{image.background_image_size}; background-position: #{image.background_image_position || 'center'}; width: 100%; background-color: #{image.background_image_color || @page.background_body_color}; height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' ) }; ", "data-src": "#{image.asset.url}"}
+							.text-justify.text-white
+								%div.title=image.title.to_s.html_safe
+								%p=image.note.to_s.html_safe
 
 :javascript
-
-	$(document).on('turbolinks:load', function() {
+	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css"], 'banner', {
+		before: function(path, scriptEl) {
+			console.log("show loading_component")
+			$("#loading_component-#{component.id}").addClass("loading_component");
+		},
+		async: false
+	});
+	loadjs.ready('banner', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component");
 		var owl = $('.owl-carousel');
 		owl.owlCarousel({
-			items: 1,
+			items: "#{component.items_show.presence || 1}",
+			margin: "#{component.margin_slider}",
 			dots: "#{component.show_dots rescue nil}" === "true",
 			loop: "#{images.size > 1}" === "true",
-			nav: false,
-			autoplay:true,
+			nav: "#{component.show_nav rescue nil}" === "true",
+			autoplay:"#{component.autoplay rescue nil}" === "true",
 			lazyLoad:true,
 			touchDrag: false,
 			autoplayHoverPause:true,
@@ -48,5 +51,4 @@
 		$('.prev-btn').click(function() {
 				owl.trigger('prev.owl.carousel');
 		})
-
 	})

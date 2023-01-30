@@ -1,6 +1,27 @@
-
 .row.mx-2
 	- component_yml[:properties].each do |obj|
 		- if comp.object.respond_to? obj
 			.col-lg-6.col-12
-				- comp.input obj, :input_html => { :class => "form-control w-100" }
+				- case obj
+				- when "autoplay", "show_nav", "show_dots", "use_slideReveal", "is_images_from_online", "use_border_image", "show_arrows", "autoplay", "show_up_image", "fade", "variableWidth", "pauseOnFocus", "pauseOnHover"
+					- comp.input obj, as: :select, collection: ["true","false"], :input_html => { :class => "form-control w-100" }
+				- when "position_image"
+					- comp.input obj, as: :select, collection: ["left","right"], :input_html => { :class => "form-control w-100" }
+				- when "position_image_slider", "position_text"
+					- comp.input obj, as: :select, collection: ["left","center","right"], :input_html => { :class => "form-control w-100" }
+				- when "link_images_online"
+					- comp.input obj, as: :text, :input_html => { :class => "form-control w-100" }
+				- when "nav_position"
+					- comp.input obj, as: :select, collection: ["vertical","horizontal"], :input_html => { :class => "form-control w-100" }
+				- when "slide_to_show"
+					- comp.input obj, as: :select, collection: ["1","2","3","4","5","6","7","8"], :input_html => { :class => "form-control w-100" }
+				- when "tipe_arrows"
+					- comp.input obj, as: :select, collection: ["arrow_between", "arrow_center"], :input_html => { :class => "form-control w-100" }
+				- when "object_fit"
+					- comp.input obj, as: :select, collection: ["fill","contain","cover","none","scale-down"], :input_html => { :class => "form-control w-100" }
+				- when "grid_position"
+					- comp.input obj, as: :select, collection: ["horizontal", "vertical"], :input_html => { :class => "form-control w-100" }
+
+
+				- else
+					- comp.input obj, :input_html => { :class => "form-control w-100" }
