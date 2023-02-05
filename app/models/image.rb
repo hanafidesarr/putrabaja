@@ -9,6 +9,7 @@ class Image < Attachment
 
   # scope :active, -> { where(active: true) }
   
+  scope :active, -> { where("active = ?", true) }
   scope :normals, -> { where("layout_type = ?", 0) }
   scope :banners, -> { where("layout_type = ?", 1) }
   scope :thumbnails, -> { where("layout_type = ?", 2) }
