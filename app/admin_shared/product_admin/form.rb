@@ -81,7 +81,20 @@ module ProductAdmin
 
 						tab 'SEO' do
 							f.inputs do
-								f.input :slug
+								div class: "row mx-2" do
+
+									f.input :slug, input_html: {class: "form-control w-100"}
+									Product.stored_attributes[:seo_product_properties].each do | obj |
+										div class: "col-lg-12 col-12 mb-2" do
+											case obj
+											when :keywords, :meta_description
+												f.input obj, as: :text, input_html: {class: "form-control w-100", rows: 5}
+											else
+												f.input obj, input_html: {class: "form-control w-100"}
+											end
+										end
+									end
+								end
 							end
 						end
 
