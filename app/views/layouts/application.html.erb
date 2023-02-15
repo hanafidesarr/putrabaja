@@ -22,13 +22,13 @@
     <title><%= @product&.meta_title.presence || @page&.meta_title.presence || @setting&.name || 'Axeonsoft' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta property="og:title" content="<%= @product&.meta_title.presence || @page&.meta_title.presence || @setting&.meta_title %>" />
-    <meta property="og:description" content="<%= @product&.meta_description.presence || @page&.meta_description.presence || @setting&.meta_description %>" />
-    <meta property="og:url" content="<%= @product&.meta_url.presence || @page&.meta_url.presence || @setting&.meta_url %>" />
-    <meta property="og:image" content="<%= @product&.meta_image.presence || @page&.meta_image.presence || @setting&.meta_image %>" />
-    <meta name="description" content="<%= @product&.meta_description.presence || @page&.meta_description.presence || @setting&.meta_description %>">
-    <meta name="keywords" content="<%= @product&.keywords.presence || @page&.keywords.presence || @setting&.keywords %>">
-    <meta name="author" content="<%= @product&.author.presence || @page&.author.presence || @setting&.author %>">
+    <meta property="og:title" content="<%= @product&.meta_title.presence || @category&.meta_title.presence || @page&.meta_title.presence || @setting&.meta_title %>" />
+    <meta property="og:description" content="<%= @product&.meta_description.presence || @category&.meta_description.presence || @page&.meta_description.presence || @setting&.meta_description %>" />
+    <meta property="og:url" content="<%= @product&.meta_url.presence || @category&.meta_url.presence || @page&.meta_url.presence || @setting&.meta_url %>" />
+    <meta property="og:image" content="<%= @product&.meta_image.presence || @category&.meta_image.presence || @page&.meta_image.presence || @setting&.meta_image %>" />
+    <meta name="description" content="<%= @product&.meta_description.presence || @category&.meta_description.presence || @page&.meta_description.presence || @setting&.meta_description %>">
+    <meta name="keywords" content="<%= @product&.keywords.presence || @category&.keywords.presence || @page&.keywords.presence || @setting&.keywords %>">
+    <meta name="author" content="<%= @product&.author.presence || @category&.author.presence || @page&.author.presence || @setting&.author %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>

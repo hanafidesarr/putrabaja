@@ -18,8 +18,24 @@ class Category < ApplicationRecord
   accepts_nested_attributes_for :children, :allow_destroy => true
   accepts_nested_attributes_for :products, :allow_destroy => true
 
+  # validation
+  after_validation :set_slug, only: [:create, :update]
+
+  store :seo_product_properties, accessors: [:author, :meta_url, :meta_image, :meta_title, :keywords, :meta_description], coder: JSON
+
   def is_root?
     parent_id.nil?
+  end
+
+
+
+  def to_param
+    "#{id}-#{slug}"
+  end
+
+  private
+  def set_slug
+    self.slug = self.slug.present? ? self.slug.to_s.parameterize : self.name
   end
 
 end
