@@ -6,74 +6,68 @@ module ProductAdmin
 
 					tabs do
 						tab 'General' do
-							f.inputs 'General' do
+							f.inputs do
 
 								div class: "d-flex justify-content-end px-4" do
 									div class: "form-check form-switch" do
-										f.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
+										f.input :active, label: "Active / No Active", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
 									end
 								end
-								f.input :sku
-								f.input :name
-								f.input :category
-								f.input :image_type
-								f.input :price
-								f.input :discount
-								f.input :url
-								f.input :short_description
-								f.input :description, :input_html => { :rows => 5 }
-								# div class: "row" do
-		
-								# 	div class: "col-4" do
-								# 		f.inputs do
-								# 			f.input :sku
-								# 		end
-								# 	end
-								# 	div class: "col-4" do
-								# 		f.inputs do
-								# 			f.input :name
-								# 		end
-								# 	end
-								# 	div class: "col-4" do
-								# 		f.inputs do
-								# 			f.input :category
-								# 		end
-								# 	end
-								# 	div class: "col-4" do
-								# 		f.inputs do
-								# 			f.input :image_type
-								# 		end
-								# 	end
-								# 	div class: "col-4" do
-								# 		f.inputs do
-								# 			f.input :price
-								# 		end
-								# 	end
-								# 	div class: "col-4" do
-								# 		f.inputs do
-								# 			f.input :discount
-								# 		end
-								# 	end
-								# 	div class: "col-6" do
-								# 		f.inputs do
-								# 			f.input :short_description
-								# 		end
-								# 	end
-								# 	div class: "col-6" do
-								# 		f.inputs do
-								# 			f.input :description
-								# 		end
-								# 	end
-								# end
+								br
+								
+								div class: "container" do
+									div class: "row" do
+										div class: "col-3" do
+											f.input :sku, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-3" do
+											f.input :name, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-3" do
+											f.input :image_type, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-3" do
+											f.input :category, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-3" do
+											f.input :price, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-3" do
+											f.input :discount, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-6" do
+											f.input :url, input_html: {class: "form-control w-100"}
+										end
+										div class: "col-12" do
+											f.input :short_description, as: :text, input_html: {:rows => 3, class: "form-control w-100"}
+										end
+										div class: "col-12" do
+											f.input :description, :input_html => { :rows => 8, class: "form-control w-100" }
+										end
+									end
+								end
+							end
+						end
+
+						tab 'Properties' do
+							f.inputs do
+								f.input :video_url
 							end
 						end
 
 						tab 'Images' do
 							
 							f.has_many :images, allow_destroy: true, heading: false, class: "col-2 mx-2" do |attach|
-								arbre do
-									attach.input :asset, :as => :file, label: false, :hint => attach.template.image_tag(attach.object.asset.url(:thumb), class: "w-100"), "data-placement"=>"top"
-								end
+								# arbre do
+								# 	raw image_tag(attach.object.asset.url(:thumb), class: "w-100")
+								# end
+								attach.template.concat(Arbre::Context.new do
+									div class: "row" do
+										div class: "col-12" do
+											attach.template.image_tag(attach.object.url_image&.strip.presence || attach.object.asset_url, class: "w-100")
+										end
+									end
+								end.to_s)
 								attach.template.concat(Arbre::Context.new do
 									hr
 									div class: "row" do
@@ -85,12 +79,6 @@ module ProductAdmin
 							end
 						end
 
-						tab 'Properties' do
-							f.inputs do
-								f.input :video_url
-							end
-						end
-
 						tab 'SEO' do
 							f.inputs do
 								f.input :slug
@@ -98,8 +86,14 @@ module ProductAdmin
 						end
 
 					end
-
-					f.actions
+					
+					div class: "float-end" do
+						f.actions do 
+							f.cancel_link({action: "index"})
+							f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }
+						end
+					end
+					
 				end
 			end
 		end
