@@ -1,9 +1,10 @@
 ActiveAdmin.register Category do
 
   menu priority: 2
-  permit_params :id, :active, :name, :short_description, :description, :price, :layout,
+  permit_params :id, :active, :name, :short_description, :description, :price, :layout, :slug,
+  Product.stored_attributes[:seo_product_properties],
   children_attributes: [:id, :name, :_destroy],
-  images_attributes: [:id, :asset, :url_image, :image_quality, :_destroy] 
+  images_attributes: [:id, :title, :url, :note, :asset, :active, :layout_type, :alt, :image_quality, :background_image_size, :background_image_position, :background_image_color, :price, :series, :url_image, :width, :height, :class_image, :style_image, :subtitle, :url_image_thumb, :_destroy] 
 
   # config.batch_actions = false
   before_action :skip_sidebar!, :only => :index

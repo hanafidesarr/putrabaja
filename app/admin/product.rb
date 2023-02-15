@@ -1,8 +1,10 @@
 ActiveAdmin.register Product do
 
   menu priority: 3
-  permit_params :id, :sku, :name, :url, :active, :short_description, :description, :price, :discount, :category_id, :image_type, :video_url,
-  images_attributes: [:id, :title, :url, :note, :asset, :active, :layout_type, :alt, :image_quality, :background_image_size, :background_image_position, :background_image_color, :price, :series, :url_image, :width, :height, :_destroy] 
+  permit_params :id, :slug, :sku, :name, :url, :active, :short_description, :description, :price, :discount, :category_id, :image_type,
+  Product.stored_attributes[:properties],
+  Product.stored_attributes[:seo_product_properties],
+  images_attributes: [:id, :title, :url, :note, :asset, :active, :layout_type, :alt, :image_quality, :background_image_size, :background_image_position, :background_image_color, :price, :series, :url_image, :width, :height, :class_image, :style_image, :subtitle, :url_image_thumb, :_destroy] 
   filter :category
   # before_filter :skip_sidebar!, :only => :index
   

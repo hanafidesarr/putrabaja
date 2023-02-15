@@ -23,7 +23,18 @@ class Product < ApplicationRecord
 
   # store_accessor
   # https://api.rubyonrails.org/classes/ActiveRecord/Store.html
-  store :tech_specification, accessors: [:battery_life, :model, :processor, :memory, :hard_drive, :vga, :display_type, :os, :optical_drive, :warranty, :wireless, :bluetooth, :other], coder: JSON
   store :properties, accessors: [:video_url, :note], coder: JSON
+  store :seo_product_properties, accessors: [:author, :meta_url, :meta_image, :meta_title, :keywords, :meta_description], coder: JSON
 
+  # validation
+  after_validation :set_slug, only: [:create, :update]
+
+  def to_param
+    "#{id}-#{slug}"
+  end
+
+  private
+  def set_slug
+    self.slug = self.slug.present? ? self.slug.to_s.parameterize : self.name
+  end
 end
