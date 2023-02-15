@@ -12,11 +12,9 @@
 			transform: scale(1.05);
 		box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 	}
-.container-fluid.px-0
-	.row.w-100
-		.col-12
-			= manipulate_image_tag(@category.images.first, options: {image_quality: @category.images.first.image_quality}, html: {class: "text-center"}) if @category.images.first.present?
 
+- image = @category.images.first
+= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "#{image.class_image}", style: "#{image.style_image};"}) if image.present?
 .container
 	- if device.eql?("desktop")
 		.row 
