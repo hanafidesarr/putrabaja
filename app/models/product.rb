@@ -26,4 +26,15 @@ class Product < ApplicationRecord
   store :tech_specification, accessors: [:battery_life, :model, :processor, :memory, :hard_drive, :vga, :display_type, :os, :optical_drive, :warranty, :wireless, :bluetooth, :other], coder: JSON
   store :properties, accessors: [:video_url, :note], coder: JSON
 
+  # validation
+  after_validation :set_slug, only: [:create, :update]
+
+  def to_param
+    "#{id}-#{slug}"
+  end
+
+  private
+  def set_slug
+    self.slug = self.slug.present? ? self.slug.to_s.parameterize : self.name
+  end
 end

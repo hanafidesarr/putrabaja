@@ -90,6 +90,13 @@ module ProductAdmin
 								f.input :video_url
 							end
 						end
+
+						tab 'SEO' do
+							f.inputs do
+								f.input :slug
+							end
+						end
+
 					end
 
 					f.actions
