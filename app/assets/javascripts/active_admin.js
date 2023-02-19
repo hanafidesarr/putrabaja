@@ -1,5 +1,6 @@
 //= require active_admin/base
 //= require active_admin/sortable
+//= require admin/popper.min.js
 //= require admin/bootstrap.min.js
 
 // extrenal plugin

@@ -3,44 +3,16 @@ module PageAdmin
 		def self.included(base)
 			base.instance_eval do
 				form do |f|
+					
 					f.inputs 'PageADMIN' do
-						div class: "row" do
-							div class: "col-4" do
-								f.input :title
-								f.input :layout
-							end
-							div class: "col-4" do
-								f.has_many :images do |attach|
-									
-									if (url = attach.object.asset.url rescue nil).present?
-										li do 
-											image_tag(url, width: "200px")
-										end
-									end
-									div class: "x" do
-										attach.object.asset.url rescue nil
-									end
-									attach.input :asset
+						div class: "container" do
+							div class: "row mb-4" do
+								div class: "col-6" do
+									f.input :title, input_html: {class: "form-control w-100"}
 								end
-							end
-							div class: "col-4" do
-								f.has_many :components, allow_destroy: true do |x|
-									x.input :name
-									div class: "row" do
-										div class: "col-4" do
-											x.has_many :images do |attach|
-												if (url = attach.object.asset.url rescue nil).present?
-													li do 
-														image_tag(url, width: "200px")
-													end
-												end
-												div class: "x" do
-													attach.object.asset.url rescue nil
-												end
-												attach.input :asset
-											end
-										end
-									end
+								div class: "col-6" do
+									# f.input :layout, as: :select, label: "Jenis Page", collection: Page::PAGE_LAYOUT, input_html: {class: "form-control w-100"}
+									f.input :layout, as: :select, label: "Jenis Page", collection: Page::PAGE_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis page yang anda inginkan"}
 								end
 							end
 						end
