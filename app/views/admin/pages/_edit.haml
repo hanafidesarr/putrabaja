@@ -1,80 +1,105 @@
-%h1= @page.title
+%h3= @page.title
 %hr
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
 	.mb-4
 		%nav
 			#nav-tab.nav.nav-tabs{:role => "tablist"}
 				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab"} General
-				%a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-global-style", :role => "tab"} Global Style
 				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab"} Header
 				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-footer", :role => "tab"} Footer
 				%a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab"} SEO Page
 		#nav-tabContent.tab-content
 			#page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
-				= f.inputs :name => "Page" do
-					.form-check.form-switch.px-3{style: "text-align: right"}
-						= f.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
-					.row.mx-2
-						.col-lg-4.col-12
-							= f.input :title, input_html: {class: "form-control w-100"}
-						.col-lg-4.col-12
-							= f.input :slug, input_html: {class: "form-control w-100"}
-						.col-lg-4.col-12
-							-# = f.select :layout, Page::PAGE_LAYOUT, {}, { :class => 'js-example-basic-single' }
-							= f.input :layout, as: :select, collection: Page::PAGE_LAYOUT, input_html: {class: "form-control select2"}
-						.col-12.my-3
-							= f.input :description, input_html: {class: "form-control w-100", rows: 5}
 
-			#page-global-style.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", :role => "tabpanel"}
-				= f.inputs :name => "Global Style" do
+				= f.inputs :name => "Main Page" do
+					.form-check.form-switch.px-3{style: "text-align: right"}
+						= f.input :active, label: "Active / Non Active", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"...", "data-html": true, "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set aktif / tidak aktif page <b>#{f.object.title}</b> "}
 					.row.mx-2
-						- Page.stored_attributes[:properties].each do | obj |
-							.col-md-6.col-12.mb-2
-								- case obj
-								- when :show_title
-									= f.input obj, as: :select, collection: ["true","false"], input_html: {class: "form-control  w-100"}
-								- when :body_layout
-									= f.input obj, label: "", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
-								- when :template
-									- if @page.layout.eql?("categories") || @page.layout.eql?("products")
-										= f.input :template, as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
-								- else
-									= f.input obj, input_html: {class: "form-control w-100"}
+						.col-lg-4.col-12
+							= f.input :title, label: "Name", require: true, input_html: {class: "form-control w-100"}
+						.col-lg-3.col-12
+							= f.input :show_title, as: :select, label: "Show title in header", collection: ["true","false"], input_html: {class: "form-control  w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Tampilkan / tidak name page di header"}
+						.col-lg-5.col-12
+							= f.input :layout, as: :select, label: "Jenis Page", collection: Page::PAGE_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis page yang anda inginkan"}
+						-# .col-12.my-3
+						-# 	= f.input :description, input_html: {class: "form-control w-100", rows: 5}
+
+
+				= f.inputs :name => "Style Page" do
+					.row.mx-2
+						.col-lg-6.col-12
+							- if f.object.layout.eql?("categories") || @page.layout.eql?("products")
+								= f.input :template, label: "Layout category", as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk category page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/30-category-page-layout'>DI SINI</a>"}
+							- else
+								= f.input :body_layout, label: "Layout page", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk layout page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/31-page-layout'>DI SINI</a>"}
+						.col-lg-6.col-12
+							= f.input :background_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna background page , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #24D11B"}
+						.col-lg-6.col-12
+							= f.input :text_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna font / text page , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #1B87D1"}
+						-# - Page.stored_attributes[:properties].excluding(:background_body_image).each do | obj |
+						-# 	.col-lg-6.col-12
+						-# 		- case obj
+						-# 		- when :body_layout
+						-# 			= f.input obj, label: "", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", style: "width:100%"}
+						-# 		- when :template
+						-# 			- if @page.layout.eql?("categories") || @page.layout.eql?("products")
+						-# 				= f.input :template, as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+						-# 		- else
+						-# 			= f.input obj, input_html: {class: "form-control w-100"}
 							
 			#page-header.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel"}
 				= f.inputs :name => "Header Desktop" do
 					.row.mx-2
-						- Page.stored_attributes[:header_desktop_properties].each do | obj |
-							.col-lg-4.col-6.mb-2
-								- case obj
-								- when :layout_desktop
-									= f.input obj, as: :select, collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100"}
-								- when :position_desktop
-									= f.input obj, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
-								- else
-									= f.input obj, input_html: {class: "form-control w-100"}
+						.col-lg-12.col-6.mb-2
+							= f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk header, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/15-header-layout'>DI SINI</a>"}
+						.col-lg-6.col-3.mb-2
+							= f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna background header , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #24D11B"}
+						.col-lg-6.col-3.mb-2
+							= f.input :text_color_desktop, label: "Text header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna font/text header page , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #24D11B"}
+						.col-lg-6.col-3.mb-2
+							= f.input :font_family_desktop, as: :select, collection: Page::FONT_FAMILY, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis font yang anda inginkan"}
+						.col-lg-6.col-3.mb-2
+							= f.input :font_size_desktop, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis ukuran font yang anda inginkan, contoh <b>14px</b>"}
+						.col-lg-6.col-3.mb-2
+							= f.input :class_parent_header, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "untuk menambahkan class (bagi programmer)"}
+						.col-lg-6.col-3.mb-2
+							= f.input :style_parent_header, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "untuk menambahkan style (bagi programmer)"}
+						%hr
+						-# - Page.stored_attributes[:header_desktop	_properties].each do | obj |
+						-# 	.col-lg-4.col-6.mb-2
+						-# 		- case obj
+						-# 		- when :layout_desktop
+						-# 			= f.input obj, as: :select, collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100"}
+						-# 		- when :position_desktop
+						-# 			= f.input obj, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
+						-# 		- else
+						-# 			= f.input obj, input_html: {class: "form-control w-100"}
 
-				= f.inputs :name => "Header Mobile" do
-					.row.mx-2
-						- Page.stored_attributes[:header_mobile_properties].each do | obj |
-							.col-lg-4.col-12.mb-2
-								-# = f.input obj, input_html: {class: "form-control w-100"}
-								- case obj
-								- when :position_mobile
-									= f.input :position_mobile, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
-								- else
-									= f.input obj, input_html: {class: "form-control w-100"}
+				-# = f.inputs :name => "Header Mobile" do
+				-# 	.row.mx-2
+				-# 		- Page.stored_attributes[:header_mobile_properties].each do | obj |
+				-# 			.col-lg-4.col-12.mb-2
+				-# 				-# = f.input obj, input_html: {class: "form-control w-100"}
+				-# 				- case obj
+				-# 				- when :position_mobile
+				-# 					= f.input :position_mobile, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
+				-# 				- else
+				-# 					= f.input obj, input_html: {class: "form-control w-100"}
 
 			#page-footer.tab-pane.fade{"aria-labelledby" => "nav-footer", :role => "tabpanel"}
 				= f.inputs :name => "LAYOUT" do
 					.row.mx-2
-						- Page.stored_attributes[:footer].each do | obj |
-							.col-lg-12.col-12.mb-2
-								= f.input obj, label: "", as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+						.col-lg-12.col-12.mb-2
+							= f.input :layout_footer, as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk layout footer, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/16-design-footer'>DI SINI</a>"}
+						-# - Page.stored_attributes[:footer].each do | obj |
+						-# 	.col-lg-12.col-12.mb-2
+						-# 		= f.input obj, label: "", as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 
 			#page-seo_page.tab-pane.fade{"aria-labelledby" => "nav-seo_page", :role => "tabpanel"}
 				= f.inputs :name => "SEO" do
 					.row.mx-2
+						.col-lg-12.col-12
+							= f.input :slug, input_html: {class: "form-control w-100"}
 						- Page.stored_attributes[:seo_page_properties].each do | obj |
 							.col-lg-12.col-12.mb-2
 								-# = f.input obj, input_html: {class: "form-control w-100"}
@@ -159,6 +184,13 @@
 
 		:javascript
 
+			$(document).ready(function(){
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+					return new bootstrap.Tooltip(tooltipTriggerEl)
+				})
+			})
+
 			$(".has_many_container").addClass("row")
 			$(".has_many_container").addClass("level-list mx-0")
 			$(".has_many_fields").attr("component_id","#{comp.object.id}");
@@ -207,9 +239,9 @@
 					complete: function() {}}
 					)
 			}
-
-	= f.actions do 
-		= f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }, class: "sasa"
+	.float-end
+		= f.actions do 
+			= f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }
 
 :javascript
 	ActiveAdminSortableEvent.add('ajaxDone', function (){

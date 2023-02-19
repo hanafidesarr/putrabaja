@@ -26,6 +26,12 @@ module PageAdmin
 					end
 					
 
+					def create
+						create! do |format|
+							format.html { redirect_to "/admin/pages" }
+						end
+					end
+
 					## ... 
 					def update
 						update! do |format|

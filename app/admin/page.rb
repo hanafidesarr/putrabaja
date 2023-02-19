@@ -4,8 +4,9 @@ ActiveAdmin.register Page do
   # include PageAdmin::Form  # this useless because we use sortable
 	include PageAdmin::Index
   include PageAdmin::Controller
+  include PageAdmin::Form
 
-  actions :all, except: :new
+  actions :all
   before_action :skip_sidebar!, :only => :index
 
   banner_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','banner','banner.yml')) 
