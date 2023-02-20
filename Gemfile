@@ -92,3 +92,4 @@ gem "draper"
 
 # SEO
 gem 'canonical-rails', github: 'jumph4x/canonical-rails'
+gem "dynamic_sitemaps"

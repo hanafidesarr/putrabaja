@@ -1,6 +1,6 @@
 # Change this to your host. See the readme at https://github.com/lassebunk/dynamic_sitemaps
 # for examples of multiple hosts and folders.
-host "www.axeonsoft.com"
+host "axeonsoft.com"
 
 sitemap :site do
   url root_url, last_mod: Time.now, change_freq: "daily", priority: 1.0
@@ -12,7 +12,7 @@ end
 # using "resources :pages" in config/routes.rb. This will also
 # automatically set <lastmod> to the date and time in page.updated_at:
 #
-#   sitemap_for Page.scoped
+sitemap_for Page.where(nil)
 
 # For products with special sitemap name and priority, and link to comments:
 #
