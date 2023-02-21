@@ -165,6 +165,7 @@ GEM
       activesupport (>= 5.0)
       request_store (>= 1.0)
       ruby2_keywords
+    dynamic_sitemaps (2.0.0)
     erubi (1.12.0)
     erubis (2.7.0)
     excon (0.92.4)
@@ -408,6 +409,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   draper
+  dynamic_sitemaps
   figaro
   fog-aws
   font-awesome-sass (~> 6.1.1)
