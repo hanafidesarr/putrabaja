@@ -179,48 +179,51 @@
 					-#       ="DAFTAR/MASUK"
 
 	:javascript
-		var lastScrollTop = 0;    
 
-		$(document).scroll(function(){
-			
-			var stop = $(this).scrollTop();
-						
-			if (stop > lastScrollTop){
-					// scrolling down
-				if($('#menu').hasClass('menu-min'))
-				{
-						$('#menu').addClass('menu-close');
-						$('#menu').removeClass('menu-min');
-				}
-			} else {
-			// scrolling up
-				if($('#menu').hasClass('menu-close'))
-				{
-					console.log('up');
-					$("#menu").css({
-						"color": "black",
-						"background-color": "white",
-						"box-shadow": "rgb(222 222 222) 0px -5px 6px 5px"
-						
-					});
-					$("#menu").find(".a_parent").css("color", "black");
-					$('#menu').addClass('menu-min text-bg-white');
-					$('#menu').removeClass('menu-close');
+		$(document).on('turbolinks:load', function() {
+			var lastScrollTop = 0;    
+
+			$(document).scroll(function(){
+				
+				var stop = $(this).scrollTop();
+							
+				if (stop > lastScrollTop){
+						// scrolling down
+					if($('#menu').hasClass('menu-min'))
+					{
+							$('#menu').addClass('menu-close');
+							$('#menu').removeClass('menu-min');
+					}
+				} else {
+				// scrolling up
+					if($('#menu').hasClass('menu-close'))
+					{
+						console.log('up');
+						$("#menu").css({
+							"color": "black",
+							"background-color": "white",
+							"box-shadow": "rgb(222 222 222) 0px -5px 6px 5px"
+							
+						});
+						$("#menu").find(".a_parent").css("color", "black");
+						$('#menu').addClass('menu-min text-bg-white');
+						$('#menu').removeClass('menu-close');
+					} 
 				} 
-			} 
-			lastScrollTop = stop;
+				lastScrollTop = stop;
+				
+				if (stop === 0) {
+					$("#menu").find(".a_parent").css("color", "#{@page.text_color_desktop}");
+					$('#menu').css({
+						"background-color": ""
+					})
+					$('#menu').css({
+						"background-color": "#{@page.background_color_desktop.presence || 'white'} !important",
+						"box-shadow": "none"
+					})
+				}
 			
-			if (stop === 0) {
-				$("#menu").find(".a_parent").css("color", "#{@page.text_color_desktop}");
-				$('#menu').css({
-					"background-color": ""
-				})
-				$('#menu').css({
-					"background-color": "#{@page.background_color_desktop.presence || 'white'} !important",
-					"box-shadow": "none"
-				})
-			}
-		
-		});
+			});
+		})
 - else
 	=render partial: "application/header/layout_big_menu"
