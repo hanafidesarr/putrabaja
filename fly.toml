@@ -48,3 +48,7 @@ processes = []
 [[statics]]
   guest_path = "/app/public"
   url_prefix = "/"
+
+[mounts]
+  source="axeonsoft"
+  destination="/app/public/persistent_storage"
