@@ -33,9 +33,9 @@
 							- else
 								= f.input :body_layout, label: "Layout page", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk layout page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/31-page-layout'>DI SINI</a>"}
 						.col-lg-6.col-12
-							= f.input :background_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna background page , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #24D11B"}
+							= f.input :background_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Set warna background page"}
 						.col-lg-6.col-12
-							= f.input :text_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna font / text page , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #1B87D1"}
+							= f.input :text_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Set warna font / text page"}
 						-# - Page.stored_attributes[:properties].excluding(:background_body_image).each do | obj |
 						-# 	.col-lg-6.col-12
 						-# 		- case obj
@@ -53,9 +53,9 @@
 						.col-lg-12.col-6.mb-2
 							= f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk header, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/15-header-layout'>DI SINI</a>"}
 						.col-lg-6.col-3.mb-2
-							= f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna background header , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #24D11B"}
+							= f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna background header"}
 						.col-lg-6.col-3.mb-2
-							= f.input :text_color_desktop, label: "Text header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Set warna font/text header page , anda bisa melihat code hexa warna <a target='_blank' class='fw-bold text-white' href='https://htmlcolorcodes.com/'>DI SINI</a> , contoh #24D11B"}
+							= f.input :text_color_desktop, label: "Text header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna font/text header page"}
 						.col-lg-6.col-3.mb-2
 							= f.input :font_family_desktop, as: :select, collection: Page::FONT_FAMILY, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis font yang anda inginkan"}
 						.col-lg-6.col-3.mb-2
@@ -244,6 +244,19 @@
 			= f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }
 
 :javascript
+
+	// add pallate color
+	$('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+		type: "component"
+	});
+
+	// this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		$('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+			type: "component"
+		});
+	});
+
 	ActiveAdminSortableEvent.add('ajaxDone', function (){
 		// do what you want
 		toastr.success('Ok! Posisi Page sudah berubah')

@@ -22,6 +22,21 @@
 				- when "grid_position"
 					- comp.input obj, as: :select, collection: ["horizontal", "vertical"], :input_html => { :class => "form-control w-100" }
 
-
+				- when "background_color", "color_text"
+					- comp.input obj, :input_html => { :class => "form-control w-100" }
+					// set pallate color
+					- background_color_pallate = "#{comp.object_name}[background_color]".gsub(/(\])?\[/, "_").chop
+					- color_text_pallate = "#{comp.object_name}[color_text]".gsub(/(\])?\[/, "_").chop
+					-# - color_pallate = " ".concat(background_color_pallate,color_text)
+					:javascript
+						$("##{background_color_pallate}, ##{color_text_pallate}").spectrum({
+							type: "component"
+						});
+						// this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
+						$('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+							$("##{background_color_pallate}, ##{color_text_pallate}").spectrum({
+								type: "component"
+							});
+						});
 				- else
 					- comp.input obj, :input_html => { :class => "form-control w-100" }

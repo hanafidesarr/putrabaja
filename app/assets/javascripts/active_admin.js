@@ -6,6 +6,7 @@
 // extrenal plugin
 //= require toastr.min.js
 //= require select2.min.js
+//= require admin/spectrum.js
 
 // custom
 //= require admin/setting.js

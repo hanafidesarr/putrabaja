@@ -7,6 +7,9 @@ log
 public/assets
 public/packs
 public/uploads
+public/sitemaps
+public/sitemap.xml
+
 .bundle
 
 db/*.sqlite3
