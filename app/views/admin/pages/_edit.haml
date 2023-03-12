@@ -249,30 +249,66 @@
 
 
   /////////////////////// SELECT2 ///////////////////////////////////
+  $('.select2').select2()
+  
+  $(document).ready(function(){
 
-  function formatState (state) {
-    var option = $(state.element);
-    url = option.data('url');
-    console.log(url)
-    if (!state.id) {
-      return state.text;
-    }
-    var $state = $(
-      "<div class='d-flex justify-content-between'><div>" + state.text + "</div><div><span>" + url + "</span></div>"
-    );
-    return $state 
-  };
-
-  $('.select2').select2();
-
-  $('.component-layout-select2').select2({
-    templateResult: formatState
-  });
+    function formatState (state) {
+      var option = $(state.element);
+      url = option.data('url');
+      console.log(url)
+      if (!state.id) {
+        return state.text;
+      }
+      var $state = $(
+        "<div>sasasa</div>"
+      );
+      return $state 
+    };
+    $('.component-layout-select2').select2({
+      templateResult: formatState
+    });
+  })
   
 
   ////////////////////// SORTABLE AND DRAG /////////////////////////
 
   $('.drag-component').tooltip();
+
+  ActiveAdminSortableEvent.add('ajaxDone', function (){
+    // do what you want
+    toastr.success('Ok! Posisi Page sudah berubah')
+    //.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
+  })
+
+  $(".has_many_container.components").sortable({
+    items: 'fieldset',
+    start: function(event, ui) {
+      console.log(ui.item)
+      ui.item.addClass("highlight");
+    },
+    stop: function(event, ui) {
+      ui.item.toggleClass("highlight");
+      var position_update = ui.item.index('.has_many_container.components > fieldset') + 1
+      var comp_id = ui.item.children().children().attr("component_id")
+      console.log(position_update)
+      console.log(comp_id)
+      update_position(comp_id, position_update)
+    }
+  });
+
+  $('.drag-component').tooltip();
+  // add pallate color
+  $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+    type: "component"
+  });
+
+  // this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+      type: "component"
+    });
+  });
 
   ActiveAdminSortableEvent.add('ajaxDone', function (){
     // do what you want
