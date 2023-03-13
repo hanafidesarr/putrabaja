@@ -26,6 +26,9 @@ gem 'dotenv-rails'
 # image management
 gem 'carrierwave'
 
+# duplicate record
+gem 'amoeba'
+
 # style
 gem "font-awesome-sass", "~> 6.1.1"
 

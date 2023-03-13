@@ -139,7 +139,7 @@
               - if comp.object.id.present?
                 .form-check.form-switch{style: "text-align: right; display: inline-block;"}
                   - comp.input :active, label: "", input_html: {class: "form-check-input", disabled: true, "aria-label"=>"..."}
-                = link_to duplicate_record_admin_component_path(id: comp.object.id) do
+                = link_to duplicate_record_admin_component_path(id: comp.object.id, page_id: @page.id) do
                   %i.fa.fa-copy.text-light{style: "margin: 0 0.7rem;"}
                 =link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
                   %i.fa.fa-trash.text-danger

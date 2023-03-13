@@ -14,10 +14,11 @@ class Component < ApplicationRecord
   # this method for sortable drag position model of component
   acts_as_list scope: :page
 
-  # this collection layout
-  #needfix
-  #move to yaml file , and set must dynamic
-
+  # duplicate record
+  amoeba do
+    enable
+    prepend :name => "Copy of "
+  end
 
   collection_data = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'collection_data.yml'))
   # COMPONENT_LAYOUT=[

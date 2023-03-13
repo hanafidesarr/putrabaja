@@ -30,6 +30,12 @@ class Page < ApplicationRecord
   # validate
   validates :title, :presence => true
 
+  # duplicate record
+  amoeba do
+    enable
+    prepend :title => "Copy of "
+  end
+
   def to_param
     "#{id}-#{slug}"
   end

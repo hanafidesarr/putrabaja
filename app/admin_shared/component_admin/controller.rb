@@ -4,9 +4,9 @@ module ComponentAdmin
 			base.instance_eval do
 				member_action :duplicate_record do
           @component = Component.find(params[:id])
-          @component.dup.save
+          @component.amoeba_dup.save
 					respond_to do | format |
-						format.html { redirect_to "/admin/pages?page_id=#{Page.last.id}" }
+						format.html { redirect_to "/admin/pages?page_id=#{params[:page_id]}" }
 					end
 				end
 

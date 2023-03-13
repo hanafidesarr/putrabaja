@@ -13,6 +13,14 @@ module PageAdmin
 					end
 				end
 
+				member_action :duplicate_record do
+          @page = Page.find(params[:id])
+          @page.amoeba_dup.save
+					respond_to do | format |
+						format.html { redirect_to "/admin/pages" }
+					end
+				end
+
 				member_action :edit_js do
 					@page = Page.find(params[:id])
 					respond_to do | format |
