@@ -17,12 +17,36 @@ class Component < ApplicationRecord
   # this collection layout
   #needfix
   #move to yaml file , and set must dynamic
-  COMPONENT_LAYOUT=[
-    "banner", "banner_slick", "custom_component", "banner_text","categories_products","text_base","text_image_base","text_product_base",
-    "space", "list_images", "list_images_slider", "typing_animation", "gallery_images", "products_by_category", "vertical_carousel_frame",
-    "pricing_list_card", "split_product_showcase", "modern_slide_in", "banner_flip_effects_rocket", "wave_liquid_animation", "slick_slider_multiple", "subscribe_form", "subscribe_form_modal"
-  ]
 
+
+  collection_data = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'collection_data.yml'))
+  # COMPONENT_LAYOUT=[
+  #   ['Banner Component',
+  #     [
+  #       ["Banner", 'banner', { data: { url: "" } }],
+  #       ["Banner Slick", 'banner_slick', { data: { url: "" } }],
+  #       ["Banner Text", 'banner_text', { data: { url: "" } }]
+  #     ]
+  #   ],
+  #   ['Text Component',
+  #     [
+  #       ["Text Base", 'text_base', { data: { url: "" } }],
+  #       ["Typing Animation", 'typing_animation', { data: { url: "" } }],
+  #       ["Typing Animation", 'typing_animation', { data: { url: "" } }],
+  #     ]
+  #   ],
+  #   ['Text Image Component',
+  #     [
+  #       ["Text Image Base", 'text_image_base', { data: { url: "" } }]
+  #     ]
+  #   ],
+  #   ['Text Image Component',
+  #     [
+  #       ["Text Image Base", 'text_image_base', { data: { url: "" } }]
+  #     ]
+  #   ]
+  # ]
+  COMPONENT_LAYOUT = collection_data["component_layout"]
   store :properties, coder: JSON
   after_initialize :add_accessors_for_content_attributes, if: -> { self.layout.present? }
   after_validation :set_slug, only: [:create, :update]
@@ -43,4 +67,5 @@ class Component < ApplicationRecord
   def set_slug
     self.slug = self.slug.present? ? self.slug.to_s.parameterize : self.title
   end 
+
 end

@@ -1,0 +1,58 @@
+
+component_layout:
+  [
+    ['Banner',
+      [
+        ["Banner", 'banner', { data: { url: "" } }],
+        ["Banner Slick", 'banner_slick', { data: { url: "" } }],
+        ["Banner Text", 'banner_text', { data: { url: "" } }],
+        ["Banner Flip Effects Rocket", 'banner_flip_effects_rocket', { data: { url: "" } }],
+        ["Vertical Carousel Frame", 'vertical_carousel_frame', { data: { url: "" } }]
+      ]
+    ],
+    ['Text',
+      [
+        ["Text Base", 'text_base', { data: { url: "" } }],
+        ["Typing Animation", 'typing_animation', { data: { url: "" } }],
+      ]
+    ],
+    ['Text Image',
+      [
+        ["Text Image Base", 'text_image_base', { data: { url: "" } }]
+      ]
+    ],
+    ['List Image',
+      [
+        ["List Images", 'list_images', { data: { url: "" } }],
+        ["List Images Slider", 'list_images_slider', { data: { url: "" } }],
+        ["Gallery Images", 'gallery_images', { data: { url: "" } }]
+        
+      ]
+    ],
+    ['Product Detail',
+      [
+        ["Modern Slide In", 'modern_slide_in', { data: { url: "" } }],
+        ["Split Product Showcase", 'split_product_showcase', { data: { url: "" } }],
+        ["Slick Slider Multiple", 'slick_slider_multiple', { data: { url: "" } }],
+        ["Categories Products", 'categories_products', { data: { url: "" } }],
+        ["Products By Category", 'products_by_category', { data: { url: "" } }],
+        ["Text Product Base", 'text_product_base', { data: { url: "" } }]
+        
+        
+      ]
+    ],
+    ['Subscribe Form',
+      [
+        ["Subscribe Form", 'subscribe_form', { data: { url: "" } }],
+        ["Split Product Showcase", 'split_product_showcase', { data: { url: "" } }],
+        ["Subscribe Form Modal", 'subscribe_form_modal', { data: { url: "" } }]
+      ]
+    ],
+    ['Other',
+      [
+        ["Subscribe Form", 'custom_component', { data: { url: "" } }],
+        ["Split Product Showcase", 'split_product_showcase', { data: { url: "" } }],
+        ["Subscribe Form Modal", 'subscribe_form_modal', { data: { url: "" } }]
+      ]
+    ]
+  ]

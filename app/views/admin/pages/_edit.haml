@@ -51,7 +51,11 @@
         = f.inputs :name => "Header Desktop" do
           .row.mx-2
             .col-lg-12.col-6.mb-2
-              = f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk header, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/15-header-layout'>DI SINI</a>"}
+              = f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100 select2", style: "width: 100%"}
+              %small.text-secondary{style: "float:right;"}
+                %span="check "
+                %b=link_to 'disini', "/categories/15-header-layout", target: "_blank"
+                %span="untuk memilih layout"
             .col-lg-6.col-3.mb-2
               = f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna background header"}
             .col-lg-6.col-3.mb-2
@@ -90,7 +94,11 @@
         = f.inputs :name => "LAYOUT" do
           .row.mx-2
             .col-lg-12.col-12.mb-2
-              = f.input :layout_footer, as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk layout footer, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/16-design-footer'>DI SINI</a>"}
+              = f.input :layout_footer, as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width: 100%"}
+              %small.text-secondary{style: "float:right;"}
+                %span="check "
+                %b=link_to 'disini', "/categories/16-footer-layout", target: "_blank"
+                %span="untuk memilih layout"
             -# - Page.stored_attributes[:footer].each do | obj |
             -#  .col-lg-12.col-12.mb-2
             -#    = f.input obj, label: "", as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
@@ -157,7 +165,11 @@
                         .col-lg-6.col-12
                           - comp.input :slug, label: "slug / name (for seo)", :input_html => { :class => "form-control w-100" }
                         .col-12
-                          - comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+                          - comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 component-layout-select2", style: "width:100%"}
+                          %small.text-secondary{style: "float:right;"}
+                            %span="check "
+                            %b=link_to 'disini', "/categories/11-component-layout", target: "_blank"
+                            %span="untuk memilih layout"
 
                       - if comp.object.layout.present?
                         = render partial: "admin/pages/components/active_fields", locals: {comp: comp, component_yml: component_yml}
@@ -221,8 +233,8 @@
 
 :javascript
 
-  $('.drag-component').tooltip();
-  // add pallate color
+  /////////////////////// PALETTE COLOR ///////////////////////////////////
+
   $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
     type: "component"
   });
@@ -234,13 +246,39 @@
     });
   });
 
+
+
+  /////////////////////// SELECT2 ///////////////////////////////////
+
+  function formatState (state) {
+    var option = $(state.element);
+    url = option.data('url');
+    console.log(url)
+    if (!state.id) {
+      return state.text;
+    }
+    var $state = $(
+      "<div class='d-flex justify-content-between'><div>" + state.text + "</div><div><span>" + url + "</span></div>"
+    );
+    return $state 
+  };
+
+  $('.select2').select2();
+
+  $('.component-layout-select2').select2({
+    templateResult: formatState
+  });
+  
+
+  ////////////////////// SORTABLE AND DRAG /////////////////////////
+
+  $('.drag-component').tooltip();
+
   ActiveAdminSortableEvent.add('ajaxDone', function (){
     // do what you want
     toastr.success('Ok! Posisi Page sudah berubah')
     //.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
   })
-
-  $('.select2').select2();
 
   $(".has_many_container.components").sortable({
     items: 'fieldset',
