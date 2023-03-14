@@ -17,7 +17,7 @@ class Image < Attachment
   scope :perviews, -> { where("layout_type = ?", 4) }
   scope :backgrounds, -> { where("layout_type = ?", 5) }
 
-  before_create :set_default_layout_type
+  before_create :set_default_layout_type, if: Proc.new { self.layout_type.nil? }
 
   def set_default_layout_type
     self.layout_type = "normal"
