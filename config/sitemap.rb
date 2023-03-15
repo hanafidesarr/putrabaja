@@ -38,4 +38,4 @@ sitemap_for Page.where(nil)
 
 # Ping search engines after sitemap generation:
 #
-ping_with "http://#{host}/sitemap.xml"
+ping_with "http://#{host}/persistent_storage/sitemaps/sitemap.xml"
