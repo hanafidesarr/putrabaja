@@ -1,5 +1,8 @@
 class Setting < ApplicationRecord
 
+  collection_data = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'collection_data.yml'))
+  COLLECTION_FONT_COMBO = collection_data["collection_font_combo"]
+
   # after_initialize :reset_store_accessors
   
 

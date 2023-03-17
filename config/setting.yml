@@ -1,4 +1,4 @@
 url_media_socials: ["instagram","facebook","twitter","linkedin","whatsapp"]
-general_style: ["primary_color", "secondary_color", "text_body_color", "text_size", "text_family"]
+general_style: ["primary_color", "secondary_color", "text_body_color", "text_size", "text_family", "font_combo"]
 meta: ["author", "meta_url", "meta_image", "meta_title", "meta_description", "keywords"]
   

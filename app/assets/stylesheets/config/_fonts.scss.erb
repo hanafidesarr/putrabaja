@@ -1,0 +1,16 @@
+
+<% collection_combo_font = Setting::COLLECTION_FONT_COMBO %>
+<% collection_combo_font.each do | font | %>
+  <% font_result = font[0].downcase.parameterize(separator: '_') %>
+  <% font_1 = font[0].split(" + ")[0] %>
+  <% font_2 = font[0].split(" + ")[1] %>
+  .font_<%= font_result %> {
+    h1, h2, h3, h4, h5 {
+      font-family: "<%= font_1 %>", "Helvetica", "sans-serif";
+    }
+    div {
+      font-family: "<%= font_2 %>", "Helvetica", "sans-serif";
+      font-weight: 100;
+    }
+  }
+<% end %>

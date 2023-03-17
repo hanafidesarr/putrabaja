@@ -15,8 +15,8 @@
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-P6PJX32');
       </script>
-      <% end %>
-      <!-- End Google Tag Manager -->
+    <% end %>
+    <!-- End Google Tag Manager -->
 
     <%= canonical_tag -%>
     <title><%= @product&.meta_title.presence || @page&.meta_title.presence || @setting&.name || 'Axeonsoft' %></title>
@@ -34,9 +34,25 @@
     <%= javascript_pack_tag 'application' %>
     <%= javascript_include_tag 'application' %>
     <div id="loading"></div>
+    
+    <% if (select_font = Setting.first.font_combo).present?%>
+      <% collection_combo_font = Setting::COLLECTION_FONT_COMBO %>
+      <% collection_combo_font.each do |font| %>
+        <% if font[1] == select_font.to_i %>
+          <% @font_class = font[0].downcase.parameterize(separator: '_') %>
+          <% if (font_text = font[0].split(' + ') rescue nil).present? %>
+            <% font_text.each do |text| %>
+              <% select_font_text = text.gsub(' ', '+') %>
+              <link crossorigin="anonymous" href="https://fonts.googleapis.com/css?family=<%= select_font_text %>:400,600,700,800,300&display=swap" media="print" onload="this.onload=null;this.removeAttribute('media');" rel="stylesheet"></link>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end%>
+
   </head>
 
-  <body data-turbolinks="<%= @page&.turbolink_is_active %>">
+  <body data-turbolinks="<%= @page&.turbolink_is_active %>" class="font_<%= @font_class %>">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PJX32"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

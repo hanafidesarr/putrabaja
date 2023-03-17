@@ -38,9 +38,14 @@ module SettingAdmin
                 yml_setting = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'setting.yml'))
                 panel "Body" do
                   columns do
-                    yml_setting[:general_style].each do |obj|
-                      column do
-                        f.input obj, input_html: {class: "w-100 form-control"}
+                    column span: 2 do
+                      yml_setting[:general_style].each do |obj|
+                        case obj
+                        when "font_combo"
+                          f.input obj, label: "", as: :select, collection: Setting::COLLECTION_FONT_COMBO, input_html: {class: "form-control w-100 font-combo-select2", style: "width:100%"}
+                        else
+                          f.input obj, input_html: {class: "w-100 form-control"}
+                        end
                       end
                     end
                   end
@@ -108,3 +113,4 @@ module SettingAdmin
 		end
 	end
 end
+

@@ -44,15 +44,56 @@ component_layout:
     ['Subscribe Form',
       [
         ["Subscribe Form", 'subscribe_form', { data: { url: "" } }],
-        ["Split Product Showcase", 'split_product_showcase', { data: { url: "" } }],
         ["Subscribe Form Modal", 'subscribe_form_modal', { data: { url: "" } }]
       ]
     ],
     ['Other',
       [
-        ["Subscribe Form", 'custom_component', { data: { url: "" } }],
-        ["Split Product Showcase", 'split_product_showcase', { data: { url: "" } }],
-        ["Subscribe Form Modal", 'subscribe_form_modal', { data: { url: "" } }]
+        ["Custom component", 'custom_component', { data: { url: "" } }],
+        ["Space", 'space', { data: { url: "" } }],
+        ["Pricing List Card", 'pricing_list_card', { data: { url: "" } }],
+        ["Wave Liquid Animation", 'wave_liquid_animation', { data: { url: "" } }]
+        
       ]
     ]
   ]
+
+collection_font_combo: 
+  - ["Montserrat + Oswald", 1, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Merriweather + Oswald", 2, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Montserrat + Merriweather", 3, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Raleway + Lato", 4, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Elsie + Roboto", 5, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Dancing Script + Josefin Sans", 6, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Abril Fatface + Roboto", 7, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Corben + Nobile", 8, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Spirax + Open Sans", 9, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Wendy One + Lato", 10, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Baloo + Montserrat", 11, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Amaranth + Open Sans", 12, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Palanquin + Roboto", 13, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Sansita + Open Sans", 14, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Playfair Display + Fauna One", 15, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Six Caps + Josefin Slab", 16, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Alfa Slab One + Open Sans", 17, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Amatic SC + Josefin Sans", 18, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Playfair Display + Source Sans Pro", 19, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Oswald + Open Sans", 20, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Oswald + Quattrocento", 21, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Open Sans + PT Sans", 22, { data: { url: "https://select2.org/user/pages/images/flags/hi.png" } }]
+  - ["Yeseva One + Josefin Sans", 23, { data: { url: "https://cdn.mos.cms.futurecdn.net/XAjso3D7FJkJC67VSTcn6N-1200-80.jpg.webp" } }]
+  - ["Yellowtail + Lato", 24, { data: { url: "https://elementor.com/marketing/wp-content/uploads/sites/9/elementor/thumbs/3-Aqua-Grotesque_Roboto-Slab-Thin-oxtcaz0b2vmluamg9uxz9aixbqqu6krqy3ax24s4wi.png" } }]
+  - ["Open Sans Condensed + Lora", 25, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Raleway + Libre Baskerville", 26, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Rubik + Roboto Mono", 27, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Playfair Display + Quattrocento Sans", 28, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Merriweather Sans + Merriweather", 29, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Oswald + Noto Serif", 30, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Lora + Poppins", 31, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Lato + Crimson Text", 32, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Great Vibes + Montserrat", 33, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Crimson Text + Quicksand", 34, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Montserrat + Poppins", 35, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Fjalla One + Cantarell", 36, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  - ["Roboto", 37, { data: { url: "https://govisually.com/wp-content/uploads/2020/08/image14.png" } }]
+  

@@ -21,32 +21,7 @@ class Component < ApplicationRecord
   end
 
   collection_data = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'collection_data.yml'))
-  # COMPONENT_LAYOUT=[
-  #   ['Banner Component',
-  #     [
-  #       ["Banner", 'banner', { data: { url: "" } }],
-  #       ["Banner Slick", 'banner_slick', { data: { url: "" } }],
-  #       ["Banner Text", 'banner_text', { data: { url: "" } }]
-  #     ]
-  #   ],
-  #   ['Text Component',
-  #     [
-  #       ["Text Base", 'text_base', { data: { url: "" } }],
-  #       ["Typing Animation", 'typing_animation', { data: { url: "" } }],
-  #       ["Typing Animation", 'typing_animation', { data: { url: "" } }],
-  #     ]
-  #   ],
-  #   ['Text Image Component',
-  #     [
-  #       ["Text Image Base", 'text_image_base', { data: { url: "" } }]
-  #     ]
-  #   ],
-  #   ['Text Image Component',
-  #     [
-  #       ["Text Image Base", 'text_image_base', { data: { url: "" } }]
-  #     ]
-  #   ]
-  # ]
+
   COMPONENT_LAYOUT = collection_data["component_layout"]
   store :properties, coder: JSON
   after_initialize :add_accessors_for_content_attributes, if: -> { self.layout.present? }

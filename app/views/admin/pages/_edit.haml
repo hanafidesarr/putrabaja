@@ -54,7 +54,7 @@
               = f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100 select2", style: "width: 100%"}
               %small.text-secondary{style: "float:right;"}
                 %span="check "
-                %b=link_to 'disini', "/categories/15-header-layout", target: "_blank"
+                %b=link_to 'disini', "https://www.axeonsoft.com/categories/15-header-layout", target: "_blank"
                 %span="untuk memilih layout"
             .col-lg-6.col-3.mb-2
               = f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna background header"}
@@ -97,7 +97,7 @@
               = f.input :layout_footer, as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width: 100%"}
               %small.text-secondary{style: "float:right;"}
                 %span="check "
-                %b=link_to 'disini', "/categories/16-footer-layout", target: "_blank"
+                %b=link_to 'disini', "https://www.axeonsoft.com/categories/16-footer-layout", target: "_blank"
                 %span="untuk memilih layout"
             -# - Page.stored_attributes[:footer].each do | obj |
             -#  .col-lg-12.col-12.mb-2
@@ -168,7 +168,7 @@
                           - comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 component-layout-select2", style: "width:100%"}
                           %small.text-secondary{style: "float:right;"}
                             %span="check "
-                            %b=link_to 'disini', "/categories/11-component-layout", target: "_blank"
+                            %b=link_to 'disini', "https://www.axeonsoft.com/categories/11-component-layout", target: "_blank"
                             %span="untuk memilih layout"
 
                       - if comp.object.layout.present?
