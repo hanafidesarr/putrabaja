@@ -1,5 +1,5 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 
-Sitemap: http://www.axeonsoft.com/persistent_storage/sitemaps/sitemap.xml
-Sitemap: http://www.axeonsoft.com/persistent_storage/sitemaps/site.xml
-Sitemap: http://www.axeonsoft.com/persistent_storage/sitemaps/pages.xml
+Sitemap: http://www.putrabaja.com/persistent_storage/sitemaps/sitemap.xml
+Sitemap: http://www.putrabaja.com/persistent_storage/sitemaps/site.xml
+Sitemap: http://www.putrabaja.com/persistent_storage/sitemaps/pages.xml

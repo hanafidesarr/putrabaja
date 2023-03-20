@@ -21,6 +21,8 @@ namespace :fly do
     sh 'bin/rails server'
   end
 
+  task :seed => 'db:seed'
+
   # optional SWAPFILE task:
   #  - adjust fallocate size as needed
   #  - performance critical applications should scale memory to the
