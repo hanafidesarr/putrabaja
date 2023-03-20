@@ -261,7 +261,7 @@
         return state.text;
       }
       var $state = $(
-        "<div>sasasa</div>"
+        "<div class='d-flex justify-content-between'><div>" + state.text + "</div><div><span>" + url + "</span></div>"
       );
       return $state 
     };
@@ -346,3 +346,4 @@
       complete: function() {}}
       )
   }
+
