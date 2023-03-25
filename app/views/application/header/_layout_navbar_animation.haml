@@ -5,6 +5,10 @@
 		display: block;
 		margin-top: 0;
 	}
+	.dropdown:hover a {
+		color: #5061CE !important;
+
+	}
 
 - unless true
 
@@ -77,18 +81,25 @@
 								});
 							})
 							
-			-# .collapsingNavbar3.navbar-collapse.collapse.w-100.right-side
-			-#   %ul.navbar-nav.ms-auto.w-100.justify-content-end.my-0
-			-#     %li.nav-item
-			-#       - if user_signed_in?
-			-#         %a.text-white.nav-link="Hallo, #{current_user.email}"
-			-#         =link_to destroy_user_session_path, method: 'delete', class: "btn bg-yellow nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
-			-#           %i.fa.fa-exit
-			-#           ="KELUAR"
-			-#       - else
-			-#         =link_to new_user_session_path, class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}" do
-			-#           %i.fa.fa-user
-			-#           ="DAFTAR/MASUK"
+				%ul.navbar-nav.ms-auto.w-100.justify-content-end.my-0
+					%hr.text-light{style: "opacity:1;"}
+					%li.nav-item
+						- if user_signed_in?
+							.dropdown
+								#dropdownMenuButton{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
+									=link_to new_user_session_path, class: "nav-link text-white px-4" do
+										%i.fa.fa-user
+										%span="Hi, #{current_user.name}"
+								.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
+									=link_to  user_path(current_user.id), class: "dropdown-item text-primary py-2" do
+										="Profile"
+									=link_to  destroy_user_session_path, method: 'delete', class: "dropdown-item text-primary py-2" do
+										="Keluar"
+												
+						- else
+							=link_to new_user_session_path, class: "nav-link text-white" do
+								="Login"
+								%i.fa.fa-user.mx-3
 
 
 	:javascript
