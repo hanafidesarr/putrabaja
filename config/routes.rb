@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:show]
   resources :products
   resources :pages
   resources :settings

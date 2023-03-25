@@ -1,0 +1,11 @@
+.mt-4.p-5.text-primary.rounded
+	%h1.display-4= "Hello, #{@user.name} "
+	%p.lead Terima kasih telah menjadi bagian dari kami, kami akan menghubungi anda dalam 24 jam, terima kasih.
+	%hr.my-4/
+	%p Jika ada kendala maupun pertanyaan tentang product kami, anda bisa menghubungi kami.
+	%p.lead
+		- if device.eql?("desktop")
+			%a.btn.btn-primary.btn-lg{:href => "https://web.whatsapp.com/send?phone=6281222194150&text=hallo, saya sudah registrasi", :role => "button"} Hubungi kami
+		- else
+			%a.btn.btn-primary.btn-lg{:href => "https://api.whatsapp.com/send?phone=6281222194150&text=hallo, saya sudah registrasi", :role => "button"} Hubungi kami
+
