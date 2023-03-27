@@ -1,0 +1,50 @@
+:css
+	.vericaltext{
+		writing-mode: vertical-lr;
+		text-orientation: upright;
+	}
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}" }
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+	.slide-reveal{id: component.id, class: "text-#{component.position_text}", style: style}
+		.p-2{id: "slider-#{component.id}" ,style: "background-color: #F7F7F9;"}
+			.container
+				.row
+					.col-12 
+						=component.title.html_safe
+						=component.subtitle.html_safe
+						=component.body.html_safe
+		.vericaltext.text-bg-primary.py-2.px-1.shadow.rounded-left.position-fixed{id: "trigger-#{component.id}", style: "z-index: 100; right: 0; cursor: pointer;"}
+			.fw-bold=component.name
+
+
+:javascript
+
+	loadjs(["/assets/frontend/lib/jquery.slidereveal.min.js"], 'slide_reveal', {
+		before: function(path, scriptEl) {
+			console.log("show loading_component")
+			$("#loading_component-#{component.id}").addClass("loading_component");
+		},
+		async: true
+	});
+	loadjs.ready('slide_reveal', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component");
+		
+		
+		$("#slider-#{component.id}").slideReveal({
+			trigger: $("#trigger-#{component.id}"),
+			width: "75%",
+			overlay: true,
+			position: "right",
+			overlayColor: 'transparent'
+		});
+	});

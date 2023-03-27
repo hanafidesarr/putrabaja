@@ -152,7 +152,7 @@ i {
   }
   .hori-selector{
     margin-top: 0px;
-    margin-left: 10px;
+    margin-left: 0;
     border-radius: 0;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
@@ -163,7 +163,7 @@ i {
   }
   .hori-selector .left{
     top: -25px;
-    left: auto;
+    /* left: auto; */
   }
   .hori-selector .right{
     bottom: -25px;

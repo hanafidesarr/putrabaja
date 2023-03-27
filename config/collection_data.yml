@@ -52,7 +52,8 @@ component_layout:
         ["Custom component", 'custom_component', { data: { url: "" } }],
         ["Space", 'space', { data: { url: "" } }],
         ["Pricing List Card", 'pricing_list_card', { data: { url: "" } }],
-        ["Wave Liquid Animation", 'wave_liquid_animation', { data: { url: "" } }]
+        ["Wave Liquid Animation", 'wave_liquid_animation', { data: { url: "" } }],
+        ["Slide Reveal", 'slide_reveal', { data: { url: "" } }]
         
       ]
     ]
