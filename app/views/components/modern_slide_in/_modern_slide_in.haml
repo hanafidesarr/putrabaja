@@ -7,11 +7,12 @@
 	.row
 		.col-12
 			.modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
-				%h3
-					=component.title.to_s.html_safe
-				%small=component.subtitle.to_s.html_safe
-				%p
-					=component.body.to_s.html_safe
+				.text-center
+					%h3
+						=component.title.to_s.html_safe
+					%small=component.subtitle.to_s.html_safe
+					%p
+						=component.body.to_s.html_safe
 
 				- if component&.link.present?
 					=link_to component&.url_text || "/", class: "btn bg-light" do
@@ -23,28 +24,28 @@
 					- images = component.images
 					.seq-screen
 						%ul.seq-canvas
-							- images.each do |image|
+							- images.active.normals.each do |image|
 
 								%li.seq-in
 									.seq-model
-										= manipulate_image_tag(image, options: {image_quality: image.image_quality})
+										= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 										-# %img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
 									.seq-title.ml-4
 										.row
-											%h1=image.title.to_s
-										%h2{"data-seq" => ""}=image.subtitle.to_s.html_safe
-										%h3{"data-seq" => ""}=image.note.to_s.html_safe
+											%h1.title{style: "font-size: 4rem;"}=image.title.to_s.html_safe
+										%h2.text-center.subtitle{"data-seq" => ""}=image.subtitle.to_s.html_safe
+										.note{"data-seq" => ""}=image.note.to_s.html_safe
 					- if component.show_arrows.eql?("true")
 						%fieldset.seq-nav{"aria-controls" => "sequence", "aria-label" => "Slider buttons", style: "min-width: 100% !important;"}
 							%button.seq-prev{"aria-label" => "Previous", :type => "button"} Previous
 							%button.seq-next{"aria-label" => "Next", :type => "button"} Next
 					%ul.seq-pagination.w-100{"aria-label" => "Pagination", :role => "navigation", style: "min-width: 100% !important;"}
-						- images.each_with_index do |image, i|
+						
+						- images.active.thumbnails.each_with_index do |image, i|
 							%li
 								%a{:href => "#step#{i + 1}", :rel => "#step#{i + 1}", :title => "Go to slide #{i + 1}"}
 									-# %img{:src => "images/tn-model1.png"}/
-									= image_tag(image.url_image_thumb, style: "width: 100px")
-									-# = manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {style: "width: 100px"})
+									= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid text-center", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 
 = javascript_include_tag '/assets/frontend/lib/modern_slide_in/sequence.min.js'
 

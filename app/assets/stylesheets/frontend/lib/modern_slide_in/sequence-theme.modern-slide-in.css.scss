@@ -219,8 +219,8 @@ html,
   display: none;
 }
 
-.seq .seq-title h2,
-.seq .seq-title h3 {
+.seq .seq-title .title,
+.seq .seq-title .note {
   display: block;
   width: 98%;
   vertical-align: middle;
@@ -234,7 +234,7 @@ html,
   transition-properties: opacity;
 }
 
-.seq .seq-title h1 {
+.seq .seq-title .title {
 
   display: block;
   width: 98%;
@@ -248,15 +248,15 @@ html,
   transition-properties: opacity;
 }
 
-.seq .seq-title h2 {
+.seq .seq-title .subtitle {
   padding: .2em 1%;
   // font-family: 'Oxygen', sans-serif;
   color: white;
   background: black;
-  float: left;
+  // float: left;
 }
 
-.seq .seq-title h3 {
+.seq .seq-title .note {
   display: none;
   clear: left;
 }
@@ -272,9 +272,9 @@ html,
   opacity: 1;
 }
 
-.seq .seq-in .seq-title h1,
-.seq .seq-in .seq-title h2,
-.seq .seq-in .seq-title h3 {
+.seq .seq-in .seq-title .title,
+.seq .seq-in .seq-title .subtitle,
+.seq .seq-in .seq-title .note {
   opacity: 1;
   -webkit-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -292,9 +292,9 @@ html,
   opacity: 0;
 }
 
-.seq .seq-out .seq-title h1,
-.seq .seq-out .seq-title h2,
-.seq .seq-out .seq-title h3 {
+.seq .seq-out .seq-title .title,
+.seq .seq-out .seq-title .subtitle,
+.seq .seq-out .seq-title .note {
   opacity: 0;
   -webkit-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -371,8 +371,8 @@ html,
     margin-right: 12.5%;
   }
 
-  .seq .seq-title h2,
-  .seq .seq-title h3 {
+  .seq .seq-title .subtitle,
+  .seq .seq-title .note {
     display: inline-block;
     width: auto;
     margin: 0;
@@ -385,7 +385,7 @@ html,
     transition-properties: transform, opacity;
   }
 
-  .seq .seq-title h1 {
+  .seq .seq-title .title {
     display: inline-block;
     width: auto;
     margin: 0;
@@ -397,7 +397,7 @@ html,
     transition-properties: transform, opacity;
   }
 
-  .seq .seq-title h2 {
+  .seq .seq-title .subtitle {
     margin-bottom: .4em;
     padding: .2em .6em;
     // font-family: 'Oxygen', sans-serif;
@@ -408,7 +408,7 @@ html,
     transform: translate3d(-120px, 0, 0);
   }
 
-  .seq .seq-title h3 {
+  .seq .seq-title .note {
     display: block;
     // font-family: 'Source Sans Pro', sans-serif;
     -webkit-transform: translate3d(120px, 0, 0);
