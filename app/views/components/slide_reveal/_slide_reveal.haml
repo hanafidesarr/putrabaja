@@ -3,7 +3,30 @@
 		writing-mode: vertical-lr;
 		text-orientation: upright;
 	}
-%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}" }
+
+	.corner {
+		width: 0;
+		height: 0;
+		border-top: 100px solid #5061CE;
+		border-bottom: 100px solid transparent;
+		border-left: 100px solid transparent;
+		position:absolute;
+		right:0;
+	}
+
+	.corner span {
+		position:absolute;
+		top: -77px;
+		width: 80px;
+		left: -76px;
+		text-align: center;
+		font-size: 16px;
+		font-family: arial;
+		transform: rotate(45deg);
+		display:block;
+	}
+
+%div{class: "container #{component.class_parent_component}", style: "#{component.style_parent_component}" }
 	- image_background = component.images.backgrounds.first
 	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
 	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
@@ -23,8 +46,11 @@
 						=component.title.html_safe
 						=component.subtitle.html_safe
 						=component.body.html_safe
-		.vericaltext.text-bg-primary.py-2.px-1.shadow.rounded-left.position-fixed{id: "trigger-#{component.id}", style: "z-index: 100; right: 0; cursor: pointer;"}
-			.fw-bold=component.name
+		.text-bg-primary.shadow.rounded-left.position-absolute{id: "trigger-#{component.id}", style: "z-index: 100; right: 0; cursor: pointer;"}
+			-# .fw-bold=component.name
+			.corner
+				%span.fw-bold=component.name
+
 
 
 :javascript
