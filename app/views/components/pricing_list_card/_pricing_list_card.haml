@@ -1,3 +1,8 @@
+
+- if device.eql?("desktop")
+	- wa = "web"
+- else
+	- wa = "api"
 %div{class: "#{component.class_parent_component}"}
 	.pricing-list-card{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		.cd-pricing-container
@@ -24,11 +29,11 @@
 							.cd-pricing-body
 								%ul.cd-pricing-features
 									%li
-										%em 1
-										Subdomain 
-									%li
 										%em FREE
 										Hosting
+									%li
+										%em 1
+										Subdomain 
 									%li
 										%em 5
 										Pages
@@ -42,11 +47,19 @@
 										%em Revisi
 										3 kali
 									%li
-										%em Google Index
-										No
+										%em SEO Friendly
+									%li
+										%em Jamin muncul
+										di Google
+									%li
+										%em -
+									%li
+										%em -
+									%li
+										%em -
 							/ .cd-pricing-body
 							%footer.cd-pricing-footer
-								%a.cd-select{:href => "http://api.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web BASIC per bulan"} Pilih
+								%a.cd-select{:href => "http://#{wa}.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web BASIC per bulan"} Pilih
 							/ .cd-pricing-footer
 						%li.is-hidden{"data-type" => "yearly"}
 							%header.cd-pricing-header
@@ -63,6 +76,8 @@
 										%em FREE
 										Hosting
 									%li
+										%em 1 domain .com
+									%li
 										%em 5
 										Pages
 									%li
@@ -72,17 +87,22 @@
 										%em 10
 										GB Storage
 									%li
-										%em 1
-										Subdomain
-									%li
 										%em Revisi
 										3 kali
 									%li
-										%em Google Index
-										No
+										%em SEO Friendly
+									%li
+										%em Jamin muncul
+										di Google
+									%li
+										%em -
+									%li
+										%em -
+									%li
+										%em -
 							/ .cd-pricing-body
 							%footer.cd-pricing-footer
-								%a.cd-select{:href => "http://api.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web BASIC per tahun"} Pilih
+								%a.cd-select{:href => "http://#{wa}.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web BASIC per tahun"} Pilih
 							/ .cd-pricing-footer
 					/ .cd-pricing-wrapper
 				%li.cd-popular
@@ -102,6 +122,9 @@
 										%em FREE
 										Hosting
 									%li
+										%em 1
+										Subdomain 
+									%li
 										%em 10
 										Pages
 									%li
@@ -111,17 +134,25 @@
 										%em 20
 										GB Storage
 									%li
-										%em 1
-										Subdomain
-									%li
 										%em Revisi
 										5 kali
 									%li
-										%em Google Index
-										No
+										%em SEO Friendly
+									%li
+										%em Jamin muncul
+										di Google
+									%li
+										%em Google
+										Search Console
+									%li
+										%em Google
+										Analytic
+									%li
+										%em -
+										
 							/ .cd-pricing-body
 							%footer.cd-pricing-footer
-								%a.cd-select{:href => "http://api.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web POPULAR per bulan"} Pilih
+								%a.cd-select{:href => "http://#{wa}.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web POPULAR per bulan"} Pilih
 							/ .cd-pricing-footer
 						%li.is-hidden{"data-type" => "yearly"}
 							%header.cd-pricing-header
@@ -138,6 +169,8 @@
 										%em FREE
 										Hosting
 									%li
+										%em 1 domain .com
+									%li
 										%em 10
 										Pages
 									%li
@@ -147,17 +180,24 @@
 										%em 20
 										GB Storage
 									%li
-										%em 1
-										Subdomain
-									%li
 										%em Revisi
 										5 kali
 									%li
-										%em Google Index
-										No
+										%em SEO Friendly
+									%li
+										%em Jamin muncul
+										di Google
+									%li
+										%em Google
+										Search Console
+									%li
+										%em Google
+										Analytic
+									%li
+										%em -
 							/ .cd-pricing-body
 							%footer.cd-pricing-footer
-								%a.cd-select{:href => "http://api.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web POPULAR per tahun"} Pilih
+								%a.cd-select{:href => "http://#{wa}.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web POPULAR per tahun"} Pilih
 							/ .cd-pricing-footer
 					/ .cd-pricing-wrapper
 				%li
@@ -177,6 +217,9 @@
 										%em FREE
 										Hosting
 									%li
+										%em 1
+										Subdomain 
+									%li
 										%em Unlimited
 										Pages
 									%li
@@ -186,17 +229,24 @@
 										%em 30
 										GB Storage
 									%li
-										%em 1
-										Subdomain
-									%li
 										%em Revisi
-										8 kali
+										Unlimited
 									%li
-										%em Google Index
-										Yes 
+										%em SEO Friendly
+									%li
+										%em Jamin muncul
+										di Google
+									%li
+										%em Google
+										Search Console
+									%li
+										%em Google
+										Analytic
+									%li
+										%em Free Template dan Component
 							/ .cd-pricing-body
 							%footer.cd-pricing-footer
-								%a.cd-select{:href => "http://api.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web PREMIER per bulan"} Pilih
+								%a.cd-select{:href => "http://#{wa}.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web PREMIER per bulan"} Pilih
 							/ .cd-pricing-footer
 						%li.is-hidden{"data-type" => "yearly"}
 							%header.cd-pricing-header
@@ -213,6 +263,8 @@
 										%em FREE
 										Hosting
 									%li
+										%em 1 domain .com
+									%li
 										%em Unlimited
 										Pages
 									%li
@@ -222,17 +274,24 @@
 										%em 30
 										GB Storage
 									%li
-										%em 1
-										Subdomain
-									%li
 										%em Revisi
-										8 kali
+										Unlimited
 									%li
-										%em Google Index
-										Yes 
+										%em SEO Friendly
+									%li
+										%em Jamin muncul
+										di Google
+									%li
+										%em Google
+										Search Console
+									%li
+										%em Google
+										Analytic
+									%li
+										%em Free Template dan Component
 							/ .cd-pricing-body
 							%footer.cd-pricing-footer
-								%a.cd-select{:href => "http://api.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web PREMIER per tahun"} Pilih
+								%a.cd-select{:href => "http://#{wa}.whatsapp.com/send?phone=#{@setting.whatsapp}&text=Hi saya tertarik dengan paket web PREMIER per tahun"} Pilih
 							/ .cd-pricing-footer
 					/ .cd-pricing-wrapper
 			/ .cd-pricing-list
