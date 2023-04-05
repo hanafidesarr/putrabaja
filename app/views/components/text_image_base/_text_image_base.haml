@@ -18,7 +18,7 @@
 			.row.w-100
 				- if ( component.position_image.eql?("right") || component.position_image.eql?("") ) && device.eql?("desktop")
 					.col-lg-6.col-12
-						=component.title.to_s.html_safe
+						%div{style: "font-size: 3rem;"}=component.title.to_s.html_safe
 						=component.body.to_s.html_safe
 
 						- if component&.link.present?
@@ -50,8 +50,8 @@
 
 				- if component.position_image.eql?("left") || ["mobile","tablet"].include?(device.to_s)
 					.col-lg-6.col-12
-						=component.title.to_s.html_safe
-						=component.body.to_s.html_safe
+						%div.text-center{style: "font-size: 3rem;"}=component.title.to_s.html_safe
+						%div{style: "text-align: center;"}=component.body.to_s.html_safe
 						
 						- if component&.link.present?
 							=link_to component&.link || "/", class: "btn btn-primary text-white" do

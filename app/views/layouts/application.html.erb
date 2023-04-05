@@ -49,7 +49,117 @@
         <% end %>
       <% end %>
     <% end%>
+    
+<style>
+body {
+  justify-content: center;
+  align-items: center;
+  background: #f2f2f2;
+ --l: 3.5em;
+ overflow-x:hidden;
+}
 
+
+
+.triggerButton { display: none; }
+
+.triggerButton + label {
+  cursor: pointer;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  background-color: #5061CE;
+  height: var(--l);
+  width: var(--l);
+  border-radius: 50%;
+  z-index: 99;
+}
+
+.triggerButton + label:before, .triggerButton + label:after {
+  position: absolute;
+  content: '';
+  height: calc(var(--l) / 2 );
+  width: .25em;
+  background-color: #fff;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: .5em;
+  transition: all .25s;
+}
+
+.triggerButton + label:before {
+  height: calc(var(--l) / 2 );
+  width: .25em;
+}
+
+.triggerButton + label:after {
+  width: calc(var(--l) / 2 );
+  height: .25em;
+}
+
+.triggerButton:checked + label:before { transform: rotatez(-45deg); }
+
+.triggerButton:checked + label:after { transform: rotatez(-45deg); }
+
+.one, .two, .three {
+  /* cursor: pointer;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  padding: 1em;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 100;
+  transform: rotateZ(90deg);
+  font-size: 1em;
+  color: #fff;
+  transition-property: all;
+  transition-duration: .35s;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+
+  cursor: pointer;
+  position: fixed;
+  right: 1.2em;
+  bottom: 1.2em;
+  padding: 1em;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 2;
+  transform: rotateZ(90deg);
+  font-size: 1em;
+  color: #fff;
+  transition-property: all;
+  transition-duration: .35s;
+}
+
+.triggerButton:checked ~ .one, .triggerButton:checked ~ .two, .triggerButton:checked ~ .three { opacity: 1; }
+
+.triggerButton:checked ~ .one {
+  background-color: purple;
+  transform: translateX(-5em);
+  transition-delay: .2s;
+}
+
+.triggerButton:checked ~ .two {
+  background-color: slateblue;
+  transform: translateX(-3.5em) translateY(-3.5em);
+  transition-delay: .1s;
+}
+
+.triggerButton:checked ~ .three {
+  background-color: mediumorchid;
+  transform: translateY(-5em);
+}
+
+.triggerButton:checked ~.one:hover, .triggerButton:checked ~ .two:hover, .triggerButton:checked ~ .three:hover { opacity: .9; }
+</style>
   </head>
 
   <body data-turbolinks="<%= @page&.turbolink_is_active %>" class="font_<%= @font_class %>">
@@ -58,77 +168,56 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div style="background-color: <%= @page&.background_body_color %>; color: <%= @page&.text_body_color %>;">
+    <div  style="background-color: <%= @page&.background_body_color %>; color: <%= @page&.text_body_color %>;">
       <%= render 'header' %>
       <%= yield %>
-      <%= render 'footer' %>
 
-      <div id="whatsapp-button"></div>
+      <%= render 'footer' %>
+      <div class="container">
+        <input id="triggerButton" class="triggerButton" type="checkbox" />
+        <label for="triggerButton"></label>
+
+        <% if device.eql?("desktop") %>
+          <% link_wa = "https://web.whatsapp.com/send?phone=6281222194150&text=hallo, axeonsoft" %>
+        <% else %>
+          <% link_wa = "https://api.whatsapp.com/send?phone=6281222194150&text=hallo, axeonsoft" %>
+        <% end %>
+
+        <a class="one fa-brands fa-telegram" href="https://web.telegram.org/"></a>
+        <a class="two fa-brands fa-whatsapp" href="<%= link_wa %>"></a>
+        <a class="three fa-brands fa-instagram" href="https://www.instagram.com/axeonsoft/"></a>
+      </div>
     </div>
+
+
+    
   </body>
   
   <script>
-    whatsappchat.multipleUser(
-      {
-        selector: '#whatsapp-button',
-        users: [
-          {
-            name:'Admin',
-            phone: "<%= @setting.whatsapp %>",
-            designation: 'Customer Service',
-            image : 'https://static.vecteezy.com/system/resources/thumbnails/000/356/576/small/1__2825_29.jpg'
-          },
-          // {
-          //   name:'Admin 2',
-          //   phone: '<%= @setting.whatsapp %>',
-          //   designation: 'Customer Service',
-          //   image: 'https://static.vecteezy.com/system/resources/thumbnails/000/356/576/small/1__2825_29.jpg'
+
+    // whatsappchat.multipleUser(
+    //   {
+    //     selector: '#whatsapp-button',
+    //     users: [
+    //       {
+    //         name:'Admin',
+    //         phone: "<%= @setting.whatsapp %>",
+    //         designation: 'Customer Service',
+    //         image : 'https://static.vecteezy.com/system/resources/thumbnails/000/356/576/small/1__2825_29.jpg'
+    //       },
+    //       // {
+    //       //   name:'Admin 2',
+    //       //   phone: '<%= @setting.whatsapp %>',
+    //       //   designation: 'Customer Service',
+    //       //   image: 'https://static.vecteezy.com/system/resources/thumbnails/000/356/576/small/1__2825_29.jpg'
               
-          // }
-        ],
-        headerMessage: 'Tetap terhubung bersama kami di <strong>WhatsApp</strong>',
-        chatBoxMessage: 'Team kami akan membalas dalam beberapa menit',
-        color: '#25D366',
-      }
-    );
+    //       // }
+    //     ],
+    //     headerMessage: 'Tetap terhubung bersama kami di <strong>WhatsApp</strong>',
+    //     chatBoxMessage: 'Team kami akan membalas dalam beberapa menit',
+    //     color: '#25D366',
+    //   }
+    // );
   </script>
-<!-- 
-  <script>
-    var url = 'https://wati-integration-service.clare.ai/ShopifyWidget/shopifyWidget.js?57255';
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = url;
-    s.title = "whatsapp chat"
-    var options = {
-      "enabled":true,
-      "chatButtonSetting":{
-          "backgroundColor":"#4dc247",
-          "ctaText":"",
-          "borderRadius":"25",
-          "marginLeft":"0",
-          "marginBottom":"50",
-          "marginRight":"50",
-          "position":"right"
-      },
-      "brandSetting":{
-          "brandName":"<%= @setting&.name %>",
-          "brandSubTitle":"Melayani dengan hati",
-          "brandImg":"https://via.placeholder.com/100x100",
-          "welcomeText":"Hai !\nAda yang bisa kami bantu?",
-          "messageText":"Hallo <%= @setting&.name %>",
-          "backgroundColor":"#0a5f54",
-          "ctaText":"Mulai Chat",
-          "borderRadius":"25",
-          "autoShow":false,
-          "phoneNumber":"<%= @setting&.whatsapp || @setting&.phone_1 || @setting&.phone_2 %>"
-      }
-    };
-    s.onload = function() {
-        CreateWhatsappChatWidget(options);
-    };
-    var x = document.getElementsByTagName('script')[0];
-    x.parentNode.insertBefore(s, x);
-  </script>
-  -->
 </html>
+
