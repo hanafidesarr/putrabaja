@@ -43,8 +43,10 @@
 						loadjs.ready('text_image_base', function() {
 							$('.product-slick').not('.slick-initialized').slick({
 								autoplay:true,
-								dots: true,
-								infinite: true
+								dots: false,
+								infinite: true,
+								prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
+								nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
 							});
 						})
 

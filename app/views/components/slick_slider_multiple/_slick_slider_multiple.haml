@@ -4,7 +4,7 @@
 		position: relative;
 		/* z-index:100; */
 	}
-%div{class: "#{component.class_parent_component}"}
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
 	.section-wrapper
 		- image_background = component.images.backgrounds.first
 		- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
@@ -24,7 +24,7 @@
 					-content_for "nav_image-#{component.id}" do
 						%div{class: "nav-slider-#{component.id}"}
 							- images.each do |image|
-								= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center px-1 py-1", style: "cursor: pointer;"})
+								= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center #{image.class_image}", style: "#{image.style_image}"})
 
 					.d-flex.align-items-center
 						- if component.nav_position.presence == "vertical"
@@ -89,15 +89,15 @@
 				{
 					breakpoint: 600,
 					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2
+						slidesToShow: 3,
+						slidesToScroll: 3
 					}
 				},
 				{
 					breakpoint: 480,
 					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2
+						slidesToShow: 3,
+						slidesToScroll: 3
 					}
 				}
 			]
