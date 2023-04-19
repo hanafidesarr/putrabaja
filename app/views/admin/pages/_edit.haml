@@ -1,343 +1,357 @@
 %h3= @page.title
 %hr
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
-  .mb-4
-    %nav
-      #nav-tab.nav.nav-pills.border-0{:role => "tablist"}
-        %a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab", style: "border-radius:0;"} General
-        %a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab", style: "border-radius:0;"} Header
-        %a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-footer", :role => "tab", style: "border-radius:0;"} Footer
-        %a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab", style: "border-radius:0;"} SEO Page
-    #nav-tabContent.tab-content
-      #page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
+	.mb-4
+		%nav
+			#nav-tab.nav.nav-pills.border-0{:role => "tablist"}
+				%a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab", style: "border-radius:0;"} General
+				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab", style: "border-radius:0;"} Header
+				%a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-footer", :role => "tab", style: "border-radius:0;"} Footer
+				%a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab", style: "border-radius:0;"} SEO Page
+		#nav-tabContent.tab-content
+			#page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
 
-        = f.inputs :name => "Main Page" do
-          .form-check.form-switch.px-3{style: "text-align: right"}
-            = f.input :active, label: "Active / Non Active", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"...", "data-html": true, "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set aktif / tidak aktif page <b>#{f.object.title}</b> "}
-          .row.mx-2
-            .col-lg-4.col-12
-              = f.input :title, label: "Name", require: true, input_html: {class: "form-control w-100"}
-            .col-lg-3.col-12
-              = f.input :show_title, as: :select, label: "Show title in header", collection: ["true","false"], input_html: {class: "form-control  w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Tampilkan / tidak name page di header"}
-            .col-lg-5.col-12
-              = f.input :layout, as: :select, label: "Jenis Page", collection: Page::PAGE_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis page yang anda inginkan"}
-            -# .col-12.my-3
-            -#  = f.input :description, input_html: {class: "form-control w-100", rows: 5}
-
-
-        = f.inputs :name => "Style Page" do
-          .row.mx-2
-            .col-lg-6.col-12
-              - if f.object.layout.eql?("categories") || @page.layout.eql?("products")
-                = f.input :template, label: "Layout category", as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk category page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/30-category-page-layout'>DI SINI</a>"}
-              - else
-                = f.input :body_layout, label: "Layout page", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk layout page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/31-page-layout'>DI SINI</a>"}
-            .col-lg-6.col-12
-              = f.input :background_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Set warna background page"}
-            .col-lg-6.col-12
-              = f.input :text_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Set warna font / text page"}
-            -# - Page.stored_attributes[:properties].excluding(:background_body_image).each do | obj |
-            -#  .col-lg-6.col-12
-            -#    - case obj
-            -#    - when :body_layout
-            -#      = f.input obj, label: "", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", style: "width:100%"}
-            -#    - when :template
-            -#      - if @page.layout.eql?("categories") || @page.layout.eql?("products")
-            -#        = f.input :template, as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
-            -#    - else
-            -#      = f.input obj, input_html: {class: "form-control w-100"}
-              
-      #page-header.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel"}
-        = f.inputs :name => "Header Desktop" do
-          .row.mx-2
-            .col-lg-12.col-6.mb-2
-              = f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100 select2", style: "width: 100%"}
-              %small.text-secondary{style: "float:right;"}
-                %span="check "
-                %b=link_to 'disini', "https://www.axeonsoft.com/categories/15-header-layout", target: "_blank"
-                %span="untuk memilih layout"
-            .col-lg-6.col-3.mb-2
-              = f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna background header"}
-            .col-lg-6.col-3.mb-2
-              = f.input :text_color_desktop, label: "Text header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna font/text header page"}
-            .col-lg-6.col-3.mb-2
-              = f.input :font_family_desktop, as: :select, collection: Page::FONT_FAMILY, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis font yang anda inginkan"}
-            .col-lg-6.col-3.mb-2
-              = f.input :font_size_desktop, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis ukuran font yang anda inginkan, contoh <b>14px</b>"}
-            .col-lg-6.col-3.mb-2
-              = f.input :class_parent_header, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "untuk menambahkan class (bagi programmer)"}
-            .col-lg-6.col-3.mb-2
-              = f.input :style_parent_header, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "untuk menambahkan style (bagi programmer)"}
-            %hr
-            -# - Page.stored_attributes[:header_desktop _properties].each do | obj |
-            -#  .col-lg-4.col-6.mb-2
-            -#    - case obj
-            -#    - when :layout_desktop
-            -#      = f.input obj, as: :select, collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100"}
-            -#    - when :position_desktop
-            -#      = f.input obj, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
-            -#    - else
-            -#      = f.input obj, input_html: {class: "form-control w-100"}
-
-        -# = f.inputs :name => "Header Mobile" do
-        -#  .row.mx-2
-        -#    - Page.stored_attributes[:header_mobile_properties].each do | obj |
-        -#      .col-lg-4.col-12.mb-2
-        -#        -# = f.input obj, input_html: {class: "form-control w-100"}
-        -#        - case obj
-        -#        - when :position_mobile
-        -#          = f.input :position_mobile, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
-        -#        - else
-        -#          = f.input obj, input_html: {class: "form-control w-100"}
-
-      #page-footer.tab-pane.fade{"aria-labelledby" => "nav-footer", :role => "tabpanel"}
-        = f.inputs :name => "LAYOUT" do
-          .row.mx-2
-            .col-lg-12.col-12.mb-2
-              = f.input :layout_footer, as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width: 100%"}
-              %small.text-secondary{style: "float:right;"}
-                %span="check "
-                %b=link_to 'disini', "https://www.axeonsoft.com/categories/16-footer-layout", target: "_blank"
-                %span="untuk memilih layout"
-            -# - Page.stored_attributes[:footer].each do | obj |
-            -#  .col-lg-12.col-12.mb-2
-            -#    = f.input obj, label: "", as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
-
-      #page-seo_page.tab-pane.fade{"aria-labelledby" => "nav-seo_page", :role => "tabpanel"}
-        = f.inputs :name => "SEO" do
-          .row.mx-2
-            .col-lg-12.col-12
-              = f.input :slug, input_html: {class: "form-control w-100"}
-            - Page.stored_attributes[:seo_page_properties].each do | obj |
-              .col-lg-12.col-12.mb-2
-                -# = f.input obj, input_html: {class: "form-control w-100"}
-                - case obj
-                - when :keywords, :meta_description
-                  = f.input obj, as: :text, input_html: {class: "form-control w-100", rows: 5}
-                - else
-                  = f.input obj, input_html: {class: "form-control w-100"}
+				= f.inputs :name => "Main Page" do
+					.form-check.form-switch.px-3{style: "text-align: right"}
+						= f.input :active, label: "Active / Non Active", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"...", "data-html": true, "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set aktif / tidak aktif page <b>#{f.object.title}</b> "}
+					.row.mx-2
+						.col-lg-4.col-12
+							= f.input :title, label: "Name", require: true, input_html: {class: "form-control w-100"}
+						.col-lg-3.col-12
+							= f.input :show_title, as: :select, label: "Show title in header", collection: ["true","false"], input_html: {class: "form-control  w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Tampilkan / tidak name page di header"}
+						.col-lg-5.col-12
+							= f.input :layout, as: :select, label: "Jenis Page", collection: Page::PAGE_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis page yang anda inginkan"}
+						-# .col-12.my-3
+						-#  = f.input :description, input_html: {class: "form-control w-100", rows: 5}
 
 
-  - f.has_many :components, new_record: true, heading: false, class: "component-parent" do | comp |
+				= f.inputs :name => "Style Page" do
+					.row.mx-2
+						.col-lg-6.col-12
+							- if f.object.layout.eql?("categories") || @page.layout.eql?("products")
+								= f.input :template, label: "Layout category", as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk category page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/30-category-page-layout'>DI SINI</a>"}
+							- else
+								= f.input :body_layout, label: "Layout page", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", 'data-delay': '{"show":"0", "hide":"1000"}', "data-html": true, title: "Pilih tampilan untuk layout page, anda bisa melihat pilihan layout <a target='_blank' class='fw-bold text-white' href='https://www.axeonsoft.com/categories/31-page-layout'>DI SINI</a>"}
+						.col-lg-6.col-12
+							= f.input :background_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Set warna background page"}
+						.col-lg-6.col-12
+							= f.input :text_body_color, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Set warna font / text page"}
+						-# - Page.stored_attributes[:properties].excluding(:background_body_image).each do | obj |
+						-#  .col-lg-6.col-12
+						-#    - case obj
+						-#    - when :body_layout
+						-#      = f.input obj, label: "", as: :select, collection: Page::BODY_LAYOUT, input_html: {class: "form-control w-100", style: "width:100%"}
+						-#    - when :template
+						-#      - if @page.layout.eql?("categories") || @page.layout.eql?("products")
+						-#        = f.input :template, as: :select, collection: Page::CATEGORIES_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
+						-#    - else
+						-#      = f.input obj, input_html: {class: "form-control w-100"}
+							
+			#page-header.tab-pane.fade{"aria-labelledby" => "nav-profile-tab", :role => "tabpanel"}
+				= f.inputs :name => "Header Desktop" do
+					.row.mx-2
+						.col-lg-12.col-6.mb-2
+							= f.input :layout_desktop, as: :select, label: "Layout header", collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100 select2", style: "width: 100%"}
+							%small.text-secondary{style: "float:right;"}
+								%span="check "
+								%b=link_to 'disini', "https://www.axeonsoft.com/categories/15-header-layout", target: "_blank"
+								%span="untuk memilih layout"
+						.col-lg-6.col-3.mb-2
+							= f.input :background_color_desktop, label: "Background header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna background header"}
+						.col-lg-6.col-3.mb-2
+							= f.input :text_color_desktop, label: "Text header color", input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Set warna font/text header page"}
+						.col-lg-6.col-3.mb-2
+							= f.input :font_family_desktop, as: :select, collection: Page::FONT_FAMILY, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis font yang anda inginkan"}
+						.col-lg-6.col-3.mb-2
+							= f.input :font_size_desktop, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "Pilih jenis ukuran font yang anda inginkan, contoh <b>14px</b>"}
+						.col-lg-6.col-3.mb-2
+							= f.input :class_parent_header, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "untuk menambahkan class (bagi programmer)"}
+						.col-lg-6.col-3.mb-2
+							= f.input :style_parent_header, input_html: {class: "form-control w-100", "data-bs-toggle": "tooltip", "data-placement": "top", "data-html": true, title: "untuk menambahkan style (bagi programmer)"}
+						%hr
+						-# - Page.stored_attributes[:header_desktop _properties].each do | obj |
+						-#  .col-lg-4.col-6.mb-2
+						-#    - case obj
+						-#    - when :layout_desktop
+						-#      = f.input obj, as: :select, collection: ["layout_center", "layout_left", "layout_right", "layout_navbar_animation", "layout_big_menu", "layout_auto_sliding_fixed"], input_html: {class: "form-control w-100"}
+						-#    - when :position_desktop
+						-#      = f.input obj, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
+						-#    - else
+						-#      = f.input obj, input_html: {class: "form-control w-100"}
 
-    - component_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join("app","views", "components","#{comp.object.layout}","#{comp.object.layout}.yml")) if comp.object.layout.present?
-    - exist = comp.object.id.present?
+				-# = f.inputs :name => "Header Mobile" do
+				-#  .row.mx-2
+				-#    - Page.stored_attributes[:header_mobile_properties].each do | obj |
+				-#      .col-lg-4.col-12.mb-2
+				-#        -# = f.input obj, input_html: {class: "form-control w-100"}
+				-#        - case obj
+				-#        - when :position_mobile
+				-#          = f.input :position_mobile, as: :select, collection: ["relative", "absolute"], input_html: {class: "form-control w-100"}
+				-#        - else
+				-#          = f.input obj, input_html: {class: "form-control w-100"}
 
-    .text{"component_id"=>"#{comp.object.id}"}
-      .card
-        #headingOne.card-header{ class: "#{exist ? 'bg-secondary' : 'bg-secondary'}"}
-          .row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
-            .col-10
-              .d-flex.justify-content-between
-                .d-flex.align-items-center
-                
-                  .drag-component.fa.fa-grip.text-light{style: "margin-right: 10px;", title: "Drag and drop untuk mengubah posisi component"}
-                  %h5.ml-2.mb-0{ class: "#{exist ? 'text-light' : ''}"}
-                    ="#{comp.object.name.to_s.capitalize}"
-                %small.text-light="( #{comp.object.layout.to_s.capitalize} )"
-            .col-2{style: "text-align: right;"}
-              - if comp.object.id.present?
-                .form-check.form-switch{style: "text-align: right; display: inline-block;"}
-                  - comp.input :active, label: "", input_html: {class: "form-check-input", disabled: true, "aria-label"=>"..."}
-                = link_to duplicate_record_admin_component_path(id: comp.object.id, page_id: @page.id) do
-                  %i.fa.fa-copy.text-light{style: "margin: 0 0.7rem;"}
-                =link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
-                  %i.fa.fa-trash.text-danger
-        .collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionExample", id: "collapse-#{comp.object.id}", class: "#{comp.object.id ? '' : 'show'}"}
-          .card-body
+			#page-footer.tab-pane.fade{"aria-labelledby" => "nav-footer", :role => "tabpanel"}
+				= f.inputs :name => "LAYOUT" do
+					.row.mx-2
+						.col-lg-12.col-12.mb-2
+							= f.input :layout_footer, as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width: 100%"}
+							%small.text-secondary{style: "float:right;"}
+								%span="check "
+								%b=link_to 'disini', "https://www.axeonsoft.com/categories/16-footer-layout", target: "_blank"
+								%span="untuk memilih layout"
+						-# - Page.stored_attributes[:footer].each do | obj |
+						-#  .col-lg-12.col-12.mb-2
+						-#    = f.input obj, label: "", as: :select, collection: Page::FOOTER_LAYOUT, input_html: {class: "form-control w-100 select2", style: "width:100%"}
 
-            .d-flex.justify-content-end
-              .form-check.form-switch{style: "text-align: right"}
-                - comp.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
-            .row
-              .col-lg-6.col-12
-                - comp.input :name, :input_html => { :class => "form-control w-100" }
-              .col-lg-6.col-12
-                - comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 component-layout-select2", style: "width:100%"}
-                %small.text-secondary{style: "float:right;"}
-                  %span="check "
-                  %b=link_to 'disini', "https://www.axeonsoft.com/categories/11-component-layout", target: "_blank"
-                  %span="untuk memilih layout"
-            %br
-            .row
-              .col-3
-                #v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
-                  %a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} General
-                  %a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-images", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-images-#{comp.object.id}", :role => "tab"} Images
-                  %a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-properties", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-properties-#{comp.object.id}", :role => "tab"} Properties
-              .col-9
-                #v-pills-tabContent.tab-content.p-0.border-0
-                  .tab-pane.fade.show.active{"aria-labelledby" => "v-pills-general-tab", :role => "tabpanel", id: "nav-general-#{comp.object.id}"}
+			#page-seo_page.tab-pane.fade{"aria-labelledby" => "nav-seo_page", :role => "tabpanel"}
+				-# = f.inputs :name => "SEO" do
+				= f.inputs :name => "Slug" do
+					.row.mx-2
+						.col-lg-12.col-12
+							= f.input :slug, input_html: {class: "form-control w-100"}
+				%nav
+					#pills-tab.nav.nav-pills{:role => "tablist"}
+						- Page.globalize_locales.each_with_index do |lang, i|
+							%a#nav-content-tab.nav-item.nav-link{class: "#{i == 0 ? 'active' : ''}", "aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-seo-#{f.object.id}-content-#{lang}", :role => "tab", style: "border-radius: 0;"}="Page SEO Content - #{lang.upcase}"
+				#nav-tabContent.tab-content.p-0
+					- Component.globalize_locales.each_with_index do |lang, i|
+						.tab-pane.fade.show{class: "#{i == 0 ? 'active' : ''}", id: "page-seo-#{f.object.id}-content-#{lang}", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
+							
+							= f.inputs  do
+								- Page.stored_attributes[:seo_page_properties].each do | obj |
+									.row.mx-2
+										-# = f.input obj, input_html: {class: "form-control w-100"}
+										- case obj
+										- when :keywords, :meta_description
+											.col-12
+												= f.input "#{obj}_#{lang}", as: :text, input_html: {class: "form-control w-100", rows: 5}
+												
+										- else
+											.col-12
+												= f.input "#{obj}_#{lang}", :input_html => { :class => "form-control w-100"}
 
-                    = render partial: "admin/pages/components/general_component", locals: {comp: comp, component_yml: component_yml}
-                        
-                  .tab-pane.fade{"aria-labelledby" => "v-pills-images-tab", :role => "tabpanel", id: "nav-images-#{comp.object.id}"}
-                    .row 
-                      .col-12.px-4
-                        - comp.has_many :images, allow_destroy: true, heading: false, class:"col-3 mx-2 my-4" do |image|
-                          .d-flex.justify-content-between
-                            %span=image.object.layout_type
-                            %span=image.object.active ? 'active' : 'tdk active'
-                          = manipulate_image_tag(image.object, options: {image_quality: "thumb"}, html: {class: "text-center my-2"})
-                          - image.template.concat(Arbre::Context.new do
-                            - div class: "col" do
-                              - image.template.render partial: "admin/admin_shared/image_upload", locals: {f: image}
-                          - end.to_s)
-                  .tab-pane.fade{"aria-labelledby" => "nav-properties-tab", :role => "tabpanel", id: "nav-properties-#{comp.object.id}"}
-                    .row 
-                      .col-12.my-4
-                        - if comp.object.layout.present?
-                          = render partial: "admin/pages/components/properties", locals: {comp: comp, component_yml: component_yml}
-                        - else
-                          ="Silahkan pilih layout terlebih dahulu di tab General, kemudian simpan"
+	-# ############### COMPONENT #########################
 
-    :javascript
+	- f.has_many :components, new_record: true, heading: false, class: "component-parent" do | comp |
 
-      $(document).ready(function(){
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-      })
+		- component_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join("app","views", "components","#{comp.object.layout}","#{comp.object.layout}.yml")) if comp.object.layout.present?
+		- exist = comp.object.id.present?
 
-      $(".has_many_container").addClass("row")
-      $(".has_many_container").attr('id', 'accordionExample');
-      $(".has_many_delete").find("label").addClass("p-0")
-      $(".has_many_add").addClass("mb-3")
-      $(".component-parent").addClass("p-0")
+		.text{"component_id"=>"#{comp.object.id}"}
+			.card
+				#headingOne.card-header{ class: "#{exist ? 'bg-secondary' : 'bg-secondary'}"}
+					.row{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapse-#{comp.object.id}", "data-toggle" => "collapse", :type => "button", class: "#{comp.object.id ? '' : 'new_record'}"}
+						.col-10
+							.d-flex.justify-content-between
+								.d-flex.align-items-center
+								
+									.drag-component.fa.fa-grip.text-light{style: "margin-right: 10px;", title: "Drag and drop untuk mengubah posisi component"}
+									%h5.ml-2.mb-0{ class: "#{exist ? 'text-light' : ''}"}
+										="#{comp.object.name.to_s.capitalize}"
+								%small.text-light="( #{comp.object.layout.to_s.capitalize} )"
+						.col-2{style: "text-align: right;"}
+							- if comp.object.id.present?
+								.form-check.form-switch{style: "text-align: right; display: inline-block;"}
+									- comp.input :active, label: "", input_html: {class: "form-check-input", disabled: true, "aria-label"=>"..."}
+								= link_to duplicate_record_admin_component_path(id: comp.object.id, page_id: @page.id) do
+									%i.fa.fa-copy.text-light{style: "margin: 0 0.7rem;"}
+								=link_to admin_component_path(id: comp.object.id), method: :delete, data: { confirm: "Are you sure?" } do
+									%i.fa.fa-trash.text-danger
+				.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionExample", id: "collapse-#{comp.object.id}", class: "#{comp.object.id ? '' : 'show'}"}
+					.card-body
 
-      $(".has_many_fields").attr("component_id","#{comp.object.id}");
-      
-      
-      // remove if new record add created more than one
-      //$(".has_many_add").click(function(){
-      //  if ($(".new_record")[0]){
-      //    // alert("anda sudah membuat new record baru")
-      //    $(".new_record").closest(".has_many_fields").remove()
-      //  } else {
-      //      // Do something if class does not exist
-      //  }
-      //})
+						.d-flex.justify-content-end
+							.form-check.form-switch{style: "text-align: right"}
+								- comp.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
+						.row
+							.col-lg-6.col-12
+								- comp.input :name, :input_html => { :class => "form-control w-100" }
+							.col-lg-6.col-12
+								- comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 component-layout-select2", style: "width:100%"}
+								%small.text-secondary{style: "float:right;"}
+									%span="check "
+									%b=link_to 'disini', "https://www.axeonsoft.com/categories/11-component-layout", target: "_blank"
+									%span="untuk memilih layout"
+						%br
+						.row
+							.col-3
+								#v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
+									%a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} General
+									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-images", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-images-#{comp.object.id}", :role => "tab"} Images
+									%a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-properties", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-properties-#{comp.object.id}", :role => "tab"} Properties
+							.col-9
+								#v-pills-tabContent.tab-content.p-0.border-0
+									.tab-pane.fade.show.active{"aria-labelledby" => "v-pills-general-tab", :role => "tabpanel", id: "nav-general-#{comp.object.id}"}
+
+										= render partial: "admin/pages/components/general_component", locals: {comp: comp, component_yml: component_yml}
+												
+									.tab-pane.fade{"aria-labelledby" => "v-pills-images-tab", :role => "tabpanel", id: "nav-images-#{comp.object.id}"}
+										.row 
+											.col-12.px-4
+												- comp.has_many :images, allow_destroy: true, heading: false, class:"col-3 mx-2 my-4" do |image|
+													.d-flex.justify-content-between
+														%span=image.object.layout_type
+														%span=image.object.active ? 'active' : 'tdk active'
+													= manipulate_image_tag(image.object, options: {image_quality: "thumb"}, html: {class: "text-center my-2"})
+													- image.template.concat(Arbre::Context.new do
+														- div class: "col" do
+															- image.template.render partial: "admin/admin_shared/image_upload", locals: {f: image}
+													- end.to_s)
+									.tab-pane.fade{"aria-labelledby" => "nav-properties-tab", :role => "tabpanel", id: "nav-properties-#{comp.object.id}"}
+										.row 
+											.col-12.my-4
+												- if comp.object.layout.present?
+													= render partial: "admin/pages/components/properties", locals: {comp: comp, component_yml: component_yml}
+												- else
+													="Silahkan pilih layout terlebih dahulu di tab General, kemudian simpan"
+
+		:javascript
+
+			$(document).ready(function(){
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+					return new bootstrap.Tooltip(tooltipTriggerEl)
+				})
+			})
+
+			$(".has_many_container").addClass("row")
+			$(".has_many_container").attr('id', 'accordionExample');
+			$(".has_many_delete").find("label").addClass("p-0")
+			$(".has_many_add").addClass("mb-3")
+			$(".component-parent").addClass("p-0")
+
+			$(".has_many_fields").attr("component_id","#{comp.object.id}");
+			
+			
+			// remove if new record add created more than one
+			//$(".has_many_add").click(function(){
+			//  if ($(".new_record")[0]){
+			//    // alert("anda sudah membuat new record baru")
+			//    $(".new_record").closest(".has_many_fields").remove()
+			//  } else {
+			//      // Do something if class does not exist
+			//  }
+			//})
 
 
 
-  .float-end
-    = f.actions do 
-      = f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }
+	.float-end
+		= f.actions do 
+			= f.action :submit, :label => "SIMPAN", :input_html => { class: "btn btn-primary w-100" }
 
 :javascript
 
-  /////////////////////// PALETTE COLOR ///////////////////////////////////
+	/////////////////////// PALETTE COLOR ///////////////////////////////////
 
-  $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
-    type: "component"
-  });
+	$('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+		type: "component"
+	});
 
-  // this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
-      type: "component"
-    });
-  });
+	// this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		$('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+			type: "component"
+		});
+	});
 
 
 
-  /////////////////////// SELECT2 ///////////////////////////////////
-  $('.select2').select2()
-  
-  $(document).ready(function(){
+	/////////////////////// SELECT2 ///////////////////////////////////
+	$('.select2').select2()
+	
+	$(document).ready(function(){
 
-    function formatState (state) {
-      var option = $(state.element);
-      url = option.data('url');
-      console.log(url)
-      if (!state.id) {
-        return state.text;
-      }
-      var $state = $(
-        "<div class='d-flex justify-content-between'><div>" + state.text + "</div><div><span>" + url + "</span></div>"
-      );
-      return $state 
-    };
-    $('.component-layout-select2').select2({
-      templateResult: formatState
-    });
-  })
-  
+		function formatState (state) {
+			var option = $(state.element);
+			url = option.data('url');
+			console.log(url)
+			if (!state.id) {
+				return state.text;
+			}
+			var $state = $(
+				"<div class='d-flex justify-content-between'><div>" + state.text + "</div><div><span>" + url + "</span></div>"
+			);
+			return $state 
+		};
+		$('.component-layout-select2').select2({
+			templateResult: formatState
+		});
+	})
+	
 
-  ////////////////////// SORTABLE AND DRAG /////////////////////////
+	////////////////////// SORTABLE AND DRAG /////////////////////////
 
-  $('.drag-component').tooltip();
+	$('.drag-component').tooltip();
 
-  ActiveAdminSortableEvent.add('ajaxDone', function (){
-    // do what you want
-    toastr.success('Ok! Posisi Page sudah berubah')
-    //.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
-  })
+	ActiveAdminSortableEvent.add('ajaxDone', function (){
+		// do what you want
+		toastr.success('Ok! Posisi Page sudah berubah')
+		//.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
+	})
 
-  $(".has_many_container.components").sortable({
-    items: 'fieldset',
-    start: function(event, ui) {
-      console.log(ui.item)
-      ui.item.addClass("highlight");
-    },
-    stop: function(event, ui) {
-      ui.item.toggleClass("highlight");
-      var position_update = ui.item.index('.has_many_container.components > fieldset') + 1
-      var comp_id = ui.item.children().children().attr("component_id")
-      console.log(position_update)
-      console.log(comp_id)
-      update_position(comp_id, position_update)
-    }
-  });
+	$(".has_many_container.components").sortable({
+		items: 'fieldset',
+		start: function(event, ui) {
+			console.log(ui.item)
+			ui.item.addClass("highlight");
+		},
+		stop: function(event, ui) {
+			ui.item.toggleClass("highlight");
+			var position_update = ui.item.index('.has_many_container.components > fieldset') + 1
+			var comp_id = ui.item.children().children().attr("component_id")
+			console.log(position_update)
+			console.log(comp_id)
+			update_position(comp_id, position_update)
+		}
+	});
 
-  $('.drag-component').tooltip();
-  // add pallate color
-  $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
-    type: "component"
-  });
+	$('.drag-component').tooltip();
+	// add pallate color
+	$('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+		type: "component"
+	});
 
-  // this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    $('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
-      type: "component"
-    });
-  });
+	// this code for trigger if click tab, if you remove. the speactrum can't show when tab clicked
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		$('#page_background_body_color, #page_text_body_color, #page_text_color_desktop, #page_background_color_desktop').spectrum({
+			type: "component"
+		});
+	});
 
-  ActiveAdminSortableEvent.add('ajaxDone', function (){
-    // do what you want
-    toastr.success('Ok! Posisi Page sudah berubah')
-    //.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
-  })
+	ActiveAdminSortableEvent.add('ajaxDone', function (){
+		// do what you want
+		toastr.success('Ok! Posisi Page sudah berubah')
+		//.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
+	})
 
-  $(".has_many_container.components").sortable({
-    items: 'fieldset',
-    start: function(event, ui) {
-      console.log(ui.item)
-      ui.item.addClass("highlight");
-    },
-    stop: function(event, ui) {
-      ui.item.toggleClass("highlight");
-      var position_update = ui.item.index('.has_many_container.components > fieldset') + 1
-      var comp_id = ui.item.children().children().attr("component_id")
-      console.log(position_update)
-      console.log(comp_id)
-      update_position(comp_id, position_update)
-    }
-  });
+	$(".has_many_container.components").sortable({
+		items: 'fieldset',
+		start: function(event, ui) {
+			console.log(ui.item)
+			ui.item.addClass("highlight");
+		},
+		stop: function(event, ui) {
+			ui.item.toggleClass("highlight");
+			var position_update = ui.item.index('.has_many_container.components > fieldset') + 1
+			var comp_id = ui.item.children().children().attr("component_id")
+			console.log(position_update)
+			console.log(comp_id)
+			update_position(comp_id, position_update)
+		}
+	});
 
-  function update_position(comp_id, position_update) {
-    $.ajax({
-      type: "GET",
-      url: "/components/update_position/" + comp_id,
-      data: {
-        position_update: position_update
-      },  
-      success: function (data) {
-        toastr.success('Ok! Posisi Component sudah berubah')
-        //location.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
-      },
-      complete: function() {}}
-      )
-  }
+	function update_position(comp_id, position_update) {
+		$.ajax({
+			type: "GET",
+			url: "/components/update_position/" + comp_id,
+			data: {
+				position_update: position_update
+			},  
+			success: function (data) {
+				toastr.success('Ok! Posisi Component sudah berubah')
+				//location.replace(window.location.origin + "/admin/pages?page_id=" + "#{@page.id}"); 
+			},
+			complete: function() {}}
+			)
+	}
 
