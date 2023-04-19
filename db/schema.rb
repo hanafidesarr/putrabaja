@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_19_132241) do
+ActiveRecord::Schema.define(version: 2023_04_19_153309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,21 @@ ActiveRecord::Schema.define(version: 2023_04_19_132241) do
     t.integer "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "page_translations", force: :cascade do |t|
+    t.bigint "page_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "meta_title"
+    t.text "keywords"
+    t.text "meta_description"
+    t.string "author"
+    t.string "meta_url"
+    t.string "meta_image"
+    t.index ["locale"], name: "index_page_translations_on_locale"
+    t.index ["page_id"], name: "index_page_translations_on_page_id"
   end
 
   create_table "pages", force: :cascade do |t|

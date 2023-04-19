@@ -36,6 +36,10 @@ class Page < ApplicationRecord
     prepend :title => "Copy of "
   end
 
+  # langs translate 
+  translates :meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image, :fallbacks_for_empty_translations => true
+  globalize_accessors :locales => I18n.available_locales, :attributes => [:meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image]
+
   def to_param
     "#{id}-#{slug}"
   end
