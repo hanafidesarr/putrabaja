@@ -19,6 +19,10 @@ class Image < Attachment
 
   before_create :set_default_layout_type, if: Proc.new { self.layout_type.nil? }
 
+  # langs translate 
+  translates :title, :subtitle, :alt, :note, :fallbacks_for_empty_translations => true
+  globalize_accessors :locales => I18n.available_locales, :attributes => [:title, :subtitle, :alt, :note]
+
   def set_default_layout_type
     self.layout_type = "normal"
   end

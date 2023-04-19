@@ -3,11 +3,11 @@
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
   .mb-4
     %nav
-      #nav-tab.nav.nav-tabs{:role => "tablist"}
-        %a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab"} General
-        %a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab"} Header
-        %a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-footer", :role => "tab"} Footer
-        %a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab"} SEO Page
+      #nav-tab.nav.nav-pills.border-0{:role => "tablist"}
+        %a#nav-home-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#page-general", :role => "tab", style: "border-radius:0;"} General
+        %a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-header", :role => "tab", style: "border-radius:0;"} Header
+        %a#nav-profile-tab.nav-item.nav-link{"aria-controls" => "nav-profile", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-footer", :role => "tab", style: "border-radius:0;"} Footer
+        %a#nav-seo_page.nav-item.nav-link{"aria-controls" => "nav-seo_page", "aria-selected" => "false", "data-toggle" => "tab", :href => "#page-seo_page", :role => "tab", style: "border-radius:0;"} SEO Page
     #nav-tabContent.tab-content
       #page-general.tab-pane.fade.show.active{"aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
 
@@ -158,6 +158,7 @@
                   %span="check "
                   %b=link_to 'disini', "https://www.axeonsoft.com/categories/11-component-layout", target: "_blank"
                   %span="untuk memilih layout"
+            %br
             .row
               .col-3
                 #v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_21_155132) do
+ActiveRecord::Schema.define(version: 2023_04_19_132241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(version: 2023_03_21_155132) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "attachment_translations", force: :cascade do |t|
+    t.bigint "attachment_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "subtitle"
+    t.string "alt"
+    t.text "note"
+    t.index ["attachment_id"], name: "index_attachment_translations_on_attachment_id"
+    t.index ["locale"], name: "index_attachment_translations_on_locale"
+  end
+
   create_table "attachments", force: :cascade do |t|
     t.string "asset"
     t.string "type"
@@ -72,13 +85,10 @@ ActiveRecord::Schema.define(version: 2023_03_21_155132) do
     t.integer "parent_id"
     t.string "parent_type"
     t.boolean "active", default: true
-    t.text "note"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "title"
     t.string "url"
     t.integer "layout_type"
-    t.string "alt"
     t.text "attachment_properties"
   end
 
@@ -100,6 +110,20 @@ ActiveRecord::Schema.define(version: 2023_03_21_155132) do
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
 
+  create_table "component_translations", force: :cascade do |t|
+    t.bigint "component_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "subtitle"
+    t.string "slug"
+    t.string "link"
+    t.string "body"
+    t.index ["component_id"], name: "index_component_translations_on_component_id"
+    t.index ["locale"], name: "index_component_translations_on_locale"
+  end
+
   create_table "components", force: :cascade do |t|
     t.string "name"
     t.string "type"
@@ -117,7 +141,6 @@ ActiveRecord::Schema.define(version: 2023_03_21_155132) do
     t.string "url_text"
     t.text "properties"
     t.text "active_fields"
-    t.string "slug"
   end
 
   create_table "media_socials", force: :cascade do |t|

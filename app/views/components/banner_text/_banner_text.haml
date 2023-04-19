@@ -29,15 +29,15 @@
 			- component.images.each do |image|
 				.row.d-flex.align-items-center
 					.col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
-						%h1=image.title.html_safe
-						%p.title-mobile=image.note.html_safe
+						%h1=image.title.to_s.html_safe
+						%p.title-mobile=image.note.to_s.html_safe
 					.col-lg-6.col-12.p-0
 						- image_quality = image.image_quality
 						-# =image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset_url}")
 						= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy #{image.class_image}", style: "#{image.style_image};", data_lazy: "true", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
-						%h1=image.title.html_safe
-						%p.title-mobile=image.note.html_safe
+						%h1=image.title.to_s.html_safe
+						%p.title-mobile=image.note.to_s.html_safe
 
 :javascript
 

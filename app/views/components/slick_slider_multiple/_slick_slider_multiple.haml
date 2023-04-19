@@ -36,9 +36,9 @@
 									.slick-slide
 										.position-absolute.bottom-0{style: "left: 50%; transform: translate(-50%,-25%);"}
 											.text-center
-												%h5=image.title.html_safe
-												%small=image.subtitle.html_safe
-												%small=image.note.html_safe
+												%h5=image.title.to_s.html_safe
+												%small=image.subtitle.to_s.html_safe
+												%small=image.note.to_s.html_safe
 												- if image.url.present?
 													.col
 														=link_to "Lihat", image.url, class: ""

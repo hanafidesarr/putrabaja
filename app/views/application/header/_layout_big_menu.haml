@@ -471,7 +471,7 @@
               - if page.layout.eql?("categories")
 
                 =link_to page_path(page) , class: "text-dark" do
-                  %h4=page.title.html_safe
+                  %h4=page.title.to_s.html_safe
                 - if categories_root.present?
                   %hr.text-dark
                   %ul.mt-2.mb-4
@@ -481,7 +481,7 @@
                           %h5=child.name
               - else
                 =link_to page_path(page) , class: "text-dark" do
-                  %h4=page.title.html_safe
+                  %h4=page.title.to_s.html_safe
                 - if (childrens = page.children.active).present?
                   %hr.text-dark
                   %ul.mt-2.mb-4

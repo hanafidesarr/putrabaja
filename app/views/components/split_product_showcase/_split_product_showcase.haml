@@ -16,7 +16,7 @@
 						.ps-content
 							%h2=image.title.to_s.html_safe
 							%span.ps-price=image.series
-							=image.note.html_safe
+							=image.note.to_s.html_safe
 							=link_to image.url do
 								Lihat detail
 			.ps-slidewrapper

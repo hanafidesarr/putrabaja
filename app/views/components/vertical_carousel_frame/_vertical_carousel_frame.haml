@@ -83,7 +83,7 @@
 	.carousel-container.justify-content-center
 
 		=component.translation.title.to_s.html_safe
-		=component.subtitle.html_safe
+		=component.subtitle.to_s.html_safe
 		=component.body.html_safe
 
 		#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
@@ -105,9 +105,9 @@
 						.container
 							.row.align-items-center
 
-								=image.title.html_safe
-								=image.subtitle.html_safe
-								=image.note.html_safe
+								=image.title.to_s.html_safe
+								=image.subtitle.to_s.html_safe
+								=image.note.to_s.html_safe
 
 							- if image.url.present?
 								.row
