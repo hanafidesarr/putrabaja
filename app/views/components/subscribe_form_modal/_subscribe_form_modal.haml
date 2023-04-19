@@ -28,7 +28,7 @@
 								= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid text-center", style: "width: #{component.width_image.presence || '100%'}"})
 						.col-md-6
 							.row
-								= component.title.to_s.html_safe
+								= component.translation.title.to_s.html_safe
 								= component.subtitle.to_s.html_safe
 								= component.body.to_s.html_safe
 							= form_with(url: subscribe_users_path) do |form|

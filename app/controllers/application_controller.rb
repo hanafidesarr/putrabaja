@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   include Frontendable
+  # setupa langs locale by parameter
+  include SetLocale
+
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected

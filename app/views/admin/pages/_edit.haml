@@ -150,32 +150,25 @@
               .form-check.form-switch{style: "text-align: right"}
                 - comp.input :active, label: "", input_html: {class: "form-check-input", disabled: false, "aria-label"=>"..."}
             .row
+              .col-lg-6.col-12
+                - comp.input :name, :input_html => { :class => "form-control w-100" }
+              .col-lg-6.col-12
+                - comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 component-layout-select2", style: "width:100%"}
+                %small.text-secondary{style: "float:right;"}
+                  %span="check "
+                  %b=link_to 'disini', "https://www.axeonsoft.com/categories/11-component-layout", target: "_blank"
+                  %span="untuk memilih layout"
+            .row
               .col-3
                 #v-pills-tab.nav.flex-column.nav-pills{"aria-orientation" => "vertical", :role => "tablist"}
                   %a#v-pills-home-tab.nav-link.active{"aria-controls" => "v-pills-general", "aria-selected" => "true", "data-toggle" => "pill", :href => "#nav-general-#{comp.object.id}", :role => "tab"} General
                   %a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-images", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-images-#{comp.object.id}", :role => "tab"} Images
                   %a#v-pills-profile-tab.nav-link{"aria-controls" => "v-pills-properties", "aria-selected" => "false", "data-toggle" => "pill", :href => "#nav-properties-#{comp.object.id}", :role => "tab"} Properties
               .col-9
-                #v-pills-tabContent.tab-content.p-0
+                #v-pills-tabContent.tab-content.p-0.border-0
                   .tab-pane.fade.show.active{"aria-labelledby" => "v-pills-general-tab", :role => "tabpanel", id: "nav-general-#{comp.object.id}"}
-                    = comp.inputs do
-                      .row.mx-2
-                        .col-lg-6.col-12
-                          - comp.input :name, :input_html => { :class => "form-control w-100" }
-                        .col-lg-6.col-12
-                          - comp.input :slug, label: "slug / name (for seo)", :input_html => { :class => "form-control w-100" }
-                        .col-12
-                          - comp.input :layout, label: "", as: :select, collection: Component::COMPONENT_LAYOUT, input_html: {class: "form-control w-100 component-layout-select2", style: "width:100%"}
-                          %small.text-secondary{style: "float:right;"}
-                            %span="check "
-                            %b=link_to 'disini', "https://www.axeonsoft.com/categories/11-component-layout", target: "_blank"
-                            %span="untuk memilih layout"
 
-                      - if comp.object.layout.present?
-                        = render partial: "admin/pages/components/active_fields", locals: {comp: comp, component_yml: component_yml}
-                      -# .row.mx-2
-                      -#  .col-12
-                      -#    - comp.input :position, :input_html => { :class => "form-control w-100" }
+                    = render partial: "admin/pages/components/general_component", locals: {comp: comp, component_yml: component_yml}
                         
                   .tab-pane.fade{"aria-labelledby" => "v-pills-images-tab", :role => "tabpanel", id: "nav-images-#{comp.object.id}"}
                     .row 

@@ -10,7 +10,8 @@
 
 - style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
 %div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
-  =component.title.to_s.html_safe
-  =component.subtitle.to_s.html_safe
-  =component.body.to_s.html_safe
+
+  .text-white=component.translation.title.to_s.html_safe
+  .text-white=component.translation.subtitle.to_s.html_safe
+  .text-white=component.translation.body.to_s.html_safe
   

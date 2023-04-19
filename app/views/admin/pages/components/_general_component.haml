@@ -1,0 +1,47 @@
+
+
+%nav
+	#pills-tab.nav.nav-pills{:role => "tablist"}
+		- Component.globalize_locales.each_with_index do |lang, i|
+			%a#nav-content-tab.nav-item.nav-link{class: "#{i == 0 ? 'active' : ''}", "aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#component-#{comp.object.id}-content-#{lang}", :role => "tab", style: "border-radius: 0;"}="Content - #{lang.upcase}"
+
+		%a#nav-content-tab.nav-item.nav-link{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#component-#{comp.object.id}-content-default", :role => "tab", style: "border-radius: 0;"}="Content - default"
+#nav-tabContent.tab-content
+
+	- Component.globalize_locales.each_with_index do |lang, i|
+		.tab-pane.fade.show{class: "#{i == 0 ? 'active' : ''}", id: "component-#{comp.object.id}-content-#{lang}", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
+
+			- if comp.object.layout.present?
+				-# = render partial: "admin/pages/components/active_fields", locals: {comp: comp, component_yml: component_yml}
+				.row.mx-2
+					- component_yml[:active_fields].each do |obj|
+						- if obj.eql?("body")
+							.col-12
+								- comp.input "#{obj}_#{lang}", as: :text, :input_html => { :class => "form-control w-100", rows: 5 }
+						- elsif obj.eql?("subtitle")
+							.col-12
+								- comp.input "#{obj}_#{lang}", :input_html => { :class => "form-control w-100"}
+						- else
+							.col-6
+								- comp.input "#{obj}_#{lang}", :input_html => { :class => "form-control w-100" }
+					.col-6
+						- comp.input "slug_#{lang}", :input_html => { :class => "form-control w-100" }
+					.col-6
+						- comp.input :position, :input_html => { :class => "form-control w-100" }
+
+	.tab-pane.fade{id: "component-#{comp.object.id}-content-default", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
+		="sasa"
+		.row.mx-2
+			.col-6
+				- comp.input :title, :input_html => { :class => "form-control w-100" }
+			.col-6
+				- comp.input :link, :input_html => { :class => "form-control w-100" }
+			.col-12
+				- comp.input :subtitle, :input_html => { :class => "form-control w-100" }
+			.col-12
+				- comp.input "body", :input_html => { :class => "form-control w-100" }
+			.col-6
+				- comp.input :slug, :input_html => { :class => "form-control w-100" }
+			.col-6
+				- comp.input :position, :input_html => { :class => "form-control w-100" }
+

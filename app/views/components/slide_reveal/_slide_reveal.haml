@@ -43,7 +43,7 @@
 			.container
 				.row
 					.col-12 
-						=component.title.html_safe
+						=component.translation.title.to_s.html_safe
 						=component.subtitle.html_safe
 						=component.body.html_safe
 		.text-bg-primary.shadow.rounded-left.position-absolute{id: "trigger-#{component.id}", style: "z-index: 100; right: 0; cursor: pointer;"}

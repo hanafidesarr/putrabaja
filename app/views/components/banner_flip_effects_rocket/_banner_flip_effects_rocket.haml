@@ -1,7 +1,7 @@
 %div{class: "#{component.class_parent_component}"}
 	- box_shadow = "lightgrey 2px 3px 15px 0px"
 	%h3
-		=component.title.to_s.html_safe
+		=component.translation.title.to_s.html_safe
 	%small=component.subtitle.to_s.html_safe
 	%p
 		=component.body.to_s.html_safe
