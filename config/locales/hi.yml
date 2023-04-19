@@ -1,0 +1,9 @@
+hi:
+  lang: "भाषा / lang"
+  user:
+    login: "लॉग इन करें"
+    logout: "लॉग आउट"
+    profile: "प्रोफ़ाइल"
+  time:
+    formats:
+      long: "%d-%m-%Y"

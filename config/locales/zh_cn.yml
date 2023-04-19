@@ -1,0 +1,9 @@
+zh_cn:
+  lang: "语言 / lang"
+  user:
+    login: "登录"
+    logout: "登出"
+    profile: "轮廓"
+  time:
+    formats:
+      long: "%d-%m-%Y"

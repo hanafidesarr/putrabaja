@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_19_153309) do
+ActiveRecord::Schema.define(version: 2023_04_20_004741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_153309) do
     t.string "author"
     t.string "meta_url"
     t.string "meta_image"
+    t.string "display_name"
+    t.string "slug"
     t.index ["locale"], name: "index_page_translations_on_locale"
     t.index ["page_id"], name: "index_page_translations_on_page_id"
   end

@@ -52,7 +52,7 @@
 							%li.nav-item{id: "page-li-#{page.id}", class: "#{ is_active ? 'active' : ''}"}
 								.custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
 									#dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
-										=page.title
+										=page.display_name || page.title
 									.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
 										- categories.each do |child|
 											=link_to child.name, category_path(child), class: "dropdown-item text-primary py-2 #{ controller_name.eql?("categories") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
@@ -62,13 +62,13 @@
 								%li.nav-item{id: "page-li-#{page.id}", class: "#{ is_active ? 'active' : ''}"}
 									.custom.dropdown.nav-link{style: "color: #{@page&.text_color_desktop.presence || 'white'}"}
 										#dropdownMenuButton.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
-											=page.title
+											= page.display_name || page.title
 										.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
 											- childrens.order(:position).each do |child|
-												=link_to child.title, page_path(child), class: "dropdown-item text-primary py-2 #{controller_name.eql?("pages") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
+												=link_to child.display_name || child.title, page_path(child), class: "dropdown-item text-primary py-2 #{controller_name.eql?("pages") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
 							- else
 								%li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
-									=link_to page.title, page_url(page), class: "nav-link", style: "color: #{@page&.text_color_desktop.presence || 'white'}"
+									=link_to page.display_name || page.title, page_url(page), class: "nav-link", style: "white-space: nowrap; color: #{@page&.text_color_desktop.presence || 'white'}"
 
 						:javascript
 							$("#click-page-#{page.id}").on("click",function(e){
@@ -83,23 +83,33 @@
 							
 				%ul.navbar-nav.ms-auto.w-100.justify-content-end.my-0
 					%hr.text-light{style: "opacity:1;"}
+
 					%li.nav-item
 						- if user_signed_in?
 							.dropdown
 								#dropdownMenuButton{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
-									=link_to new_user_session_path, class: "nav-link text-white px-4" do
+									=link_to new_user_session_path, class: "nav-link text-white  " do
 										%i.fa.fa-user
 										%span="Hi, #{current_user.name}"
 								.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
 									=link_to  user_path(current_user.id), class: "dropdown-item text-primary py-2" do
-										="Profile"
+										=t("user.profile")
 									=link_to  destroy_user_session_path, method: 'delete', class: "dropdown-item text-primary py-2" do
-										="Keluar"
+										=t("user.logout")
 												
 						- else
 							=link_to new_user_session_path, class: "nav-link text-white" do
-								=t("login")
-								%i.fa.fa-user.mx-3
+								=t("user.login")
+					%li.nav-item
+						.dropdown
+							#dropdownMenuButton{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", style: "margin-left: 10px;"}
+								=link_to new_user_session_path, class: "nav-link text-white" do
+									%i.fa.fa-font
+									%span=t("lang")
+							.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
+								- Page::LANG.each do |lang|
+									%span=link_to lang[:name],  { locale: lang[:id] }, class: "dropdown-item text-primary py-2"
+									
 
 
 	:javascript
