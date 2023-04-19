@@ -35,8 +35,8 @@
 		.row
 			.col-12
 				=component.translation.title.to_s.html_safe
-				=component.subtitle&.html_safe
-				=component.body&.html_safe
+				=component.translation.subtitle&.html_safe
+				=component.translation.body&.html_safe
 		- if images.present?
 			.row.text-center.w-100.mx-0
 				.product-slick-slider{id: component.show_up_image.eql?('true') ? "list_images_slider_view-#{component.id}" : ""}

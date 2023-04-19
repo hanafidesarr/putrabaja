@@ -29,8 +29,8 @@
 						.col-md-6
 							.row
 								= component.translation.title.to_s.html_safe
-								= component.subtitle.to_s.html_safe
-								= component.body.to_s.html_safe
+								= component.translation.subtitle.to_s.html_safe
+								= component.translation.body.to_s.html_safe
 							= form_with(url: subscribe_users_path) do |form|
 								.row.align-items-center
 									.col-12

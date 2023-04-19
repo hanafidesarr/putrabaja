@@ -2,9 +2,9 @@
 	- box_shadow = "lightgrey 2px 3px 15px 0px"
 	%h3
 		=component.translation.title.to_s.html_safe
-	%small=component.subtitle.to_s.html_safe
+	%small=component.translation.subtitle.to_s.html_safe
 	%p
-		=component.body.to_s.html_safe
+		=component.translation.body.to_s.html_safe
 
 	.banner_flip_effects_rocket{class: "text-#{component.position_text}", style: "box-shadow:#{box_shadow}; margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 

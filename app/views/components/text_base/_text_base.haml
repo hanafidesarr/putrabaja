@@ -14,8 +14,8 @@
 		.row.w-100.m-0
 			.col-12
 				=component.translation.title.to_s.html_safe
-				=component.subtitle.to_s.html_safe
-				=component.body.to_s.html_safe
+				=component.translation.subtitle.to_s.html_safe
+				=component.translation.body.to_s.html_safe
 
 				- if component&.link.present?
 					=link_to component&.url_text || "/", class: "btn bg-light" do

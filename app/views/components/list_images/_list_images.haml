@@ -37,8 +37,8 @@
 
 		- if images.present?
 			= component.translation.title.to_s.html_safe
-			= component.subtitle.to_s.html_safe
-			= component.body.to_s.html_safe
+			= component.translation.subtitle.to_s.html_safe
+			= component.translation.body.to_s.html_safe
 			#example.row.text-center
 				- images.each do |image|
 					- image_quality = image.image_quality
