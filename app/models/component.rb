@@ -20,6 +20,12 @@ class Component < ApplicationRecord
     prepend :name => "Copy of "
   end
 
+  # langs translate 
+  
+  translates :title, :link, :subtitle, :body, :slug, :fallbacks_for_empty_translations => true
+  globalize_accessors :locales => I18n.available_locales, :attributes => [:title, :link, :subtitle, :body, :slug]
+  
+
   collection_data = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'collection_data.yml'))
 
   COMPONENT_LAYOUT = collection_data["component_layout"]

@@ -34,7 +34,7 @@
 		- images = component.images.normals
 		.row
 			.col-12
-				=component.title.html_safe
+				=component.translation.title.to_s.html_safe
 				=component.subtitle&.html_safe
 				=component.body&.html_safe
 		- if images.present?

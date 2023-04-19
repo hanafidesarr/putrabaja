@@ -82,7 +82,7 @@
 .vertical_carousel_frame{id: "component-#{component.id}",class: "#{component.class_parent_component}", style: "#{style} #{component.style_parent_component}", name: "#{component.slug}"}
 	.carousel-container.justify-content-center
 
-		=component.title.html_safe
+		=component.translation.title.to_s.html_safe
 		=component.subtitle.html_safe
 		=component.body.html_safe
 

@@ -29,6 +29,10 @@ gem 'carrierwave'
 # duplicate record
 gem 'amoeba'
 
+# langs
+gem 'globalize'
+gem 'globalize-accessors'
+
 # style
 gem "font-awesome-sass", "~> 6.1.1"
 

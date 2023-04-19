@@ -17,3 +17,5 @@ module Base
     # the framework and any gems in your application.
   end
 end
+
+BaseAxeonsoft = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('config', 'config.yml'))

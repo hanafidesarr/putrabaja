@@ -12,7 +12,7 @@
 
 %div{id: "subscribe-form-#{component.id}", class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
 	.row
-		= component.title.to_s.html_safe
+		= component.translation.title.to_s.html_safe
 		= component.subtitle.to_s.html_safe
 		= component.body.to_s.html_safe
 	= form_with(url: subscribe_users_path) do |form|

@@ -198,6 +198,12 @@ GEM
     formtastic_i18n (0.7.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    globalize (6.2.1)
+      activemodel (>= 4.2, < 7.1)
+      activerecord (>= 4.2, < 7.1)
+      request_store (~> 1.0)
+    globalize-accessors (0.3.0)
+      globalize (>= 5.0.0)
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
@@ -416,6 +422,8 @@ DEPENDENCIES
   figaro
   fog-aws
   font-awesome-sass (~> 6.1.1)
+  globalize
+  globalize-accessors
   haml
   html2haml
   jbuilder (~> 2.7)
