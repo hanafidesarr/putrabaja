@@ -21,7 +21,6 @@ class Component < ApplicationRecord
   end
 
   # langs translate 
-  
   translates :title, :link, :subtitle, :body, :slug, :fallbacks_for_empty_translations => true
   globalize_accessors :locales => I18n.available_locales, :attributes => [:title, :link, :subtitle, :body, :slug]
   
