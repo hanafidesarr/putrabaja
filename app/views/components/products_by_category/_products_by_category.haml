@@ -2,10 +2,10 @@
 	.products-by-category{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
 		%h3
 			=component.translation.title.to_s.html_safe
-		%small{style: "color: gray;"}=component.subtitle.to_s.html_safe
+		%small{style: "color: gray;"}=component.translation.subtitle.to_s.html_safe
 		%hr
 		%p
-			=component.body.to_s.html_safe
+			=component.translation.body.to_s.html_safe
 
 		- if component&.link.present?
 			=link_to component&.url_text || "/", class: "btn bg-light" do

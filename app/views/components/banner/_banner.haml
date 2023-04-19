@@ -34,8 +34,8 @@
 .banner{id: "component-#{component.id}",class: "#{component.class_parent_component}", style: "#{component.style_parent_component}; #{style}; background-color: #{component.background_color};", name: "#{component.slug}"}
 	.d-block.position-relative
 		=component.translation.title.to_s.html_safe
-		=component.subtitle.to_s.html_safe
-		=component.body.to_s.html_safe
+		=component.translation.subtitle.to_s.html_safe
+		=component.translation.body.to_s.html_safe
 		- if (images = component.images.active.normals).present?
 			- if (component.show_arrows.eql?("true") && images.size > 1 )
 				.nav-banner-cursor

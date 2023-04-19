@@ -83,8 +83,8 @@
 	.carousel-container.justify-content-center
 
 		=component.translation.title.to_s.html_safe
-		=component.subtitle.to_s.html_safe
-		=component.body.html_safe
+		=component.translation.subtitle.to_s.html_safe
+		=component.translation.body.html_safe
 
 		#vertical-carousel.carousel.slide{"data-bs-interval" => "false", "data-bs-ride" => "carousel", "data-bs-wrap" => "false"}
 			%ol.carousel-indicators

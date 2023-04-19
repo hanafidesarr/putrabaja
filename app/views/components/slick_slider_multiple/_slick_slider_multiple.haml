@@ -20,7 +20,7 @@
 		- images = component.images.normals
 		.slick-slider-multiple{style: style}
 			.row
-				%div{class:"#{((component.translation.title.presence || component.body.presence).present? && device.eql?("desktop") ) ? 'col-6' : 'col-12'}"}
+				%div{class:"#{((component.translation.title.presence || component.translation.body.presence).present? && device.eql?("desktop") ) ? 'col-6' : 'col-12'}"}
 					-content_for "nav_image-#{component.id}" do
 						%div{class: "nav-slider-#{component.id}"}
 							- images.each do |image|
@@ -48,10 +48,10 @@
 									
 							- if component.nav_position.presence != "vertical"
 								=yield "nav_image-#{component.id}" 
-				%div{class:"#{(component.translation.title.presence || component.body.presence).present? ? 'col-lg-6 col-12' : 'd-none'}"}
+				%div{class:"#{(component.translation.title.presence || component.translation.body.presence).present? ? 'col-lg-6 col-12' : 'd-none'}"}
 					=component.translation.title.to_s.html_safe
-					=component.subtitle.to_s.html_safe
-					=component.body.to_s.html_safe
+					=component.translation.subtitle.to_s.html_safe
+					=component.translation.body.to_s.html_safe
 
 
 
