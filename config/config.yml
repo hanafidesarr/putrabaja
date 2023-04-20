@@ -2,3 +2,5 @@ name: Base
 langs:
   - :id
   - :en
+  - :zh_cn
+  - :hi

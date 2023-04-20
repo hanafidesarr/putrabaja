@@ -13,10 +13,10 @@ properties:
   - use_border_image
   - padding_images
   - border_radius
+  - category_id
 
 active_fields:
   - title
   - link
   - subtitle
   - body
-  - category_id

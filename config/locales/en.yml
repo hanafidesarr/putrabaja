@@ -29,7 +29,12 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
-
-  login: "Login"
+id:
+  lang: "Language"
+  user:
+    login: "Login"
+    logout: "Logout"
+    profile: "Profile"
+  time:
+    formats:
+      long: "%d-%m-%Y"

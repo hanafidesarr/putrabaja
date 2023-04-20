@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{BaseAxeonsoft[:langs].join('|')}/ do
-    get 'home/index'
+
     post 'home/custom_design'
     root to: 'home#index'
     devise_for :admin_users, ActiveAdmin::Devise.config
