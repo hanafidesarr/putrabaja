@@ -5,8 +5,7 @@
 	.justify-content-end
 		= link_to  t("admin.back_to_main_page"), admin_pages_path, class: "border-bottom-solid"
 
-%h3= @page.title
-%hr
+%hr.mt-2
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
 	.mb-4
 		%nav
