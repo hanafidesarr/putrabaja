@@ -1,3 +1,10 @@
+-# - if @page.present? || page.present?
+.d-flex.justify-content-between.align-items-center
+	.justify-content-start
+		%h3.text-center= "Page - #{@page.title}"
+	.justify-content-end
+		= link_to  t("admin.back_to_main_page"), admin_pages_path, class: "border-bottom-solid"
+
 %h3= @page.title
 %hr
 = form_for [:admin, page], builder: ActiveAdmin::FormBuilder do |f|
