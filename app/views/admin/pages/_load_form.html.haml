@@ -1,6 +1,7 @@
-- @page = params[:page_id].present? ? Page.find(params[:page_id]) : Page.first
+- @page = params[:page_id].present? ? Page.find(params[:page_id]) : nil
 
-:javascript
-    $(document).ready(function(){
-        $(".main-page-view").html("#{ j render 'edit', page: @page }")
-    })
+- if @page.present? 
+    :javascript
+        $(document).ready(function(){
+            $(".main-page-view").html("#{ j render 'edit', page: @page }")
+        })

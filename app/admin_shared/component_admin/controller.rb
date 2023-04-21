@@ -17,7 +17,9 @@ module ComponentAdmin
           end
       
           def destroy
-            destroy! { admin_pages_url }
+						destroy! do |format|
+							format.html { redirect_to "/admin/pages?page_id=#{resource.page.id}" }
+						end
           end 
       
           def build_new_resource
