@@ -65,10 +65,10 @@
 											= page.display_name || page.title
 										.dropdown-menu.position-absolute.bg-red.shadow.border-0{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; border-radius: 10px; right: 0;"}
 											- childrens.order(:position).each do |child|
-												=link_to child.display_name || child.title, page_path(child), class: "dropdown-item text-primary py-2 #{controller_name.eql?("pages") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
+												=link_to child.display_name || child.title, child.link || page_path(child), class: "dropdown-item text-primary py-2 #{controller_name.eql?("pages") && child.id.eql?(params[:id].to_i) ? 'fw-bold' : ''}"
 							- else
 								%li.nav-item{id: "page-li-#{page.id}", class: "#{ ( page.layout.eql?("home") && params[:id].nil? ) || page.id.to_i.eql?(params[:id].to_i) ? 'active' : ''}"}
-									=link_to page.display_name || page.title, page_url(page), class: "nav-link", style: "white-space: nowrap; color: #{@page&.text_color_desktop.presence || 'white'}"
+									=link_to page.display_name || page.title, page.link ||page_url(page), class: "nav-link", style: "white-space: nowrap; color: #{@page&.text_color_desktop.presence || 'white'}"
 
 						:javascript
 							$("#click-page-#{page.id}").on("click",function(e){
