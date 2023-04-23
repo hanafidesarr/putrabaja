@@ -31,19 +31,20 @@ ActiveAdmin.register Page do
   subscribe_form_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','subscribe_form','subscribe_form.yml'))
   subscribe_form_modal_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views', 'components','subscribe_form_modal','subscribe_form_modal.yml'))
   slide_reveal_yml = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','slide_reveal','slide_reveal.yml'))
-
+  annotation_scalize = HashWithIndifferentAccess.new(YAML.load_file Rails.root.join('app','views','components','annotation_scalize','annotation_scalize.yml'))
+  
   permit_params :title, :active, :description, :layout, :slug, :show_title, :background_body_color, :text_body_color, :body_layout, :template, :_destroy, Page.stored_attributes[:header_desktop_properties], Page.stored_attributes[:header_mobile_properties], Page.stored_attributes[:seo_page_properties], Page.stored_attributes[:footer], Page.globalize_attribute_names,
   components_attributes: [:id, :active, :name, :layout, :description, :position, :url_product, :url_text, :slug, Component.globalize_attribute_names, :_destroy,
 
   banner_yml[:properties], banner_slick_yml[:properties], custom_component_yml[:properties], banner_text_yml[:properties], categories_products_yml[:properties], text_base_yml[:properties], text_image_base_yml[:properties], space_yml[:properties],
   list_images_yml[:properties], list_images_slider_yml[:properties], typing_animation_yml[:properties], gallery_images_yml[:properties], products_by_category_yml[:properties], vertical_carousel_frame_yml[:properties],
   split_product_showcase_yml[:properties], modern_slide_in_yml[:properties], banner_flip_effects_rocket_yml[:properties], wave_liquid_animation_yml[:properties],  wave_liquid_animation_yml[:properties], slick_slider_multiple_yml[:properties],
-  subscribe_form_yml[:properties], subscribe_form_modal_yml[:properties], slide_reveal_yml[:properties],
+  subscribe_form_yml[:properties], subscribe_form_modal_yml[:properties], slide_reveal_yml[:properties], annotation_scalize[:properties],
 
   banner_yml[:active_fields], banner_slick_yml[:active_fields], custom_component_yml[:yml], banner_text_yml[:active_fields], categories_products_yml[:active_fields], text_base_yml[:active_fields], text_image_base_yml[:active_fields],
   space_yml[:active_fields], list_images_yml[:active_fields], list_images_slider_yml[:active_fields], typing_animation_yml[:active_fields], gallery_images_yml[:active_fields], products_by_category_yml[:active_fields],
   vertical_carousel_frame_yml[:active_fields],split_product_showcase_yml[:active_fields], modern_slide_in_yml[:active_fields], banner_flip_effects_rocket_yml[:active_fields], wave_liquid_animation_yml[:active_fields],
-  slick_slider_multiple_yml[:active_fields], subscribe_form_yml[:active_fields], subscribe_form_modal_yml[:active_fields], slide_reveal_yml[:active_fields], 
+  slick_slider_multiple_yml[:active_fields], subscribe_form_yml[:active_fields], subscribe_form_modal_yml[:active_fields], slide_reveal_yml[:active_fields], annotation_scalize[:active_fields], 
 
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :subtitle, :url_product, :layout_type, :image_quality, :background_image_size, :background_image_position, :background_image_color, :background_image_repeat, :url, :url_image, :url_image_thumb, :price, :series, :alt, :width, :height, :class_image, :style_image, Image.globalize_attribute_names, :_destroy]], # *note add id for disable duplicate when attribute updated
   images_attributes: [:id, :active, :asset, :content_type, :note, :title, :subtitle, :layout_type, :image_quality, :background_image_size, :background_image_position, :background_image_color, :background_image_repeat, :url_image, :url_image_thumb, :price, :series, :width, :height, :class_image, :style_image, Image.globalize_attribute_names, :_destroy] # *note add id for disable duplicate when attribute updated 
