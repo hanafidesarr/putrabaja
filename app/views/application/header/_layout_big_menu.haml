@@ -447,8 +447,8 @@
     }
   }
 
-.hero.bg-primary
-  %header#masthead.position-absolute.w-100.pb-4{style: "z-index:1200",:role => "banner"}
+.hero{style: "background-color: #{@page.background_color_desktop.presence || 'white'};"}
+  %header#masthead.w-100.pb-4{class: "position-absolute", style: "#{@page.style_parent_header}; z-index:1200",:role => "banner"}
     .container-fluid.px-4
       .d-inline-block{style: "margin: 0.8125em 0 0;"}
         - if (images = @setting.images).present?
