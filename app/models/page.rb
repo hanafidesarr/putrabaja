@@ -22,7 +22,7 @@ class Page < ApplicationRecord
 
   after_validation :set_slug, only: [:create, :update]
 
-  store :properties, accessors: [ :display_name, :show_title, :background_body_image, :background_body_color, :text_body_color, :body_layout, :template ], coder: JSON
+  store :properties, accessors: [ :display_name, :show_title, :background_body_image, :background_body_color, :text_body_color, :body_layout, :template, :link ], coder: JSON
   store :header_desktop_properties, accessors: [ :class_parent_header, :style_parent_header, :layout_desktop, :position_desktop, :background_color_desktop, :text_color_desktop, :font_family_desktop, :font_size_desktop ], coder: JSON
   store :header_mobile_properties, accessors: [ :layout_mobile, :position_mobile, :background_color_mobile, :text_color_mobile, :font_family_mobile, :font_size_mobile ], coder: JSON
   store :seo_page_properties, accessors: [:meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image], coder: JSON
@@ -38,8 +38,8 @@ class Page < ApplicationRecord
   end
 
   # langs translate 
-  translates :display_name, :slug, :meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image, :fallbacks_for_empty_translations => true
-  globalize_accessors :locales => I18n.available_locales, :attributes => [:display_name, :slug, :meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image]
+  translates :display_name, :slug, :link, :meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image, :fallbacks_for_empty_translations => true
+  globalize_accessors :locales => I18n.available_locales, :attributes => [:display_name, :slug, :link, :meta_title, :keywords, :meta_description, :author, :meta_url, :meta_image]
 
   def to_param
     "#{id}-#{slug}"
