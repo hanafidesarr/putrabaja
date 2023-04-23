@@ -53,7 +53,9 @@ component_layout:
         ["Space", 'space', { data: { url: "" } }],
         ["Pricing List Card", 'pricing_list_card', { data: { url: "" } }],
         ["Wave Liquid Animation", 'wave_liquid_animation', { data: { url: "" } }],
-        ["Slide Reveal", 'slide_reveal', { data: { url: "" } }]
+        ["Slide Reveal", 'slide_reveal', { data: { url: "" } }],
+        ["Annotation Scalize", 'annotation_scalize', { data: { url: "" } }],
+        
         
       ]
     ]

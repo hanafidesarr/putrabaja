@@ -1,0 +1,203 @@
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}" }
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+	.annotation-scalize{id: component.id, style: style}
+		=component.translation.title.html_safe
+		=component.translation.subtitle.html_safe
+		=component.translation.body.html_safe
+		.row.mt-5
+			.col-12
+				.scalize.mx-auto
+					/ Start Popover Template
+					#header1.content.right.top.d-none.d-lg-block.d-xl-block
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Header
+						.body
+							=component.header_description.to_s.html_safe
+					
+					#component1.content.left.top.d-none.d-lg-block.d-xl-block
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+					
+					#component2.content.right.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component3.content.left.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component4.content.right.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component4.content.left.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component5.content.left.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component6.content.right.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component7.content.left.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component8.content.right.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component9.content.left.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component10.content.right.top
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Component
+						.body
+							=component.component_description.to_s.html_safe
+
+					#component11.content.left.top.d-none.d-lg-block.d-xl-block
+						.head.text-bg-primary
+							%a.exit{:href => "#"}
+								%img{:alt => "", :src => "/assets/close.svg"}/
+							%h6.title Footer
+						.body
+							=component.footer_description.to_s.html_safe
+					
+					/ End Popover Template
+					-# - binding.pry
+					= manipulate_image_tag(component.images.normals.first, options: {image_quality: ''}, html: {class: "target"})
+					-# %img.target{:alt => "", :src => "https://images.pexels.com/photos/15076379/pexels-photo-15076379.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}/
+					/ Start Item Point
+					.element.item-point{"data-left" => "700", "data-popover" => "#header1", "data-top" => "10", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Header"}
+						%div
+							%a.toggle{:href => "#"}
+					.element.item-point{"data-left" => "90", "data-popover" => "#component1", "data-top" => "170", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.toggle{:href => "#"}
+					.element.item-point{"data-left" => "700", "data-popover" => "#component2", "data-top" => "400", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "90", "data-popover" => "#component3", "data-top" => "500", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "700", "data-popover" => "#component4", "data-top" => "690", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "90", "data-popover" => "#component5", "data-top" => "850", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "700", "data-popover" => "#component6", "data-top" => "1100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "90", "data-popover" => "#component7", "data-top" => "1400", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "700", "data-popover" => "#component8", "data-top" => "1550", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "90", "data-popover" => "#component9", "data-top" => "1900", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "700", "data-popover" => "#component10", "data-top" => "2100", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Component"}
+						%div
+							%a.d-none.d-lg-block.d-xl-block.toggle{:href => "#"}
+					.element.item-point{"data-left" => "90", "data-popover" => "#component11", "data-top" => "2250", "data-bs-toggle": "tooltip", "data-placement": "top", title: "Footer"}
+						%div
+							%a.toggle{:href => "#"}
+
+:javascript
+	$(document).ready(function() {
+		$('.element').tooltip('show')
+		loadjs(["/assets/frontend/lib/scalize.min.js", "/assets/frontend/lib/scalize.min.css", "/assets/frontend/body_layout/fancy_sidebar_navigation/animate.min.css"], 'annotation-scalize', {
+			before: function(path, scriptEl) {
+				console.log("show loading_component")
+				$("#loading_component-#{component.id}").addClass("loading_component");
+			},
+			async: true
+		});
+
+		loadjs.ready('annotation-scalize', function() {
+			$("#loading_component-#{component.id}").removeClass("loading_component");
+			$('.scalize').scalize({
+
+				// width/height
+				width : 100,
+				height : 100,
+
+				// selector of markers
+				selector : '.item-point',
+
+				// circle, square, content
+				styleSelector : 'circle',
+
+				// pulse, pulse2, marker
+				animationSelector : 'pulse2',
+
+				// custom animation classes
+				animationPopoverIn : 'flipInY',
+				animationPopoverOut : 'flipOutY', 
+
+			});
+
+		});
+
+	})
