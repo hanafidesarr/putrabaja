@@ -19,8 +19,11 @@ properties:
 
   #slider image
   - nav_position
+  - show_arrows
   - slide_to_show
+  - slide_to_show_mobile
   - autoplay
+  - center_mode
 active_fields:
   - title
   - link
