@@ -8,7 +8,7 @@ class Image < Attachment
   # default_scope { where(active: true) }
 
   # scope :active, -> { where(active: true) }
-  
+  default_scope { order('position asc')}
   scope :active, -> { where("active = ?", true) }
   scope :normals, -> { where("layout_type = ?", 0) }
   scope :banners, -> { where("layout_type = ?", 1) }

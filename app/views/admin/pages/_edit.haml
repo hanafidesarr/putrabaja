@@ -208,6 +208,9 @@
 													.d-flex.justify-content-between
 														%span=image.object.layout_type
 														%span=image.object.active ? 'active' : 'tdk active'
+													.row
+														.col-12
+															- image.input :position, as: :select, collection: 0...21, input_html: { class: "form-control w-100" }
 													= manipulate_image_tag(image.object, options: {image_quality: "thumb"}, html: {class: "text-center my-2"})
 													- image.template.concat(Arbre::Context.new do
 														- div class: "col" do

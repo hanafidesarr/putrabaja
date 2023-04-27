@@ -12,7 +12,26 @@ end
 # using "resources :pages" in config/routes.rb. This will also
 # automatically set <lastmod> to the date and time in page.updated_at:
 #
-sitemap_for Page.where(nil)
+# sitemap_for Page.where(nil)
+sitemap_for Page.where(nil) do |page|
+  url page_url(page, locale: nil), last_mod: page.updated_at
+  I18n.available_locales.each do |locale|
+
+    case locale
+    when :id
+      set_url = "#{root_url}#{locale}/pages/#{page.id}-#{page.slug_id}"
+    when :en
+      set_url = "#{root_url}#{locale}/pages/#{page.id}-#{page.slug_en}"
+    when :hi
+      set_url = "#{root_url}#{locale}/pages/#{page.id}-#{page.slug_hi}"
+    when :zh_cn
+      set_url = "#{root_url}#{locale}/pages/#{page.id}-#{page.slug_zh_cn}"
+    else
+      set_url = page_url(set_url, locale: locale)
+    end
+    url  set_url, last_mod: page.updated_at
+  end
+end
 # test aja , nanti hapus weh 3
 
 # For products with special sitemap name and priority, and link to comments:

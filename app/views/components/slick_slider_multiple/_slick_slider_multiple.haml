@@ -78,26 +78,31 @@
 		$(".nav-slider-#{component.id}").slick({
 			slidesToShow: parseInt("#{component.slide_to_show.presence || '4'}"),
 			vertical: "#{component.nav_position}" === 'vertical',
-			arrows: false,
+			arrows: "#{component.show_arrows rescue nil}" === "true",
 			verticalSwiping: "#{component.nav_position}"  === 'vertical',
 			slidesToScroll: 1,
 			asNavFor: ".main-slider-#{component.id}",
 			dots: false,
-			centerMode: true,
+			centerMode: "#{component.center_mode}"  === 'true',
+
+			prevArrow: "<div class='position-absolute ' style='z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-left bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
+			nextArrow: "<div class='position-absolute ' style='z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;'><i class='fa fa-angle-right bg-white shadow rounded-circle text-dark' style='padding: 0.6em 0.8em;'></i></div>",
 			focusOnSelect: true,
 			responsive: [
 				{
 					breakpoint: 600,
 					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3
+						centerMode: "#{component.center_mode}"  === 'true',
+						slidesToShow: parseInt("#{component.slide_to_show_mobile.presence || '4'}"),
+						slidesToScroll: 1
 					}
 				},
 				{
 					breakpoint: 480,
 					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3
+						centerMode: "#{component.center_mode}"  === 'true',
+						slidesToShow: parseInt("#{component.slide_to_show_mobile.presence || '4'}"),
+						slidesToScroll: 1
 					}
 				}
 			]
