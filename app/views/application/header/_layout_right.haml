@@ -138,6 +138,16 @@
 								- else
 									= link_to page_path(page), title: "#{page.title}", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}", class: "a_parent nav-link py-1 #{page.id.to_s.eql?(params[:id].to_i.to_s) ? 'fw-bold' : ''}",  "data-turbolinks": "false" do
 										= page.title
+					%li.nav-item.mx-2
+						%div.text-white.mt-1="-"
+					%li.nav-item.mx-2
+						.dropdown
+							#dropdownMenuButton.p-1.nav-link.a_parent{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: "dropdown-toggle nav-link ", style: "color: #{@page&.text_color_desktop}; font-size: #{@page&.font_size_desktop}; font-family: #{@page&.font_family_desktop}"}
+								%i.fa.fa-font
+								%span=t("lang")
+							.dropdown-menu.position-absolute.bg-red.shadow.border-0.p-1{"aria-labelledby" => "dropdownMenuButton", style: "z-index: 10000; right: 0;"}
+								- Page::LANG.each do |lang|
+									%span=link_to lang[:name],  { locale: lang[:id] }, class: "dropdown-item text-dark py-2", style: "font-size: 14px; font-family: #{@page&.font_family_desktop}", title: "#{@page.slug || @page.title}"
 
 	:javascript
 		var lastScrollTop = 0;    
