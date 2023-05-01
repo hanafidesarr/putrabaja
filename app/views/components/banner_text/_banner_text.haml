@@ -14,10 +14,12 @@
 		
 
 		- if component.tipe_arrows.eql?("arrow_between")
-			.position-absolute{style: "z-index: 99; left: 0; bottom: 50%; cursor: pointer;"}
-				%i.fa.fa-square-caret-left.m-0.fa-2xl.text-primary{id: "prev-arrow-#{component.id}"}
-			.position-absolute{style: "z-index: 99; right: 0; bottom: 50%;"}
-				%i.fa.fa-square-caret-right.m-0.fa-2xl.text-primary{id: "prev-arrow-#{component.id}"}
+			.position-absolute{:style => "z-index: 2; left: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;"}
+				%i.fa.fa-angle-left.bg-white.shadow.rounded-circle.text-dark{id: "prev-arrow-#{component.id}", style: "padding: 0.6em 0.8em;"}
+			.position-absolute{:style => "z-index: 2; right: 0; top: 50%; transform: translate(0, -50%); cursor: pointer;"}
+				%i.fa.fa-angle-right.bg-white.shadow.rounded-circle.text-dark{id: "next-arrow-#{component.id}", style: "padding: 0.6em 0.8em;"}
+
+
 		- elsif component.tipe_arrows.eql?("arrow_center")
 			.position-absolute.text-justify{style: "z-index: 99; cursor: pointer;"}
 				%div
@@ -28,13 +30,14 @@
 		%div{id: "banner-slick-#{component.id}"}
 			- component.images.each do |image|
 				.row.d-flex.align-items-center
-					.col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
-						%h1=image.title.to_s.html_safe
-						%p.title-mobile=image.note.to_s.html_safe
 					.col-lg-6.col-12.p-0
 						- image_quality = image.image_quality
 						-# =image_tag("", class: "w-100", style: "min-height: 200px;", "data-lazy"=>"#{image.asset_url}")
 						= manipulate_image_tag(image, options: {image_quality: image_quality}, html: {class: "w-100 mx-auto lazy #{image.class_image}", style: "#{image.style_image};", data_lazy: "true", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
+					
+					.col-lg-6.col-12.d-none.d-lg-block.d-xl-block.text-left
+						%h1=image.title.to_s.html_safe
+						%p.title-mobile=image.note.to_s.html_safe
 					.col-lg-6.col-12.d-block.d-sm-none.text-center.mt-4
 						%h1=image.title.to_s.html_safe
 						%p.title-mobile=image.note.to_s.html_safe
@@ -62,6 +65,22 @@
 			nextArrow: $("#next-arrow-#{component.id}"),
 			fade: "#{component.fade}" == "true",
 			slidesToShow: result_slidesToShow,
-			slidesToScroll: result_slidesToShow
+			slidesToScroll: 1,
+			responsive: [
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					}
+				}
+			]
 		});
 	})
