@@ -15,7 +15,7 @@
 			%p
 				=component.description.to_s.html_safe
 		- else
-			.row.w-100
+			.row
 				- if ( component.position_image.eql?("right") || component.position_image.eql?("") ) && device.eql?("desktop")
 					.col-lg-6.col-12
 						%div{style: "font-size: 3rem;"}=component.translation.title.to_s.html_safe
