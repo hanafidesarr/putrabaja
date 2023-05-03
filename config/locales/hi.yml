@@ -1,5 +1,7 @@
 hi:
   lang: "भाषा / lang"
+  call_us: "हमें कॉल करें"
+  detail: "विवरण"
   user:
     login: "लॉग इन करें"
     logout: "लॉग आउट"
