@@ -1,0 +1,46 @@
+%div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}" }
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+
+	%link{:href => "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css", :rel => "stylesheet"}/
+	%script{:src => "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"}
+
+	.nav_list_horizontal{id: component.id, class: "#{component.class_parent_component}", style: "#{component.style_parent_component} #{style}"}
+		- group_lists = component.images.group_by(&:group_list)
+		.my-3
+			%h1.text-center.mt-5
+				= component.title.to_s.html_safe
+			%br/
+			/ Nav tabs
+			%ul.nav.nav-tabs.mt-3{:role => "tablist"}
+				- group_lists.each_with_index do | (group, obj), i |
+					%li.nav-item
+						%a.nav-link.text-dark.fw-bold{"data-bs-toggle" => "tab", class: i == 0 ? 'active' : '', :href => "##{group}"}= group
+
+			/ Tab panes
+			.tab-content
+				- group_lists.each_with_index do | (group, obj), i|
+					.container.tab-pane{id: group, class: i == 0 ? 'active' : ''}
+						%br/
+						.row.mt-3
+							- obj.each do | value |
+								.col-md-4.my-4
+									= manipulate_image_tag(value, options: {image_quality: value.image_quality}, html: {class: "mx-auto"})
+									%h3.text-center=value.title.to_s.html_safe
+									%hr/
+									%p=value.note.to_s.html_safe
+									.row.w-100
+										.col-6
+											%a.btn.btn-default.mr-4.w-100{href: value.url, target: "_blank"}=t("detail")
+										.col-6
+											%a.btn.btn-danger.ml-4.w-100{:href => whatsapp_link("ada yang bisa saya bantu?"), target: "_blank"}=t('call_us')
+
+

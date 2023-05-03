@@ -69,7 +69,10 @@
 											.col-4
 												- f.input :background_image_repeat, as: :select, collection: ["repeat", "no-repeat"], input_html: {class: "form-control w-100"}
 										%br
-									
+											- if (layout = f.object.parent.layout rescue nil ).present? && layout.eql?("nav_list_horizontal")
+												.row 
+													- f.input :group_list, input_html: { class: "form-control w-100" }
+
 									- Image.globalize_locales.each do |lang|
 										.tab-pane.fade{id: "image-#{f.object.id}-content-#{lang}", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
 											.row

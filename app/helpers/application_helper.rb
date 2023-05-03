@@ -54,4 +54,12 @@ module ApplicationHelper
       return obj.asset_url
     end
   end 
+
+  def whatsapp_link(text)
+    if device.eql?("desktop")
+      return "https://web.whatsapp.com/send?phone=#{@setting.phone_1}&text=hai, #{text}"
+    else
+      return "https://api.whatsapp.com/send?phone=#{@setting.phone_1}&text=hai, #{text}"
+    end
+  end
 end

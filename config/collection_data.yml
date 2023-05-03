@@ -25,7 +25,8 @@ component_layout:
       [
         ["List Images", 'list_images', { data: { url: "" } }],
         ["List Images Slider", 'list_images_slider', { data: { url: "" } }],
-        ["Gallery Images", 'gallery_images', { data: { url: "" } }]
+        ["Gallery Images", 'gallery_images', { data: { url: "" } }],
+        ["Nav list horizontal", 'nav_list_horizontal', { data: { url: "" } }],
         
       ]
     ],

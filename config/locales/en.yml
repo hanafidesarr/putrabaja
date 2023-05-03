@@ -31,6 +31,8 @@
 
 en:
   lang: "Language"
+  call_us: "Call us"
+  detail: "Detail"
   user:
     login: "Login"
     logout: "Logout"
