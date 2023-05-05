@@ -3,16 +3,29 @@
 
 %link{:rel => "preload", as: "style", href:"/assets/frontend/lib/modern_slide_in/sequence-theme.modern-slide-in.css"}/	
 
-%div{class: "#{component.class_parent_component}"}
+-# COMPONTENT
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
+
+-# IMAGES
+- image_background = component.images.backgrounds.first
+- if image_background.present?
+	- background_repeat =  " background-repeat: #{image_background.background_image_repeat.presence || 'no-repeat'};"
+	- background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});"
+	- background_size = " background-size: #{image_background.background_image_size.presence || 'auto'};"
+	- background_position = " background-position: #{image_background.background_image_position.presence || 'center'};"
+
+- style = " ".concat(style_margin.to_s,style_padding.to_s,background_image.to_s,background_repeat.to_s,background_size.to_s,background_position.to_s, height.to_s)
+
+
+%div{id: "component-#{component.id}",class: "#{component.class_parent_component}", style: "#{component.style_parent_component}; #{style}; background-color: #{component.background_color};", name: "#{component.slug}"}
 	.row
 		.col-12
 			.modern-slide-in.p-0{class: "text-#{component.position_text}", style: "margin: #{component.margin_all_side}; margin-top: #{component.margin_top_bottom_side}; margin-bottom:#{component.margin_top_bottom_side}; margin-left:#{component.margin_left_right_side};  margin-right:#{component.margin_left_right_side}"}
-				.text-center
-					%h3
-						=component.translation.title.to_s.html_safe
-					%small=component.translation.subtitle.to_s.html_safe
-					%p
-						=component.translation.body.to_s.html_safe
+				=component.translation.title.to_s.html_safe
+				=component.translation.subtitle.to_s.html_safe
+				=component.translation.body.to_s.html_safe
 
 				- if component&.link.present?
 					=link_to component&.url_text || "/", class: "btn bg-light" do
@@ -25,14 +38,13 @@
 					.seq-screen
 						%ul.seq-canvas
 							- images.active.normals.each do |image|
-
 								%li.seq-in
 									.seq-model
 										= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 										-# %img{:alt => "A female model with long curly brown hair wears a gray sweater, brown shorts, bright yellow socks, and black high heel shoes. She raises one leg, and tilts her head to the side", "data-seq" => "", :src => "images/model1.png"}/
 									.seq-title.ml-4
 										.row
-											%h1.title{style: "font-size: 4rem;"}=image.title.to_s.html_safe
+											.title{style: "font-size: 4rem;"}=image.title.to_s.html_safe
 										%h2.text-center.subtitle{"data-seq" => ""}=image.subtitle.to_s.html_safe
 										.note{"data-seq" => ""}=image.note.to_s.html_safe
 					- if component.show_arrows.eql?("true")
@@ -45,7 +57,7 @@
 							%li
 								%a{:href => "#step#{i + 1}", :rel => "#step#{i + 1}", :title => "Go to slide #{i + 1}"}
 									-# %img{:src => "images/tn-model1.png"}/
-									= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid text-center", img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
+									= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "img-fluid text-center #{image.class_image}", style: image.style_image, img_not_found: 'https://via.placeholder.com/640x382.svg/FFFFFF/5061CE?text=axeonsoft.com'})
 
 = javascript_include_tag '/assets/frontend/lib/modern_slide_in/sequence.min.js'
 

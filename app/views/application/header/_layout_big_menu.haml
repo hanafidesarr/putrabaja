@@ -489,7 +489,7 @@
 										- categories_root.each do |child|
 											%li
 												=link_to category_path(child), class: "#{controller_name.eql?("categories") && child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
-													%h5=child.name
+													%h5.my-2=child.name
 							- else
 								=link_to page_path(page) , class: "text-dark" do
 									%h4=page.title.to_s.html_safe
@@ -499,7 +499,7 @@
 										- childrens.order(:position).each do |child|
 											%li
 												=link_to page_path(child), class: "#{controller_name.eql?("pages") && child.id ==(params[:id].to_i) ? 'text-dark' : ''}" do
-													%h5=child.title
+													%h5.my-2=child.title
 
 :javascript
 	$(function() {
