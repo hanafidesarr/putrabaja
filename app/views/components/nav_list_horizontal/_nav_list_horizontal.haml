@@ -23,12 +23,12 @@
 			%ul.nav.nav-tabs.mt-3{:role => "tablist"}
 				- group_lists.each_with_index do | (group, obj), i |
 					%li.nav-item
-						%a.nav-link.text-dark.fw-bold{"data-bs-toggle" => "tab", class: i == 0 ? 'active' : '', :href => "##{group}"}= group
+						%a.nav-link.text-dark.fw-bold{"data-bs-toggle" => "tab", class: i == 0 ? 'active' : '', :href => "##{group.gsub(" " , "_")}"}= group
 
 			/ Tab panes
 			.tab-content
 				- group_lists.each_with_index do | (group, obj), i|
-					.container.tab-pane{id: group, class: i == 0 ? 'active' : ''}
+					.container.tab-pane{id: "#{group.gsub(' ', '_')}", class: i == 0 ? 'active' : ''}
 						%br/
 						.row.mt-3
 							- obj.each do | value |

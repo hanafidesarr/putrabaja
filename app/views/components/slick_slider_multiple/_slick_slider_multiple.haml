@@ -5,53 +5,53 @@
 		/* z-index:100; */
 	}
 %div{class: "#{component.class_parent_component}", style: "#{component.style_parent_component}"}
-	.section-wrapper
-		- image_background = component.images.backgrounds.first
-		- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
-		- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
-		- style_background_color = " background-color: #{component.background_color};"
-		- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
-		- background_repeat =  " no-repeat;"
-		- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
-		- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
+	
+	- image_background = component.images.backgrounds.first
+	- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+	- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+	- style_background_color = " background-color: #{component.background_color};"
+	- style_background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});" if image_background.present?
+	- background_repeat =  " no-repeat;"
+	- background_size = " background-size: #{image_background.background_image_size};" if image_background.present?
+	- background_position = " background-position: #{image_background.background_image_position || 'center'};" if image_background.present?
 
-		- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
+	- style = " ".concat(style_margin,style_padding,style_background_color,style_background_image.to_s,background_repeat,background_size.to_s,background_position.to_s)
 
-		- images = component.images.normals
-		.slick-slider-multiple{style: style}
-			.row
-				%div{class:"#{((component.translation.title.presence || component.translation.body.presence).present? && device.eql?("desktop") ) ? 'col-6' : 'col-12'}"}
-					-content_for "nav_image-#{component.id}" do
-						%div{class: "nav-slider-#{component.id}"}
+	- images = component.images.normals
+	.slick-slider-multiple{style: style}
+		.row
+			%div{class:"#{((component.translation.title.presence || component.translation.body.presence).present? && device.eql?("desktop") ) ? 'col-6' : 'col-12'}"}
+				-content_for "nav_image-#{component.id}" do
+					%div{class: "nav-slider-#{component.id}"}
+						- images.each do |image|
+							= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center #{image.class_image}", style: "#{image.style_image}"})
+
+				.d-flex.align-items-center
+					- if component.nav_position.presence == "vertical"
+						.col-2 
+							=yield "nav_image-#{component.id}" 
+					%div{class: "#{component.nav_position.presence == 'vertical' ? 'col-10' : 'col-12'}"}
+						%div{class: "main-slider-#{component.id}"}
 							- images.each do |image|
-								= manipulate_image_tag(image, options: {image_quality: "thumb"}, html: {class: "text-center #{image.class_image}", style: "#{image.style_image}"})
+								.slick-slide
+									.position-absolute.bottom-0{style: "left: 50%; transform: translate(-50%,-25%);"}
+										.text-center
+											%h5=image.title.to_s.html_safe
+											%small=image.subtitle.to_s.html_safe
+											%small=image.note.to_s.html_safe
+											- if image.url.present?
+												.col
+													=link_to "Lihat", image.url, class: ""
+													%hr.my-0{style: "border-bottom: solid 3px"}
 
-					.d-flex.align-items-center
-						- if component.nav_position.presence == "vertical"
-							.col-2 
-								=yield "nav_image-#{component.id}" 
-						%div{class: "#{component.nav_position.presence == 'vertical' ? 'col-10' : 'col-12'}"}
-							%div{class: "main-slider-#{component.id}"}
-								- images.each do |image|
-									.slick-slide
-										.position-absolute.bottom-0{style: "left: 50%; transform: translate(-50%,-25%);"}
-											.text-center
-												%h5=image.title.to_s.html_safe
-												%small=image.subtitle.to_s.html_safe
-												%small=image.note.to_s.html_safe
-												- if image.url.present?
-													.col
-														=link_to "Lihat", image.url, class: ""
-														%hr.my-0{style: "border-bottom: solid 3px"}
-
-										= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center", style: "width:#{image.width}; height: #{image.height}; object-fit: #{component.object_fit};"})
-									
-							- if component.nav_position.presence != "vertical"
-								=yield "nav_image-#{component.id}" 
-				%div{class:"#{(component.translation.title.presence || component.translation.body.presence).present? ? 'col-lg-6 col-12' : 'd-none'}"}
-					=component.translation.title.to_s.html_safe
-					=component.translation.subtitle.to_s.html_safe
-					=component.translation.body.to_s.html_safe
+									= manipulate_image_tag(image, options: {image_quality: image.image_quality}, html: {class: "text-center", style: "width:#{image.width}; height: #{image.height}; object-fit: #{component.object_fit};"})
+								
+						- if component.nav_position.presence != "vertical"
+							=yield "nav_image-#{component.id}" 
+			%div{class:"#{(component.translation.title.presence || component.translation.body.presence).present? ? 'col-lg-6 col-12' : 'd-none'}"}
+				=component.translation.title.to_s.html_safe
+				=component.translation.subtitle.to_s.html_safe
+				=component.translation.body.to_s.html_safe
 
 
 
