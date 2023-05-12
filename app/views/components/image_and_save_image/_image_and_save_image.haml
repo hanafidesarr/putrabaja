@@ -1,0 +1,103 @@
+:css
+	.nav-banner-cursor {
+		cursor: pointer;
+	}
+	.nav-banner-cursor > .prev-btn {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		left: 20px;
+		padding: 0.6em 0.8em;
+	}
+	.nav-banner-cursor > .next-btn {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		right: 20px;
+		padding: 0.6em 0.8em;
+	}
+-# COMPONTENT
+- style_margin = " margin: #{component.margin_top_bottom_side} #{component.margin_left_right_side};"
+- style_padding = " padding: #{component.padding_top_bottom_side} #{component.padding_left_right_side};"
+- height = " height: #{device.eql?("desktop") ? ( component.desktop_height.presence || '700px' ) : ( component.mobile_height.presence || '200px' )} "
+
+-# IMAGES
+- image_background = component.images.backgrounds.first
+- if image_background.present?
+	- background_repeat =  " background-repeat: #{image_background.background_image_repeat.presence || 'no-repeat'};"
+	- background_image = " background-image: url(#{manipulate_image_tag_url(image_background, options: {image_quality: image_background.image_quality}, html: {class: "img-fluid", data_src: image_background.image_quality})});"
+	- background_size = " background-size: #{image_background.background_image_size.presence || 'auto'};"
+	- background_position = " background-position: #{image_background.background_image_position.presence || 'center'};"
+
+- style = " ".concat(style_margin.to_s,style_padding.to_s,background_image.to_s,background_repeat.to_s,background_size.to_s,background_position.to_s, height.to_s)
+
+.banner{id: "component-#{component.id}",class: "#{component.class_parent_component}", style: "#{component.style_parent_component}; #{style}; background-color: #{component.background_color};", name: "#{component.slug}"}
+	.d-block.position-relative
+		=component.translation.title.to_s.html_safe
+		=component.translation.subtitle.to_s.html_safe
+		=component.translation.body.to_s.html_safe
+		- if (images = component.images.active.normals).present?
+			- if (component.show_arrows.eql?("true") && images.size > 1 )
+				.nav-banner-cursor
+					%i.prev-btn.fa.fa-angle-left.bg-white.shadow.rounded-circle.text-dark 
+					%i.next-btn.fa.fa-angle-right.bg-white.shadow.rounded-circle.text-dark 
+			
+			.owl-carousel.demo.owl-theme
+				- images.each do |image|
+					- url = " background-image: url(#{manipulate_image_tag_url(image, options: {image_quality: image.image_quality})});"
+					- background_size_image = " background-size: #{image.background_image_size.presence || 'auto'};"
+					- background_repeat_image = " background-repeat: #{image.background_image_repeat.presence || 'no-repeat'};"
+					- background_position_image = " background-position: #{image.background_image_position.presence || 'center'};"
+					- background_color_image = " background-color: #{image.background_image_color.presence || ''};"
+					- height_image = "height: #{device.eql?("desktop") ? ( image.height.presence || '700px' ) : ( image.height.presence || '200px' ) }; "
+					- style_image = " ".concat(url, background_size_image, background_repeat_image, background_position_image, background_color_image, height_image)
+					
+					#imageid.item{class: "#{image.class_image}", style: "#{image.style_image} #{style_image}", data_src: image.image_quality, "data-src": "#{image.asset.url}" }
+						=image.title.to_s.html_safe
+						=image.note.to_s.html_safe
+.container 
+	.row.mt-5
+		- if (url = component.images.first.asset_url).present?
+			- url_image = request.base_url + url
+		- else
+			- url_image = component.images.first.url_image
+			
+		- if url_image.present?
+			.col.text-right
+				=link_to t("open_image"), url_image, class: "btn btn-primary"
+			.col
+				- image_base64 = convert_image_url_to_base64(url_image)
+				=link_to t("save_image"), image_base64, download: "pricelist.jpg", class: "btn btn-primary"
+			
+:javascript
+	loadjs(["/assets/frontend/lib/owl.carousel.min.js", "/assets/frontend/lib/owl.carousel.min.css"], 'banner', {
+		before: function(path, scriptEl) {
+			console.log("show loading_component")
+			$("#loading_component-#{component.id}").addClass("loading_component");
+		},
+		async: false
+	});
+	loadjs.ready('banner', function() {
+		$("#loading_component-#{component.id}").removeClass("loading_component");
+		var owl = $('.owl-carousel');
+		owl.owlCarousel({
+			items: "#{component.items_show.presence || 1}",
+			dots: false,
+			loop: "#{images.size > 1}" === "true",
+			nav: "#{component.show_arrows rescue nil}" === "true",
+			autoplay:"#{component.autoplay rescue nil}" === "true",
+			lazyLoad:true,
+			touchDrag: false,
+			autoplayHoverPause:true,
+			autoplayTimeout: 3000,
+			smartSpeed: 1000
+		});
+
+		$('.next-btn').click(function() {
+				owl.trigger('next.owl.carousel');
+		})
+
+		$('.prev-btn').click(function() {
+				owl.trigger('prev.owl.carousel');
+		})
+	})

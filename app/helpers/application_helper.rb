@@ -1,4 +1,7 @@
 module ApplicationHelper
+
+  require 'open-uri'
+  require 'base64'
   def device
     agent = request.user_agent
     return "tablet" if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
@@ -62,4 +65,10 @@ module ApplicationHelper
       return "https://api.whatsapp.com/send?phone=#{@setting.phone_1}&text=hai, #{text}"
     end
   end
+
+  def convert_image_url_to_base64(url)
+    image_data = Base64.encode64(URI.open(url).read)
+    "data:image/jpeg;base64,#{image_data}"
+  end
+
 end

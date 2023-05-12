@@ -27,9 +27,9 @@
 								#pills-tab.nav.nav-pills{:role => "tablist"}
 									%a#nav-content-tab.nav-item.nav-link.active{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#image-#{f.object.id}-general", :role => "tab", style: "border-radius: 0;"}="Image General"
 									- Image.globalize_locales.each_with_index do |lang, i|
-										%a#nav-content-tab.nav-item.nav-link{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#image-#{f.object.id}-content-#{lang}", :role => "tab", style: "border-radius: 0;"}="Image Content - #{lang.upcase}"
+										%a#nav-content-tab.nav-item.nav-link{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#image-#{f.object.id}-content-#{lang}", :role => "tab", style: "border-radius: 0;"}="Content - #{lang.upcase}"
 
-									%a#nav-content-tab.nav-item.nav-link{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#image-#{f.object.id}-content-default", :role => "tab", style: "border-radius: 0;"}="Image Content - default"
+									-# %a#nav-content-tab.nav-item.nav-link{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", :href => "#image-#{f.object.id}-content-default", :role => "tab", style: "border-radius: 0;"}="Content - default"
 								#nav-tabContent.tab-content
 
 									.tab-pane.fade.show.active{id: "image-#{f.object.id}-general", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
@@ -85,17 +85,17 @@
 											.row
 												.col-12
 													- f.input "note_#{lang}", as: :text, input_html: { class: "form-control", rows: 6 }
-									.tab-pane.fade{id: "image-#{f.object.id}-content-default", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
-										.row
-											.col-4
-												- f.input :title, input_html: { class: "form-control w-100" }
-											.col-4
-												- f.input :subtitle, input_html: { class: "form-control w-100" }
-											.col-4
-												- f.input :alt, input_html: { class: "form-control w-100" }
-										.row
-											.col-12
-												- f.input :note, as: :text, input_html: { class: "form-control", rows: 6 }
+									-# .tab-pane.fade{id: "image-#{f.object.id}-content-default", "aria-labelledby" => "nav-general-tab", :role => "tabpanel"} 
+									-# 	.row
+									-# 		.col-4
+									-# 			- f.input :title, input_html: { class: "form-control w-100" }
+									-# 		.col-4
+									-# 			- f.input :subtitle, input_html: { class: "form-control w-100" }
+									-# 		.col-4
+									-# 			- f.input :alt, input_html: { class: "form-control w-100" }
+									-# 	.row
+									-# 		.col-12
+									-# 			- f.input :note, as: :text, input_html: { class: "form-control", rows: 6 }
 
 				.modal-footer
 					-# %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close

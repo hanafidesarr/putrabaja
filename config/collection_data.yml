@@ -18,7 +18,10 @@ component_layout:
     ],
     ['Text Image',
       [
-        ["Text Image Base", 'text_image_base', { data: { url: "" } }]
+        ["Text Image Base", 'text_image_base', { data: { url: "" } }],
+
+        ["Image and Save Image", 'image_and_save_image', { data: { url: "" } }]
+        
       ]
     ],
     ['List Image',
