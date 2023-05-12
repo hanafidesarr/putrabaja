@@ -33,6 +33,8 @@ id:
   lang: "Bahasa"
   call_us: "Hubungi kami"
   detail: "Detail"
+  open_image: "Lihat gambar"
+  save_image: "Simpan gambar"
   user:
     login: "Masuk"
     logout: "Keluar"

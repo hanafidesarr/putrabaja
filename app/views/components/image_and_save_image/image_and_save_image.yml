@@ -1,0 +1,25 @@
+
+active_fields:
+  - title
+  - link
+  - subtitle
+  - body
+
+properties:
+  - class_parent_component
+  - style_parent_component
+  - padding_top_bottom_side
+  - padding_left_right_side
+  - margin_top_bottom_side
+  - margin_left_right_side
+
+  # styling
+  - desktop_height
+  - mobile_height
+  - background_color
+
+  # slider
+  - show_arrows
+  - autoplay
+  - items_show
+

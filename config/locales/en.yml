@@ -33,6 +33,8 @@ en:
   lang: "Language"
   call_us: "Call us"
   detail: "Detail"
+  open_image: "Open image"
+  save_image: "Save image"
   user:
     login: "Login"
     logout: "Logout"
