@@ -18,7 +18,7 @@ class Page < ApplicationRecord
   CATEGORIES_LAYOUT = ["axeonsoft"]
   FOOTER_LAYOUT = ["wave", "default"]
   FONT_FAMILY = ["default","cursive", "fantasy", "revert"]
-  LANG = [{id: "id", name: "Indonesia"}, {id: "en", name: "English"}, {id: "hi", name: "Hindi"}, {id: "zh_cn", name: "Chinese"}]
+  LANG = [{id: "id", name: "Indonesia"}, {id: "en", name: "English"}]
 
   after_validation :set_slug, only: [:create, :update]
 
